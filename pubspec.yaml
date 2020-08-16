@@ -1,14 +1,11 @@
 name: screwdriver
-description: A starting point for Dart libraries or applications.
-# version: 1.0.0
-# homepage: https://www.example.com
+description: A dart package aiming to provide useful extensions and helper functions to ease and speed up development.
+version: 0.1.0
+homepage: https://github.com/birjuvachhani/screwdriver
 
 environment:
   sdk: '>=2.7.0 <3.0.0'
 
-#dependencies:
-#  path: ^1.6.0
-
 dev_dependencies:
-  pedantic: ^1.8.0
-  test: ^1.6.0
+  effective_dart: ^1.2.4
+  test: ^1.15.3
