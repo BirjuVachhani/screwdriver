@@ -29,10 +29,14 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: August 17, 2020
 
-import 'src/utils.dart';
+part of '../screwdriver.dart';
 
-part 'datetime/date_time.dart';
-part 'primitive/int.dart';
-part 'primitive/num.dart';
+/// Provides extensions for [num].
+extension NumScrewdriver on num {
+  /// converts positive numbers into negative ones.
+  /// Use [abs] for conversion to positive numbers.
+  num get negative => sign > 0 ? -this : this;
+}

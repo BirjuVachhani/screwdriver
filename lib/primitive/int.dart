@@ -29,10 +29,40 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: August 17, 2020
 
-import 'src/utils.dart';
+part of '../screwdriver.dart';
 
-part 'datetime/date_time.dart';
-part 'primitive/int.dart';
-part 'primitive/num.dart';
+/// Provides extensions for [int].
+extension IntScrewdriver<T> on int {
+  /// Returns true if [this] represents a leap year
+  bool get isLeapYear => checkLeapYear(this);
+
+  /// Returns [Duration] equal to [this] no. of days
+  Duration get days => Duration(days: this);
+
+  /// Returns [Duration] equal to [this] no. of hours
+  Duration get hours => Duration(hours: this);
+
+  /// Returns [Duration] equal to [this] no. of minutes
+  Duration get minutes => Duration(minutes: this);
+
+  /// Returns [Duration] equal to [this] no. of seconds
+  Duration get seconds => Duration(seconds: this);
+
+  /// Returns [Duration] equal to [this] no. of milliseconds
+  Duration get milliseconds => Duration(milliseconds: this);
+
+  /// Returns [Duration] equal to [this] no. of microseconds
+  Duration get microseconds => Duration(microseconds: this);
+
+  /// runs [func] for [this] number of times.
+  /// This is irrespective of the sign of [this]. the for loop will always
+  /// run from 1 to absolute value of [this].
+  ///
+  /// Returns [List] of type [T] where T is the return type of [func]
+  List<T> repeat<T>(T func(int count)) {
+    return [for (var i = 1; i <= abs(); i++) func(i)];
+  }
+}
