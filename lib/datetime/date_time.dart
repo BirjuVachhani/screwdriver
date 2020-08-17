@@ -183,6 +183,9 @@ extension DateTimeScrewdriver on DateTime {
   /// Returns true if [this] falls in december
   bool get isInDecember => month == DateTime.december;
 
+  /// Returns true if [this] is a leap year
+  bool get isLeapYear => checkLeapYear(year);
+
   /// Returns true if [this] occurs before [other].
   ///
   /// The comparison is independent of whether the time is in UTC or

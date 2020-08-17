@@ -129,4 +129,11 @@ void main() {
     assert(!DateTime(now.year - 1, now.month, now.day).isInNextYear);
     assert(!DateTime.now().isInNextYear);
   });
+
+  test('leap year test', () {
+    assert(DateTime(1992).isLeapYear);
+    assert(DateTime(2020).isLeapYear);
+    assert(DateTime(2000).isLeapYear);
+    assert(!DateTime(2100).isLeapYear);
+  });
 }

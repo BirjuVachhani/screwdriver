@@ -29,8 +29,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: August 17, 2020
 
-import 'src/utils.dart';
-
-part 'datetime/date_time.dart';
+/// checks whether given year is a leap year or not
+bool checkLeapYear(int year) =>
+    year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
