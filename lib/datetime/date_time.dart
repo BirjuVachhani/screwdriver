@@ -224,4 +224,20 @@ extension DateTimeScrewdriver on DateTime {
   /// Returns [DateTime] with next year
   DateTime get nextYear => DateTime(
       year + 1, month, day, hour, minute, second, millisecond, microsecond);
+
+  /// + operator that Adds [duration] to [this]
+  /// e.g.
+  ///       DateTime twoDaysAfter = DateTime.now() + 2.days;
+  DateTime operator +(Duration duration) => add(duration);
+
+  /// - operator that subtracts [duration] from [this].
+  /// e.g.
+  ///       DateTime fiveDaysAgo = DateTime.now() - 5.days;
+  DateTime operator -(Duration duration) => subtract(duration);
+
+  /// Returns true if [this] falls between [date1] and [date2] irrespective
+  /// of the order in the Calender.
+  bool isBetween(DateTime date1, DateTime date2) =>
+      (isAfter(date1) && isBefore(date2)) ||
+      (isAfter(date2) && isBefore(date1));
 }

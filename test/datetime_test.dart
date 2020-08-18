@@ -136,4 +136,21 @@ void main() {
     assert(DateTime(2000).isLeapYear);
     assert(!DateTime(2100).isLeapYear);
   });
+
+  test('+ & - operator tests', () {
+    assert((DateTime.now() + 1.days).isTomorrow);
+    assert((DateTime.now() - 1.days).isYesterday);
+    final someDate = DateTime(2020, 4, 10);
+    final otherDate = DateTime(2020, 4, 15);
+    final anotherDate = DateTime(2020, 4, 2);
+    assert((someDate + 5.days).isSameDateAs(otherDate));
+    assert((someDate - 8.days).isSameDateAs(anotherDate));
+  });
+
+  test('isBetween extension tests', () {
+    assert(DateTime.now()
+        .isBetween(DateTime.now() - 2.days, DateTime.now() + 2.days));
+    assert(DateTime(2020).isBetween(DateTime(2019), DateTime(2021)));
+    assert(DateTime(2020).isBetween(DateTime(2025), DateTime(2015)));
+  });
 }
