@@ -43,10 +43,15 @@ extension StringScrewdriver on String {
   bool get isNotBlank => trim().isNotEmpty;
 
   /// Converts the first character of [this] to upper case.
-  String get capitalized => characters.first.toUpperCase() + substring(1);
+  String get capitalized {
+    if (isBlank) return this;
+    if (length == 1) return toUpperCase();
+    return characters.first.toUpperCase() + substring(1);
+  }
 
   /// Returns [this] as [int] or null
-  int toIntOrNull() => int.tryParse(this);
+  /// Radix be between 2..36
+  int toIntOrNull({int radix}) => int.tryParse(this, radix: radix);
 
   /// Returns [this] as [double] or null
   double toDoubleOrNull() => double.tryParse(this);
@@ -72,7 +77,45 @@ extension StringScrewdriver on String {
   ///       'hello'.wrap("*");          // returns *hello*
   ///       'html'.wrap('<','>');       // returns <html>
   String wrap(String prefix, [String suffix]) =>
-      prefix + this + (suffix ?? prefix);
+      (prefix ?? '') + this + (suffix ?? prefix ?? '');
 
-// TODO: unwrap
+  /// unwraps [this] between [prefix] and [suffix].
+  /// Uses [prefix] as [suffix] if [suffix] is null.
+  /// e.g.
+  ///       '*hello*'.unwrap("*");          // returns hello
+  ///       '<html>'.unwrap('<','>');       // returns html
+  String unwrap(String prefix, [String suffix]) {
+    prefix ??= '';
+    suffix ??= prefix;
+    if (startsWith(prefix)) {
+      return substring(
+          prefix.length, endsWith(suffix) ? length - suffix.length : length);
+    }
+    return endsWith(suffix) ? substring(0, length - suffix.length) : this;
+  }
+
+  /// removes [prefix] from [this] and returns remaining.
+  /// e.g.
+  ///       'hello-world'.removePrefix('hello');    // returns -world
+  ///       'hello-world'.removePrefix('world');    // returns hello-world
+  String removePrefix(String prefix) =>
+      startsWith(prefix) ? substring(prefix.length) : this;
+
+  /// removes [suffix] from [this] and returns remaining.
+  /// e.g.
+  ///       'hello-world'.removeSuffix('world');    // returns hello-
+  ///       'hello-world'.removeSuffix('hello');    // returns hello-world
+  String removeSuffix(String suffix) =>
+      endsWith(suffix) ? substring(0, length - suffix.length) : this;
+
+  /// Returns true if [this] is a binary string which only contains 1's and 0's
+  bool get isBinary => toIntOrNull(radix: 2) != null;
+
+  /// Returns true if [this] is a hex string which only
+  /// contains 0-9 and A-F | a-f
+  bool get isHexadecimal => toIntOrNull(radix: 16) != null;
+
+  /// Returns true if [this] is a hex string which only
+  /// contains 0-7
+  bool get isOctal => toIntOrNull(radix: 8) != null;
 }
