@@ -31,8 +31,11 @@
 
 library screwdriver;
 
+import 'package:characters/characters.dart';
+
 import 'src/utils.dart';
 
 part 'datetime/date_time.dart';
 part 'primitive/int.dart';
 part 'primitive/num.dart';
+part 'primitive/string.dart';
