@@ -39,6 +39,9 @@ extension IntScrewdriver<T> on int {
   /// Returns true if [this] represents a leap year
   bool get isLeapYear => checkLeapYear(this);
 
+  /// Returns [Duration] equal to [this] no. of weeks
+  Duration get weeks => Duration(days: this * 7);
+
   /// Returns [Duration] equal to [this] no. of days
   Duration get days => Duration(days: this);
 
@@ -56,6 +59,25 @@ extension IntScrewdriver<T> on int {
 
   /// Returns [Duration] equal to [this] no. of microseconds
   Duration get microseconds => Duration(microseconds: this);
+
+  /// Returns no. of digits
+  /// e.g.  3.length   // returns 1
+  ///      21.length   // returns 2
+  ///     541.length  // returns 3
+  int get length => toString().length;
+
+  /// Returns list of digits of [this]
+  /// e.g   12345.digits    // returns [1, 2, 3, 4, 5]
+  /// e.g   8564.digits    // returns [8, 5, 6, 4]
+  List<int> get digits => toString().split('').map(int.parse).toList();
+
+  /// Returns true if [this] can be completely divisible by [divider]
+  bool isDivisibleBy(int divider) => this % divider == 0;
+
+  /// Returns true if [this] can be completely divisible
+  /// by all of the [dividers].
+  bool isDivisibleByAll(List<int> dividers) =>
+      dividers.every((divider) => this % divider == 0);
 
   /// runs [func] for [this] number of times.
   /// This is irrespective of the sign of [this]. the for loop will always

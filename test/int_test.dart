@@ -13,6 +13,7 @@ void main() {
   });
 
   test('Duration conversion tests', () {
+    assert(2.weeks == Duration(days: 14));
     assert(5.days == Duration(days: 5));
     assert(5.hours == Duration(hours: 5));
     assert(5.minutes == Duration(minutes: 5));
@@ -25,5 +26,18 @@ void main() {
     assert(5.repeat((count) => count).length == 5);
     assert(5.repeat((count) => count)[0] == 1);
     assert((-5).repeat((count) => count)[0] == 1);
+  });
+
+  test('length and digits test', () {
+    assert(5.length == 1);
+    assert(265.length == 3);
+    assert(5.digits[0] == 5);
+    assert(5646.digits[2] == 4);
+  });
+
+  test('divisibleBy tests', () {
+    assert(500.isDivisibleBy(5));
+    assert(500.isDivisibleByAll([2, 5, 100]));
+    assert(!500.isDivisibleByAll([2, 3, 100]));
   });
 }
