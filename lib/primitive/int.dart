@@ -87,4 +87,16 @@ extension IntScrewdriver<T> on int {
   List<T> repeat<T>(T func(int count)) {
     return [for (var i = 1; i <= abs(); i++) func(i)];
   }
+
+  /// Returns true for non-zero values just like C language.
+  /// e.g
+  ///       1.asBool      // returns true
+  ///       0.asBool      // returns false
+  ///     452.asBool      // returns true
+  bool get asBool => this != 0;
+
+  /// Returns true if [this] falls between [value1] and [value2] irrespective
+  /// of the order of [value1] and [value2].
+  bool isBetween(int value1, int value2) =>
+      (this > value1 && this < value2) || (this > value2 && this < value1);
 }

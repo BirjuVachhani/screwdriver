@@ -40,4 +40,17 @@ void main() {
     assert(500.isDivisibleByAll([2, 5, 100]));
     assert(!500.isDivisibleByAll([2, 3, 100]));
   });
+
+  test('asBool tests', () {
+    assert(500.asBool);
+    assert(1.asBool);
+    assert(!0.asBool);
+  });
+
+  test('isBetween tests', () {
+    assert(500.isBetween(100, 700));
+    assert(500.isBetween(700, 300));
+    assert(!500.isBetween(400, 100));
+    assert(!500.isBetween(100, 400));
+  });
 }
