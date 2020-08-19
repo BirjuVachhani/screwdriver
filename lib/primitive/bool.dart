@@ -29,14 +29,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: August 19, 2020
 
-import 'package:characters/characters.dart';
+part of '../screwdriver.dart';
 
-import 'src/utils.dart';
+/// Provides extensions for [bool].
+extension BoolScrewdriver on bool {
+  /// Returns opposite of [this]
+  bool get toggled => !this;
 
-part 'datetime/date_time.dart';
-part 'primitive/bool.dart';
-part 'primitive/int.dart';
-part 'primitive/num.dart';
-part 'primitive/string.dart';
+  /// Returns 1 if [this] is true and 0 if otherwise.
+  int toInt() => this ? 1 : 0;
+}
