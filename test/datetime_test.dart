@@ -6,151 +6,163 @@ import 'package:test/test.dart';
 
 void main() {
   test('dateOnly test', () {
-    assert(DateTime.now().dateOnly.hour == 0);
-    assert(DateTime.now().dateOnly.minute == 0);
-    assert(DateTime.now().dateOnly.second == 0);
-    assert(DateTime.now().dateOnly.millisecond == 0);
+    expect(DateTime.now().dateOnly.hour, 0);
+    expect(DateTime.now().dateOnly.minute, 0);
+    expect(DateTime.now().dateOnly.second, 0);
+    expect(DateTime.now().dateOnly.millisecond, 0);
   });
 
   test('isBeforeDate test', () {
-    assert(!DateTime.now()
-        .subtract(Duration(seconds: 10))
-        .isBeforeDate(DateTime.now()));
-    assert(DateTime.now()
-        .subtract(Duration(hours: 24))
-        .isBeforeDate(DateTime.now()));
+    expect(
+        DateTime.now()
+            .subtract(Duration(seconds: 10))
+            .isBeforeDate(DateTime.now()),
+        false);
+    expect(
+        DateTime.now()
+            .subtract(Duration(hours: 24))
+            .isBeforeDate(DateTime.now()),
+        true);
   });
 
   test('isAfterDate test', () {
-    assert(
-        !DateTime.now().add(Duration(seconds: 10)).isAfterDate(DateTime.now()));
-    assert(DateTime.now().add(Duration(hours: 24)).isAfterDate(DateTime.now()));
+    expect(
+        DateTime.now().add(Duration(seconds: 10)).isAfterDate(DateTime.now()),
+        false);
+    expect(DateTime.now().add(Duration(hours: 24)).isAfterDate(DateTime.now()),
+        true);
   });
 
   test('isSameDateAs test', () {
-    assert(
-        DateTime.now().add(Duration(seconds: 10)).isSameDateAs(DateTime.now()));
-    assert(
-        !DateTime.now().add(Duration(hours: 24)).isSameDateAs(DateTime.now()));
+    expect(
+        DateTime.now().add(Duration(seconds: 10)).isSameDateAs(DateTime.now()),
+        true);
+    expect(
+        !DateTime.now().add(Duration(hours: 24)).isSameDateAs(DateTime.now()),
+        true);
   });
 
   test('operator test', () {
-    assert(DateTime.now().subtract(Duration(hours: 1)) < DateTime.now());
-    assert(DateTime.now().subtract(Duration(hours: 1)) <= DateTime.now());
-    assert(DateTime.now() > DateTime.now().subtract(Duration(hours: 1)));
-    assert(DateTime.now() >= DateTime.now().subtract(Duration(hours: 1)));
+    expect(DateTime.now().subtract(Duration(hours: 1)) < DateTime.now(), true);
+    expect(DateTime.now().subtract(Duration(hours: 1)) <= DateTime.now(), true);
+    expect(DateTime.now() > DateTime.now().subtract(Duration(hours: 1)), true);
+    expect(DateTime.now() >= DateTime.now().subtract(Duration(hours: 1)), true);
     final dateTime = DateTime.now();
-    assert(dateTime >= dateTime);
-    assert(dateTime <= dateTime);
+    expect(dateTime >= dateTime, true);
+    expect(dateTime <= dateTime, true);
   });
 
   test('isToday test', () {
-    assert(DateTime.now().isToday);
-    assert(!DateTime.now().add(Duration(hours: 24)).isToday);
-    assert(!DateTime.now().subtract(Duration(hours: 24)).isToday);
-    assert(!DateTime(2000).isToday);
+    expect(DateTime.now().isToday, true);
+    expect(DateTime.now().add(Duration(hours: 24)).isToday, false);
+    expect(DateTime.now().subtract(Duration(hours: 24)).isToday, false);
+    expect(DateTime(2000).isToday, false);
   });
 
   test('isYesterday test', () {
-    assert(!DateTime.now().isYesterday);
-    assert(!DateTime.now().add(Duration(hours: 24)).isYesterday);
-    assert(DateTime.now().subtract(Duration(hours: 24)).isYesterday);
-    assert(!DateTime(2000).isYesterday);
+    expect(DateTime.now().isYesterday, false);
+    expect(DateTime.now().add(Duration(hours: 24)).isYesterday, false);
+    expect(DateTime.now().subtract(Duration(hours: 24)).isYesterday, true);
+    expect(DateTime(2000).isYesterday, false);
   });
 
   test('isTomorrow test', () {
-    assert(!DateTime.now().isTomorrow);
-    assert(DateTime.now().add(Duration(hours: 24)).isTomorrow);
-    assert(!DateTime.now().subtract(Duration(hours: 24)).isTomorrow);
-    assert(!DateTime(DateTime.now().year + 100).isTomorrow);
+    expect(DateTime.now().isTomorrow, false);
+    expect(DateTime.now().add(Duration(hours: 24)).isTomorrow, true);
+    expect(DateTime.now().subtract(Duration(hours: 24)).isTomorrow, false);
+    expect(DateTime(DateTime.now().year + 100).isTomorrow, false);
   });
 
   test('isPast test', () {
-    assert(!DateTime.now().add(Duration(hours: 24)).isPast);
-    assert(DateTime.now().subtract(Duration(hours: 24)).isPast);
-    assert(DateTime(2000).isPast);
-    assert(!DateTime(DateTime.now().year + 100).isPast);
+    expect(DateTime.now().add(Duration(hours: 24)).isPast, false);
+    expect(DateTime.now().subtract(Duration(hours: 24)).isPast, true);
+    expect(DateTime(2000).isPast, true);
+    expect(DateTime(DateTime.now().year + 100).isPast, false);
   });
 
   test('isFuture test', () {
-    assert(DateTime.now().add(Duration(hours: 24)).isFuture);
-    assert(!DateTime.now().subtract(Duration(hours: 24)).isFuture);
-    assert(!DateTime(2000).isFuture);
-    assert(DateTime(DateTime.now().year + 100).isFuture);
+    expect(DateTime.now().add(Duration(hours: 24)).isFuture, true);
+    expect(DateTime.now().subtract(Duration(hours: 24)).isFuture, false);
+    expect(DateTime(2000).isFuture, false);
+    expect(DateTime(DateTime.now().year + 100).isFuture, true);
   });
 
   test('weekday test', () {
     // calender verified date that is Monday
     final monday = DateTime(2020, 8, 17);
-    assert(monday.isMonday);
-    assert(!monday.add(Duration(hours: 24)).isMonday);
-    assert(monday.add(Duration(hours: 24 * 1)).isTuesday);
-    assert(monday.add(Duration(hours: 24 * 2)).isWednesday);
-    assert(monday.add(Duration(hours: 24 * 3)).isThursday);
-    assert(monday.add(Duration(hours: 24 * 4)).isFriday);
-    assert(monday.add(Duration(hours: 24 * 5)).isSaturday);
-    assert(monday.add(Duration(hours: 24 * 6)).isSunday);
-    assert(DateTime.now().nextDay.isTomorrow);
-    assert(!DateTime.now().previousDay.isTomorrow);
-    assert(DateTime.now().previousDay.isYesterday);
-    assert(!DateTime.now().nextDay.isYesterday);
+    expect(monday.isMonday, true);
+    expect(monday.add(Duration(hours: 24)).isMonday, false);
+    expect(monday.add(Duration(hours: 24 * 1)).isTuesday, true);
+    expect(monday.add(Duration(hours: 24 * 2)).isWednesday, true);
+    expect(monday.add(Duration(hours: 24 * 3)).isThursday, true);
+    expect(monday.add(Duration(hours: 24 * 4)).isFriday, true);
+    expect(monday.add(Duration(hours: 24 * 5)).isSaturday, true);
+    expect(monday.add(Duration(hours: 24 * 6)).isSunday, true);
+    expect(DateTime.now().nextDay.isTomorrow, true);
+    expect(DateTime.now().previousDay.isTomorrow, false);
+    expect(DateTime.now().previousDay.isYesterday, true);
+    expect(DateTime.now().nextDay.isYesterday, false);
   });
 
   test('month test', () {
     final january = DateTime(2020, 1, 10);
-    assert(january.isInJanuary);
-    assert(!january.add(Duration(days: 30)).isInJanuary);
-    assert(january.add(Duration(days: 30 * 1)).isInFebruary);
-    assert(january.add(Duration(days: 30 * 2)).isInMarch);
-    assert(january.add(Duration(days: 30 * 3)).isInApril);
-    assert(january.add(Duration(days: 30 * 4)).isInMay);
-    assert(january.add(Duration(days: 30 * 5)).isInJune);
-    assert(january.add(Duration(days: 30 * 6)).isInJuly);
-    assert(january.add(Duration(days: 30 * 7)).isInAugust);
-    assert(january.add(Duration(days: 30 * 8)).isInSeptember);
-    assert(january.add(Duration(days: 30 * 9)).isInOctober);
-    assert(january.add(Duration(days: 30 * 10)).isInNovember);
-    assert(january.add(Duration(days: 30 * 11)).isInDecember);
+    expect(january.isInJanuary, true);
+    expect(january.add(Duration(days: 30)).isInJanuary, false);
+    expect(january.add(Duration(days: 30 * 1)).isInFebruary, true);
+    expect(january.add(Duration(days: 30 * 2)).isInMarch, true);
+    expect(january.add(Duration(days: 30 * 3)).isInApril, true);
+    expect(january.add(Duration(days: 30 * 4)).isInMay, true);
+    expect(january.add(Duration(days: 30 * 5)).isInJune, true);
+    expect(january.add(Duration(days: 30 * 6)).isInJuly, true);
+    expect(january.add(Duration(days: 30 * 7)).isInAugust, true);
+    expect(january.add(Duration(days: 30 * 8)).isInSeptember, true);
+    expect(january.add(Duration(days: 30 * 9)).isInOctober, true);
+    expect(january.add(Duration(days: 30 * 10)).isInNovember, true);
+    expect(january.add(Duration(days: 30 * 11)).isInDecember, true);
     final now = DateTime.now();
-    assert(DateTime(now.year, now.month - 1, now.day).isInPreviousMonth);
-    assert(!DateTime(now.year, now.month + 1, now.day).isInPreviousMonth);
-    assert(!now.isInPreviousMonth);
-    assert(DateTime(now.year, now.month + 1, now.day).isInNextMonth);
-    assert(!DateTime(now.year, now.month - 1, now.day).isInNextMonth);
-    assert(!now.isInNextMonth);
+    expect(DateTime(now.year, now.month - 1, now.day).isInPreviousMonth, true);
+    expect(DateTime(now.year, now.month + 1, now.day).isInPreviousMonth, false);
+    expect(now.isInPreviousMonth, false);
+    expect(DateTime(now.year, now.month + 1, now.day).isInNextMonth, true);
+    expect(DateTime(now.year, now.month - 1, now.day).isInNextMonth, false);
+    expect(now.isInNextMonth, false);
   });
 
   test('year test', () {
     final now = DateTime.now();
-    assert(DateTime(now.year - 1, now.month, now.day).isInPreviousYear);
-    assert(!DateTime(now.year + 1, now.month, now.day).isInPreviousYear);
-    assert(!DateTime.now().isInPreviousYear);
-    assert(DateTime(now.year + 1, now.month, now.day).isInNextYear);
-    assert(!DateTime(now.year - 1, now.month, now.day).isInNextYear);
-    assert(!DateTime.now().isInNextYear);
+    expect(DateTime(now.year - 1, now.month, now.day).isInPreviousYear, true);
+    expect(DateTime(now.year + 1, now.month, now.day).isInPreviousYear, false);
+    expect(DateTime.now().isInPreviousYear, false);
+    expect(DateTime(now.year + 1, now.month, now.day).isInNextYear, true);
+    expect(DateTime(now.year - 1, now.month, now.day).isInNextYear, false);
+    expect(DateTime.now().isInNextYear, false);
+    expect(DateTime(2020).nextYear, DateTime(2021));
+    expect(DateTime(2020).previousYear, DateTime(2019));
   });
 
   test('leap year test', () {
-    assert(DateTime(1992).isLeapYear);
-    assert(DateTime(2020).isLeapYear);
-    assert(DateTime(2000).isLeapYear);
-    assert(!DateTime(2100).isLeapYear);
+    expect(DateTime(1992).isLeapYear, true);
+    expect(DateTime(2020).isLeapYear, true);
+    expect(DateTime(2000).isLeapYear, true);
+    expect(!DateTime(2100).isLeapYear, true);
   });
 
   test('+ & - operator tests', () {
-    assert((DateTime.now() + 1.days).isTomorrow);
-    assert((DateTime.now() - 1.days).isYesterday);
+    expect((DateTime.now() + 1.days).isTomorrow, true);
+    expect((DateTime.now() - 1.days).isYesterday, true);
     final someDate = DateTime(2020, 4, 10);
     final otherDate = DateTime(2020, 4, 15);
     final anotherDate = DateTime(2020, 4, 2);
-    assert((someDate + 5.days).isSameDateAs(otherDate));
-    assert((someDate - 8.days).isSameDateAs(anotherDate));
+    expect((someDate + 5.days).isSameDateAs(otherDate), true);
+    expect((someDate - 8.days).isSameDateAs(anotherDate), true);
   });
 
   test('isBetween extension tests', () {
-    assert(DateTime.now()
-        .isBetween(DateTime.now() - 2.days, DateTime.now() + 2.days));
-    assert(DateTime(2020).isBetween(DateTime(2019), DateTime(2021)));
-    assert(DateTime(2020).isBetween(DateTime(2025), DateTime(2015)));
+    expect(
+        DateTime.now()
+            .isBetween(DateTime.now() - 2.days, DateTime.now() + 2.days),
+        true);
+    expect(DateTime(2020).isBetween(DateTime(2019), DateTime(2021)), true);
+    expect(DateTime(2020).isBetween(DateTime(2025), DateTime(2015)), true);
   });
 }

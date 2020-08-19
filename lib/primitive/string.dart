@@ -136,16 +136,6 @@ extension StringScrewdriver on String {
   /// Returns a reversed string of [this]
   String get reversed => characters.toList().reversed.join();
 
-  /// Returns true if [this] happens to be an URL
-  bool get isURL {
-    try {
-      Uri.parse(this);
-      return true;
-    } on FormatException catch (_) {
-      return false;
-    }
-  }
-
   /// Tries to convert [this] into a [DateTime].
   DateTime toDateTimeOrNull() => DateTime.tryParse(this);
 

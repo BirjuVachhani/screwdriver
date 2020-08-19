@@ -11,3 +11,6 @@ build/
 doc/api/
 
 .idea/
+test/.test_coverage.dart
+test/.test_cov.dart
+coverage

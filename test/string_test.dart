@@ -6,46 +6,46 @@ import 'package:test/test.dart';
 
 void main() {
   test('isBlank & isNotBlank tests', () {
-    assert(''.isBlank);
-    assert(' '.isBlank);
-    assert('      '.isBlank);
-    assert(!'   g   '.isBlank);
-    assert('    g   '.isNotBlank);
-    assert(!' '.isNotBlank);
-    assert(!''.isNotBlank);
+    expect(''.isBlank, true);
+    expect(' '.isBlank, true);
+    expect('      '.isBlank, true);
+    expect('   g   '.isBlank, false);
+    expect('    g   '.isNotBlank, true);
+    expect(' '.isNotBlank, false);
+    expect(''.isNotBlank, false);
   });
 
   test('capitalized tests', () {
-    assert(''.capitalized == '');
-    assert('a'.capitalized == 'A');
-    assert('hello'.capitalized == 'Hello');
-    assert('Hello'.capitalized == 'Hello');
-    assert('hello world'.capitalized == 'Hello world');
+    expect(''.capitalized, '');
+    expect('a'.capitalized, 'A');
+    expect('hello'.capitalized, 'Hello');
+    expect('Hello'.capitalized, 'Hello');
+    expect('hello world'.capitalized, 'Hello world');
   });
 
   test('toIntOrNull tests', () {
-    assert('123'.toIntOrNull() == 123);
-    assert('FF'.toIntOrNull(radix: 16) == 255);
-    assert('abc123'.toIntOrNull() == null);
-    assert(''.toIntOrNull() == null);
+    expect('123'.toIntOrNull(), 123);
+    expect('FF'.toIntOrNull(radix: 16), 255);
+    expect('abc123'.toIntOrNull(), null);
+    expect(''.toIntOrNull(), null);
   });
 
   test('toDoubleOrNull tests', () {
-    assert('123'.toDoubleOrNull() == 123.0);
-    assert('123.12'.toDoubleOrNull() == 123.12);
-    assert('abc123'.toIntOrNull() == null);
-    assert(''.toIntOrNull() == null);
-    assert('15.15'.isDouble);
+    expect('123'.toDoubleOrNull(), 123.0);
+    expect('123.12'.toDoubleOrNull(), 123.12);
+    expect('abc123'.toIntOrNull(), null);
+    expect(''.toIntOrNull(), null);
+    expect('15.15'.isDouble, true);
   });
 
   test('toBoolOrNull tests', () {
-    assert('123'.toBoolOrNull());
-    assert('123.12'.toBoolOrNull() == null);
-    assert('abc123'.toBoolOrNull() == null);
-    assert('true'.toBoolOrNull());
-    assert('TRUE'.toBoolOrNull());
-    assert('True'.toBoolOrNull());
-    assert(!'False'.toBoolOrNull());
+    expect('123'.toBoolOrNull(), true);
+    expect('123.12'.toBoolOrNull(), null);
+    expect('abc123'.toBoolOrNull(), null);
+    expect('true'.toBoolOrNull(), true);
+    expect('TRUE'.toBoolOrNull(), true);
+    expect('True'.toBoolOrNull(), true);
+    expect('False'.toBoolOrNull(), false);
   });
 
   test('wrap method tests', () {
@@ -59,7 +59,7 @@ void main() {
     expect('<html>'.unwrap('<', '>'), 'html');
     expect('*hello*'.unwrap('*'), 'hello');
     expect('hello'.unwrap(''), 'hello');
-    expect('#hello#'.unwrap('', '#'), '#hello');
+    expect('#hello#'.unwrap('<', '#'), '#hello');
   });
 
   test('removePrefix and removeSuffix method tests', () {
@@ -79,50 +79,37 @@ void main() {
   });
 
   test('radix tests', () {
-    assert('01001'.isBinary);
-    assert(!'401001'.isBinary);
-    assert(!'f01001'.isBinary);
+    expect('01001'.isBinary, true);
+    expect('401001'.isBinary, false);
+    expect('f01001'.isBinary, false);
 
-    assert('274'.isOctal);
-    assert(!'801001'.isOctal);
-    assert(!'f01001'.isOctal);
+    expect('274'.isOctal, true);
+    expect('801001'.isOctal, false);
+    expect('f01001'.isOctal, false);
 
-    assert('FF4433'.isHexadecimal);
-    assert(!'r801001'.isHexadecimal);
-    assert(!'ft01001'.isHexadecimal);
+    expect('FF4433'.isHexadecimal, true);
+    expect('r801001'.isHexadecimal, false);
+    expect('ft01001'.isHexadecimal, false);
 
-    assert('845'.isDecimal);
-    assert(!'r801001'.isDecimal);
-    assert(!'1001.15'.isDecimal);
+    expect('845'.isDecimal, true);
+    expect('r801001'.isDecimal, false);
+    expect('1001.15'.isDecimal, false);
   });
 
   test('isEmail tests', () {
-    assert('example@gmail.com'.isEmail);
-    assert('a@a.com'.isEmail);
-    assert('c+a@a.a'.isEmail);
-    assert(!'mysite.ourearth.com'.isEmail);
-    assert(!'@you.me.net'.isEmail);
-    assert(!'mysite@.'.isEmail);
-    assert(!'mysite()*@gmail.com'.isEmail);
+    expect('example@gmail.com'.isEmail, true);
+    expect('a@a.com'.isEmail, true);
+    expect('c+a@a.a'.isEmail, true);
+    expect('mysite.ourearth.com'.isEmail, false);
+    expect('@you.me.net'.isEmail, false);
+    expect('mysite@.'.isEmail, false);
+    expect('mysite()*@gmail.com'.isEmail, false);
   });
 
   test('reversed tests', () {
-    assert('abcd'.reversed == 'dcba');
-    assert(''.reversed == '');
-    assert('Thanks👍'.reversed == '👍sknahT');
-  });
-
-  test('isURL tests', () {
-    assert('https://google.com'.isURL);
-    assert('http://google.com'.isURL);
-    assert('example.com'.isURL);
-    assert('www.example.com'.isURL);
-    assert('https://www.example.com'.isURL);
-    assert('https://www.example.com/sample/?test=2&test2=5'.isURL);
-    assert('https://192.168.1.25:5050'.isURL);
-    assert('https://192.168.1.25'.isURL);
-    assert('ftp://192.168.1.25'.isURL);
-    assert('mailto:example@abc.com'.isURL);
+    expect('abcd'.reversed, 'dcba');
+    expect(''.reversed, '');
+    expect('Thanks👍'.reversed, '👍sknahT');
   });
 
   test('toDateTimeOrNull tests', () {

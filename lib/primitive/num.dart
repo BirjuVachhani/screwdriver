@@ -39,4 +39,11 @@ extension NumScrewdriver on num {
   /// converts positive numbers into negative ones.
   /// Use [abs] for conversion to positive numbers.
   num get negative => sign > 0 ? -this : this;
+
+  /// Returns true if [this] falls between [value1] and [value2] irrespective
+  /// of the order of [value1] and [value2].
+  /// Includes boundaries if [inclusive] is true.
+  bool isBetween(num value1, num value2, {bool inclusive = false}) => inclusive
+      ? (this >= value1 && this <= value2) || (this >= value2 && this <= value1)
+      : (this > value1 && this < value2) || (this > value2 && this < value1);
 }

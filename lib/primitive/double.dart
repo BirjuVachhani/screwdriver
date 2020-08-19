@@ -29,15 +29,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: August 19, 2020
 
-import 'package:characters/characters.dart';
+part of '../screwdriver.dart';
 
-import 'src/utils.dart';
-
-part 'datetime/date_time.dart';
-part 'primitive/bool.dart';
-part 'primitive/double.dart';
-part 'primitive/int.dart';
-part 'primitive/num.dart';
-part 'primitive/string.dart';
+/// Provides extensions for [double].
+extension DoubleScrewdriver on double {
+  /// Returns to if [this] has .00000 fraction points
+  bool get isWhole =>
+      this != double.infinity &&
+      this != double.negativeInfinity &&
+      this != double.nan &&
+      truncate() == this;
+}

@@ -94,9 +94,4 @@ extension IntScrewdriver<T> on int {
   ///       0.asBool      // returns false
   ///     452.asBool      // returns true
   bool get asBool => this != 0;
-
-  /// Returns true if [this] falls between [value1] and [value2] irrespective
-  /// of the order of [value1] and [value2].
-  bool isBetween(int value1, int value2) =>
-      (this > value1 && this < value2) || (this > value2 && this < value1);
 }
