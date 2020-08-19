@@ -10,6 +10,8 @@ jobs:
       image:  google/dart:2.7
     steps:
       - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: pub get
       - name: Analyzer
         run: dartanalyzer .
       - name: Dartfmt
