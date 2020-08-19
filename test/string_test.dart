@@ -35,6 +35,7 @@ void main() {
     assert('123.12'.toDoubleOrNull() == 123.12);
     assert('abc123'.toIntOrNull() == null);
     assert(''.toIntOrNull() == null);
+    assert('15.15'.isDouble);
   });
 
   test('toBoolOrNull tests', () {
@@ -89,5 +90,50 @@ void main() {
     assert('FF4433'.isHexadecimal);
     assert(!'r801001'.isHexadecimal);
     assert(!'ft01001'.isHexadecimal);
+
+    assert('845'.isDecimal);
+    assert(!'r801001'.isDecimal);
+    assert(!'1001.15'.isDecimal);
+  });
+
+  test('isEmail tests', () {
+    assert('example@gmail.com'.isEmail);
+    assert('a@a.com'.isEmail);
+    assert('c+a@a.a'.isEmail);
+    assert(!'mysite.ourearth.com'.isEmail);
+    assert(!'@you.me.net'.isEmail);
+    assert(!'mysite@.'.isEmail);
+    assert(!'mysite()*@gmail.com'.isEmail);
+  });
+
+  test('reversed tests', () {
+    assert('abcd'.reversed == 'dcba');
+    assert(''.reversed == '');
+    assert('Thanks👍'.reversed == '👍sknahT');
+  });
+
+  test('isURL tests', () {
+    assert('https://google.com'.isURL);
+    assert('http://google.com'.isURL);
+    assert('example.com'.isURL);
+    assert('www.example.com'.isURL);
+    assert('https://www.example.com'.isURL);
+    assert('https://www.example.com/sample/?test=2&test2=5'.isURL);
+    assert('https://192.168.1.25:5050'.isURL);
+    assert('https://192.168.1.25'.isURL);
+    assert('ftp://192.168.1.25'.isURL);
+    assert('mailto:example@abc.com'.isURL);
+  });
+
+  test('toDateTimeOrNull tests', () {
+    expect('2020-04-24 15:30:00.000000'.toDateTimeOrNull(),
+        DateTime(2020, 4, 24, 15, 30));
+    expect('2020-04-24'.toDateTimeOrNull(), DateTime(2020, 4, 24));
+  });
+
+  test('words tests', () {
+    expect('There are four words'.words.length, 4);
+    expect(''.words.length, 0);
+    expect('     '.words.length, 0);
   });
 }

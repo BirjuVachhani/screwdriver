@@ -118,4 +118,38 @@ extension StringScrewdriver on String {
   /// Returns true if [this] is a hex string which only
   /// contains 0-7
   bool get isOctal => toIntOrNull(radix: 8) != null;
+
+  /// Returns true if [this] is an int
+  bool get isDecimal => toIntOrNull() != null;
+
+  /// Returns true if [this] is a double
+  bool get isDouble => toDoubleOrNull() != null;
+
+  /// Returns true if [this] happens to be an email
+  /// This uses RFC822 email validation specs which is widely accepted.
+  /// check this: https://regexr.com/2rhq7
+  /// Original Ref: https://www.ietf.org/rfc/rfc822.txt
+  bool get isEmail => RegExp(
+          r"^[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$")
+      .hasMatch(this);
+
+  /// Returns a reversed string of [this]
+  String get reversed => characters.toList().reversed.join();
+
+  /// Returns true if [this] happens to be an URL
+  bool get isURL {
+    try {
+      Uri.parse(this);
+      return true;
+    } on FormatException catch (_) {
+      return false;
+    }
+  }
+
+  /// Tries to convert [this] into a [DateTime].
+  DateTime toDateTimeOrNull() => DateTime.tryParse(this);
+
+  /// This would tokenize [this] into words by breaking it with space.
+  List<String> get words =>
+      trim().split(' ').where((element) => element.isNotBlank).toList();
 }
