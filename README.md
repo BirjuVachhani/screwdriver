@@ -2,6 +2,8 @@
 
 A dart package aiming to provide useful extensions and helper functions to ease and speed up development.
 
+[![Tests](https://github.com/birjuvachhani/screwdriver/workflows/tests/badge.svg?branch=master)](https://github.com/birjuvachhani/screwdriver/actions)[![Codecov](https://img.shields.io/codecov/c/github/birjuvachhani/screwdriver.svg)](https://codecov.io/gh/birjuvachhani/screwdriver)
+
 ```
 // TODO
 ```

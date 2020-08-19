@@ -1,0 +1,16 @@
+name: Code Quality
+
+on: [push, pull_request]
+
+jobs:
+  quality:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    container:
+      image:  google/dart:2.7
+    steps:
+      - uses: actions/checkout@v1
+      - name: Analyzer
+        run: dartanalyzer .
+      - name: Dartfmt
+        run: dartfmt --set-exit-if-changed -w --fix .

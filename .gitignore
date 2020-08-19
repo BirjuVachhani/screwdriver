@@ -14,3 +14,4 @@ doc/api/
 test/.test_coverage.dart
 test/.test_cov.dart
 coverage
+coverage_badge.svg
