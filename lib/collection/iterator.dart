@@ -30,39 +30,18 @@
  */
 
 // Author: Birju Vachhani
-// Created Date: August 20, 2020
+// Created Date: August 21, 2020
 
-import 'package:meta/meta.dart';
+part of '../screwdriver.dart';
 
-/// Represents a generic pair of two values.
-@immutable
-class Pair<K, V> {
-  /// First value of pair.
-  final K first;
+/// provides extensions for [Iterator]
+extension IteratorScrewdriver<E> on Iterator<E> {
+  /// Advances the current index and returns current element
+  E next() => moveNext() ? current : null;
+}
 
-  /// Second value of pair.
-  final V second;
-
-  /// Creates a new instance of Pair
-  Pair(this.first, this.second);
-
-  /// Allows to create a new pair from this pair, but will different values.
-  Pair<K, V> copyWith({K first, V second}) =>
-      Pair(first ?? this.first, second ?? this.second);
-
-  @override
-  bool operator ==(Object other) =>
-      other is Pair &&
-      runtimeType == other.runtimeType &&
-      first == other.first &&
-      second == other.second;
-
-  @override
-  int get hashCode => first.hashCode ^ second.hashCode;
-
-  @override
-  String toString() => '($first, $second)';
-
-  /// Converts [this] pair into a map
-  Map<K, V> toMap() => {first: second};
+/// provides extensions for [BidirectionalIterator]
+extension BidirectionalIteratorScrewdriver<E> on BidirectionalIterator<E> {
+  /// moves the current index backwards and returns current element
+  E previous() => movePrevious() ? current : null;
 }

@@ -12,6 +12,7 @@ void main() {
     expect(pair.toString(), '(age, 24)');
     expect(pair.copyWith(first: 'count').first, 'count');
     expect(pair.copyWith(first: 'count').second, 24);
+    expect(pair.toMap(), equals({'age': 24}));
     // objects containing same value must be the same to pass equality test
     expect(Pair(23, 48), Pair(23, 48));
     // hashcode must be the same for containing the same values.

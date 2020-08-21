@@ -41,7 +41,9 @@ import 'src/utils.dart';
 
 export 'src/helpers/pair.dart';
 
+part 'collection/comparable.dart';
 part 'collection/iterable.dart';
+part 'collection/iterator.dart';
 part 'collection/list.dart';
 part 'collection/map.dart';
 part 'datetime/date_time.dart';

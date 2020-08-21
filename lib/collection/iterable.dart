@@ -322,4 +322,85 @@ extension IterableScrewDriver<E> on Iterable<E> {
     }
     return value;
   }
+
+  /// Returns the first element yielding the largest value of the given
+  /// function or `null` if there are no elements.
+  E maxBy<R extends Comparable>(R selector(E element)) {
+    if (isEmpty) return null;
+    if (length == 1) return first;
+    var maxElement = first;
+    var maxValue = selector(maxElement);
+    for (final element in this) {
+      final value = selector(element);
+      if (maxValue < value) {
+        maxValue = value;
+        maxElement = element;
+      }
+    }
+    return maxElement;
+  }
+
+  /// Returns the last element yielding the largest value of the given
+  /// function or `null` if there are no elements.
+  E maxByLast<R extends Comparable>(R selector(E element)) {
+    if (isEmpty) return null;
+    if (length == 1) return first;
+    var maxElement = first;
+    var maxValue = selector(maxElement);
+    for (final element in this) {
+      final value = selector(element);
+      if (maxValue <= value) {
+        maxValue = value;
+        maxElement = element;
+      }
+    }
+    return maxElement;
+  }
+
+  // Returns the first element yielding the largest value of the given
+  /// function or `null` if there are no elements.
+  E minBy<R extends Comparable>(R selector(E element)) {
+    if (isEmpty) return null;
+    if (length == 1) return first;
+    var minElement = first;
+    var minValue = selector(minElement);
+    for (final element in this) {
+      final value = selector(element);
+      if (minValue > value) {
+        minValue = value;
+        minElement = element;
+      }
+    }
+    return minElement;
+  }
+
+  // Returns the last element yielding the largest value of the given
+  /// function or `null` if there are no elements.
+  E minByLast<R extends Comparable>(R selector(E element)) {
+    if (isEmpty) return null;
+    if (length == 1) return first;
+    var minElement = first;
+    var minValue = selector(minElement);
+    for (final element in this) {
+      final value = selector(element);
+      if (minValue >= value) {
+        minValue = value;
+        minElement = element;
+      }
+    }
+    return minElement;
+  }
+
+  // Returns the first element yielding the largest value of the given
+  /// function or `null` if there are no elements.
+  R sumBy<R extends num>(R selector(E element)) => fold<R>(
+      (R == int ? 0 : 0.0) as R,
+      (previousValue, element) => previousValue + selector(element));
+
+  // Returns the first element yielding the largest value of the given
+  /// function or `null` if there are no elements.
+  double averageBy<R extends num>(R selector(E element)) {
+    if (isEmpty) return 0;
+    return sumBy(selector) / length;
+  }
 }

@@ -217,4 +217,28 @@ void main() {
             .reduceIndexed((index, value, element) => index * element + value),
         9);
   });
+
+  test('math tests', () {
+    final list1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    final list2 = [
+      Pair(1, 2.5),
+      Pair(2, 3.5),
+      Pair(3, 1.5),
+      Pair(4, 2.0),
+      Pair(3, 3.5),
+      Pair(1, 1.5),
+    ];
+    expect(list1.maxBy((element) => element), 10);
+    expect(list2.maxBy((element) => element.first), Pair(4, 2.0));
+    expect(list2.maxBy((element) => element.second), Pair(2, 3.5));
+    expect(list2.maxByLast((element) => element.second), Pair(3, 3.5));
+    expect(list1.minBy((element) => element), 1);
+    expect(list2.minBy((element) => element.first), Pair(1, 2.5));
+    expect(list2.minByLast((element) => element.first), Pair(1, 1.5));
+    expect(list2.minBy((element) => element.second), Pair(3, 1.5));
+    expect(list2.sumBy((element) => element.first), 14);
+    expect(list2.sumBy((element) => element.second), 14.5);
+    expect(list2.averageBy((element) => element.first), 14 / list2.length);
+    expect(list2.averageBy((element) => element.second), 14.5 / list2.length);
+  });
 }
