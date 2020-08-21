@@ -5,3 +5,7 @@ linter:
     - camel_case_types
     - package_api_docs
     - prefer_single_quotes
+
+analyzer:
+  exclude:
+    - test/.test_coverage.dart
