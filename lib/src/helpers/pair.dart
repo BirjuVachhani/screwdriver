@@ -29,24 +29,37 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: August 20, 2020
 
-import 'dart:collection';
-import 'dart:math';
+import 'package:meta/meta.dart';
 
-import 'package:characters/characters.dart';
+/// Represents a generic pair of two values.
+@immutable
+class Pair<K, V> {
+  /// First value of pair.
+  final K first;
 
-import 'src/helpers/pair.dart';
-import 'src/utils.dart';
+  /// Second value of pair.
+  final V second;
 
-export 'src/helpers/pair.dart';
+  /// Creates a new instance of Pair
+  Pair(this.first, this.second);
 
-part 'collection/iterable.dart';
-part 'collection/list.dart';
-part 'collection/map.dart';
-part 'datetime/date_time.dart';
-part 'primitive/bool.dart';
-part 'primitive/double.dart';
-part 'primitive/int.dart';
-part 'primitive/num.dart';
-part 'primitive/string.dart';
+  /// Allows to create a new pair from this pair, but will different values.
+  Pair<K, V> copyWith({K first, V second}) =>
+      Pair(first ?? this.first, second ?? this.second);
+
+  @override
+  bool operator ==(Object other) =>
+      other is Pair &&
+      runtimeType == other.runtimeType &&
+      first == other.first &&
+      second == other.second;
+
+  @override
+  int get hashCode => first.hashCode ^ second.hashCode;
+
+  @override
+  String toString() => '($first, $second)';
+}
