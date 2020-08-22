@@ -42,14 +42,38 @@ extension IntScrewdriver<T> on int {
   /// Returns [Duration] equal to [this] no. of weeks
   Duration get weeks => Duration(days: this * 7);
 
+  /// Returns [DateTime] with date that is [this] weeks ago
+  DateTime get weeksAgo => DateTime.now() - Duration(days: this * 7);
+
+  /// Returns [DateTime] with date that is [this] weeks after
+  DateTime get weeksAfter => DateTime.now() + Duration(days: this * 7);
+
   /// Returns [Duration] equal to [this] no. of days
   Duration get days => Duration(days: this);
+
+  /// Returns [DateTime] with date that is [this] days ago
+  DateTime get daysAgo => DateTime.now() - Duration(days: this);
+
+  /// Returns [DateTime] with date that is [this] days after
+  DateTime get daysAfter => DateTime.now() + Duration(days: this);
 
   /// Returns [Duration] equal to [this] no. of hours
   Duration get hours => Duration(hours: this);
 
+  /// Returns [DateTime] with time that is [this] hours ago
+  DateTime get hoursAgo => DateTime.now() - Duration(hours: this);
+
+  /// Returns [DateTime] with time that is [this] hours after
+  DateTime get hoursAfter => DateTime.now() + Duration(hours: this);
+
   /// Returns [Duration] equal to [this] no. of minutes
   Duration get minutes => Duration(minutes: this);
+
+  /// Returns [DateTime] with time that is [this] minutes ago
+  DateTime get minutesAgo => DateTime.now() - Duration(minutes: this);
+
+  /// Returns [DateTime] with time that is [this] minutes after
+  DateTime get minutesAfter => DateTime.now() + Duration(minutes: this);
 
   /// Returns [Duration] equal to [this] no. of seconds
   Duration get seconds => Duration(seconds: this);

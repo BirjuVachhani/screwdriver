@@ -30,21 +30,43 @@
  */
 
 // Author: Birju Vachhani
-// Created Date: August 21, 2020
+// Created Date: August 22, 2020
 
 part of '../screwdriver.dart';
 
-/// provides extensions for [Comparable]
-extension ComparableScrewdriver<E extends Comparable> on E {
-  /// Returns true if [other] object is less than [this].
-  bool operator <(E other) => compareTo(other) < 0;
+/// provides extensions for [Duration].
+extension DurationScrewdriver on Duration {
+  /// Returns [DateTime] that is before [this] duration.
+  DateTime get ago => DateTime.now() - this;
 
-  /// Returns true if [other] object is less than or equal to [this].
-  bool operator <=(E other) => compareTo(other) <= 0;
+  /// Returns [DateTime] that is before [this] duration.
+  DateTime get after => DateTime.now() + this;
 
-  /// Returns true if [other] object is greater than [this].
-  bool operator >(E other) => compareTo(other) > 0;
+  /// Returns true if [this] duration equals to or more than a day.
+  bool get isInDays => inDays > 0;
 
-  /// Returns true if [other] object is greater than or equal to [this].
-  bool operator >=(E other) => compareTo(other) >= 0;
+  /// Returns true if [this] duration equals to or more than an hour but
+  /// is less than a day.
+  bool get isInHours => inHours > 0 && !isInDays;
+
+  /// Returns true if [this] duration equals to or more than a minute but
+  /// is less than an hour.
+  bool get isInMinutes => inMinutes > 0 && !isInHours;
+
+  /// Returns true if [this] duration equals to or more than a second but
+  /// is less than a minute.
+  bool get isInSeconds => inSeconds > 0 && !isInMinutes;
+
+  /// Returns true if [this] duration equals to or more than a millisecond but
+  /// is less than a second.
+  bool get isInMillis => inMilliseconds > 0 && !isInSeconds;
+
+  /// Returns remaining minutes after deriving hours.
+  int get absoluteMinutes => inMinutes % Duration.minutesPerHour;
+
+  /// Returns remaining minutes after deriving days.
+  int get absoluteHours => inHours % Duration.hoursPerDay;
+
+  /// Returns remaining minutes after deriving minutes.
+  int get absoluteSeconds => inSeconds % Duration.secondsPerMinute;
 }

@@ -165,4 +165,27 @@ void main() {
     expect(DateTime(2020).isBetween(DateTime(2019), DateTime(2021)), true);
     expect(DateTime(2020).isBetween(DateTime(2025), DateTime(2015)), true);
   });
+
+  test('truncate tests', () {
+    expect(DateTime.now().truncateMicros().microsecond, 0);
+
+    expect(DateTime.now().truncateMillis().millisecond, 0);
+    expect(DateTime.now().truncateMillis().microsecond, 0);
+
+    expect(DateTime.now().truncateSeconds().second, 0);
+    expect(DateTime.now().truncateSeconds().millisecond, 0);
+    expect(DateTime.now().truncateSeconds().microsecond, 0);
+
+    expect(DateTime.now().truncateMinutes().minute, 0);
+    expect(DateTime.now().truncateMinutes().second, 0);
+    expect(DateTime.now().truncateMinutes().millisecond, 0);
+    expect(DateTime.now().truncateMinutes().microsecond, 0);
+  });
+
+  test('functions tests', () {
+    expect(now().truncateMillis(), DateTime.now().truncateMillis());
+    expect(today, DateTime.now().dateOnly);
+    expect(tomorrow, DateTime.now().nextDay.dateOnly);
+    expect(yesterday, DateTime.now().previousDay.dateOnly);
+  });
 }

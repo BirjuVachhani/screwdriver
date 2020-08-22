@@ -240,4 +240,34 @@ extension DateTimeScrewdriver on DateTime {
   bool isBetween(DateTime date1, DateTime date2) =>
       (isAfter(date1) && isBefore(date2)) ||
       (isAfter(date2) && isBefore(date1));
+
+  /// Removes any information that is equal to or smaller than milliseconds.
+  /// Returned instance will have 0 milliseconds and microseconds.
+  DateTime truncateMicros() =>
+      DateTime(year, month, day, hour, minute, second, millisecond);
+
+  /// Removes any information that is equal to or smaller than milliseconds.
+  /// Returned instance will have 0 milliseconds and microseconds.
+  DateTime truncateMillis() => DateTime(year, month, day, hour, minute, second);
+
+  /// Removes any information that is equal to or smaller than seconds.
+  /// Returned instance will have 0 seconds, milliseconds and microseconds.
+  DateTime truncateSeconds() => DateTime(year, month, day, hour, minute);
+
+  /// Removes any information that is equal to or smaller than minutes.
+  /// Returned instance will have 0 minutes, seconds,
+  /// milliseconds and microseconds.
+  DateTime truncateMinutes() => DateTime(year, month, day, hour);
 }
+
+/// shot for [DateTime.now]
+DateTime now() => DateTime.now();
+
+/// Returns current date without time information.
+DateTime get today => DateTime.now().dateOnly;
+
+/// Returns tomorrow's date without time information.
+DateTime get tomorrow => DateTime.now().nextDay.dateOnly;
+
+/// Returns yesterday's date without time information.
+DateTime get yesterday => DateTime.now().previousDay.dateOnly;

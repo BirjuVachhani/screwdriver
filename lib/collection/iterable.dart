@@ -357,7 +357,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
     return maxElement;
   }
 
-  // Returns the first element yielding the largest value of the given
+  /// Returns the first element yielding the smallest value of the given
   /// function or `null` if there are no elements.
   E minBy<R extends Comparable>(R selector(E element)) {
     if (isEmpty) return null;
@@ -374,7 +374,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
     return minElement;
   }
 
-  // Returns the last element yielding the largest value of the given
+  /// Returns the last element yielding the smallest value of the given
   /// function or `null` if there are no elements.
   E minByLast<R extends Comparable>(R selector(E element)) {
     if (isEmpty) return null;
@@ -391,16 +391,31 @@ extension IterableScrewDriver<E> on Iterable<E> {
     return minElement;
   }
 
-  // Returns the first element yielding the largest value of the given
-  /// function or `null` if there are no elements.
+  /// Returns the sum of all values produced by [selector] function
+  /// applied to each element in the collection.
   R sumBy<R extends num>(R selector(E element)) => fold<R>(
       (R == int ? 0 : 0.0) as R,
       (previousValue, element) => previousValue + selector(element));
 
-  // Returns the first element yielding the largest value of the given
-  /// function or `null` if there are no elements.
+  /// Returns the average of all values produced by [selector] function
+  /// applied to each element in the collection.
   double averageBy<R extends num>(R selector(E element)) {
     if (isEmpty) return 0;
     return sumBy(selector) / length;
   }
+}
+
+/// provides extensions for num iterables
+extension NumIterableScrewdriver<E extends num> on Iterable<E> {
+  /// returns sum of all the elements in [this]
+  E sum() => sumBy((element) => element);
+
+  /// returns average of all the elements in [this]
+  double average() => averageBy((element) => element);
+
+  /// returns the maximum element from all the elements in [this]
+  E max() => maxBy((element) => element);
+
+  /// returns the minimum element from all the elements in [this]
+  E min() => minBy((element) => element);
 }

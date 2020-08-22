@@ -32,6 +32,7 @@
 library screwdriver;
 
 import 'dart:collection';
+import 'dart:developer';
 import 'dart:math';
 
 import 'package:characters/characters.dart';
@@ -42,6 +43,7 @@ import 'src/utils.dart';
 export 'src/helpers/pair.dart';
 
 part 'collection/comparable.dart';
+part 'duration/duration.dart';
 part 'collection/iterable.dart';
 part 'collection/iterator.dart';
 part 'collection/list.dart';
