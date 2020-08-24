@@ -142,4 +142,7 @@ extension StringScrewdriver on String {
   /// This would tokenize [this] into words by breaking it with space.
   List<String> get words =>
       trim().split(' ').where((element) => element.isNotBlank).toList();
+
+  /// Converts [this] to a JSON map.
+  Map<String, dynamic> parseJson() => json.decode(this);
 }

@@ -118,4 +118,13 @@ extension IntScrewdriver<T> on int {
   ///       0.asBool      // returns false
   ///     452.asBool      // returns true
   bool get asBool => this != 0;
+
+  /// Returns [int] as string which has a zero appended as prefix if [this]
+  /// is a single digit value.
+  String twoDigits() => this < 10 ? '0$this' : toString();
 }
+
+/// Generates a non-negative random integer uniformly distributed in the range
+/// rom 0, inclusive, to [max], exclusive.
+/// default [max] is 1_000_000
+int randomInt({int max}) => Random().nextInt(max ?? 1000000);

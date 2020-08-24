@@ -32,7 +32,7 @@
 library screwdriver;
 
 import 'dart:collection';
-import 'dart:developer';
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:characters/characters.dart';
@@ -43,14 +43,25 @@ import 'src/utils.dart';
 export 'src/helpers/pair.dart';
 
 part 'collection/comparable.dart';
-part 'duration/duration.dart';
+
 part 'collection/iterable.dart';
+
 part 'collection/iterator.dart';
+
 part 'collection/list.dart';
+
 part 'collection/map.dart';
+
 part 'datetime/date_time.dart';
+
+part 'duration/duration.dart';
+
 part 'primitive/bool.dart';
+
 part 'primitive/double.dart';
+
 part 'primitive/int.dart';
+
 part 'primitive/num.dart';
+
 part 'primitive/string.dart';

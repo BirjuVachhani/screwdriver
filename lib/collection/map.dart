@@ -36,6 +36,12 @@ part of '../screwdriver.dart';
 
 /// provides extensions for map
 extension MapScrewdriver<K, V> on Map<K, V> {
-  /// Allows to add [entry] to [this]
+  /// Allows to add [Pair] to [this]
   void operator +(Pair<K, V> pair) => this[pair.first] = pair.second;
+
+  /// Allows to add [MapEntry] to [this]
+  void operator <<(MapEntry entry) => this[entry.key] = entry.value;
+
+  /// Converts [this] map into a JSON string
+  String toJson() => json.encode(this);
 }
