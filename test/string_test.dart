@@ -123,4 +123,10 @@ void main() {
     expect(''.words.length, 0);
     expect('     '.words.length, 0);
   });
+
+  test('toJson tests', () {
+    expect('{"name":"John"}'.parseJson(), equals({'name': 'John'}));
+    expect('{}'.parseJson(), equals({}));
+    expect(() => 'random'.parseJson(), throwsFormatException);
+  });
 }

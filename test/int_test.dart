@@ -65,4 +65,17 @@ void main() {
     expect(1.asBool, true);
     expect(0.asBool, false);
   });
+
+  test('random test', () {
+    expect(randomInt(), isA<int>());
+    expect(randomInt(max: 100), predicate((value) => value < 100));
+  });
+
+  test('twoDigits test', () {
+    expect(24.twoDigits(), '24');
+    expect(8.twoDigits(), '08');
+    expect(0.twoDigits(), '00');
+    expect(10.twoDigits(), '10');
+    expect(5646.twoDigits(), '5646');
+  });
 }

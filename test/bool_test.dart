@@ -11,4 +11,8 @@ void main() {
     expect(true.toInt(), 1);
     expect(false.toInt(), 0);
   });
+
+  test('random test', () {
+    expect(randomBool(), isA<bool>());
+  });
 }

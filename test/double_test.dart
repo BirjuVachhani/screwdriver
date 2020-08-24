@@ -10,4 +10,11 @@ void main() {
     expect(2.5.isWhole, false);
     expect(double.infinity.isWhole, false);
   });
+
+  test('random test', () {
+    expect(randomDouble(), isA<double>());
+    expect(randomDouble(), predicate((value) => value < 1));
+    expect(randomDouble(max: 50.0), predicate((value) => value < 50));
+    expect(randomDouble(max: 0.0), predicate((value) => value == 0));
+  });
 }
