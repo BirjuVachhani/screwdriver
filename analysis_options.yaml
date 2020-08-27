@@ -2,9 +2,10 @@ include: package:effective_dart/analysis_options.yaml
 
 linter:
   rules:
-    - camel_case_types
-    - package_api_docs
-    - prefer_single_quotes
+    camel_case_types: true
+    package_api_docs: true
+    prefer_single_quotes: true
+    avoid_catches_without_on_clauses: false
 
 analyzer:
   exclude:

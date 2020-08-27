@@ -29,45 +29,34 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: August 27, 2020
 
-import 'dart:async';
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:math';
+part of '../screwdriver.dart';
 
-import 'package:characters/characters.dart';
+/// Runs given [action] no sooner than in the next event-loop iteration,
+/// after all micro-tasks have run.
+Future<T> post<T>(FutureOr<T> action()) =>
+    Future.delayed(Duration.zero, action);
 
-import 'src/helpers/pair.dart';
-import 'src/utils.dart';
+/// Runs given [action] after a delay of [millis], no sooner than in the
+/// next event-loop iteration, after all micro-tasks have run.
+Future<T> postDelayed<T>(int millis, FutureOr<T> action()) =>
+    Future.delayed(Duration(milliseconds: millis), action);
 
-export 'src/helpers/pair.dart';
-export 'src/helpers/pre_conditions.dart';
-
-part 'async/future.dart';
-
-part 'collection/comparable.dart';
-
-part 'collection/iterable.dart';
-
-part 'collection/iterator.dart';
-
-part 'collection/list.dart';
-
-part 'collection/map.dart';
-
-part 'datetime/date_time.dart';
-
-part 'duration/duration.dart';
-
-part 'generic/generic.dart';
-
-part 'primitive/bool.dart';
-
-part 'primitive/double.dart';
-
-part 'primitive/int.dart';
-
-part 'primitive/num.dart';
-
-part 'primitive/string.dart';
+/// Run given [action] in a try-catch block and calls [onError] on exception.
+T runCaching<T>(
+    T action(), {void onError(dynamic error, StackTrace stacktrace)}) {
+  try {
+    if (action == null) return null;
+    return action();
+  } catch (error, stacktrace) {
+    if (onError != null) {
+      onError(error, stacktrace);
+    } else {
+      print(error);
+      print(stacktrace);
+    }
+    return null;
+  }
+}
