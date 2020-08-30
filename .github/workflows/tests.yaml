@@ -3,12 +3,12 @@ name: Tests
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-  test:
+  ubuntu-test:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        version: ["2.7", "2.8", "2.9", "dev"]
+        version: ["2.7", "2.8", "2.9","latest"]
     container:
       image:  google/dart:${{ matrix.version }}
     steps:
@@ -17,3 +17,27 @@ jobs:
         run: pub get
       - name: Run tests
         run: pub run test
+  macos-test:
+    timeout-minutes: 5
+    runs-on: macos-latest
+    steps:
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: pub get
+      - name: Run tests
+        run: pub run test
+  windows-test:
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install dart
+        run: choco install dart-sdk
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: C:\tools\dart-sdk\bin\pub.bat get
+      - name: Run tests
+        run: C:\tools\dart-sdk\bin\pub.bat run test

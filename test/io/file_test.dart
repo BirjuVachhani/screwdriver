@@ -37,6 +37,7 @@ void main() {
     });
 
     test('onModified test', () async {
+      if (!FileSystemEntity.isWatchSupported) return;
       final modified = MockFunction();
       final created = MockFunction();
       final deleted = MockFunction();
