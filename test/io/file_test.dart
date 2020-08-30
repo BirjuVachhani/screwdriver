@@ -38,6 +38,7 @@ void main() {
 
     test('onModified test', () async {
       if (!FileSystemEntity.isWatchSupported) return;
+      other.createSync();
       final modified = MockFunction();
       final deleted = MockFunction();
       final modifiedSub = other.onModified(modified.call);
