@@ -29,46 +29,42 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: August 29, 2020
 
-import 'dart:async';
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:math';
+import 'package:meta/meta.dart';
 
-import 'package:characters/characters.dart';
+/// Represents a generic triple of three values.
+@immutable
+class Triple<F, S, T> {
+  /// First value of triple.
+  final F first;
 
-import 'src/helpers/pair.dart';
-import 'src/utils.dart';
+  /// Second value of triple.
+  final S second;
 
-export 'src/helpers/pair.dart';
-export 'src/helpers/pre_conditions.dart';
-export 'src/helpers/triple.dart';
+  /// Third value of triple.
+  final T third;
 
-part 'async/future.dart';
+  /// Creates a new instance of triple
+  Triple(this.first, this.second, this.third);
 
-part 'collection/comparable.dart';
+  /// Allows to create a new triple from [this] triple,
+  /// but will different values.
+  Triple<F, S, T> copyWith({F first, S second, T third}) =>
+      Triple(first ?? this.first, second ?? this.second, third ?? this.third);
 
-part 'collection/iterable.dart';
+  @override
+  bool operator ==(Object other) =>
+      other is Triple &&
+      runtimeType == other.runtimeType &&
+      first == other.first &&
+      second == other.second &&
+      third == other.third;
 
-part 'collection/iterator.dart';
+  @override
+  int get hashCode => first.hashCode ^ second.hashCode ^ third.hashCode;
 
-part 'collection/list.dart';
-
-part 'collection/map.dart';
-
-part 'datetime/date_time.dart';
-
-part 'duration/duration.dart';
-
-part 'generic/generic.dart';
-
-part 'primitive/bool.dart';
-
-part 'primitive/double.dart';
-
-part 'primitive/int.dart';
-
-part 'primitive/num.dart';
-
-part 'primitive/string.dart';
+  @override
+  String toString() => '($first, $second, $third)';
+}
