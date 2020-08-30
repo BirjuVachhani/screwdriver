@@ -43,20 +43,3 @@ Future<T> post<T>(FutureOr<T> action()) =>
 /// next event-loop iteration, after all micro-tasks have run.
 Future<T> postDelayed<T>(int millis, FutureOr<T> action()) =>
     Future.delayed(Duration(milliseconds: millis), action);
-
-/// Run given [action] in a try-catch block and calls [onError] on exception.
-T runCaching<T>(T action(),
-    {void onError(dynamic error, StackTrace stacktrace)}) {
-  try {
-    if (action == null) return null;
-    return action();
-  } catch (error, stacktrace) {
-    if (onError != null) {
-      onError(error, stacktrace);
-    } else {
-      print(error);
-      print(stacktrace);
-    }
-    return null;
-  }
-}

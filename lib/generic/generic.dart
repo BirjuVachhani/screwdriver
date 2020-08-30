@@ -90,3 +90,20 @@ R run<R>(R block()) {
 // ignore: non_constant_identifier_names
 void TODO([String reason]) =>
     throw UnimplementedError(reason ?? 'An operation is not implemented.');
+
+/// Run given [action] in a try-catch block and calls [onError] on exception.
+T runCaching<T>(T action(),
+    {void onError(dynamic error, StackTrace stacktrace)}) {
+  try {
+    if (action == null) return null;
+    return action();
+  } catch (error, stacktrace) {
+    if (onError != null) {
+      onError(error, stacktrace);
+    } else {
+      print(error);
+      print(stacktrace);
+    }
+    return null;
+  }
+}

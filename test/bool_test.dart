@@ -2,6 +2,7 @@
 // Created Date: August 16, 2020
 
 import 'package:screwdriver/screwdriver.dart';
+import 'package:screwdriver/screwdriver_io.dart';
 import 'package:test/test.dart';
 
 void main() {

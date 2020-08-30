@@ -1,3 +1,3 @@
 ## 1.0.0
 
-- Initial version, created by Stagehand
+- Initial release. checkout documentation [here](https://pub.dev/documentation/screwdriver/1.0.0/).
