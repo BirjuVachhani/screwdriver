@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 21, 2020
 
-part of '../screwdriver.dart';
+part of screwdriver;
 
 /// provides extensions for [Comparable]
 extension ComparableScrewdriver<E extends Comparable> on E {

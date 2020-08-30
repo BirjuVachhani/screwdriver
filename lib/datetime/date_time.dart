@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 16, 2020
 
-part of '../screwdriver.dart';
+part of screwdriver;
 
 /// Provides extensions for [DateTime] class.
 extension DateTimeScrewdriver on DateTime {

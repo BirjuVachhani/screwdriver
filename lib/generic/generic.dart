@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 27, 2020
 
-part of '../screwdriver.dart';
+part of screwdriver;
 
 /// provides scope functions as extensions on [T]
 extension ScopeScrewdriver<T> on T {

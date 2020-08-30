@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 20, 2020
 
-part of '../screwdriver.dart';
+part of screwdriver;
 
 /// provides extensions for map
 extension MapScrewdriver<K, V> on Map<K, V> {
