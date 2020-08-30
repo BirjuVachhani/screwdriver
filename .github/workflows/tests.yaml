@@ -32,7 +32,7 @@ jobs:
         run: pub run test
   windows-test:
     timeout-minutes: 5
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Install dart
         run: choco install dart-sdk
