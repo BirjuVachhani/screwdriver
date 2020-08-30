@@ -29,8 +29,6 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver_io;
-
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';

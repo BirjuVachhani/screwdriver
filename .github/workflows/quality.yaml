@@ -7,7 +7,7 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     container:
-      image:  google/dart:2.7
+      image:  google/dart:latest
     steps:
       - uses: actions/checkout@v1
       - name: Install dependencies
