@@ -100,9 +100,6 @@ T runCaching<T>(T action(),
   } catch (error, stacktrace) {
     if (onError != null) {
       onError(error, stacktrace);
-    } else {
-      print(error);
-      print(stacktrace);
     }
     return null;
   }
