@@ -3,6 +3,7 @@ name: Publish on pub.dev
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   build:
