@@ -6,8 +6,8 @@ import 'package:test/test.dart';
 
 void main() {
   test('duration tests', () {
-    expect(1.days.ago.truncateMillis(), now().previousDay.truncateMillis());
-    expect(1.days.after.truncateMillis(), now().nextDay.truncateMillis());
+    expect(1.days.ago.truncateSeconds(), now().previousDay.truncateSeconds());
+    expect(1.days.after.truncateSeconds(), now().nextDay.truncateSeconds());
 
     expect(1.days.isInDays, isTrue);
     expect(0.days.isInDays, isFalse);
