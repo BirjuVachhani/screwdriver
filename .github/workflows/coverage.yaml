@@ -4,11 +4,13 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   coverage:
-    runs-on: ubuntu-latest
-    container:
-      image:  google/dart:latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v1
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
       - name: Install dependencies
         run: pub get
       - name: Activate Test Coverage
