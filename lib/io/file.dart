@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 29, 2020
 
-part of screwdriver;
+part of screwdriver_io;
 
 /// provides extensions for [File]
 extension FileScrewdriver on File {

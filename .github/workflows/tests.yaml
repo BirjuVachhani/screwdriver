@@ -4,7 +4,6 @@ on: [push, pull_request, workflow_dispatch]
 
 jobs:
   ubuntu-test:
-    timeout-minutes: 5
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -18,7 +17,6 @@ jobs:
       - name: Run tests
         run: pub run test
   macos-test:
-    timeout-minutes: 5
     runs-on: macos-latest
     steps:
       - name: Tap Google's Dart formula repository
@@ -31,7 +29,6 @@ jobs:
       - name: Run tests
         run: pub run test
   windows-test:
-    timeout-minutes: 5
     runs-on: windows-latest
     steps:
       - name: Install dart
