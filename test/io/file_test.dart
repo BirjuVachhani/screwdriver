@@ -39,19 +39,15 @@ void main() {
     test('onModified test', () async {
       if (!FileSystemEntity.isWatchSupported) return;
       final modified = MockFunction();
-      final created = MockFunction();
       final deleted = MockFunction();
       final modifiedSub = other.onModified(modified.call);
-      final createdSub = other.onCreated(created.call);
       final deletedSub = other.onDeleted(deleted.call);
       other << ' world';
       other.deleteSync();
       await Future.delayed(Duration(seconds: 1));
       verify(modified.call()).called(1);
-      verify(created.call()).called(1);
       verify(deleted.call()).called(1);
       await modifiedSub.cancel();
-      await createdSub.cancel();
       await deletedSub.cancel();
     });
 

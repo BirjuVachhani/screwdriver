@@ -61,12 +61,6 @@ extension FileScrewdriver on File {
     return watch(events: FileSystemEvent.delete).listen((event) => block());
   }
 
-  /// Calls [block] whenever the [this] file is created.
-  /// Returns [StreamSubscription] which allows to cancel the listener.
-  StreamSubscription onCreated(void block()) {
-    return watch(events: FileSystemEvent.create).listen((event) => block());
-  }
-
   /// Appends [value] string at the end of the file using provided [encoding].
   Future<void> appendString(String value, {Encoding encoding = utf8}) async {
     final fileAccess = await open(mode: FileMode.writeOnlyAppend);
