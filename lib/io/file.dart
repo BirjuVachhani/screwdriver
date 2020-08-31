@@ -40,7 +40,7 @@ extension FileScrewdriver on File {
   Future<void> copyTo(File other) async {
     final sink = other.openWrite();
     await sink.addStream(openRead());
-    sink.close();
+    await sink.close();
   }
 
   /// Asynchronously flushes all the data in [this] file leaving it to be empty.
