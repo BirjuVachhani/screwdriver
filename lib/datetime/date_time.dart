@@ -76,14 +76,20 @@ extension DateTimeScrewdriver on DateTime {
   /// This doesn't account for time.
   bool get isYesterday {
     final now = DateTime.now();
-    return day == now.day - 1 && month == now.month && year == now.year;
+    final yesterday = DateTime(now.year, now.month, now.day - 1);
+    return day == yesterday.day &&
+        month == yesterday.month &&
+        year == yesterday.year;
   }
 
   /// Returns true if [this] occurs a day after today
   /// This doesn't account for time.
   bool get isTomorrow {
     final now = DateTime.now();
-    return day == now.day + 1 && month == now.month && year == now.year;
+    final tomorrow = DateTime(now.year, now.month, now.day + 1);
+    return day == tomorrow.day &&
+        month == tomorrow.month &&
+        year == tomorrow.year;
   }
 
   /// Returns true if [this] occurs in past
@@ -97,13 +103,15 @@ extension DateTimeScrewdriver on DateTime {
   /// Returns true if [this] occurs in previous month
   bool get isInPreviousMonth {
     final now = DateTime.now();
-    return month == now.month - 1 && year == now.year;
+    final previousMonth = DateTime(now.year, now.month - 1, now.day);
+    return month == previousMonth.month && year == previousMonth.year;
   }
 
   /// Returns true if [this] occurs in previous month
   bool get isInNextMonth {
     final now = DateTime.now();
-    return month == now.month + 1 && year == now.year;
+    final nextMonth = DateTime(now.year, now.month + 1, now.day);
+    return month == nextMonth.month && year == nextMonth.year;
   }
 
   /// Returns true if [this] occurs in previous year
