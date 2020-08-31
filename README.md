@@ -184,7 +184,7 @@ Checkout [documentation][docs]
 Please file feature requests and bugs at the [issue tracker][tracker].
 
 [tracker]: https://github.com/BirjuVachhani/screwdriver/issues
-[docs ]: https://pub.dev/documentation/screwdriver/latest/
+[docs]: https://pub.dev/documentation/screwdriver/latest/
 
 <br/>
 
