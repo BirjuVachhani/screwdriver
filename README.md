@@ -1,6 +1,6 @@
 ![banner](banner.png)
 
-<br/>
+
 
 # Screwdriver
 
@@ -8,7 +8,7 @@ A dart package aiming to provide useful extensions and helper functions to ease 
 
 [![Tests](https://github.com/BirjuVachhani/screwdriver/workflows/Tests/badge.svg?branch=master)](https://github.com/BirjuVachhani/screwdriver/actions) [![Code Quality](https://github.com/BirjuVachhani/screwdriver/workflows/Code%20Quality/badge.svg?branch=master)](https://github.com/BirjuVachhani/screwdriver/actions) [![Codecov](https://img.shields.io/codecov/c/github/birjuvachhani/screwdriver.svg)](https://codecov.io/gh/birjuvachhani/screwdriver)
 
-<br/>
+
 
 - 📋  Well Documented
 - ⚔️ Fully Tested
@@ -22,7 +22,7 @@ A dart package aiming to provide useful extensions and helper functions to ease 
 
 To checkout all the available extensions, helper functions & classes, see [documentation][docs].
 
-<br/>
+
 
 ## Installation
 
@@ -45,7 +45,7 @@ import 'package:screwdriver/screwdriver.dart';
 import 'package:screwdriver/screwdriver_io.dart';
 ```
 
-<br/>
+
 
 A Glimpse of Screwdriver
 
@@ -64,7 +64,7 @@ A Glimpse of Screwdriver
 '#hello'.removePrefix('#'); // hello
 ```
 
-<br/>
+
 
 #### Int
 
@@ -76,7 +76,7 @@ A Glimpse of Screwdriver
 10.repeat((count) => print(count));
 ```
 
-<br/>
+
 
 #### DateTime & Duration
 
@@ -91,7 +91,7 @@ now().previousDay; // yesterday
 10.days.ago.isBetween(15.days.ago, now()); // true
 ```
 
-<br/>
+
 
 #### Double and Bool
 
@@ -103,7 +103,7 @@ false.toInt(); // 0
 
 ```
 
-<br/>
+
 
 #### Scope Functions
 
@@ -115,7 +115,7 @@ final User user = User(name: 'John').apply((user){
 final String age = user.run((u)=> (u.age + 20).toString());
 ```
 
-<br/>
+
 
 #### Collections
 
@@ -133,7 +133,7 @@ cars.intersect(otherCars);
 {'name': 'John'} << Pair('email','john@doe.com');
 ```
 
-<br/>
+
 
 #### Future
 
@@ -143,7 +143,7 @@ postDelayed(2000,(){
 });
 ```
 
-<br/>
+
 
 #### IO
 
@@ -156,7 +156,7 @@ file << 'some text';
 file1 + file2; // appends file2 content at the end of file1
 ```
 
-<br/>
+
 
 #### Some More
 
@@ -173,11 +173,11 @@ final DateTime date = tomorrow;
 yesterday.isInDecember;
 ```
 
-<br/>
+
 
 Checkout [documentation][docs]
 
-<br/>
+
 
 ## Features and bugs
 
@@ -186,7 +186,7 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 [tracker]: https://github.com/BirjuVachhani/screwdriver/issues
 [docs]: https://pub.dev/documentation/screwdriver/latest/
 
-<br/>
+
 
 #### Liked Screwdriver?
 
@@ -196,7 +196,7 @@ Or You can
 
 <a href="https://www.buymeacoffee.com/birjuvachhani" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-blue.png" alt="Buy Me A Coffee" style="height: 51px !important;width: 217px !important;" ></a>
 
-<br/>
+
 
 ## License
 
