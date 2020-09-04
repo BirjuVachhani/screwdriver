@@ -72,8 +72,11 @@ extension ScopeScrewdriver<T> on T {
     return null;
   }
 
-  /// pairs [this] with given [value] and returns an instance of [Pair]
+  /// alias for [to]
   Pair<T, V> pairWith<V>(V value) => Pair(this, value);
+
+  /// pairs [this] with given [value] and returns an instance of [Pair]
+  Pair<T, V> to<V>(V value) => Pair(this, value);
 }
 
 // Calls the specified function [block] with `this` value as its argument
