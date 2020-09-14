@@ -266,6 +266,9 @@ extension DateTimeScrewdriver on DateTime {
   /// Returned instance will have 0 minutes, seconds,
   /// milliseconds and microseconds.
   DateTime truncateMinutes() => DateTime(year, month, day, hour);
+
+  /// Formats date using [DateFormat] from intl package.
+  String format(String pattern) => DateFormat(pattern).format(this);
 }
 
 /// shot for [DateTime.now]

@@ -1,6 +1,7 @@
 // Author: Birju Vachhani
 // Created Date: August 16, 2020
 
+import 'package:intl/intl.dart';
 import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
 
@@ -187,5 +188,11 @@ void main() {
     expect(today, DateTime.now().dateOnly);
     expect(tomorrow, DateTime.now().nextDay.dateOnly);
     expect(yesterday, DateTime.now().previousDay.dateOnly);
+  });
+
+  test('format tests', () {
+    final date = DateTime(2020, 7, 24, 5, 35, 45);
+    expect(date.format('dd-mm-yyyy hh:mm:ss'),
+        DateFormat('dd-mm-yyyy hh:mm:ss').format(date));
   });
 }
