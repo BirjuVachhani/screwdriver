@@ -31,7 +31,6 @@
 
 import 'dart:async';
 
-
 typedef DeBounceAction = void Function();
 
 /// de-bounces [run] method calls and runs it only once in given [milliseconds]

@@ -11,7 +11,7 @@ void main() {
     expect(debouncer.duration, Duration(milliseconds: 300));
   });
 
-  test('de-bouncing test', () async{
+  test('de-bouncing test', () async {
     final debouncer = DeBouncer();
     final mockedFunction = MockedDeBouncedFunction();
     for (final index in [1, 2, 3, 4, 5]) {
@@ -28,7 +28,7 @@ void main() {
     verify(mockedFunction.call()).called(1);
   });
 
-  test('de-bouncer cancel test', () async{
+  test('de-bouncer cancel test', () async {
     final debouncer = DeBouncer();
     final mockedFunction = MockedDeBouncedFunction();
     for (final index in [1, 2, 3, 4, 5]) {
