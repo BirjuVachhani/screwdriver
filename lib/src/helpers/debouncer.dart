@@ -29,47 +29,33 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
-
 import 'dart:async';
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:math';
 
-import 'package:characters/characters.dart';
 
-import 'src/helpers/pair.dart';
-import 'src/utils.dart';
+typedef DeBounceAction = void Function();
 
-export 'src/helpers/pair.dart';
-export 'src/helpers/pre_conditions.dart';
-export 'src/helpers/triple.dart';
-export 'src/helpers/debouncer.dart';
+/// de-bounces [run] method calls and runs it only once in given [milliseconds]
+class DeBouncer {
+  /// de-bounce period
+  final Duration duration;
 
-part 'async/future.dart';
+  Timer _timer;
 
-part 'collection/comparable.dart';
+  /// Allows to create an instance with optional [Duration]
+  DeBouncer([Duration duration])
+      : duration = duration ?? Duration(milliseconds: 300);
 
-part 'collection/iterable.dart';
+  /// Runs [action] after debounced interval.
+  void run(DeBounceAction action) {
+    _timer?.cancel();
+    _timer = Timer(duration, action);
+  }
 
-part 'collection/iterator.dart';
+  /// alias for [run]
+  void call(DeBounceAction action) => run(action);
 
-part 'collection/list.dart';
-
-part 'collection/map.dart';
-
-part 'datetime/date_time.dart';
-
-part 'duration/duration.dart';
-
-part 'generic/generic.dart';
-
-part 'primitive/bool.dart';
-
-part 'primitive/double.dart';
-
-part 'primitive/int.dart';
-
-part 'primitive/num.dart';
-
-part 'primitive/string.dart';
+  /// Allows to cancel current timer.
+  void cancel() {
+    _timer.cancel();
+  }
+}
