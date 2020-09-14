@@ -28,6 +28,10 @@ void main() {
     expect(15.pairWith('odd'), Pair(15, 'odd'));
   });
 
+  test('to tests', () {
+    expect(15.to('odd'), Pair(15, 'odd'));
+  });
+
   test('TODO tests', () {
     expect(() => TODO('unimplemented test'), throwsUnimplementedError);
   });
