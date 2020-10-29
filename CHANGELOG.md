@@ -1,3 +1,9 @@
+## 1.1.1
+
+- Add extensions `isInYears` and `inYears` for `Duration`.
+- Add extension `fromNow()` for `DateTime`.
+- Fix Issue: `DeBouncer` throwing null pointer exception when calling `cancel()`.
+
 ## 1.1.0
 
 - Added extension format date using `DateFormat` from **intl** package.
