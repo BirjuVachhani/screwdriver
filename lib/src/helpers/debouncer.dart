@@ -31,6 +31,7 @@
 
 import 'dart:async';
 
+/// typedef for action function for [DeBouncer]
 typedef DeBounceAction = void Function();
 
 /// de-bounces [run] method calls and runs it only once in given [milliseconds]
@@ -51,10 +52,10 @@ class DeBouncer {
   }
 
   /// alias for [run]
-  void call(DeBounceAction action) => run(action);
+  void call(DeBounceAction action) => run?.call(action);
 
   /// Allows to cancel current timer.
   void cancel() {
-    _timer.cancel();
+    _timer?.cancel();
   }
 }
