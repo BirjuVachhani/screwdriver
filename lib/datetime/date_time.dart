@@ -45,6 +45,9 @@ extension DateTimeScrewdriver on DateTime {
   /// This is helpful in cases where comparison of only dates is required.
   DateTime get dateOnly => DateTime(year, month, day);
 
+  /// Returns Duration difference between [this] and current time
+  Duration fromNow() => difference(now());
+
   /// Returns true if the date of [this] occurs before the date of [other].
   ///
   /// The comparison is independent of whether the time is in UTC or

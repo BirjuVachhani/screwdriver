@@ -32,5 +32,8 @@ void main() {
     expect(Duration(hours: 1, minutes: 24).absoluteMinutes, 24);
     expect(Duration(hours: 1, minutes: 24, seconds: 45).absoluteSeconds, 45);
     expect(Duration(days: 2, hours: 13, minutes: 24).absoluteHours, 13);
+
+    expect(400.days.isInYears, isTrue);
+    expect(730.days.inYears, 2);
   });
 }

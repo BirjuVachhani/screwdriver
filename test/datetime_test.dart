@@ -195,4 +195,11 @@ void main() {
     expect(date.format('dd-mm-yyyy hh:mm:ss'),
         DateFormat('dd-mm-yyyy hh:mm:ss').format(date));
   });
+
+  test('fromNow tests', () {
+    final date = DateTime(2020, 7, 24, 5, 35, 45);
+    final actual = date.difference(DateTime.now());
+    final expected = date.fromNow();
+    expect(actual.inSeconds, expected.inSeconds);
+  });
 }

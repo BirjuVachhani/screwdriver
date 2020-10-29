@@ -82,10 +82,7 @@ extension ScopeScrewdriver<T> on T {
 // Calls the specified function [block] with `this` value as its argument
 /// and returns `this` value.
 R run<R>(R block()) {
-  if (block != null) {
-    return block();
-  }
-  return null;
+  return block?.call();
 }
 
 /// Always throws [UnimplementedError] stating that operation is
@@ -98,12 +95,9 @@ void TODO([String reason]) =>
 T runCaching<T>(T action(),
     {void onError(dynamic error, StackTrace stacktrace)}) {
   try {
-    if (action == null) return null;
-    return action();
+    return action?.call();
   } catch (error, stacktrace) {
-    if (onError != null) {
-      onError(error, stacktrace);
-    }
+    onError?.call(error, stacktrace);
     return null;
   }
 }
