@@ -42,6 +42,18 @@ extension StringScrewdriver on String {
   /// Returns true if [this] contains characters other than white-spaces.
   bool get isNotBlank => trim().isNotEmpty;
 
+  /// Returns true if [this] is either null or empty string.
+  bool get isNullOrEmpty => this == null || isEmpty;
+
+  /// Returns true if [this] is neither null nor empty string.
+  bool get isNotNullOrEmpty => this != null && isNotEmpty;
+
+  /// Returns true if [this] is either null or blank string.
+  bool get isNullOrBlank => this == null || isBlank;
+
+  /// Returns true if [this] is neither null nor blank string.
+  bool get isNotNullOrBlank => this != null && isNotBlank;
+
   /// Converts the first character of [this] to upper case.
   String get capitalized {
     if (isBlank) return this;
