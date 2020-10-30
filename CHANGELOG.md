@@ -1,3 +1,9 @@
+## 1.2.0
+
+- Add `isNullOrEmpty` and `isNotNullOrEmpty` extensions for collections.
+- Add `isNullOrEmpty` and `isNotNullOrEmpty` extensions for string.
+- Add `isNullOrBlank` and `isNotNullOrBlank` extensions for string.
+
 ## 1.1.1
 
 - Add extensions `isInYears` and `inYears` for `Duration`.
