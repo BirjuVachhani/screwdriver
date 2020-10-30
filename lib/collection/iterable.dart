@@ -73,6 +73,12 @@ extension IterableScrewDriver<E> on Iterable<E> {
     return singleWhere((element) => test(element), orElse: () => null);
   }
 
+  /// Returns true if [this] is either null or empty collection
+  bool get isNullOrEmpty => this == null || isEmpty;
+
+  /// Returns true if [this] is neither null nor empty collection
+  bool get isNotNullOrEmpty => this != null && isNotEmpty;
+
   /// Appends all elements matching the given [predicate] to
   /// the given [destination].
   Iterable<E> filterTo(List<E> destination, bool predicate(E element)) {
