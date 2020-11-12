@@ -20,6 +20,6 @@ jobs:
       - name: Install dependencies
         run: pub get
       - name: Analyzer
-        run: dartanalyzer .
+        run: dart analyze .
       - name: Dartfmt
-        run: dartfmt --set-exit-if-changed -w --fix .
+        run: dart format --set-exit-if-changed --fix .
