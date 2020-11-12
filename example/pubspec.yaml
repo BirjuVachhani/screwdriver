@@ -1,0 +1,4 @@
+name: no_example
+
+dev_dependencies:
+  effective_dart: ^1.3.0

@@ -14,13 +14,13 @@ void main() {
   test('de-bouncing test', () async {
     final debouncer = DeBouncer();
     final mockedFunction = MockedDeBouncedFunction();
-    for (final index in [1, 2, 3, 4, 5]) {
+    for (final _ in [1, 2, 3, 4, 5]) {
       debouncer.run(mockedFunction);
     }
     await Future.delayed(Duration(milliseconds: 600));
     verify(mockedFunction.call()).called(1);
 
-    for (final index in [1, 2, 3]) {
+    for (final _ in [1, 2, 3]) {
       debouncer(mockedFunction);
     }
 
@@ -31,7 +31,7 @@ void main() {
   test('de-bouncer cancel test', () async {
     final debouncer = DeBouncer();
     final mockedFunction = MockedDeBouncedFunction();
-    for (final index in [1, 2, 3, 4, 5]) {
+    for (final _ in [1, 2, 3, 4, 5]) {
       debouncer.run(mockedFunction);
     }
     debouncer.cancel();
@@ -43,7 +43,7 @@ void main() {
 class MockedDeBouncedFunction extends Mock implements DeBouncedFunction {}
 
 class DeBouncedFunction {
-  int call() {
+  void call() {
     print('Function called');
   }
 }
