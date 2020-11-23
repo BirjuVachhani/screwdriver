@@ -1,5 +1,9 @@
 ## 1.2.0
 
+- Upgraded dependencies with specific version bounds.
+
+## 1.2.0
+
 - Add `isNullOrEmpty` and `isNotNullOrEmpty` extensions for collections.
 - Add `isNullOrEmpty` and `isNotNullOrEmpty` extensions for string.
 - Add `isNullOrBlank` and `isNotNullOrBlank` extensions for string.
