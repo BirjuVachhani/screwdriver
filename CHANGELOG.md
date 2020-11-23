@@ -1,4 +1,4 @@
-## 1.2.0
+## 1.2.1
 
 - Upgraded dependencies with specific version bounds.
 
