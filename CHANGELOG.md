@@ -1,3 +1,8 @@
+## 1.2.2
+
+- Fixed email extension & tests.
+- upgraded test package dependency.
+
 ## 1.2.1
 
 - Upgraded dependencies with specific version bounds.
