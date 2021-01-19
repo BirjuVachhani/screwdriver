@@ -134,8 +134,10 @@ void main() {
 
   test('isEmail tests', () {
     expect('example@gmail.com'.isEmail, true);
+    expect('Example@Gmail.com'.isEmail, true);
     expect('a@a.com'.isEmail, true);
     expect('c+a@a.a'.isEmail, true);
+    expect('C+A@A.A'.isEmail, true);
     expect('mysite.ourearth.com'.isEmail, false);
     expect('@you.me.net'.isEmail, false);
     expect('mysite@.'.isEmail, false);
