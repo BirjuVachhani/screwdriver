@@ -39,25 +39,20 @@ extension ScopeScrewdriver<T> on T {
   /// Calls the specified function [block] with `this` value as its argument
   /// and returns `this` value.
   T apply(void block(T obj)) {
-    if (block != null) {
-      block(this);
-    }
+    block(this);
     return this;
   }
 
   /// Calls the specified function [block] with `this` value as its argument
   /// and returns `this` value.
   R run<R>(R block(T obj)) {
-    if (block != null) {
-      return block(this);
-    }
-    return null;
+    return block(this);
   }
 
   /// Returns [this] if it satisfies the given [predicate] or null,
   /// if it doesn't.
-  T takeIf(bool predicate(T obj)) {
-    if (predicate != null && predicate(this)) {
+  T? takeIf(bool predicate(T obj)) {
+    if (predicate(this)) {
       return this;
     }
     return null;
@@ -65,8 +60,8 @@ extension ScopeScrewdriver<T> on T {
 
   /// Returns [this] if it doesn't satisfy the given [predicate] or null,
   /// if it doesn't.
-  T takeUnless(bool predicate(T obj)) {
-    if (predicate != null && !predicate(this)) {
+  T? takeUnless(bool predicate(T obj)) {
+    if (!predicate(this)) {
       return this;
     }
     return null;
@@ -82,20 +77,20 @@ extension ScopeScrewdriver<T> on T {
 // Calls the specified function [block] with `this` value as its argument
 /// and returns `this` value.
 R run<R>(R block()) {
-  return block?.call();
+  return block.call();
 }
 
 /// Always throws [UnimplementedError] stating that operation is
 /// not implemented.
 // ignore: non_constant_identifier_names
-void TODO([String reason]) =>
+void TODO([String? reason]) =>
     throw UnimplementedError(reason ?? 'An operation is not implemented.');
 
 /// Run given [action] in a try-catch block and calls [onError] on exception.
-T runCaching<T>(T action(),
-    {void onError(dynamic error, StackTrace stacktrace)}) {
+T? runCaching<T>(T action(),
+    {T? onError(dynamic error, StackTrace stacktrace)?}) {
   try {
-    return action?.call();
+    return action.call();
   } catch (error, stacktrace) {
     onError?.call(error, stacktrace);
     return null;

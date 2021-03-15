@@ -1,3 +1,34 @@
+## 2.0.0
+
+- Migrated to null safety.
+- Removed following extensions either because they are redundant in favor of non-nullable types or they are already available in the null safe version of [collection](https://pub.dev/packages/collection) package of [dart.dev](dart.dev).
+    - `Iterable.firstOrNull`
+    - `Iterable.firstOrNullWhere`
+    - `Iterable.lastOrNullWhere`
+    - `Iterable.singleOrNullWhere`
+    - `Iterable.isNullOrEmpty`
+    - `Iterable.isNotNullOrEmpty`
+    - `Iterable.none`
+    - `Iterable.whereIndexed`
+    - `Iterable.mapIndexed`
+    - `Iterable.forEachIndexed`
+    - `Iterable.foldIndexed`
+    - `Iterable.foldIndexed`
+    - `Iterable.sum`
+    - `Iterable.average`
+    - `Iterable.max`
+    - `Iterable.min`
+    - `String.isNullOrEmpty`
+    - `String.isNotNullOrEmpty`
+    - `String.isNullOrBlank`
+    - `String.isNotNullOrBlank`
+- Added some more extensions in favor of null safety:
+    - `Iterable.randomOrNull`
+    - `Iterable.maxByOrNull`
+    - `Iterable.maxByLastOrNull`
+    - `Iterable.minByOrNull`
+    - `Iterable.minByLastOrNull`
+
 ## 1.2.2
 
 - Fixed email extension & tests.

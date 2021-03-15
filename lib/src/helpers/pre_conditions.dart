@@ -36,17 +36,15 @@
 /// If [name] is supplied, it is used as the parameter name
 /// in the error message.
 /// Returns the [argument] if it is not null.
-T checkNotNull<T>(T argument, [String message]) =>
-    argument == null ? throw IllegalStateException(message) : argument;
+T checkNotNull<T>(T argument, [String? message]) => argument == null
+    ? throw IllegalStateException(message ?? 'Argument cannot be null')
+    : argument;
 
-/// Throws [IllegalStateException] if [argument] is `null`.
-/// If [name] is supplied, it is used as the parameter name
-/// in the error message.
-/// Returns the [argument] if it is not null.
+/// Throws [IllegalStateException] if [value] is false.
 // ignore: avoid_positional_boolean_parameters
-void check(bool value, [String message]) {
+void check(bool value, [String? message]) {
   if (!value) {
-    throw IllegalStateException(message);
+    throw IllegalStateException(message ?? 'value cannot be false');
   }
 }
 
@@ -54,17 +52,19 @@ void check(bool value, [String message]) {
 /// If [name] is supplied, it is used as the parameter name
 /// in the error message.
 /// Returns the [argument] if it is not null.
-T requireNotNull<T>(T argument, [String message]) =>
-    argument == null ? throw IllegalArgumentException(message) : argument;
+T requireNotNull<T>(T argument, [String? message]) => argument == null
+    ? throw IllegalArgumentException(
+        message ?? 'Argument requires to be non-null')
+    : argument;
 
 /// Throws [IllegalArgumentException] if [argument] is `null`.
 /// If [name] is supplied, it is used as the parameter name
 /// in the error message.
 /// Returns the [argument] if it is not null.
 // ignore: avoid_positional_boolean_parameters
-void require(bool value, [String message]) {
+void require(bool value, [String? message]) {
   if (!value) {
-    throw IllegalArgumentException(message);
+    throw IllegalArgumentException(message ?? 'Value is required to be true');
   }
 }
 
@@ -75,14 +75,11 @@ class IllegalArgumentException implements Exception {
   final String message;
 
   /// factory constructor that allows to pass a message
-  IllegalArgumentException([this.message]);
+  IllegalArgumentException(this.message);
 
   @override
   String toString() {
-    if (message != null) {
-      return 'IllegalArgumentException: $message';
-    }
-    return 'IllegalArgumentException';
+    return 'IllegalArgumentException: $message';
   }
 }
 
@@ -93,13 +90,10 @@ class IllegalStateException implements Exception {
   final String message;
 
   /// factory constructor that allows to pass a message
-  IllegalStateException([this.message]);
+  IllegalStateException(this.message);
 
   @override
   String toString() {
-    if (message != null) {
-      return 'IllegalStateException: $message';
-    }
-    return 'IllegalStateException';
+    return 'IllegalStateException: $message';
   }
 }

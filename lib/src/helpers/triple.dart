@@ -51,7 +51,7 @@ class Triple<F, S, T> {
 
   /// Allows to create a new triple from [this] triple,
   /// but will different values.
-  Triple<F, S, T> copyWith({F first, S second, T third}) =>
+  Triple<F, S, T> copyWith({F? first, S? second, T? third}) =>
       Triple(first ?? this.first, second ?? this.second, third ?? this.third);
 
   @override

@@ -37,11 +37,11 @@ part of screwdriver;
 /// provides extensions for [Iterator]
 extension IteratorScrewdriver<E> on Iterator<E> {
   /// Advances the current index and returns current element
-  E next() => moveNext() ? current : null;
+  E? next() => moveNext() ? current : null;
 }
 
 /// provides extensions for [BidirectionalIterator]
 extension BidirectionalIteratorScrewdriver<E> on BidirectionalIterator<E> {
   /// moves the current index backwards and returns current element
-  E previous() => movePrevious() ? current : null;
+  E? previous() => movePrevious() ? current : null;
 }

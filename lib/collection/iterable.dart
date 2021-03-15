@@ -36,48 +36,17 @@ part of screwdriver;
 
 /// provides extensions for Iterable
 extension IterableScrewDriver<E> on Iterable<E> {
-  /// Returns the first element in the iterable or returns null
-  /// if iterable is empty.
-  E get firstOrNull => isNotEmpty ? first : null;
-
-  /// Returns the first element that satisfies the given predicate [test] or
-  /// returns null.
-  E firstOrNullWhere(bool test(E e)) {
-    if (isEmpty) return null;
-    return firstWhere((element) => test(element), orElse: () => null);
-  }
-
   /// Returns the second element in the iterable or
   /// returns null if iterable is empty or has only 1 element.
-  E get secondOrNull => length > 1 ? elementAt(1) : null;
+  E? get secondOrNull => length > 1 ? elementAt(1) : null;
 
   /// Returns the third element in the iterable or
   /// returns null if iterable is empty or has less than 3 elements.
-  E get thirdOrNull => length > 2 ? elementAt(2) : null;
+  E? get thirdOrNull => length > 2 ? elementAt(2) : null;
 
   /// Returns the last element in the iterable or returns null
   /// if iterable is empty.
-  E get lastOrNull => isNotEmpty ? last : null;
-
-  /// Returns the last element that satisfies the given predicate [test] or
-  /// returns null.
-  E lastOrNullWhere(bool test(E e)) {
-    if (isEmpty) return null;
-    return lastWhere((element) => test(element), orElse: () => null);
-  }
-
-  /// Returns single element that satisfies the given predicate [test] or
-  /// returns null.
-  E singleOrNullWhere(bool test(E e)) {
-    if (isEmpty) return null;
-    return singleWhere((element) => test(element), orElse: () => null);
-  }
-
-  /// Returns true if [this] is either null or empty collection
-  bool get isNullOrEmpty => this == null || isEmpty;
-
-  /// Returns true if [this] is neither null nor empty collection
-  bool get isNotNullOrEmpty => this != null && isNotEmpty;
+  E? get lastOrNull => isNotEmpty ? last : null;
 
   /// Appends all elements matching the given [predicate] to
   /// the given [destination].
@@ -92,8 +61,12 @@ extension IterableScrewDriver<E> on Iterable<E> {
   Iterable<E> filter(bool predicate(E element)) => filterTo(<E>[], predicate);
 
   /// alias for [whereIndexed]
-  Iterable<E> filterIndexed(bool test(int index, E element)) =>
-      whereIndexed(test);
+  Iterable<E> filterIndexed(bool test(int index, E element)) sync* {
+    var index = 0;
+    for (var element in this) {
+      if (test(index++, element)) yield element;
+    }
+  }
 
   /// alias for [Iterable.map]
   Iterable<R> flatMap<R>(R transform(E element)) => map<R>(transform);
@@ -122,44 +95,6 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// alias for [Iterable.every]
   bool all(bool test(E element)) => every(test);
-
-  /// Checks whether no elements of this iterable satisfies [test] or not.
-  ///
-  /// Checks every element in iteration order, and returns `false` if
-  /// any of them make [test] return `true`, otherwise returns `true`.
-  bool none(bool test(E element)) {
-    for (final element in this) {
-      if (test(element)) return false;
-    }
-    return true;
-  }
-
-  /// Returns an iterable containing all elements hat satisfies
-  /// the given predicate [test].
-  Iterable<E> whereIndexed(bool test(int index, E element)) sync* {
-    for (var index = 0; index < length; index++) {
-      final element = elementAt(index);
-      if (test(index, element)) {
-        yield element;
-      }
-    }
-  }
-
-  /// Returns a list containing the results of applying the given [transform]
-  /// function to each element and its index in the original List.
-  Iterable<R> mapIndexed<R>(R transform(int index, E element)) sync* {
-    for (var index = 0; index < length; index++) {
-      yield transform(index, elementAt(index));
-    }
-  }
-
-  /// Performs the given [action] on each element, providing sequential
-  /// index with the element.
-  void forEachIndexed(void action(int index, E element)) {
-    for (var index = 0; index < length; index++) {
-      action(index, elementAt(index));
-    }
-  }
 
   /// Returns a [Map] containing key-value pairs provided by [transform]
   /// function applied to elements of the given List.
@@ -268,18 +203,6 @@ extension IterableScrewDriver<E> on Iterable<E> {
     return count;
   }
 
-  /// Accumulates value starting with [initialValue] value and applying
-  /// [operation] from left to right to current accumulator value and
-  /// each element with its index in the original collection.
-  T foldIndexed<T>(
-      T initialValue, T operation(int index, T previousValue, E element)) {
-    var value = initialValue;
-    for (var index = 0; index < length; index++) {
-      value = operation(index, value, elementAt(index));
-    }
-    return value;
-  }
-
   /// Accumulates value starting with [initialValue] value and
   /// applying [operation] from right to left to each element
   /// and current accumulator value.
@@ -307,32 +230,48 @@ extension IterableScrewDriver<E> on Iterable<E> {
     return accumulator;
   }
 
-  /// Returns a random element from [this].
-  E random() {
+  /// Returns a random element from [this]. Returns null if no elements
+  /// are present.
+  E? randomOrNull([Random? random]) {
     if (isEmpty) return null;
     if (length == 1) return first;
-    return elementAt(Random().nextInt(length));
+    return elementAt((random ?? Random()).nextInt(length));
+  }
+
+  /// Returns a random element from [this].
+  /// Throws [StateError] if there are no elements in the collection.
+  E random([Random? random]) {
+    if (isEmpty) throw StateError('no elements');
+    if (length == 1) return first;
+    return elementAt((random ?? Random()).nextInt(length));
   }
 
   /// Performs the given [action] on each element and returns the
   /// iterable itself afterwards.
   Iterable<E> onEach(void action(E element)) => this..forEach(action);
 
-  /// Reduces a collection to a single value by iteratively combining elements
-  /// of the collection using the provided function with index.
-  E reduceIndexed(E combine(int index, E value, E element)) {
+  /// Returns the first element yielding the largest value of the given
+  /// function or `null` if there are no elements.
+  E? maxByOrNull<R extends Comparable>(R selector(E element)) {
     if (isEmpty) return null;
-    var value = first;
-    for (var index = 1; index < length; index++) {
-      value = combine(index, value, elementAt(index));
+    if (length == 1) return first;
+    var maxElement = first;
+    var maxValue = selector(maxElement);
+    for (final element in this) {
+      final value = selector(element);
+      if (maxValue < value) {
+        maxValue = value;
+        maxElement = element;
+      }
     }
-    return value;
+    return maxElement;
   }
 
   /// Returns the first element yielding the largest value of the given
-  /// function or `null` if there are no elements.
+  /// function.
+  /// Throws [StateError] if there are no elements in the collection.
   E maxBy<R extends Comparable>(R selector(E element)) {
-    if (isEmpty) return null;
+    if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var maxElement = first;
     var maxValue = selector(maxElement);
@@ -348,8 +287,26 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the last element yielding the largest value of the given
   /// function or `null` if there are no elements.
-  E maxByLast<R extends Comparable>(R selector(E element)) {
+  E? maxByLastOrNull<R extends Comparable>(R selector(E element)) {
     if (isEmpty) return null;
+    if (length == 1) return first;
+    var maxElement = first;
+    var maxValue = selector(maxElement);
+    for (final element in this) {
+      final value = selector(element);
+      if (maxValue <= value) {
+        maxValue = value;
+        maxElement = element;
+      }
+    }
+    return maxElement;
+  }
+
+  /// Returns the last element yielding the largest value of the given
+  /// function.
+  /// Throws [StateError] if there are no elements in the collection.
+  E maxByLast<R extends Comparable>(R selector(E element)) {
+    if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var maxElement = first;
     var maxValue = selector(maxElement);
@@ -365,8 +322,26 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the first element yielding the smallest value of the given
   /// function or `null` if there are no elements.
-  E minBy<R extends Comparable>(R selector(E element)) {
+  E? minByOrNull<R extends Comparable>(R selector(E element)) {
     if (isEmpty) return null;
+    if (length == 1) return first;
+    var minElement = first;
+    var minValue = selector(minElement);
+    for (final element in this) {
+      final value = selector(element);
+      if (minValue > value) {
+        minValue = value;
+        minElement = element;
+      }
+    }
+    return minElement;
+  }
+
+  /// Returns the first element yielding the smallest value of the given
+  /// function.
+  /// Throws [StateError] if there are no elements in the collection.
+  E minBy<R extends Comparable>(R selector(E element)) {
+    if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var minElement = first;
     var minValue = selector(minElement);
@@ -382,8 +357,26 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the last element yielding the smallest value of the given
   /// function or `null` if there are no elements.
-  E minByLast<R extends Comparable>(R selector(E element)) {
+  E? minByLastOrNull<R extends Comparable>(R selector(E element)) {
     if (isEmpty) return null;
+    if (length == 1) return first;
+    var minElement = first;
+    var minValue = selector(minElement);
+    for (final element in this) {
+      final value = selector(element);
+      if (minValue >= value) {
+        minValue = value;
+        minElement = element;
+      }
+    }
+    return minElement;
+  }
+
+  /// Returns the last element yielding the smallest value of the given
+  /// function.
+  /// Throws [StateError] if there are no elements in the collection.
+  E minByLast<R extends Comparable>(R selector(E element)) {
+    if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var minElement = first;
     var minValue = selector(minElement);
@@ -401,7 +394,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// applied to each element in the collection.
   R sumBy<R extends num>(R selector(E element)) => fold<R>(
       (R == int ? 0 : 0.0) as R,
-      (previousValue, element) => previousValue + selector(element));
+      (previousValue, element) => previousValue + selector(element) as R);
 
   /// Returns the average of all values produced by [selector] function
   /// applied to each element in the collection.
@@ -409,19 +402,4 @@ extension IterableScrewDriver<E> on Iterable<E> {
     if (isEmpty) return 0;
     return sumBy(selector) / length;
   }
-}
-
-/// provides extensions for num iterables
-extension NumIterableScrewdriver<E extends num> on Iterable<E> {
-  /// returns sum of all the elements in [this]
-  E sum() => sumBy((element) => element);
-
-  /// returns average of all the elements in [this]
-  double average() => averageBy((element) => element);
-
-  /// returns the maximum element from all the elements in [this]
-  E max() => maxBy((element) => element);
-
-  /// returns the minimum element from all the elements in [this]
-  E min() => minBy((element) => element);
 }

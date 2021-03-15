@@ -127,4 +127,4 @@ extension IntScrewdriver<T> on int {
 /// Generates a non-negative random integer uniformly distributed in the range
 /// rom 0, inclusive, to [max], exclusive.
 /// default [max] is 1_000_000
-int randomInt({int max}) => Random().nextInt(max ?? 1000000);
+int randomInt({int? max}) => Random().nextInt(max ?? 1000000);

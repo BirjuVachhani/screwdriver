@@ -47,7 +47,7 @@ class Pair<K, V> {
   Pair(this.first, this.second);
 
   /// Allows to create a new pair from this pair, but will different values.
-  Pair<K, V> copyWith({K first, V second}) =>
+  Pair<K, V> copyWith({K? first, V? second}) =>
       Pair(first ?? this.first, second ?? this.second);
 
   @override

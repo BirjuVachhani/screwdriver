@@ -42,18 +42,6 @@ extension StringScrewdriver on String {
   /// Returns true if [this] contains characters other than white-spaces.
   bool get isNotBlank => trim().isNotEmpty;
 
-  /// Returns true if [this] is either null or empty string.
-  bool get isNullOrEmpty => this == null || isEmpty;
-
-  /// Returns true if [this] is neither null nor empty string.
-  bool get isNotNullOrEmpty => this != null && isNotEmpty;
-
-  /// Returns true if [this] is either null or blank string.
-  bool get isNullOrBlank => this == null || isBlank;
-
-  /// Returns true if [this] is neither null nor blank string.
-  bool get isNotNullOrBlank => this != null && isNotBlank;
-
   /// Converts the first character of [this] to upper case.
   String get capitalized {
     if (isBlank) return this;
@@ -63,10 +51,10 @@ extension StringScrewdriver on String {
 
   /// Returns [this] as [int] or null
   /// Radix be between 2..36
-  int toIntOrNull({int radix}) => int.tryParse(this, radix: radix);
+  int? toIntOrNull({int? radix}) => int.tryParse(this, radix: radix);
 
   /// Returns [this] as [double] or null
-  double toDoubleOrNull() => double.tryParse(this);
+  double? toDoubleOrNull() => double.tryParse(this);
 
   /// Returns true only if [this] equals to be true (insensitive of case) or
   /// if a non-zero integer.
@@ -78,7 +66,7 @@ extension StringScrewdriver on String {
   ///         'something'.toBoolOrNull()        // returns null
   ///         '1'.toBoolOrNull()                // returns true
   ///         '0'.toBoolOrNull()                // returns false
-  bool toBoolOrNull() {
+  bool? toBoolOrNull() {
     if (toLowerCase() == 'true') return true;
     return toLowerCase() != 'false' ? toIntOrNull()?.asBool : false;
   }
@@ -88,16 +76,15 @@ extension StringScrewdriver on String {
   /// e.g.
   ///       'hello'.wrap("*");          // returns *hello*
   ///       'html'.wrap('<','>');       // returns <html>
-  String wrap(String prefix, [String suffix]) =>
-      (prefix ?? '') + this + (suffix ?? prefix ?? '');
+  String wrap(String prefix, [String? suffix]) =>
+      (prefix) + this + (suffix ?? prefix);
 
   /// unwraps [this] between [prefix] and [suffix].
   /// Uses [prefix] as [suffix] if [suffix] is null.
   /// e.g.
   ///       '*hello*'.unwrap("*");          // returns hello
   ///       '<html>'.unwrap('<','>');       // returns html
-  String unwrap(String prefix, [String suffix]) {
-    prefix ??= '';
+  String unwrap(String prefix, [String? suffix]) {
     suffix ??= prefix;
     if (startsWith(prefix)) {
       return substring(
@@ -150,7 +137,7 @@ extension StringScrewdriver on String {
   String get reversed => characters.toList().reversed.join();
 
   /// Tries to convert [this] into a [DateTime].
-  DateTime toDateTimeOrNull() => DateTime.tryParse(this);
+  DateTime? toDateTimeOrNull() => DateTime.tryParse(this);
 
   /// This would tokenize [this] into words by breaking it with space.
   List<String> get words =>

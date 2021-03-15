@@ -39,10 +39,10 @@ class DeBouncer {
   /// de-bounce period
   final Duration duration;
 
-  Timer _timer;
+  Timer? _timer;
 
   /// Allows to create an instance with optional [Duration]
-  DeBouncer([Duration duration])
+  DeBouncer([Duration? duration])
       : duration = duration ?? Duration(milliseconds: 300);
 
   /// Runs [action] after debounced interval.
@@ -52,7 +52,7 @@ class DeBouncer {
   }
 
   /// alias for [run]
-  void call(DeBounceAction action) => run?.call(action);
+  void call(DeBounceAction action) => run.call(action);
 
   /// Allows to cancel current timer.
   void cancel() {
