@@ -10,7 +10,6 @@ void main() {
     expect(() => check(35.isOdd), returnsNormally);
     expect(() => checkNotNull(null), throwsA(isA<IllegalStateException>()));
     expect(checkNotNull(5), 5);
-    expect(IllegalStateException().toString(), 'IllegalStateException');
     expect(IllegalStateException('test error').toString(),
         'IllegalStateException: test error');
   });
@@ -21,7 +20,6 @@ void main() {
     expect(
         () => requireNotNull(null), throwsA(isA<IllegalArgumentException>()));
     expect(requireNotNull(5), 5);
-    expect(IllegalArgumentException().toString(), 'IllegalArgumentException');
     expect(IllegalArgumentException('test error').toString(),
         'IllegalArgumentException: test error');
   });

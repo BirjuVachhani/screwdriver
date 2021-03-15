@@ -36,49 +36,14 @@ import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test('isNullOrEmpty tests', () {
-    expect([].isNullOrEmpty, true);
-    expect([null].isNullOrEmpty, false);
-    expect([1, 2, 3].isNullOrEmpty, false);
-    List<int> numbers;
-    expect(numbers.isNullOrEmpty, true);
-    numbers = [1, 2];
-    expect(numbers.isNullOrEmpty, false);
-  });
-
-  test('isNotNullOrEmpty tests', () {
-    expect([].isNotNullOrEmpty, false);
-    expect([null].isNotNullOrEmpty, true);
-    expect([1, 2, 3].isNotNullOrEmpty, true);
-    List<int> numbers;
-    expect(numbers.isNotNullOrEmpty, false);
-    numbers = [1, 2];
-    expect(numbers.isNotNullOrEmpty, true);
-  });
-
   test('getter tests', () {
     final list = [1, 2, 3];
-    expect(list.firstOrNull, 1);
     expect(list.secondOrNull, 2);
     expect(list.thirdOrNull, 3);
     expect(list.lastOrNull, 3);
-    expect([].firstOrNull, null);
     expect([].secondOrNull, null);
     expect([].thirdOrNull, null);
     expect([].lastOrNull, null);
-
-    expect(list.firstOrNullWhere((e) => e == 1), 1);
-    expect(list.firstOrNullWhere((e) => e == 5), null);
-    expect([].firstOrNullWhere((e) => e == 1), null);
-
-    expect(list.lastOrNullWhere((e) => e == 3), 3);
-    expect(list.lastOrNullWhere((e) => e == 5), null);
-    expect([].lastOrNullWhere((e) => e == 3), null);
-
-    expect(list.singleOrNullWhere((e) => e == 2), 2);
-    expect([].singleOrNullWhere((e) => e == 1), null);
-    expect(() => [1, 2, 2, 3].singleOrNullWhere((e) => e == 2),
-        throwsA(TypeMatcher<StateError>()));
   });
 
   test('actions tests', () {
@@ -123,31 +88,6 @@ void main() {
     expect(list.all((element) => element < 10), true);
     expect(list.all((element) => element < 8), false);
     expect([].all((element) => element < 10), true);
-
-    // none
-    expect(list.none((element) => element > 10), true);
-    expect(list.none((element) => element < 2), false);
-    expect([].none((element) => element < 2), true);
-
-    // whereIndexed
-    expect(list.whereIndexed((index, element) => index.isEven),
-        equals([1, 3, 5, 7, 9]));
-    expect([].whereIndexed((index, element) => index.isEven), equals([]));
-
-    // mapIndexed
-    expect([1, 2, 3].mapIndexed((index, element) => element * index),
-        equals([0, 2, 6]));
-    expect([].mapIndexed((index, element) => element * index), equals([]));
-
-    // forEachIndexed
-    expect(
-      [
-        {'name': 'Birju'}
-      ]..forEachIndexed((index, element) => element['name'] = 'John'),
-      equals([
-        {'name': 'John'}
-      ]),
-    );
 
     // associate
     expect(
@@ -196,24 +136,15 @@ void main() {
     expect(list.count((element) => element.isOdd), 5);
     expect([].count((element) => element.isOdd), 0);
 
-    // foldIndexed
-    expect(
-        [1, 2, 3].foldIndexed(0,
-            (index, previousValue, element) => previousValue + element * index),
-        8);
-
     // foldRight
     expect(
-        [
-          1,
-          2,
-          3
-        ].foldRight(0, (previousValue, element) => previousValue * 2 + element),
+        [1, 2, 3].foldRight<int>(
+            0, (previousValue, element) => previousValue * 2 + element),
         17);
 
     // foldRightIndexed
     expect(
-        [1, 2, 3].foldRightIndexed(
+        [1, 2, 3].foldRightIndexed<int>(
             0,
             (index, previousValue, element) =>
                 previousValue + index * 2 + element),
@@ -230,12 +161,6 @@ void main() {
         {'name': 'John'}
       ]),
     );
-
-    // reduceIndexed
-    expect(
-        [1, 2, 3]
-            .reduceIndexed((index, value, element) => index * element + value),
-        9);
   });
 
   test('math tests', () {

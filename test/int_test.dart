@@ -68,7 +68,7 @@ void main() {
 
   test('random test', () {
     expect(randomInt(), isA<int>());
-    expect(randomInt(max: 100), predicate((value) => value < 100));
+    expect(randomInt(max: 100), predicate<int>((value) => value < 100));
   });
 
   test('twoDigits test', () {

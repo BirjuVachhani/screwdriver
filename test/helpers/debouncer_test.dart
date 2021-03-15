@@ -1,6 +1,7 @@
 // Author: Birju Vachhani
 // Created Date: September 14, 2020
 
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:mockito/mockito.dart';
 import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
