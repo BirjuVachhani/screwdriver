@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v1
       - name: Install dependencies
         run: pub get
-      - name: Analyzer
+      - name: Code Analysis
         run: dart analyze .
-      - name: Dartfmt
+      - name: Code Formatting
         run: dart format --set-exit-if-changed .
