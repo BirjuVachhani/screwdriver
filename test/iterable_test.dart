@@ -36,6 +36,26 @@ import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('isNullOrEmpty tests', () {
+    expect([].isNullOrEmpty, true);
+    expect([null].isNullOrEmpty, false);
+    expect([1, 2, 3].isNullOrEmpty, false);
+    List<int>? numbers;
+    expect(numbers.isNullOrEmpty, true);
+    numbers = [1, 2];
+    expect(numbers.isNullOrEmpty, false);
+  });
+
+  test('isNotNullOrEmpty tests', () {
+    expect([].isNotNullOrEmpty, false);
+    expect([null].isNotNullOrEmpty, true);
+    expect([1, 2, 3].isNotNullOrEmpty, true);
+    List<int>? numbers;
+    expect(numbers.isNotNullOrEmpty, false);
+    numbers = [1, 2];
+    expect(numbers.isNotNullOrEmpty, true);
+  });
+
   test('getter tests', () {
     final list = [1, 2, 3];
     expect(list.secondOrNull, 2);
@@ -43,7 +63,6 @@ void main() {
     expect(list.lastOrNull, 3);
     expect([].secondOrNull, null);
     expect([].thirdOrNull, null);
-    expect([].lastOrNull, null);
   });
 
   test('actions tests', () {

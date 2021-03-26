@@ -44,10 +44,6 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// returns null if iterable is empty or has less than 3 elements.
   E? get thirdOrNull => length > 2 ? elementAt(2) : null;
 
-  /// Returns the last element in the iterable or returns null
-  /// if iterable is empty.
-  E? get lastOrNull => isNotEmpty ? last : null;
-
   /// Appends all elements matching the given [predicate] to
   /// the given [destination].
   Iterable<E> filterTo(List<E> destination, bool predicate(E element)) {
@@ -401,5 +397,20 @@ extension IterableScrewDriver<E> on Iterable<E> {
   double averageBy<R extends num>(R selector(E element)) {
     if (isEmpty) return 0;
     return sumBy(selector) / length;
+  }
+}
+
+/// provides extensions for nullable Iterable
+extension NullableIterableScrewDriver<E> on Iterable<E>? {
+  /// Returns true if [this] is either null or empty collection
+  bool get isNullOrEmpty {
+    var iterable = this;
+    return iterable == null || iterable.isEmpty;
+  }
+
+  /// Returns true if [this] is neither null nor empty collection
+  bool get isNotNullOrEmpty {
+    var iterable = this;
+    return iterable != null && iterable.isNotEmpty;
   }
 }
