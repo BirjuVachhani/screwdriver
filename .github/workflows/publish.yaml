@@ -28,7 +28,7 @@ jobs:
         run: |
           sh ./pub_login.sh
       - name: Format code
-        run: dartfmt -w --fix .
+        run: dart format --fix .
       - name: Check Publish Warnings
         run: pub publish --dry-run
       - name: Publish Package

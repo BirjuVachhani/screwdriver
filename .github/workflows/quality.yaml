@@ -22,4 +22,4 @@ jobs:
       - name: Analyzer
         run: dart analyze .
       - name: Dartfmt
-        run: dart format --set-exit-if-changed --fix .
+        run: dart format --set-exit-if-changed .
