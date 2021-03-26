@@ -95,8 +95,7 @@ void main() {
 class MockFunction extends Mock implements RealFunction {}
 
 class RealFunction {
-  int call() {
+  void call() {
     print('file modified called');
-    return 5;
   }
 }

@@ -151,6 +151,9 @@ void main() {
         12);
 
     expect(list.indexOf(list.random()) != -1, isTrue);
+    expect(list.randomOrNull(), isNotNull);
+    expect([5].randomOrNull(), 5);
+    expect([].randomOrNull(), null);
 
     // onEach
     expect(
@@ -173,12 +176,22 @@ void main() {
       Pair(3, 3.5),
       Pair(1, 1.5),
     ];
+    expect(<int>[].maxByOrNull((element) => element), null);
+    expect(list1.maxByOrNull((element) => element), 10);
     expect(list1.maxBy((element) => element), 10);
     expect(list2.maxBy((element) => element.first), Pair(4, 2.0));
     expect(list2.maxBy((element) => element.second), Pair(2, 3.5));
     expect(list2.maxByLast((element) => element.second), Pair(3, 3.5));
+    expect(
+        <Pair<int, int>>[].maxByLastOrNull((element) => element.second), null);
+    expect(list2.maxByLastOrNull((element) => element.second), Pair(3, 3.5));
+    expect(<int>[].minByOrNull((element) => element), null);
+    expect(list1.minByOrNull((element) => element), 1);
     expect(list1.minBy((element) => element), 1);
     expect(list2.minBy((element) => element.first), Pair(1, 2.5));
+    expect(
+        <Pair<int, int>>[].minByLastOrNull((element) => element.first), null);
+    expect(list2.minByLastOrNull((element) => element.first), Pair(1, 1.5));
     expect(list2.minByLast((element) => element.first), Pair(1, 1.5));
     expect(list2.minBy((element) => element.second), Pair(3, 1.5));
     expect(list2.sumBy((element) => element.first), 14);
