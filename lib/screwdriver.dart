@@ -42,6 +42,8 @@ import 'package:intl/intl.dart';
 import 'src/helpers/pair.dart';
 import 'src/utils.dart';
 
+export 'package:collection/collection.dart';
+
 export 'src/helpers/debouncer.dart';
 export 'src/helpers/pair.dart';
 export 'src/helpers/pre_conditions.dart';
