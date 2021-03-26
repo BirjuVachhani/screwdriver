@@ -5,6 +5,42 @@ import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
 
 void main() {
+  test('isNullOrEmpty tests', () {
+    expect(''.isNullOrEmpty, true);
+    expect(' '.isNullOrEmpty, false);
+    String? str;
+    expect(str.isNullOrEmpty, true);
+    str = 'abc';
+    expect(str.isNullOrEmpty, false);
+  });
+
+  test('isNotNullOrEmpty tests', () {
+    expect(''.isNotNullOrEmpty, false);
+    expect(' '.isNotNullOrEmpty, true);
+    String? str;
+    expect(str.isNotNullOrEmpty, false);
+    str = 'abc';
+    expect(str.isNotNullOrEmpty, true);
+  });
+
+  test('isNullOrBlank tests', () {
+    expect(''.isNullOrBlank, true);
+    expect(' '.isNullOrBlank, true);
+    String? str;
+    expect(str.isNullOrBlank, true);
+    str = 'abc';
+    expect(str.isNullOrBlank, false);
+  });
+
+  test('isNotNullOrBlank tests', () {
+    expect(''.isNotNullOrBlank, false);
+    expect(' '.isNotNullOrBlank, false);
+    String? str;
+    expect(str.isNotNullOrBlank, false);
+    str = 'abc';
+    expect(str.isNotNullOrBlank, true);
+  });
+
   test('isBlank & isNotBlank tests', () {
     expect(''.isBlank, true);
     expect(' '.isBlank, true);

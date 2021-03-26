@@ -146,3 +146,30 @@ extension StringScrewdriver on String {
   /// Converts [this] to a JSON map.
   Map<String, dynamic> parseJson() => json.decode(this);
 }
+
+/// Provides extensions for nullable [String].
+extension NullableStringScrewdriver on String? {
+  /// Returns true if [this] is either null or empty string.
+  bool get isNullOrEmpty {
+    var value = this;
+    return value == null || value.isEmpty;
+  }
+
+  /// Returns true if [this] is neither null nor empty string.
+  bool get isNotNullOrEmpty {
+    var value = this;
+    return value != null && value.isNotEmpty;
+  }
+
+  /// Returns true if [this] is either null or blank string.
+  bool get isNullOrBlank {
+    var value = this;
+    return value == null || value.isBlank;
+  }
+
+  /// Returns true if [this] is neither null nor blank string.
+  bool get isNotNullOrBlank {
+    var value = this;
+    return value != null && value.isNotBlank;
+  }
+}
