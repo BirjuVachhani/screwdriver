@@ -6,8 +6,7 @@
 
 A dart package aiming to provide useful extensions and helper functions to ease and speed up development.
 
-[![Tests](https://github.com/BirjuVachhani/screwdriver/workflows/Tests/badge.svg?branch=master)](https://github.com/BirjuVachhani/screwdriver/actions) [![Code Quality](https://github.com/BirjuVachhani/screwdriver/workflows/Code%20Quality/badge.svg?branch=master)](https://github.com/BirjuVachhani/screwdriver/actions) [![Codecov](https://img.shields.io/codecov/c/github/birjuvachhani/screwdriver.svg)](https://codecov.io/gh/birjuvachhani/screwdriver)
-
+[![Tests](https://github.com/BirjuVachhani/screwdriver/workflows/Tests/badge.svg?branch=master)](https://github.com/BirjuVachhani/screwdriver/actions) [![Code Quality](https://github.com/BirjuVachhani/screwdriver/workflows/Code%20Quality/badge.svg?branch=master)](https://github.com/BirjuVachhani/screwdriver/actions) [![Codecov](https://img.shields.io/codecov/c/github/birjuvachhani/screwdriver.svg)](https://codecov.io/gh/birjuvachhani/screwdriver) ![Pub Version](https://img.shields.io/pub/v/screwdriver)
 
 
 - 📋  Well Documented
@@ -17,6 +16,8 @@ A dart package aiming to provide useful extensions and helper functions to ease 
 - **180+** Extensions
 - **15+** Helper Functions
 - **4** Helper Classes
+- Sound Null Safety
+- [collection](https://pub.dev/packages/collection) included for extra extensions.
 
 
 
@@ -30,7 +31,7 @@ To checkout all the available extensions, helper functions & classes, see [docum
 
 ```yaml
 dependencies:
-  screwdriver: ^1.X.X
+  screwdriver: <latest_version>
 ```
 
 2. Import library into your code.

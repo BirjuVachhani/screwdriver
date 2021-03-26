@@ -2,7 +2,7 @@
 
 - Added back `isNullOrEmpty`, `isNotNullOrEmpty` extensions for `Iterable?`.
 - Added back `isNullOrEmpty`, `isNotNullOrEmpty`, `isNullOrBlank` , `isNotNullOrBlank` extensions for `String?`.
-- Added [collection](https://pub.dev/packages?q=collection) as a part of the package so it can now be used from screwdriver. No need to explicitly add it.
+- Added [collection](https://pub.dev/packages/collection) as a part of the package so it can now be used from screwdriver. No need to explicitly add it.
 
 ## 2.0.0
 
