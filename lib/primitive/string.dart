@@ -43,6 +43,8 @@ extension StringScrewdriver on String {
   bool get isNotBlank => trim().isNotEmpty;
 
   /// Converts the first character of [this] to upper case.
+  /// Note that this does not work if the first character of this string is
+  /// an Emoji character.
   String get capitalized {
     if (isBlank) return this;
     if (length == 1) return toUpperCase();
@@ -144,7 +146,39 @@ extension StringScrewdriver on String {
       trim().split(' ').where((element) => element.isNotBlank).toList();
 
   /// Converts [this] to a JSON map.
-  Map<String, dynamic> parseJson() => json.decode(this);
+  Map<String, dynamic> parseJson() => json.decode(this) as Map<String, dynamic>;
+
+  /// Converts [this] to a JSON map.
+  List<Map<String, dynamic>> parseJsonArray() =>
+      List<Map<String, dynamic>>.from(json.decode(this) as Iterable);
+
+  /// Returns count of given [match] in this string
+  int count(String match, {bool caseSensitive = true}) {
+    var count = 0;
+    for(final char in characters){
+      if(caseSensitive ? char == match : char.equalsIgnoreCase(match)){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  /// alias for [indexOf]
+  int find(Pattern match) => indexOf(match);
+
+  /// Makes all the words capitalized in this string
+  /// Note that this does not work properly if the first character of any
+  /// word is an Emoji character.
+  String title() => split(' ').map((e) => e.capitalized).join(' ');
+
+  /// Toggles the case of the characters
+  String get toggledCase => characters
+      .map((e) => e.toUpperCase() == e ? e.toLowerCase() : e.toUpperCase())
+      .join();
+
+  /// Compares two strings ignoring the case.
+  bool equalsIgnoreCase(String matcher) =>
+      toLowerCase() == matcher.toLowerCase();
 }
 
 /// Provides extensions for nullable [String].

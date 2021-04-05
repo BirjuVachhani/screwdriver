@@ -37,6 +37,7 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:characters/characters.dart';
+import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 
 import 'src/helpers/pair.dart';
