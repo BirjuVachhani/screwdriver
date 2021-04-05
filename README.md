@@ -13,12 +13,15 @@ A dart package aiming to provide useful extensions and helper functions to ease 
 - ⚔️ Fully Tested
 - 👌 Follows Code Quality Guidelines
 - 🦾 Production Ready
-- **180+** Extensions
-- **15+** Helper Functions
-- **4** Helper Classes
-- Sound Null Safety
 - [collection](https://pub.dev/packages/collection) included for extra extensions.
 
+## Stats
+
+<!---stats_start-->  
+- Helper Functions & Getters:    16
+- Helper Classes:                5
+- Extensions:                    196
+<!---stats_end-->
 
 
 To checkout all the available extensions, helper functions & classes, see [documentation][docs].
