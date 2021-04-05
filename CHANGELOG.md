@@ -1,3 +1,9 @@
+## 2.1.1
+
+- Added **String** extensions `count`, `parseJsonArray`, `find`, `title`, `toggledCase`, `equalsIgnoreCase`.
+- Added **Duration** extension `fromNow`.
+- Used explicit dynamics where required for strong mode.
+
 ## 2.1.0
 
 - Added back `isNullOrEmpty`, `isNotNullOrEmpty` extensions for `Iterable?`.
