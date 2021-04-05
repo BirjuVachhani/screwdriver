@@ -42,6 +42,9 @@ extension DurationScrewdriver on Duration {
   /// Returns [DateTime] that is before [this] duration.
   DateTime get after => DateTime.now() + this;
 
+  /// Alias for [after]
+  DateTime get fromNow => DateTime.now() + this;
+
   /// Returns the number of whole years spanned by this Duration.
   /// Please note that this does not account for leap year.
   int get inYears => inDays ~/ 365;
