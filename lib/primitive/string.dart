@@ -155,8 +155,8 @@ extension StringScrewdriver on String {
   /// Returns count of given [match] in this string
   int count(String match, {bool caseSensitive = true}) {
     var count = 0;
-    for(final char in characters){
-      if(caseSensitive ? char == match : char.equalsIgnoreCase(match)){
+    for (final char in characters) {
+      if (caseSensitive ? char == match : char.equalsIgnoreCase(match)) {
         count++;
       }
     }

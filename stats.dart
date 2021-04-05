@@ -5,6 +5,7 @@ import 'dart:io';
 
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart';
+import 'package:intl/intl.dart';
 
 class Stats {
   List<String> functions = [];
@@ -36,10 +37,15 @@ void main() async {
   final stats = screwdriverStats + screwdriverIoStats;
 
   var output = '''
-  
-- Helper Functions & Getters:    ${stats.functions.length + stats.variables.length}
-- Helper Classes:                ${stats.classes.length}
-- Extensions:                    ${stats.extensions}
+
+```yaml  
+Extensions:                    ${stats.extensions}
+Helper Classes:                ${stats.classes.length}
+Helper Functions & Getters:    ${stats.functions.length + stats.variables.length}
+```
+
+> *Last Updated: ${DateFormat('EEE, MMM dd, yyyy - hh:mm a').format(DateTime.now())}*
+
 ''';
 
   final readMeFile = File('README.md');
@@ -54,7 +60,7 @@ void main() async {
 
   print('\n\n');
   print('==================================================================');
-  print('OUTPUT');
+  print('STATS');
   print('==================================================================');
   print('Helper Functions & Getters:    '
       '${stats.functions.length + stats.variables.length}');

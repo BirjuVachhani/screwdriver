@@ -17,20 +17,23 @@ A dart package aiming to provide useful extensions and helper functions to ease 
 
 ## Stats
 
-<!---stats_start-->  
+<!---stats_start-->
 - Helper Functions & Getters:    16
 - Helper Classes:                5
 - Extensions:                    196
 <!---stats_end-->
 
+*Stats auto generated using [Github Workflow](https://github.com/BirjuVachhani/screwdriver/blob/main/.github/workflows/stats.yaml).*
+
+
+<br/>
 
 To checkout all the available extensions, helper functions & classes, see [documentation][docs].
 
 
-
 ## Installation
 
-1. Add as a dependency in your project's `pub spec.yaml`
+1. Add as a dependency in your project's `pub spec.yaml`.
 
 ```yaml
 dependencies:

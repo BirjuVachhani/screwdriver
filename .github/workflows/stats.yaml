@@ -1,0 +1,37 @@
+name: Stats
+
+on:
+  push:
+    paths:
+      - '**.dart'
+    branches:
+      - main
+    tags-ignore:
+      - '**'
+  workflow_dispatch:
+
+jobs:
+  update_stats:
+    runs-on: macos-latest
+    steps:
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
+      - uses: actions/checkout@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Install dependencies
+        run: pub get
+      - name: Generate Stats
+        run: dart stats.dart
+      - name: Update Stats on README.md
+        uses: EndBug/add-and-commit@v7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          add: 'README.md'
+          message: Update Stats on README.md
+          signoff: true

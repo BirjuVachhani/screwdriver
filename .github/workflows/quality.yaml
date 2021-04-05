@@ -2,6 +2,8 @@ name: Code Quality
 
 on:
   push:
+    paths:
+      - '**.dart'
     branches:
       - main
     tags-ignore:
