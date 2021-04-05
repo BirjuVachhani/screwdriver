@@ -8,6 +8,7 @@ void main() {
   test('duration tests', () {
     expect(1.days.ago.truncateSeconds(), now().previousDay.truncateSeconds());
     expect(1.days.after.truncateSeconds(), now().nextDay.truncateSeconds());
+    expect(1.days.fromNow.truncateSeconds(), now().nextDay.truncateSeconds());
 
     expect(1.days.isInDays, isTrue);
     expect(0.days.isInDays, isFalse);

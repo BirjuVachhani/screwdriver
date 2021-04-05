@@ -57,6 +57,7 @@ void main() {
     expect('hello'.capitalized, 'Hello');
     expect('Hello'.capitalized, 'Hello');
     expect('hello world'.capitalized, 'Hello world');
+    expect('hello world 😊'.capitalized, 'Hello world 😊');
   });
 
   test('toIntOrNull tests', () {
@@ -91,7 +92,7 @@ void main() {
     expect('hello'.wrap('', '#'), 'hello#');
   });
 
-  test('unwrap method tests', () {
+  test('unwrap & strip method tests', () {
     expect('<html>'.unwrap('<', '>'), 'html');
     expect('*hello*'.unwrap('*'), 'hello');
     expect('hello'.unwrap(''), 'hello');
@@ -162,9 +163,66 @@ void main() {
     expect('     '.words.length, 0);
   });
 
-  test('toJson tests', () {
+  test('parseJson tests', () {
     expect('{"name":"John"}'.parseJson(), equals({'name': 'John'}));
     expect('{}'.parseJson(), equals({}));
     expect(() => 'random'.parseJson(), throwsFormatException);
+  });
+
+  test('parseJsonArray tests', () {
+    expect(
+        '[{"name":"John"},{"name":"Steve"}]'.parseJsonArray(),
+        equals([
+          {'name': 'John'},
+          {'name': 'Steve'}
+        ]));
+    expect('[]'.parseJsonArray(), equals([]));
+    expect(() => 'random'.parseJsonArray(), throwsFormatException);
+  });
+
+  test('toggledCase tests', () {
+    expect('hello'.toggledCase, equals('HELLO'));
+    expect('Hell0'.toggledCase, equals('hELL0'));
+    expect('çå†'.toggledCase, equals('ÇÅ†'));
+    expect('çå†'.toggledCase.toggledCase, equals('çå†'));
+    expect('ß'.toggledCase, equals('ß'));
+    expect('hello👌'.toggledCase, equals('HELLO👌'));
+  });
+
+  test('title tests', () {
+    expect("He's an engineer, isn't he?".title(),
+        equals("He's An Engineer, Isn't He?"));
+    expect('My favorite number is 87😊.'.title(),
+        equals('My Favorite Number Is 87😊.'));
+  });
+
+  test('equalsIgnoreCase tests', () {
+    expect(
+        "He's an engineer, isn't he?"
+            .equalsIgnoreCase("He's an EnGineer, IsN't hE?"),
+        isTrue);
+    expect(
+        'My favorite number is 87😊.'
+            .equalsIgnoreCase('my Favorite NUMBER Is 87😊.'),
+        isTrue);
+    expect('çå†'.equalsIgnoreCase('ÇÅ†'), isTrue);
+    expect('ß'.equalsIgnoreCase('ß'), isTrue);
+  });
+
+  test('count tests', () {
+    expect('Hello'.count('l'), equals(2));
+    expect('Hello🥶 World😬'.count('🥶'), equals(1));
+    expect('Hello🥶 World😬'.count('😬'), equals(1));
+    expect('Hello😬 World😬'.count('😬'), equals(2));
+    expect('Hello😬 World😬'.count('🥶'), equals(0));
+    expect('Hello'.count('L'), equals(0));
+    expect('Hello'.count('L', caseSensitive: false), equals(2));
+    expect('çå†'.count('å', caseSensitive: false), equals(1));
+    expect('çå†'.count('å'), equals(1));
+  });
+
+  test('find tests', () {
+    // No more tests are required as this is just an alias for [String.indexOf]
+    expect('Hello'.find('l'), equals(2));
   });
 }
