@@ -40,7 +40,7 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   void operator +(Pair<K, V> pair) => this[pair.first] = pair.second;
 
   /// Allows to add [MapEntry] to [this]
-  void operator <<(MapEntry entry) => this[entry.key] = entry.value;
+  void operator <<(MapEntry<K, V> entry) => this[entry.key] = entry.value;
 
   /// Converts [this] map into a JSON string
   String toJson() => json.encode(this);

@@ -37,7 +37,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('isNullOrEmpty tests', () {
-    expect([].isNullOrEmpty, true);
+    expect(<int>[].isNullOrEmpty, true);
     expect([null].isNullOrEmpty, false);
     expect([1, 2, 3].isNullOrEmpty, false);
     List<int>? numbers;
@@ -47,7 +47,7 @@ void main() {
   });
 
   test('isNotNullOrEmpty tests', () {
-    expect([].isNotNullOrEmpty, false);
+    expect(<double>[].isNotNullOrEmpty, false);
     expect([null].isNotNullOrEmpty, true);
     expect([1, 2, 3].isNotNullOrEmpty, true);
     List<int>? numbers;
@@ -61,8 +61,8 @@ void main() {
     expect(list.secondOrNull, 2);
     expect(list.thirdOrNull, 3);
     expect(list.lastOrNull, 3);
-    expect([].secondOrNull, null);
-    expect([].thirdOrNull, null);
+    expect(<dynamic>[].secondOrNull, null);
+    expect(<String>[].thirdOrNull, null);
   });
 
   test('actions tests', () {
@@ -70,12 +70,13 @@ void main() {
 
     // filter
     expect(list.filter((element) => element.isEven), equals([2, 4, 6, 8]));
-    expect([].filter((element) => element.isEven), equals([]));
+    expect(<int>[].filter((element) => element.isEven), equals(<int>[]));
 
     // filterTo
     expect(list.filterTo([1, 3], (element) => element == 5).toList(),
         equals([1, 3, 5]));
-    expect([].filterTo([1, 2], (element) => element.isEven), equals([1, 2]));
+    expect(
+        <int>[].filterTo([1, 2], (element) => element.isEven), equals([1, 2]));
 
     // filterIndexed
     expect(list.filterIndexed((index, element) => index.isEven),
@@ -83,30 +84,30 @@ void main() {
 
     // flatMap
     expect([1, 2].flatMap((element) => element * 10), equals([10, 20]));
-    expect([].flatMap((element) => element * 10), equals([]));
+    expect(<int>[].flatMap((element) => element * 10), equals(<int>[]));
 
     // drop
     expect(list.drop(7), equals([8, 9]));
-    expect(list.drop(10), equals([]));
+    expect(list.drop(10), equals(<int>[]));
 
     // takeLast
     expect(list.takeLast(3), equals([7, 8, 9]));
-    expect([].takeLast(3), equals([]));
+    expect(<int>[].takeLast(3), equals(<int>[]));
     expect([1, 2].takeLast(3), equals([1, 2]));
 
     // dropWhile
     expect(list.dropWhile((element) => element != 7), equals([7, 8, 9]));
-    expect([].dropWhile((element) => element != 7), equals([]));
+    expect(<int>[].dropWhile((element) => element != 7), equals(<int>[]));
 
     // dropLast
     expect(list.dropLast(7), equals([1, 2]));
-    expect([].takeLast(3), equals([]));
-    expect([1, 2].dropLast(3), equals([]));
+    expect(<int>[].takeLast(3), equals(<int>[]));
+    expect([1, 2].dropLast(3), equals(<int>[]));
 
     // all
     expect(list.all((element) => element < 10), true);
     expect(list.all((element) => element < 8), false);
-    expect([].all((element) => element < 10), true);
+    expect(<int>[].all((element) => element < 10), true);
 
     // associate
     expect(
@@ -153,7 +154,7 @@ void main() {
 
     // count
     expect(list.count((element) => element.isOdd), 5);
-    expect([].count((element) => element.isOdd), 0);
+    expect(<int>[].count((element) => element.isOdd), 0);
 
     // foldRight
     expect(
@@ -172,7 +173,7 @@ void main() {
     expect(list.indexOf(list.random()) != -1, isTrue);
     expect(list.randomOrNull(), isNotNull);
     expect([5].randomOrNull(), 5);
-    expect([].randomOrNull(), null);
+    expect(<int>[].randomOrNull(), null);
 
     // onEach
     expect(

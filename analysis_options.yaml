@@ -10,3 +10,6 @@ linter:
 analyzer:
   exclude:
     - test/.test_coverage.dart
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false

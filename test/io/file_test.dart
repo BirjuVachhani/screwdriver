@@ -45,10 +45,10 @@ void main() {
       final modifiedSub = other.onModified(modified.call);
       final deletedSub = other.onDeleted(deleted.call);
       other << ' world';
-      await Future.delayed(Duration(seconds: 3));
+      await Future<void>.delayed(Duration(seconds: 3));
       verify(modified.call()).called(1);
       other.deleteSync();
-      await Future.delayed(Duration(seconds: 3));
+      await Future<void>.delayed(Duration(seconds: 3));
       verify(deleted.call()).called(1);
       await modifiedSub.cancel();
       await deletedSub.cancel();

@@ -15,8 +15,9 @@ void main() {
   test('runCaching tests', () {
     expect(runCaching(() => int.parse('5')), 5);
     expect(runCaching(() => int.parse('5a')), null);
-    Exception? exception;
-    runCaching(() => int.parse('5a'), onError: (error, _) => exception = error);
+    Object? exception;
+    runCaching(() => int.parse('5a'),
+        onError: (dynamic error, _) => exception = error);
     expect(exception, isA<FormatException>());
   });
 }

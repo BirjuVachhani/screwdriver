@@ -35,7 +35,7 @@
 part of screwdriver;
 
 /// provides extensions for [Comparable]
-extension ComparableScrewdriver<E extends Comparable> on E {
+extension ComparableScrewdriver<E extends Comparable<dynamic>> on E {
   /// Returns true if [other] object is less than [this].
   bool operator <(E other) => compareTo(other) < 0;
 

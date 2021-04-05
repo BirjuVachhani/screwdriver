@@ -7,6 +7,6 @@ import 'package:test/test.dart';
 void main() {
   test('<< operator test', () {
     expect([1, 2] << 3, equals([1, 2, 3]));
-    expect([] << 3, equals([3]));
+    expect(<int>[] << 3, equals([3]));
   });
 }

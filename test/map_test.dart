@@ -19,6 +19,6 @@ void main() {
 
   test('toJson test', () {
     expect({'name': 'John'}.toJson(), equals('{"name":"John"}'));
-    expect({}.toJson(), equals('{}'));
+    expect(<String, dynamic>{}.toJson(), equals('{}'));
   });
 }

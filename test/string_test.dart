@@ -165,7 +165,7 @@ void main() {
 
   test('parseJson tests', () {
     expect('{"name":"John"}'.parseJson(), equals({'name': 'John'}));
-    expect('{}'.parseJson(), equals({}));
+    expect('{}'.parseJson(), equals(<String, dynamic>{}));
     expect(() => 'random'.parseJson(), throwsFormatException);
   });
 
@@ -176,7 +176,7 @@ void main() {
           {'name': 'John'},
           {'name': 'Steve'}
         ]));
-    expect('[]'.parseJsonArray(), equals([]));
+    expect('[]'.parseJsonArray(), equals(<int>[]));
     expect(() => 'random'.parseJsonArray(), throwsFormatException);
   });
 

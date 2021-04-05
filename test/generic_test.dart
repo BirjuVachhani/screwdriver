@@ -6,7 +6,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('scope functions tests', () {
-    expect([].apply((obj) => obj << 5), equals([5]));
+    expect(<int>[].apply((obj) => obj << 5), equals([5]));
     expect(5.run((obj) => (obj + 5).toString()), '10');
   });
 

@@ -248,7 +248,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the first element yielding the largest value of the given
   /// function or `null` if there are no elements.
-  E? maxByOrNull<R extends Comparable>(R selector(E element)) {
+  E? maxByOrNull<R extends Comparable<dynamic>>(R selector(E element)) {
     if (isEmpty) return null;
     if (length == 1) return first;
     var maxElement = first;
@@ -266,7 +266,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns the first element yielding the largest value of the given
   /// function.
   /// Throws [StateError] if there are no elements in the collection.
-  E maxBy<R extends Comparable>(R selector(E element)) {
+  E maxBy<R extends Comparable<dynamic>>(R selector(E element)) {
     if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var maxElement = first;
@@ -283,7 +283,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the last element yielding the largest value of the given
   /// function or `null` if there are no elements.
-  E? maxByLastOrNull<R extends Comparable>(R selector(E element)) {
+  E? maxByLastOrNull<R extends Comparable<dynamic>>(R selector(E element)) {
     if (isEmpty) return null;
     if (length == 1) return first;
     var maxElement = first;
@@ -301,7 +301,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns the last element yielding the largest value of the given
   /// function.
   /// Throws [StateError] if there are no elements in the collection.
-  E maxByLast<R extends Comparable>(R selector(E element)) {
+  E maxByLast<R extends Comparable<dynamic>>(R selector(E element)) {
     if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var maxElement = first;
@@ -318,7 +318,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the first element yielding the smallest value of the given
   /// function or `null` if there are no elements.
-  E? minByOrNull<R extends Comparable>(R selector(E element)) {
+  E? minByOrNull<R extends Comparable<dynamic>>(R selector(E element)) {
     if (isEmpty) return null;
     if (length == 1) return first;
     var minElement = first;
@@ -336,7 +336,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns the first element yielding the smallest value of the given
   /// function.
   /// Throws [StateError] if there are no elements in the collection.
-  E minBy<R extends Comparable>(R selector(E element)) {
+  E minBy<R extends Comparable<dynamic>>(R selector(E element)) {
     if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var minElement = first;
@@ -353,7 +353,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the last element yielding the smallest value of the given
   /// function or `null` if there are no elements.
-  E? minByLastOrNull<R extends Comparable>(R selector(E element)) {
+  E? minByLastOrNull<R extends Comparable<dynamic>>(R selector(E element)) {
     if (isEmpty) return null;
     if (length == 1) return first;
     var minElement = first;
@@ -371,7 +371,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns the last element yielding the smallest value of the given
   /// function.
   /// Throws [StateError] if there are no elements in the collection.
-  E minByLast<R extends Comparable>(R selector(E element)) {
+  E minByLast<R extends Comparable<dynamic>>(R selector(E element)) {
     if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var minElement = first;

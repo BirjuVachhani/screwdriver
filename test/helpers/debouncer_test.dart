@@ -18,14 +18,14 @@ void main() {
     for (final _ in [1, 2, 3, 4, 5]) {
       debouncer.run(mockedFunction);
     }
-    await Future.delayed(Duration(milliseconds: 600));
+    await Future<void>.delayed(Duration(milliseconds: 600));
     verify(mockedFunction.call()).called(1);
 
     for (final _ in [1, 2, 3]) {
       debouncer(mockedFunction);
     }
 
-    await Future.delayed(Duration(milliseconds: 600));
+    await Future<void>.delayed(Duration(milliseconds: 600));
     verify(mockedFunction.call()).called(1);
   });
 
@@ -36,7 +36,7 @@ void main() {
       debouncer.run(mockedFunction);
     }
     debouncer.cancel();
-    await Future.delayed(Duration(milliseconds: 600));
+    await Future<void>.delayed(Duration(milliseconds: 600));
     verifyNever(mockedFunction.call());
   });
 }
