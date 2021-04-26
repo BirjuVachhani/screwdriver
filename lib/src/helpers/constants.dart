@@ -29,52 +29,13 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: April 26, 2021
 
-import 'dart:async';
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:math';
+/// Maximum value that an 64bit [int] can store;
+// ignore: constant_identifier_names
+const int MAX_INT_VALUE = 9223372036854775807;
 
-import 'package:characters/characters.dart';
-import 'package:collection/collection.dart';
-import 'package:intl/intl.dart';
-
-import 'src/helpers/pair.dart';
-import 'src/utils.dart';
-
-export 'package:collection/collection.dart';
-
-export 'src/helpers/debouncer.dart';
-export 'src/helpers/int_range.dart';
-export 'src/helpers/pair.dart';
-export 'src/helpers/pre_conditions.dart';
-export 'src/helpers/triple.dart';
-
-part 'async/future.dart';
-
-part 'collection/comparable.dart';
-
-part 'collection/iterable.dart';
-
-part 'collection/iterator.dart';
-
-part 'collection/list.dart';
-
-part 'collection/map.dart';
-
-part 'datetime/date_time.dart';
-
-part 'duration/duration.dart';
-
-part 'generic/generic.dart';
-
-part 'primitive/bool.dart';
-
-part 'primitive/double.dart';
-
-part 'primitive/int.dart';
-
-part 'primitive/num.dart';
-
-part 'primitive/string.dart';
+/// Minimum value that an 64bit [int] can store;
+// ignore: constant_identifier_names
+const int MIN_INT_VALUE = -9223372036854775808;
