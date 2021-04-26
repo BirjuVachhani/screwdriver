@@ -40,6 +40,7 @@ import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 
+import 'src/helpers/int_range.dart';
 import 'src/helpers/pair.dart';
 import 'src/utils.dart';
 

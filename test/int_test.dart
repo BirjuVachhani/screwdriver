@@ -78,4 +78,11 @@ void main() {
     expect(10.twoDigits(), '10');
     expect(5646.twoDigits(), '5646');
   });
+
+  test('rangeTo and downTo tests', () {
+    expect(48.rangeTo(68), IntRange(48, 68));
+    expect(15.downTo(5), IntRange(15, 5, step: -1));
+    expect(() => 15.downTo(20), throwsException);
+    expect(() => 15.rangeTo(5), throwsException);
+  });
 }
