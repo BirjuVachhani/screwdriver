@@ -49,18 +49,15 @@ void check(bool value, [String? message]) {
 }
 
 /// Throws [IllegalArgumentException] if [argument] is `null`.
-/// If [name] is supplied, it is used as the parameter name
-/// in the error message.
+/// If [message] is supplied, it is used as the error message.
 /// Returns the [argument] if it is not null.
 T requireNotNull<T>(T argument, [String? message]) => argument == null
     ? throw IllegalArgumentException(
         message ?? 'Argument requires to be non-null')
     : argument;
 
-/// Throws [IllegalArgumentException] if [argument] is `null`.
-/// If [name] is supplied, it is used as the parameter name
-/// in the error message.
-/// Returns the [argument] if it is not null.
+/// Throws [IllegalArgumentException] if [value] is false.
+/// If [message] is supplied, it is used as the error message.
 // ignore: avoid_positional_boolean_parameters
 void require(bool value, [String? message]) {
   if (!value) {

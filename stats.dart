@@ -75,6 +75,7 @@ Future<Stats> getStats(String library) async {
       resourceProvider: PhysicalResourceProvider.INSTANCE);
   final session = collection.contexts[0].currentSession;
   final libPath = session.uriConverter.uriToPath(Uri.parse(library)) ?? '';
+  // ignore: deprecated_member_use
   final result = await session.getResolvedLibrary(libPath);
   var helpersFunctions = <String>[];
   var helpersClasses = <String>[];
