@@ -127,13 +127,13 @@ extension IntScrewdriver<T> on int {
   /// default step size of 1.
   /// Example:
   ///       5.rangeTo(10); // creates range 5-6-7-8-9-10
-  IntRange rangeTo(int end, {int step = 1}) => IntRange(this, end, step: step);
+  IntRange rangeTo(int end) => IntRange(this, end);
 
   /// Creates an [IntRange] starting from this to [end] inclusively with
   /// default step size of 1.
   /// Example:
   ///       5.downTo(1); // creates range 5-4-3-2-1
-  IntRange downTo(int end, {int step = -1}) => IntRange(this, end, step: step);
+  IntRange downTo(int end) => IntRange(this, end, step: -1);
 }
 
 /// Generates a non-negative random integer uniformly distributed in the range

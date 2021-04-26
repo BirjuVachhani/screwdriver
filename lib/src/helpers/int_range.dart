@@ -93,6 +93,10 @@ class IntRange extends Iterable<int> {
   @override
   int get hashCode => 31 * (31 * first + last) + step;
 
+  /// Returns an [IntRange] that goes over the same range in the opposite
+  /// direction with the same step.
+  IntRange reversed() => IntRange(last, start, step: -step);
+
   @override
   bool operator ==(Object other) {
     return other is IntRange &&

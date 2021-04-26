@@ -112,7 +112,7 @@ void main() {
     expect(range.length, 5);
     expect(range.isEmpty, isFalse);
     expect(range.elementAt(2), 3);
-    expect(range.toList(), [1, 2, 3, 4, 5]);
+    expect(range.toList(), equals([1, 2, 3, 4, 5]));
     expect(range.toString(), equals('1 rangeTo 5 step 1'));
   });
 
@@ -123,7 +123,7 @@ void main() {
     expect(range.length, 5);
     expect(range.isEmpty, isFalse);
     expect(range.elementAt(2), 5);
-    expect(range.toList(), [1, 3, 5, 7, 9]);
+    expect(range.toList(), equals([1, 3, 5, 7, 9]));
     expect(range.toString(), equals('1 rangeTo 10 step 2'));
   });
 
@@ -134,7 +134,7 @@ void main() {
     expect(range.length, 6);
     expect(range.isEmpty, isFalse);
     expect(range.elementAt(2), 23);
-    expect(range.toList(), [25, 24, 23, 22, 21, 20]);
+    expect(range.toList(), equals([25, 24, 23, 22, 21, 20]));
     expect(range.toString(), equals('25 downTo 20 step -1'));
   });
 
@@ -145,7 +145,7 @@ void main() {
     expect(range.length, 4);
     expect(range.isEmpty, isFalse);
     expect(range.elementAt(2), 19);
-    expect(range.toList(), [25, 22, 19, 16]);
+    expect(range.toList(), equals([25, 22, 19, 16]));
     expect(range.toString(), equals('25 downTo 15 step -3'));
   });
 
@@ -162,5 +162,12 @@ void main() {
     expect(IntRange(1, 15, step: 2) == IntRange(1, 15), isFalse);
     expect({IntRange(25, 15, step: -1), IntRange(25, 15, step: -1)},
         equals({IntRange(25, 15, step: -1)}));
+  });
+
+  test('IntRangeIterator reversed test', () {
+    expect(IntRange(25, 15, step: -3).toList(), equals([25, 22, 19, 16]));
+    expect(IntRange(25, 15, step: -3).reversed().toList(),
+        equals([16, 19, 22, 25]));
+    expect(IntRange(25, 15, step: -3).reversed(), IntRange(16, 25, step: 3));
   });
 }
