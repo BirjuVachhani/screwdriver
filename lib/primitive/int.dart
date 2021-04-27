@@ -134,6 +134,10 @@ extension IntScrewdriver<T> on int {
   /// Example:
   ///       5.downTo(1); // creates range 5-4-3-2-1
   IntRange downTo(int end) => IntRange(this, end, step: -1);
+
+  /// Returns a range from this value up to but excluding the
+  /// specified [end] value.
+  IntRange until(int end) => IntRange(this, end - 1);
 }
 
 /// Generates a non-negative random integer uniformly distributed in the range

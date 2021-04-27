@@ -79,10 +79,12 @@ void main() {
     expect(5646.twoDigits(), '5646');
   });
 
-  test('rangeTo and downTo tests', () {
+  test('rangeTo, until and downTo tests', () {
     expect(48.rangeTo(68), IntRange(48, 68));
     expect(15.downTo(5), IntRange(15, 5, step: -1));
     expect(() => 15.downTo(20), throwsException);
     expect(() => 15.rangeTo(5), throwsException);
+    expect(1.until(6), IntRange(1, 5));
+    expect(1.until(6).toList(), equals([1, 2, 3, 4, 5]));
   });
 }

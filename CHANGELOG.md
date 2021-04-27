@@ -1,3 +1,8 @@
+## 2.2.0 - Unpublished
+
+- Added `IntRange` helper class.
+- Added `rangeTo`, `until` and `downTo` extensions for `int` to create `IntRange`.
+
 ## 2.1.1
 
 - Added **String** extensions `count`, `parseJsonArray`, `find`, `title`, `toggledCase`, `equalsIgnoreCase`.
