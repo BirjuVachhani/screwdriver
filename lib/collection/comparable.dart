@@ -47,4 +47,29 @@ extension ComparableScrewdriver<E extends Comparable<dynamic>> on E {
 
   /// Returns true if [other] object is greater than or equal to [this].
   bool operator >=(E other) => compareTo(other) >= 0;
+
+  /// Ensures that this value is not less than the specified [minimum] value.
+  /// returns this value if it's greater than or equal to the [minimum] value
+  /// or the [minimum] value otherwise.
+  E coerceAtLeast(E minimum) => this < minimum ? minimum : this;
+
+  /// Ensures that this value is not greater than the specified [maximum] value.
+  /// Returns this value if it's less than or equal to the [maximum] value
+  /// or the [maximum] value otherwise.
+  E coerceAtMost(E maximum) => this > maximum ? maximum : this;
+
+  /// Ensures that this value lies in the specified range [min] <--> [max].
+  /// Return this value if it's in the range, or [min] value if this value
+  /// is less than [min] value, or [max] value if this value is
+  /// greater than [max] value.
+  E coerceIn(E min, E max) {
+    if (min > max) {
+      throw IllegalArgumentException(
+          'Cannot coerce value to an empty range: maximum $max is '
+          'less than minimum $min.');
+    }
+    if (this < min) return min;
+    if (this > max) return max;
+    return this;
+  }
 }
