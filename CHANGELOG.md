@@ -2,6 +2,7 @@
 
 - Added `IntRange` helper class.
 - Added `rangeTo`, `until` and `downTo` extensions for `int` to create `IntRange`.
+- Added `coerceAtLeast`, `coerceAtMost`, and `coerceIn` extensions for `Comparable`.
 
 ## 2.1.1
 
