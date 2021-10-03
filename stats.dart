@@ -3,6 +3,7 @@
 
 import 'dart:io';
 
+import 'package:analyzer/dart/analysis/results.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart';
 import 'package:intl/intl.dart';
@@ -76,23 +77,24 @@ Future<Stats> getStats(String library) async {
   final session = collection.contexts[0].currentSession;
   final libPath = session.uriConverter.uriToPath(Uri.parse(library)) ?? '';
   // ignore: deprecated_member_use
-  final result = await session.getResolvedLibrary(libPath);
+  final result =
+      await session.getResolvedLibrary(libPath) as ResolvedLibraryResult;
   var helpersFunctions = <String>[];
   var helpersClasses = <String>[];
   var helperVariables = <String>[];
   var extensions = 0;
-  for (final part in result.element!.parts) {
+  for (final part in result.element.parts) {
     helpersFunctions += part.functions.map((e) => e.displayName).toList();
     extensions += part.extensions.expand((element) => element.fields).length;
     extensions += part.extensions.expand((element) => element.methods).length;
-    helpersClasses += part.types.map((e) => e.displayName).toList();
+    helpersClasses += part.classes.map((e) => e.displayName).toList();
     helperVariables += part.accessors.map((e) => e.displayName).toList();
   }
 
-  for (final exp in result.element!.exports) {
+  for (final exp in result.element.exports) {
     if (exp.uri?.startsWith('src') == true) {
       for (final unit in exp.exportedLibrary!.units) {
-        helpersClasses += unit.types.map((e) => e.displayName).toList();
+        helpersClasses += unit.classes.map((e) => e.displayName).toList();
         helpersFunctions += unit.functions.map((e) => e.displayName).toList();
       }
     }
