@@ -36,9 +36,9 @@
 /// If [name] is supplied, it is used as the parameter name
 /// in the error message.
 /// Returns the [argument] if it is not null.
-T checkNotNull<T>(T argument, [String? message]) => argument == null
-    ? throw IllegalStateException(message ?? 'Argument cannot be null')
-    : argument;
+T checkNotNull<T>(T argument, [String? message]) =>
+    argument ??
+    (throw IllegalStateException(message ?? 'Argument cannot be null'));
 
 /// Throws [IllegalStateException] if [value] is false.
 // ignore: avoid_positional_boolean_parameters
@@ -51,10 +51,10 @@ void check(bool value, [String? message]) {
 /// Throws [IllegalArgumentException] if [argument] is `null`.
 /// If [message] is supplied, it is used as the error message.
 /// Returns the [argument] if it is not null.
-T requireNotNull<T>(T argument, [String? message]) => argument == null
-    ? throw IllegalArgumentException(
-        message ?? 'Argument requires to be non-null')
-    : argument;
+T requireNotNull<T>(T argument, [String? message]) =>
+    argument ??
+    (throw IllegalArgumentException(
+        message ?? 'Argument requires to be non-null'));
 
 /// Throws [IllegalArgumentException] if [value] is false.
 /// If [message] is supplied, it is used as the error message.

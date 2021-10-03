@@ -28,7 +28,7 @@ void main() {
     });
 
     test('clear & clearSync tests', () async {
-      expect(await file.isEmptySync, isFalse);
+      expect(file.isEmptySync, isFalse);
       await file.clear();
       expect(file.isEmptySync, isTrue);
       other << 'world';

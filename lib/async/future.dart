@@ -36,10 +36,10 @@ part of screwdriver;
 
 /// Runs given [action] no sooner than in the next event-loop iteration,
 /// after all micro-tasks have run.
-Future<T> post<T>(FutureOr<T> action()) =>
+Future<T> post<T>(FutureOr<T> Function() action) =>
     Future.delayed(Duration.zero, action);
 
 /// Runs given [action] after a delay of [millis], no sooner than in the
 /// next event-loop iteration, after all micro-tasks have run.
-Future<T> postDelayed<T>(int millis, FutureOr<T> action()) =>
+Future<T> postDelayed<T>(int millis, FutureOr<T> Function() action) =>
     Future.delayed(Duration(milliseconds: millis), action);

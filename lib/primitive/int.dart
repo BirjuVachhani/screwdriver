@@ -108,7 +108,7 @@ extension IntScrewdriver<T> on int {
   /// run from 1 to absolute value of [this].
   ///
   /// Returns [List] of type [T] where T is the return type of [func]
-  List<T> repeat(T func(int count)) {
+  List<T> repeat(T Function(int count) func) {
     return [for (var i = 1; i <= abs(); i++) func(i)];
   }
 
