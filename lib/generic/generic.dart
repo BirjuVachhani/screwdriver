@@ -38,20 +38,20 @@ part of screwdriver;
 extension ScopeScrewdriver<T> on T {
   /// Calls the specified function [block] with `this` value as its argument
   /// and returns `this` value.
-  T apply(void block(T obj)) {
+  T apply(void Function(T obj) block) {
     block(this);
     return this;
   }
 
   /// Calls the specified function [block] with `this` value as its argument
   /// and returns `this` value.
-  R run<R>(R block(T obj)) {
+  R run<R>(R Function(T obj) block) {
     return block(this);
   }
 
   /// Returns [this] if it satisfies the given [predicate] or null,
   /// if it doesn't.
-  T? takeIf(bool predicate(T obj)) {
+  T? takeIf(bool Function(T obj) predicate) {
     if (predicate(this)) {
       return this;
     }
@@ -60,7 +60,7 @@ extension ScopeScrewdriver<T> on T {
 
   /// Returns [this] if it doesn't satisfy the given [predicate] or null,
   /// if it doesn't.
-  T? takeUnless(bool predicate(T obj)) {
+  T? takeUnless(bool Function(T obj) predicate) {
     if (!predicate(this)) {
       return this;
     }
@@ -76,7 +76,7 @@ extension ScopeScrewdriver<T> on T {
 
 // Calls the specified function [block] with `this` value as its argument
 /// and returns `this` value.
-R run<R>(R block()) {
+R run<R>(R Function() block) {
   return block.call();
 }
 
@@ -87,8 +87,8 @@ void TODO([String? reason]) =>
     throw UnimplementedError(reason ?? 'An operation is not implemented.');
 
 /// Run given [action] in a try-catch block and calls [onError] on exception.
-T? runCaching<T>(T action(),
-    {T? onError(dynamic error, StackTrace stacktrace)?}) {
+T? runCaching<T>(T Function() action,
+    {T? Function(dynamic error, StackTrace stacktrace)? onError}) {
   try {
     return action.call();
   } catch (error, stacktrace) {

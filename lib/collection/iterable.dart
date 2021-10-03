@@ -46,7 +46,8 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Appends all elements matching the given [predicate] to
   /// the given [destination].
-  Iterable<E> filterTo(List<E> destination, bool predicate(E element)) {
+  Iterable<E> filterTo(
+      List<E> destination, bool Function(E element) predicate) {
     for (final element in this) {
       if (predicate(element)) destination.add(element);
     }
@@ -54,10 +55,11 @@ extension IterableScrewDriver<E> on Iterable<E> {
   }
 
   /// alias for [Iterable.where]
-  Iterable<E> filter(bool predicate(E element)) => filterTo(<E>[], predicate);
+  Iterable<E> filter(bool Function(E element) predicate) =>
+      filterTo(<E>[], predicate);
 
   /// alias for [whereIndexed]
-  Iterable<E> filterIndexed(bool test(int index, E element)) sync* {
+  Iterable<E> filterIndexed(bool Function(int index, E element) test) sync* {
     var index = 0;
     for (var element in this) {
       if (test(index++, element)) yield element;
@@ -65,7 +67,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   }
 
   /// alias for [Iterable.map]
-  Iterable<R> flatMap<R>(R transform(E element)) => map<R>(transform);
+  Iterable<R> flatMap<R>(R Function(E element) transform) => map<R>(transform);
 
   /// alias for [Iterable.skip]
   Iterable<E> drop(int count) => skip(count);
@@ -79,7 +81,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   }
 
   /// alias for [Iterable.skipWhile]
-  Iterable<E> dropWhile(bool test(E element)) => skipWhile(test);
+  Iterable<E> dropWhile(bool Function(E element) test) => skipWhile(test);
 
   /// alias for [Iterable.skip]
   Iterable<E> dropLast(int count) {
@@ -90,18 +92,18 @@ extension IterableScrewDriver<E> on Iterable<E> {
   }
 
   /// alias for [Iterable.every]
-  bool all(bool test(E element)) => every(test);
+  bool all(bool Function(E element) test) => every(test);
 
   /// Returns a [Map] containing key-value pairs provided by [transform]
   /// function applied to elements of the given List.
-  Map<K, V> associate<K, V>(Pair<K, V> transform(E element)) =>
+  Map<K, V> associate<K, V>(Pair<K, V> Function(E element) transform) =>
       associateTo(<K, V>{}, transform);
 
   /// Populates and returns the [destination] map with key-value pairs
   /// provided by [transform] function applied to each element
   /// of the given iterable.
   Map<K, V> associateTo<K, V>(
-      Map<K, V> destination, Pair<K, V> transform(E element)) {
+      Map<K, V> destination, Pair<K, V> Function(E element) transform) {
     for (final element in this) {
       destination + transform(element);
     }
@@ -111,19 +113,20 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns a [Map] containing the elements from the given List
   /// indexed by the key returned from [keySelector] function applied
   /// to each element.
-  Map<K, E> associateBy<K>(K keySelector(E element)) =>
+  Map<K, E> associateBy<K>(K Function(E element) keySelector) =>
       associateByTo(<K, E>{}, keySelector);
 
   /// Populates and returns the [destination] mutable map with key-value pairs,
   /// where key is provided by the [keySelector] function applied to each
   /// element of the given iterable and value is the element itself.
-  Map<K, E> associateByTo<K>(Map<K, E> destination, K keySelector(E element)) =>
+  Map<K, E> associateByTo<K>(
+          Map<K, E> destination, K Function(E element) keySelector) =>
       {for (final element in this) keySelector(element): element};
 
   /// Returns a [Map] where keys are elements from the given iterable
   /// and values are produced by the [valueSelector] function
   /// applied to each element.
-  Map<E, V> associateWith<V>(V valueSelector(E element)) =>
+  Map<E, V> associateWith<V>(V Function(E element) valueSelector) =>
       associateWithTo(<E, V>{}, valueSelector);
 
   /// Populates and returns the [destination] map with key-value
@@ -131,14 +134,14 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// where key is the element itself and value is provided
   /// by the [valueSelector] function applied to that key.
   Map<E, V> associateWithTo<V>(
-          Map<E, V> destination, V valueSelector(E element)) =>
+          Map<E, V> destination, V Function(E element) valueSelector) =>
       {for (final element in this) element: valueSelector(element)};
 
   /// Groups elements of the original iterable by the key returned by
   /// the given [keySelector] function applied to each element
   /// and returns a map where each group key is associated with a
   /// list of corresponding elements.
-  Map<K, List<E>> groupBy<K>(K keySelector(E element)) =>
+  Map<K, List<E>> groupBy<K>(K Function(E element) keySelector) =>
       groupByTo(<K, List<E>>{}, keySelector);
 
   /// Groups elements of the original iterable by the key returned by
@@ -146,7 +149,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// and puts to the [destination] map each group key associated
   /// with a list of corresponding elements.
   Map<K, List<E>> groupByTo<K>(
-      Map<K, List<E>> destination, K keySelector(E element)) {
+      Map<K, List<E>> destination, K Function(E element) keySelector) {
     for (final element in this) {
       final key = keySelector(element);
       final list = destination.putIfAbsent(key, () => []);
@@ -161,13 +164,14 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns an iterable containing only elements from the given iterable
   /// having distinct keys returned by the given [selector] function.
-  Iterable<E> distinctBy<K>(K selector(E element)) =>
+  Iterable<E> distinctBy<K>(K Function(E element) selector) =>
       distinctByTo(<E>[], selector);
 
   /// Populates and returns the [destination] list with containing only
   /// elements from the given iterable having distinct keys returned by
   /// the given [selector] function.
-  Iterable<E> distinctByTo<K>(List<E> destination, K selector(E element)) {
+  Iterable<E> distinctByTo<K>(
+      List<E> destination, K Function(E element) selector) {
     final set = HashSet<K>();
     for (var element in this) {
       final key = selector(element);
@@ -190,7 +194,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   Iterable<E> union(Iterable<E> other) => (toSet()..addAll(other)).toList();
 
   /// Returns the number of elements matching the given [predicate].
-  int count(bool predicate(E element)) {
+  int count(bool Function(E element) predicate) {
     if (isEmpty) return 0;
     var count = 0;
     for (var element in this) {
@@ -202,7 +206,8 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Accumulates value starting with [initialValue] value and
   /// applying [operation] from right to left to each element
   /// and current accumulator value.
-  R foldRight<R>(R initialValue, R operation(R previousValue, E element)) {
+  R foldRight<R>(
+      R initialValue, R Function(R previousValue, E element) operation) {
     var accumulator = initialValue;
     if (isNotEmpty) {
       for (final element in toList().reversed) {
@@ -215,8 +220,8 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Accumulates value starting with [initialValue] value and applying
   /// [operation] from right to left to each element with its index in
   /// the original list and current accumulator value.
-  R foldRightIndexed<R>(
-      R initialValue, R operation(int index, R previousValue, E element)) {
+  R foldRightIndexed<R>(R initialValue,
+      R Function(int index, R previousValue, E element) operation) {
     var accumulator = initialValue;
     if (isNotEmpty) {
       for (var index = length - 1; index >= 0; index--) {
@@ -244,11 +249,12 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Performs the given [action] on each element and returns the
   /// iterable itself afterwards.
-  Iterable<E> onEach(void action(E element)) => this..forEach(action);
+  Iterable<E> onEach(void Function(E element) action) => this..forEach(action);
 
   /// Returns the first element yielding the largest value of the given
   /// function or `null` if there are no elements.
-  E? maxByOrNull<R extends Comparable<dynamic>>(R selector(E element)) {
+  E? maxByOrNull<R extends Comparable<dynamic>>(
+      R Function(E element) selector) {
     if (isEmpty) return null;
     if (length == 1) return first;
     var maxElement = first;
@@ -266,7 +272,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns the first element yielding the largest value of the given
   /// function.
   /// Throws [StateError] if there are no elements in the collection.
-  E maxBy<R extends Comparable<dynamic>>(R selector(E element)) {
+  E maxBy<R extends Comparable<dynamic>>(R Function(E element) selector) {
     if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var maxElement = first;
@@ -283,7 +289,8 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the last element yielding the largest value of the given
   /// function or `null` if there are no elements.
-  E? maxByLastOrNull<R extends Comparable<dynamic>>(R selector(E element)) {
+  E? maxByLastOrNull<R extends Comparable<dynamic>>(
+      R Function(E element) selector) {
     if (isEmpty) return null;
     if (length == 1) return first;
     var maxElement = first;
@@ -301,7 +308,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns the last element yielding the largest value of the given
   /// function.
   /// Throws [StateError] if there are no elements in the collection.
-  E maxByLast<R extends Comparable<dynamic>>(R selector(E element)) {
+  E maxByLast<R extends Comparable<dynamic>>(R Function(E element) selector) {
     if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var maxElement = first;
@@ -318,7 +325,8 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the first element yielding the smallest value of the given
   /// function or `null` if there are no elements.
-  E? minByOrNull<R extends Comparable<dynamic>>(R selector(E element)) {
+  E? minByOrNull<R extends Comparable<dynamic>>(
+      R Function(E element) selector) {
     if (isEmpty) return null;
     if (length == 1) return first;
     var minElement = first;
@@ -336,7 +344,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns the first element yielding the smallest value of the given
   /// function.
   /// Throws [StateError] if there are no elements in the collection.
-  E minBy<R extends Comparable<dynamic>>(R selector(E element)) {
+  E minBy<R extends Comparable<dynamic>>(R Function(E element) selector) {
     if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var minElement = first;
@@ -353,7 +361,8 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the last element yielding the smallest value of the given
   /// function or `null` if there are no elements.
-  E? minByLastOrNull<R extends Comparable<dynamic>>(R selector(E element)) {
+  E? minByLastOrNull<R extends Comparable<dynamic>>(
+      R Function(E element) selector) {
     if (isEmpty) return null;
     if (length == 1) return first;
     var minElement = first;
@@ -371,7 +380,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns the last element yielding the smallest value of the given
   /// function.
   /// Throws [StateError] if there are no elements in the collection.
-  E minByLast<R extends Comparable<dynamic>>(R selector(E element)) {
+  E minByLast<R extends Comparable<dynamic>>(R Function(E element) selector) {
     if (isEmpty) throw StateError('no elements');
     if (length == 1) return first;
     var minElement = first;
@@ -388,13 +397,13 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns the sum of all values produced by [selector] function
   /// applied to each element in the collection.
-  R sumBy<R extends num>(R selector(E element)) => fold<R>(
+  R sumBy<R extends num>(R Function(E element) selector) => fold<R>(
       (R == int ? 0 : 0.0) as R,
       (previousValue, element) => previousValue + selector(element) as R);
 
   /// Returns the average of all values produced by [selector] function
   /// applied to each element in the collection.
-  double averageBy<R extends num>(R selector(E element)) {
+  double averageBy<R extends num>(R Function(E element) selector) {
     if (isEmpty) return 0;
     return sumBy(selector) / length;
   }

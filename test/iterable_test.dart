@@ -170,7 +170,7 @@ void main() {
                 previousValue + index * 2 + element),
         12);
 
-    expect(list.indexOf(list.random()) != -1, isTrue);
+    expect(list.contains(list.random()), isTrue);
     expect(list.randomOrNull(), isNotNull);
     expect([5].randomOrNull(), 5);
     expect(<int>[].randomOrNull(), null);
