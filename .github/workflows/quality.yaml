@@ -14,10 +14,12 @@ on:
 jobs:
   quality:
     timeout-minutes: 5
-    runs-on: ubuntu-latest
-    container:
-      image:  google/dart:latest
+    runs-on: macos-latest
     steps:
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
       - uses: actions/checkout@v1
       - name: Install dependencies
         run: dart pub get
