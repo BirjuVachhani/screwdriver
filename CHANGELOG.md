@@ -10,6 +10,8 @@
 - Added `JsonMap`, `IntList`, `StringList`, `DoubleList`, `IntSet`, `StringSet` and `DoubleSet` typedefs.
 - Added `SerializableMixin` mixin.
 - Added `isNull` and `isNotNull` extensions for `Object?`.
+- Added `orZero`, `orOne`, and `or` extensions for `num?`.
+- Update hashcode implementation for `IntRange`, `Pair`, and `Triple`.
 
 ## 2.1.1
 
