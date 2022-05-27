@@ -8,6 +8,7 @@
 - Added `readBytes` extension for `html.File`.
 - Added `roundToPrecision` extension for `double` and `num`.
 - Added `JsonMap`, `IntList`, `StringList`, `DoubleList`, `IntSet`, `StringSet` and `DoubleSet` typedefs.
+- Added `SerializableMixin` mixin.
 
 ## 2.1.1
 
