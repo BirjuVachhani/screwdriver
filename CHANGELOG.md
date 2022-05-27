@@ -9,6 +9,7 @@
 - Added `roundToPrecision` extension for `double` and `num`.
 - Added `JsonMap`, `IntList`, `StringList`, `DoubleList`, `IntSet`, `StringSet` and `DoubleSet` typedefs.
 - Added `SerializableMixin` mixin.
+- Added `isNull` and `isNotNull` extensions for `Object?`.
 
 ## 2.1.1
 

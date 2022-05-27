@@ -29,50 +29,16 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: May 27, 2022
 
-import 'dart:async';
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:math';
+part of screwdriver;
 
-import 'package:characters/characters.dart';
-import 'package:collection/collection.dart';
-import 'package:intl/intl.dart';
+/// Extensions for nullable types
+extension ObjectScrewdriver on Object? {
+  /// Returns true if the object is null
+  bool get isNull => this == null;
 
-import 'src/helpers/helpers.dart';
-import 'src/utils.dart';
-
-export 'package:collection/collection.dart';
-
-export 'src/helpers/helpers.dart';
-
-part 'async/future.dart';
-
-part 'collection/comparable.dart';
-
-part 'collection/iterable.dart';
-
-part 'collection/iterator.dart';
-
-part 'collection/list.dart';
-
-part 'collection/map.dart';
-
-part 'datetime/date_time.dart';
-
-part 'duration/duration.dart';
-
-part 'generic/generic.dart';
-
-part 'primitive/bool.dart';
-
-part 'primitive/double.dart';
-
-part 'primitive/int.dart';
-
-part 'primitive/num.dart';
-
-part 'primitive/object.dart';
-
-part 'primitive/string.dart';
+  /// Returns true if the object is not null
+  bool get isNotNull => this != null;
+}
