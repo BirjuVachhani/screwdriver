@@ -188,6 +188,14 @@ void main() {
     expect([1, 2, 3].containsNone([1, 2]), isFalse);
     expect([1, 2, 3].containsNone([4, 5]), isTrue);
 
+    // lastIndex tests
+    expect([1, 2, 3].lastIndex, equals(2));
+    expect(<int>[].lastIndex, equals(0));
+
+    // hasOnlyOneElement tests
+    expect([1, 2, 3].hasOnlyOneElement, isFalse);
+    expect([1].hasOnlyOneElement, isTrue);
+
     expect(list.contains(list.random()), isTrue);
     expect(list.randomOrNull(), isNotNull);
     expect([5].randomOrNull(), 5);

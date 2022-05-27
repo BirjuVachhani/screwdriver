@@ -44,6 +44,12 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// returns null if iterable is empty or has less than 3 elements.
   E? get thirdOrNull => length > 2 ? elementAt(2) : null;
 
+  /// Returns the index of the last element in the collection.
+  int get lastIndex => length > 0 ? length - 1 : 0;
+
+  /// Returns true if the collection only has 1 element.
+  bool get hasOnlyOneElement => length == 1;
+
   /// Appends all elements matching the given [predicate] to
   /// the given [destination].
   Iterable<E> filterTo(
