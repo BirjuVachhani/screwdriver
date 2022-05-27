@@ -4,6 +4,7 @@
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/results.dart';
+import 'package:analyzer/dart/element/element.dart';
 import 'package:analyzer/file_system/physical_file_system.dart';
 import 'package:analyzer/src/dart/analysis/analysis_context_collection.dart';
 import 'package:intl/intl.dart';
@@ -13,12 +14,16 @@ class Stats {
   List<String> classes = [];
   List<String> variables = [];
   int extensions = 0;
+  int typedefs = 0;
+  int mixins = 0;
 
   Stats({
     required this.functions,
     required this.classes,
     required this.variables,
     required this.extensions,
+    required this.typedefs,
+    required this.mixins,
   });
 
   Stats operator +(Stats other) => Stats(
@@ -26,6 +31,8 @@ class Stats {
         classes: classes + other.classes,
         variables: variables + other.variables,
         extensions: extensions + other.extensions,
+        typedefs: typedefs + other.typedefs,
+        mixins: mixins + other.mixins,
       );
 }
 
@@ -67,6 +74,8 @@ Helper Functions & Getters:    ${stats.functions.length + stats.variables.length
       '${stats.functions.length + stats.variables.length}');
   print('Helper Classes:                ${stats.classes.length}');
   print('Extensions:                    ${stats.extensions}');
+  print('Typedefs:                      ${stats.typedefs}');
+  print('Mixins:                        ${stats.mixins}');
   print('==================================================================');
 }
 
@@ -83,26 +92,50 @@ Future<Stats> getStats(String library) async {
   var helpersClasses = <String>[];
   var helperVariables = <String>[];
   var extensions = 0;
+  var typedefs = 0;
+  var mixins = 0;
   for (final part in result.element.parts) {
     helpersFunctions += part.functions.map((e) => e.displayName).toList();
     extensions += part.extensions.expand((element) => element.fields).length;
     extensions += part.extensions.expand((element) => element.methods).length;
     helpersClasses += part.classes.map((e) => e.displayName).toList();
     helperVariables += part.accessors.map((e) => e.displayName).toList();
+    typedefs += part.typeAliases.length;
+    mixins += part.mixins.length;
   }
 
-  for (final exp in result.element.exports) {
-    if (exp.uri?.startsWith('src') == true) {
-      for (final unit in exp.exportedLibrary!.units) {
-        helpersClasses += unit.classes.map((e) => e.displayName).toList();
-        helpersFunctions += unit.functions.map((e) => e.displayName).toList();
-      }
-    }
-  }
-  return Stats(
+  final stats = Stats(
     variables: helperVariables,
     classes: helpersClasses,
     functions: helpersFunctions,
     extensions: extensions,
+    typedefs: typedefs,
+    mixins: mixins,
   );
+
+  collectExports(result.element, stats, checkForSrcDir: true);
+  return stats;
+}
+
+void collectExports(LibraryElement element, Stats stats,
+    {bool checkForSrcDir = false}) {
+  for (final exp in element.exports) {
+    if (!checkForSrcDir || exp.uri?.startsWith('src') == true) {
+      for (final unit in exp.exportedLibrary!.units) {
+        stats.classes.addAll(unit.classes.map((e) => e.displayName));
+        stats.functions.addAll(unit.functions.map((e) => e.displayName));
+        stats.variables.addAll(unit.accessors.map((e) => e.displayName));
+        stats.extensions +=
+            unit.extensions.expand((element) => element.methods).length;
+        stats.extensions +=
+            unit.extensions.expand((element) => element.fields).length;
+        stats.typedefs += unit.typeAliases.length;
+        stats.mixins += unit.mixins.length;
+
+        if (unit.enclosingElement.exports.isNotEmpty) {
+          collectExports(unit.enclosingElement, stats);
+        }
+      }
+    }
+  }
 }
