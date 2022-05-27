@@ -58,7 +58,7 @@ class Pair<K, V> {
       second == other.second;
 
   @override
-  int get hashCode => first.hashCode ^ second.hashCode;
+  int get hashCode => Object.hash(first, second);
 
   @override
   String toString() => '($first, $second)';

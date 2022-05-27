@@ -63,7 +63,7 @@ class Triple<F, S, T> {
       third == other.third;
 
   @override
-  int get hashCode => first.hashCode ^ second.hashCode ^ third.hashCode;
+  int get hashCode => Object.hash(first, second, third);
 
   @override
   String toString() => '($first, $second, $third)';

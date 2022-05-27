@@ -91,7 +91,7 @@ class IntRange extends Iterable<int> {
   bool get isEmpty => step > 0 ? first > last : first < last;
 
   @override
-  int get hashCode => 31 * (31 * first + last) + step;
+  int get hashCode => Object.hash(start, end, step);
 
   /// Returns an [IntRange] that goes over the same range in the opposite
   /// direction with the same step.
