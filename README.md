@@ -1,4 +1,4 @@
-![banner](https://github.com/BirjuVachhani/screwdriver/main/.github/banner.png)
+![banner](https://github.com/BirjuVachhani/screwdriver/blob/main/.github/banner.png?raw=true)
 
 
 
