@@ -58,7 +58,7 @@ extension IterableScrewDriver<E> on Iterable<E> {
   Iterable<E> filter(bool Function(E element) predicate) =>
       filterTo(<E>[], predicate);
 
-  /// alias for [whereIndexed]
+  /// alias for [whereIndexed] which returns a new lazy Iterable.
   Iterable<E> filterIndexed(bool Function(int index, E element) test) sync* {
     var index = 0;
     for (var element in this) {
@@ -407,6 +407,25 @@ extension IterableScrewDriver<E> on Iterable<E> {
     if (isEmpty) return 0;
     return sumBy(selector) / length;
   }
+
+  /// Alias for [subtract].
+  Iterable<E> except(Iterable<E> other) => subtract(other);
+
+  /// Equivalent to [elementAt] but returns null instead of throwing
+  /// [RangeError] if the index is out of bounds.
+  E? elementAtOrNull(int index) {
+    if (index < 0 || index >= length) return null;
+    return elementAt(index);
+  }
+
+  /// Returns true if the collection contains all the elements
+  /// present in [other] collection.
+  bool containsAll(Iterable<E> other) => other.every(contains);
+
+  /// Returns true if the collection doesn't contain any of the elements
+  /// present in [other] collection.
+  bool containsNone(Iterable<E> other) =>
+      none((element) => other.contains(element));
 }
 
 /// provides extensions for nullable Iterable

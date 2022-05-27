@@ -170,6 +170,24 @@ void main() {
                 previousValue + index * 2 + element),
         12);
 
+    // except tests
+    expect([1, 2, 3].except([2]), containsAllInOrder(<int>[1, 3]));
+    expect([1, 2, 3].except([1, 5]), containsAllInOrder(<int>[2, 3]));
+
+    // elementAtOrNull tests
+    expect([1, 2, 3].elementAtOrNull(0), equals(1));
+    expect([1, 2, 3].elementAtOrNull(2), equals(3));
+    expect([1, 2, 3].elementAtOrNull(3), isNull);
+    expect([1, 2, 3].elementAtOrNull(-1), isNull);
+
+    // containsAll tests
+    expect([1, 2, 3].containsAll([1, 2]), isTrue);
+    expect([1, 2, 3].containsAll([1, 2, 3, 4]), isFalse);
+
+    // containsNone tests
+    expect([1, 2, 3].containsNone([1, 2]), isFalse);
+    expect([1, 2, 3].containsNone([4, 5]), isTrue);
+
     expect(list.contains(list.random()), isTrue);
     expect(list.randomOrNull(), isNotNull);
     expect([5].randomOrNull(), 5);
