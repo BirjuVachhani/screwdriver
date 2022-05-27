@@ -52,6 +52,7 @@ export 'src/helpers/int_range.dart';
 export 'src/helpers/pair.dart';
 export 'src/helpers/pre_conditions.dart';
 export 'src/helpers/triple.dart';
+export 'src/helpers/typedefs.dart';
 
 part 'async/future.dart';
 
