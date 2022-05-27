@@ -15,5 +15,6 @@ void main() {
     expect(15.coerceIn(10, 20), 15);
     expect(8.coerceIn(10, 20), 10);
     expect(22.coerceIn(10, 20), 20);
+    expect(() => 22.coerceIn(30, 25), throwsException);
   });
 }
