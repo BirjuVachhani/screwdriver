@@ -44,4 +44,9 @@ extension MapScrewdriver<K, V> on Map<K, V> {
 
   /// Converts [this] map into a JSON string
   String toJson() => json.encode(this);
+
+  /// Returns a new [Map] with the same keys and values as [this] except
+  /// keys present [keys].
+  Map<K, V> except(List<K> keys) =>
+      Map.fromEntries(entries.where((entry) => !keys.contains(entry.key)));
 }

@@ -21,4 +21,10 @@ void main() {
     expect({'name': 'John'}.toJson(), equals('{"name":"John"}'));
     expect(<String, dynamic>{}.toJson(), equals('{}'));
   });
+
+  test('except test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.except(['a', 'b']), equals({'c': 3}));
+    expect(
+        {'a': 1, 'b': 2, 'c': 3}.except(['a', 'd']), equals({'b': 2, 'c': 3}));
+  });
 }
