@@ -1,4 +1,4 @@
-## 2.2.0 - Unpublished
+## 3.0.0
 
 - Added `IntRange` helper class.
 - Added `rangeTo`, `until` and `downTo` extensions for `int` to create `IntRange`.
