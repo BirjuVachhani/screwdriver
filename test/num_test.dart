@@ -32,4 +32,33 @@ void main() {
     expect(
         double.negativeInfinity.roundToPrecision(2), double.negativeInfinity);
   });
+
+  test('nullable num tests', () {
+    num? nullableNum;
+    int? nullableInt;
+    double? nullableDouble;
+    expect(nullableNum.orOne, 1);
+    expect(nullableInt.orOne, 1);
+    expect(nullableDouble.orOne, 1);
+
+    expect(nullableNum.orZero, 0);
+    expect(nullableInt.orZero, 0);
+    expect(nullableDouble.orZero, 0);
+
+    expect(nullableNum.or(5), 5);
+    expect(nullableInt.or(10), 10);
+    expect(nullableDouble.or(25.5), 25.5);
+
+    nullableNum = 5;
+    nullableInt = 10;
+    nullableDouble = 25.5;
+
+    expect(nullableNum.orOne, 5);
+    expect(nullableInt.orOne, 10);
+    expect(nullableDouble.orOne, 25.5);
+
+    expect(nullableNum.orZero, 5);
+    expect(nullableInt.orZero, 10);
+    expect(nullableDouble.orZero, 25.5);
+  });
 }

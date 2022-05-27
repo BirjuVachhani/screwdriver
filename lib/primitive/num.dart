@@ -51,3 +51,15 @@ extension NumScrewdriver on num {
   num roundToPrecision(int precision) =>
       num.parse((this).toStringAsFixed(precision));
 }
+
+/// Provides extensions for nullable [num] types.
+extension NullableNumScrewdriver on num? {
+  /// Returns this value or 0 if null. Useful for equations.
+  num get orZero => this == null ? 0 : this!;
+
+  /// Returns this value or 1 if null. Useful for equations.
+  num get orOne => this == null ? 1 : this!;
+
+  /// Returns this or [value] if null.  Useful for equations.
+  num or(num value) => this == null ? value : this!;
+}
