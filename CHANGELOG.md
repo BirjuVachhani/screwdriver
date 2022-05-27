@@ -3,6 +3,11 @@
 - Added `IntRange` helper class.
 - Added `rangeTo`, `until` and `downTo` extensions for `int` to create `IntRange`.
 - Added `coerceAtLeast`, `coerceAtMost`, and `coerceIn` extensions for `Comparable`.
+- Added `except` extension for `Map`.
+- Added `except`, `containsAll`, `containsNone`, `lastIndex`, `elementAtOrNull`, and `hasOnlyOneElement` extensions for `Iterable`.
+- Added `readBytes` extension for `html.File`.
+- Added `roundToPrecision` extension for `double` and `num`.
+- Added `JsonMap`, `IntList`, `StringList`, `DoubleList`, `IntSet`, `StringSet` and `DoubleSet` typedefs.
 
 ## 2.1.1
 
@@ -14,12 +19,12 @@
 
 - Added back `isNullOrEmpty`, `isNotNullOrEmpty` extensions for `Iterable?`.
 - Added back `isNullOrEmpty`, `isNotNullOrEmpty`, `isNullOrBlank` , `isNotNullOrBlank` extensions for `String?`.
-- Added [collection](https://pub.dev/packages/collection) as a part of the package so it can now be used from screwdriver. No need to explicitly add it.
+- Added [collection](https://pub.dev/packages/collection) as a part of the package, so it can now be used from screwdriver. No need to explicitly add it.
 
 ## 2.0.0
 
 - Migrated to null safety.
-- Removed following extensions either because they are redundant in favor of non-nullable types or they are already available in the null safe version of [collection](https://pub.dev/packages/collection) package of [dart.dev](dart.dev).
+- Removed following extensions either because they are redundant in favor of non-nullable types or they are already available in the null safe version of official dart package [collection](https://pub.dev/packages/collection).
     - `Iterable.firstOrNull`
     - `Iterable.firstOrNullWhere`
     - `Iterable.lastOrNullWhere`
