@@ -21,13 +21,13 @@ jobs:
         run: brew install dart
       - uses: actions/checkout@v1
       - name: Install dependencies
-        run: pub get
+        run: dart pub get
       - name: Run tests
-        run: pub run test
+        run: dart pub run test
       - name: Activate Test Coverage
-        run: pub global activate test_coverage
+        run: dart pub global activate test_coverage
       - name: Generate Code Coverage
-        run: pub global run test_coverage
+        run: dart pub global run test_coverage
       - uses: codecov/codecov-action@v1
         with:
           file: coverage/lcov.info

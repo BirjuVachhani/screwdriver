@@ -15,13 +15,13 @@ jobs:
       - name: Install Dart SDK
         run: brew install dart
       - name: Install dependencies
-        run: pub get
+        run: dart pub get
       - name: Run tests
-        run: pub run test
+        run: dart pub run test
       - name: Format code
         run: dart format --fix .
       - name: Check Publish Warnings
-        run: pub publish --dry-run
+        run: dart pub publish --dry-run
       - name: Publish
         uses: sakebook/actions-flutter-pub-publisher@v1.3.1
         with:

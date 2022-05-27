@@ -24,7 +24,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Install dependencies
-        run: pub get
+        run: dart pub get
       - name: Generate Stats
         run: dart stats.dart
       - name: Update Stats on README.md
