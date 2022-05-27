@@ -46,4 +46,8 @@ extension NumScrewdriver on num {
   bool isBetween(num value1, num value2, {bool inclusive = false}) => inclusive
       ? (this >= value1 && this <= value2) || (this >= value2 && this <= value1)
       : (this > value1 && this < value2) || (this > value2 && this < value1);
+
+  /// Rounds value [precision] number of fraction points.
+  num roundToPrecision(int precision) =>
+      num.parse((this).toStringAsFixed(precision));
 }

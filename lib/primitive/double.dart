@@ -42,6 +42,10 @@ extension DoubleScrewdriver on double {
       this != double.negativeInfinity &&
       this != double.nan &&
       truncate() == this;
+
+  /// Rounds value [precision] number of fraction points.
+  double roundToPrecision(int precision) =>
+      double.parse((this).toStringAsFixed(precision));
 }
 
 /// Generates a non-negative random floating point value uniformly distributed
