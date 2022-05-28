@@ -50,6 +50,8 @@ void main() async {
 Extensions:                    ${stats.extensions}
 Helper Classes:                ${stats.classes.length}
 Helper Functions & Getters:    ${stats.functions.length + stats.variables.length}
+Typedefs:                      ${stats.typedefs}
+Mixins:                        ${stats.mixins}
 ```
 
 > *Last Updated: ${DateFormat('EEE, MMM dd, yyyy - hh:mm a').format(DateTime.now())}*
