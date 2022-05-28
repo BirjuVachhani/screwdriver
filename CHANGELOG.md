@@ -1,3 +1,7 @@
+## 3.1.0 [Unpublished]
+
+- Added `StreamSubscriptionMixin` to manage stream subscriptions. Supports scoped subscriptions as well.
+
 ## 3.0.0
 
 - Added `IntRange` helper class.
