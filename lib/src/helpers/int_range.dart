@@ -34,8 +34,7 @@
 
 import 'package:meta/meta.dart';
 
-import '../../screwdriver.dart';
-import 'constants.dart';
+import 'helpers.dart';
 
 /// A progression of values of type [int].
 /// An iterable that can iterate between [start] and [end] value with step size
@@ -159,22 +158,22 @@ class IntRangeIterator extends Iterator<int> {
       if (currentElement >= end) {
         return false;
       }
-      var _next = currentElement + step;
-      if (_next > end) {
+      var next = currentElement + step;
+      if (next > end) {
         return false;
       } else {
-        _current = _next;
+        _current = next;
       }
       return true;
     } else {
       if (currentElement <= end) {
         return false;
       }
-      var _next = currentElement + step;
-      if (_next < end) {
+      var next = currentElement + step;
+      if (next < end) {
         return false;
       } else {
-        _current = _next;
+        _current = next;
       }
       return true;
     }
