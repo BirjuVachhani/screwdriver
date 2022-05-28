@@ -22,9 +22,11 @@ A dart package aiming to provide useful extensions and helper functions to ease 
 Extensions:                    216
 Helper Classes:                7
 Helper Functions & Getters:    18
+Typedefs:                      8
+Mixins:                        2
 ```
 
-> *Last Updated: Sat, May 28, 2022 - 08:01 AM*
+> *Last Updated: Sat, May 28, 2022 - 08:52 AM*
 
 <!---stats_end-->
 
