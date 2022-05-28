@@ -12,7 +12,10 @@ void main() {
     expectLater(postDelayed(300, () => 5), completion(equals(5)));
   });
 
-  test('runCaching tests', () {
+  test('runCaching tests', () async {
+    await expectLater(runCaching(() async => int.parse('5')), completion(5));
+    await expectLater(
+        runCaching(() async => int.parse('abc')), throwsException);
     expect(runCaching(() => int.parse('5')), 5);
     expect(runCaching(() => int.parse('5a')), null);
     Object? exception;
