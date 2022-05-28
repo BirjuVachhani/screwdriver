@@ -46,7 +46,7 @@ void main() {
       final deletedSub = other.onDeleted(deleted.call);
       other << ' world';
       await Future<void>.delayed(Duration(seconds: 3));
-      verify(modified.call()).called(1);
+      expect(verify(modified.call()).callCount >= 1, isTrue);
       other.deleteSync();
       await Future<void>.delayed(Duration(seconds: 3));
       verify(deleted.call()).called(1);
