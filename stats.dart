@@ -72,10 +72,10 @@ Mixins:                        ${stats.mixins}
   print('==================================================================');
   print('STATS');
   print('==================================================================');
+  print('Extensions:                    ${stats.extensions}');
+  print('Helper Classes:                ${stats.classes.length}');
   print('Helper Functions & Getters:    '
       '${stats.functions.length + stats.variables.length}');
-  print('Helper Classes:                ${stats.classes.length}');
-  print('Extensions:                    ${stats.extensions}');
   print('Typedefs:                      ${stats.typedefs}');
   print('Mixins:                        ${stats.mixins}');
   print('==================================================================');
@@ -96,14 +96,14 @@ Future<Stats> getStats(String library) async {
   var extensions = 0;
   var typedefs = 0;
   var mixins = 0;
-  for (final part in result.element.parts) {
+  for (final part in result.element.units) {
     helpersFunctions += part.functions.map((e) => e.displayName).toList();
     extensions += part.extensions.expand((element) => element.fields).length;
     extensions += part.extensions.expand((element) => element.methods).length;
     helpersClasses += part.classes.map((e) => e.displayName).toList();
     helperVariables += part.accessors.map((e) => e.displayName).toList();
     typedefs += part.typeAliases.length;
-    mixins += part.mixins.length;
+    mixins += part.mixins2.length;
   }
 
   final stats = Stats(
@@ -119,10 +119,12 @@ Future<Stats> getStats(String library) async {
   return stats;
 }
 
-void collectExports(LibraryElement element, Stats stats,
+void collectExports(LibraryOrAugmentationElement element, Stats stats,
     {bool checkForSrcDir = false}) {
-  for (final exp in element.exports) {
-    if (!checkForSrcDir || exp.uri?.startsWith('src') == true) {
+  for (final exp in element.libraryExports) {
+    final uri = exp.uri;
+    if (uri is! DirectiveUriWithLibrary) continue;
+    if (!checkForSrcDir || uri.relativeUriString.startsWith('src') == true) {
       for (final unit in exp.exportedLibrary!.units) {
         stats.classes.addAll(unit.classes.map((e) => e.displayName));
         stats.functions.addAll(unit.functions.map((e) => e.displayName));
@@ -132,10 +134,10 @@ void collectExports(LibraryElement element, Stats stats,
         stats.extensions +=
             unit.extensions.expand((element) => element.fields).length;
         stats.typedefs += unit.typeAliases.length;
-        stats.mixins += unit.mixins.length;
+        stats.mixins += unit.mixins2.length;
 
-        if (unit.enclosingElement.exports.isNotEmpty) {
-          collectExports(unit.enclosingElement, stats);
+        if (unit.enclosingElement3.libraryExports.isNotEmpty) {
+          collectExports(unit.enclosingElement3, stats);
         }
       }
     }
