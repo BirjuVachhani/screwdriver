@@ -40,8 +40,9 @@ extension IteratorScrewdriver<E> on Iterator<E> {
   E? next() => moveNext() ? current : null;
 }
 
-/// provides extensions for [BidirectionalIterator]
-extension BidirectionalIteratorScrewdriver<E> on BidirectionalIterator<E> {
+/// provides extensions for [RuneIterator]
+@Deprecated('Use IteratorScrewdriver instead')
+extension RuneIteratorScrewdriver on RuneIterator {
   /// moves the current index backwards and returns current element
-  E? previous() => movePrevious() ? current : null;
+  int? previous() => movePrevious() ? current : null;
 }
