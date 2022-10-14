@@ -1,6 +1,7 @@
-## 3.1.0 [Unpublished]
+## 3.1.0
 
 - Added `StreamSubscriptionMixin` to manage stream subscriptions. Supports scoped subscriptions as well.
+- Replace `BidirectionalIteratorScrewdriver` with `RuneIteratorScrewdriver` because of the deprecation of `BidirectionalIterator`.
 
 ## 3.0.0
 
