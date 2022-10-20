@@ -30,13 +30,14 @@
  */
 
 // Author: Birju Vachhani
-// Created Date: May 27, 2022
+// Created Date: October 20, 2022
 
-export 'int_constants_io.dart' if (dart.library.js) 'int_constants_web.dart';
-export 'int_range.dart';
-export 'mixins/serializable_mixin.dart';
-export 'mixins/stream_subscription_mixin.dart';
-export 'pair.dart';
-export 'pre_conditions.dart';
-export 'triple.dart';
-export 'typedefs.dart';
+/// Maximum value that an 64bit [int] can store. This is different from when
+/// dart is compiled to JS becauseJS  can only represent 2^53 as max int value.
+// ignore: constant_identifier_names
+const int MAX_INT_VALUE = 9223372036854775807;
+
+/// Minimum value that an 64bit [int] can store. This is different from when
+/// dart is compiled to JS because JS can only represent -2^53 as min int value.
+// ignore: constant_identifier_names
+const int MIN_INT_VALUE = -9223372036854775808;

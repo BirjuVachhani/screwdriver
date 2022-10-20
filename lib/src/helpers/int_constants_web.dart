@@ -30,12 +30,14 @@
  */
 
 // Author: Birju Vachhani
-// Created Date: April 26, 2021
+// Created Date: October 20, 2022
 
-/// Maximum value that an 64bit [int] can store;
+/// Maximum value that an 64bit [int] can store. This is for for when dart is
+/// compiled to JS since JS can only represent 2^53 as max int value.
 // ignore: constant_identifier_names
-const int MAX_INT_VALUE = 9223372036854775807;
+const int MAX_INT_VALUE = 9007199254740992;
 
-/// Minimum value that an 64bit [int] can store;
+/// Minimum value that an 64bit [int] can store. This is for when dart is
+/// compiled to JS since JS can only represent -2^53 as min int value.
 // ignore: constant_identifier_names
-const int MIN_INT_VALUE = -9223372036854775808;
+const int MIN_INT_VALUE = -9007199254740992;
