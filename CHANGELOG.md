@@ -1,3 +1,8 @@
+## 3.1.1
+
+- Fix `MAX_INT_VALUE` and `MIN_INT_VALUE` not compiling for JS.
+- Upgrade dependencies.
+
 ## 3.1.0
 
 - Added `StreamSubscriptionMixin` to manage stream subscriptions. Supports scoped subscriptions as well.
