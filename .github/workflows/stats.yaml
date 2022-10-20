@@ -2,10 +2,10 @@ name: Stats
 
 on:
   push:
-    paths:
-      - '**.dart'
     branches:
       - main
+    paths:
+      - '**.dart'
     tags-ignore:
       - '**'
   workflow_dispatch:

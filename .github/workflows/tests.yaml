@@ -2,10 +2,10 @@ name: Tests & Coverage
 
 on:
   push:
-    paths:
-      - '**.dart'
     branches:
       - main
+    paths:
+      - '**.dart'
     tags-ignore:
       - '**'
   pull_request:
