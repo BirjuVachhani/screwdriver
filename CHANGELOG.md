@@ -1,6 +1,7 @@
 ## 3.1.1
 
 - Fix `MAX_INT_VALUE` and `MIN_INT_VALUE` not compiling for JS.
+- [BREAKING]: Remove `elementAtOrNull` since it is added in the `collections` package.
 - Upgrade dependencies.
 
 ## 3.1.0

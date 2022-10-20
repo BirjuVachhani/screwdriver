@@ -417,13 +417,6 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Alias for [subtract].
   Iterable<E> except(Iterable<E> other) => subtract(other);
 
-  /// Equivalent to [elementAt] but returns null instead of throwing
-  /// [RangeError] if the index is out of bounds.
-  E? elementAtOrNull(int index) {
-    if (index < 0 || index >= length) return null;
-    return elementAt(index);
-  }
-
   /// Returns true if the collection contains all the elements
   /// present in [other] collection.
   bool containsAll(Iterable<E> other) => other.every(contains);
