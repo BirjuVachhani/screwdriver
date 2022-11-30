@@ -36,11 +36,17 @@ class Stats {
       );
 }
 
-void main() async {
+/// Script to generate stats for this package.
+/// Usage: dart stats.dart [--dry]
+/// --dry: if provided, it will not update README.md file. It will only print
+/// the stats to console.
+void main(List<String> args) async {
   final screwdriverStats =
       await getStats('package:screwdriver/screwdriver.dart');
   final screwdriverIoStats =
       await getStats('package:screwdriver/screwdriver_io.dart');
+
+  final isDry = args.contains('--dry');
 
   final stats = screwdriverStats + screwdriverIoStats;
 
@@ -58,17 +64,22 @@ Mixins:                        ${stats.mixins}
 
 ''';
 
-  final readMeFile = File('README.md');
-  var content = readMeFile.readAsStringSync();
-  final prefix = '<!---stats_start-->';
-  final suffix = '<!---stats_end-->';
+  if (!isDry) {
+    print('Updating README.md...');
+    final readMeFile = File('README.md');
+    var content = readMeFile.readAsStringSync();
+    final prefix = '<!---stats_start-->';
+    final suffix = '<!---stats_end-->';
 
-  final start = content.indexOf(prefix) + prefix.length;
-  final end = content.indexOf(suffix);
-  content = content.replaceRange(start, end, output);
-  readMeFile.writeAsStringSync(content);
+    final start = content.indexOf(prefix) + prefix.length;
+    final end = content.indexOf(suffix);
+    content = content.replaceRange(start, end, output);
+    readMeFile.writeAsStringSync(content);
+  } else {
+    print('Dry run, not updating README.md...');
+  }
 
-  print('\n\n');
+  print('');
   print('==================================================================');
   print('STATS');
   print('==================================================================');
@@ -103,7 +114,7 @@ Future<Stats> getStats(String library) async {
     helpersClasses += part.classes.map((e) => e.displayName).toList();
     helperVariables += part.accessors.map((e) => e.displayName).toList();
     typedefs += part.typeAliases.length;
-    mixins += part.mixins2.length;
+    mixins += part.mixins.length;
   }
 
   final stats = Stats(
@@ -134,10 +145,10 @@ void collectExports(LibraryOrAugmentationElement element, Stats stats,
         stats.extensions +=
             unit.extensions.expand((element) => element.fields).length;
         stats.typedefs += unit.typeAliases.length;
-        stats.mixins += unit.mixins2.length;
+        stats.mixins += unit.mixins.length;
 
-        if (unit.enclosingElement3.libraryExports.isNotEmpty) {
-          collectExports(unit.enclosingElement3, stats);
+        if (unit.enclosingElement.libraryExports.isNotEmpty) {
+          collectExports(unit.enclosingElement, stats);
         }
       }
     }
