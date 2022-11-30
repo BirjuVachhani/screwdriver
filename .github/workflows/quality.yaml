@@ -20,7 +20,7 @@ jobs:
         run: brew tap dart-lang/dart
       - name: Install the Dart formula
         run: brew install dart
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Install dependencies
         run: dart pub get
       - name: Code Analysis

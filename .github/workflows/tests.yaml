@@ -19,7 +19,7 @@ jobs:
         run: brew tap dart-lang/dart
       - name: Install the Dart formula
         run: brew install dart
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Install dependencies
         run: dart pub get
       - name: Run tests
@@ -30,6 +30,6 @@ jobs:
         run: dart pub global run coverage:test_with_coverage
       - name: Generate lcov file
         run: dart pub global run coverage:format_coverage --packages=.dart_tool/package_config.json --lcov -i coverage/coverage.json -o coverage/lcov.info
-      - uses: codecov/codecov-action@v1
+      - uses: codecov/codecov-action@v3
         with:
           file: coverage/lcov.info
