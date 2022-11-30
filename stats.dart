@@ -108,13 +108,22 @@ Future<Stats> getStats(String library) async {
   var typedefs = 0;
   var mixins = 0;
   for (final part in result.element.units) {
-    helpersFunctions += part.functions.map((e) => e.displayName).toList();
-    extensions += part.extensions.expand((element) => element.fields).length;
-    extensions += part.extensions.expand((element) => element.methods).length;
-    helpersClasses += part.classes.map((e) => e.displayName).toList();
-    helperVariables += part.accessors.map((e) => e.displayName).toList();
-    typedefs += part.typeAliases.length;
-    mixins += part.mixins.length;
+    helpersFunctions +=
+        part.functions.wherePublic().map((e) => e.displayName).toList();
+    extensions += part.extensions
+        .wherePublic()
+        .expand((element) => element.fields)
+        .length;
+    extensions += part.extensions
+        .wherePublic()
+        .expand((element) => element.methods)
+        .length;
+    helpersClasses +=
+        part.classes.wherePublic().map((e) => e.displayName).toList();
+    helperVariables +=
+        part.accessors.wherePublic().map((e) => e.displayName).toList();
+    typedefs += part.typeAliases.wherePublic().length;
+    mixins += part.mixins.wherePublic().length;
   }
 
   final stats = Stats(
@@ -137,15 +146,22 @@ void collectExports(LibraryOrAugmentationElement element, Stats stats,
     if (uri is! DirectiveUriWithLibrary) continue;
     if (!checkForSrcDir || uri.relativeUriString.startsWith('src') == true) {
       for (final unit in exp.exportedLibrary!.units) {
-        stats.classes.addAll(unit.classes.map((e) => e.displayName));
-        stats.functions.addAll(unit.functions.map((e) => e.displayName));
-        stats.variables.addAll(unit.accessors.map((e) => e.displayName));
-        stats.extensions +=
-            unit.extensions.expand((element) => element.methods).length;
-        stats.extensions +=
-            unit.extensions.expand((element) => element.fields).length;
-        stats.typedefs += unit.typeAliases.length;
-        stats.mixins += unit.mixins.length;
+        stats.classes
+            .addAll(unit.classes.wherePublic().map((e) => e.displayName));
+        stats.functions
+            .addAll(unit.functions.wherePublic().map((e) => e.displayName));
+        stats.variables
+            .addAll(unit.accessors.wherePublic().map((e) => e.displayName));
+        stats.extensions += unit.extensions
+            .wherePublic()
+            .expand((element) => element.methods)
+            .length;
+        stats.extensions += unit.extensions
+            .wherePublic()
+            .expand((element) => element.fields)
+            .length;
+        stats.typedefs += unit.typeAliases.wherePublic().length;
+        stats.mixins += unit.mixins.wherePublic().length;
 
         if (unit.enclosingElement.libraryExports.isNotEmpty) {
           collectExports(unit.enclosingElement, stats);
@@ -153,4 +169,8 @@ void collectExports(LibraryOrAugmentationElement element, Stats stats,
       }
     }
   }
+}
+
+extension ElementListExt<T extends Element> on List<T> {
+  Iterable<T> wherePublic() => where((element) => element.isPublic);
 }
