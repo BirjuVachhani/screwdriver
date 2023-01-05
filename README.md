@@ -6,7 +6,7 @@
 
 A dart package aiming to provide useful extensions and helper functions to ease and speed up development.
 
-[![Tests](https://github.com/BirjuVachhani/screwdriver/workflows/Tests/badge.svg?branch=master)](https://github.com/BirjuVachhani/screwdriver/actions) [![Code Quality](https://github.com/BirjuVachhani/screwdriver/workflows/Code%20Quality/badge.svg?branch=master)](https://github.com/BirjuVachhani/screwdriver/actions) [![Codecov](https://img.shields.io/codecov/c/github/birjuvachhani/screwdriver.svg)](https://codecov.io/gh/birjuvachhani/screwdriver) ![Pub Version](https://img.shields.io/pub/v/screwdriver) [![Docs](https://img.shields.io/badge/Docs-dart%20docs-brightgreen)](https://pub.dev/documentation/screwdriver/latest/)
+[![Tests](https://github.com/BirjuVachhani/screwdriver/workflows/Tests%20%26%20Coverage/badge.svg?branch=main)](https://github.com/BirjuVachhani/screwdriver/actions) [![Code Quality](https://github.com/BirjuVachhani/screwdriver/workflows/Code%20Quality/badge.svg?branch=main)](https://github.com/BirjuVachhani/screwdriver/actions) [![Codecov](https://img.shields.io/codecov/c/github/birjuvachhani/screwdriver.svg)](https://codecov.io/gh/birjuvachhani/screwdriver) ![Pub Version](https://img.shields.io/pub/v/screwdriver) [![Docs](https://img.shields.io/badge/Docs-dart%20docs-brightgreen)](https://pub.dev/documentation/screwdriver/latest/)
 
 
 - 📋  Well Documented
