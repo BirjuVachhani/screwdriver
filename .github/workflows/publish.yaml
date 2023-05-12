@@ -5,7 +5,7 @@ on:
     tags:
     # must align with the tag-pattern configured on pub.dev, often just replace
     #  with [0-9]+.[0-9]+.[0-9]+*
-#     - 'v[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: 'v'
+    #    - 'v[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: 'v'
     # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
     - '[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: ''
     # If you repository contains multiple packages consider a pattern like:
@@ -16,25 +16,15 @@ jobs:
   build:
     permissions:
       id-token: write # This is required for authentication using OIDC
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Tap Google's Dart formula repository
-        run: brew tap dart-lang/dart
-      - name: Install the Dart formula
-        run: brew install dart
+      - uses: dart-lang/setup-dart@v1
       - name: Install dependencies
         run: dart pub get
-      - name: Run tests
-        run: dart pub run test
       - name: Format code
         run: dart format --fix .
       - name: Check Publish Warnings
         run: dart pub publish --dry-run
       - name: Publish
         run: dart pub publish --force
-#         uses: k-paxian/dart-package-publisher@v1.5.1
-#         with:
-#           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
-#           flutter: true
-#           skipTests: true
