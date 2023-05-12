@@ -36,7 +36,7 @@ import 'dart:async';
 
 /// A mixin that manages stream subscriptions.
 mixin StreamSubscriptionMixin {
-  late final Map<String, List<StreamSubscription>> _scopes = {};
+  late final Map<String, List<StreamSubscription<dynamic>>> _scopes = {};
 
   static const String defaultScope = 'default';
 
