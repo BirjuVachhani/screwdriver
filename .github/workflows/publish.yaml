@@ -16,10 +16,13 @@ jobs:
   build:
     permissions:
       id-token: write # This is required for authentication using OIDC
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: dart-lang/setup-dart@v1
+      - name: Tap Google's Dart formula repository
+        run: brew tap dart-lang/dart
+      - name: Install the Dart formula
+        run: brew install dart
       - name: Install dependencies
         run: dart pub get
       - name: Run tests
