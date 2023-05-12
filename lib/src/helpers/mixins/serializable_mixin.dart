@@ -34,6 +34,8 @@
 
 import '../typedefs.dart';
 
+/// A mixin that can be used to make a class serializable.
 mixin SerializableMixin {
+  /// converts the object to json map.
   JsonMap toJson();
 }

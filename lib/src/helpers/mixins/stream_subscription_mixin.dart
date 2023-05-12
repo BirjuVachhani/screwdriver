@@ -38,6 +38,8 @@ import 'dart:async';
 mixin StreamSubscriptionMixin {
   late final Map<String, List<StreamSubscription<dynamic>>> _scopes = {};
 
+  /// Default scope to add subscriptions to. This is used when no scope is
+  /// provided.
   static const String defaultScope = 'default';
 
   /// Listens to the given [stream] and adds the subscription to the
