@@ -51,13 +51,13 @@ extension FileScrewdriver on File {
 
   /// Calls [block] whenever the [this] file is modified.
   /// Returns [StreamSubscription] which allows to cancel the listener.
-  StreamSubscription onModified(void Function() block) {
+  StreamSubscription<FileSystemEvent> onModified(void Function() block) {
     return watch(events: FileSystemEvent.modify).listen((event) => block());
   }
 
   /// Calls [block] whenever the [this] file is deleted.
   /// Returns [StreamSubscription] which allows to cancel the listener.
-  StreamSubscription onDeleted(void Function() block) {
+  StreamSubscription<FileSystemEvent> onDeleted(void Function() block) {
     return watch(events: FileSystemEvent.delete).listen((event) => block());
   }
 
