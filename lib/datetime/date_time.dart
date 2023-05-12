@@ -272,6 +272,31 @@ extension DateTimeScrewdriver on DateTime {
 
   /// Formats date using [DateFormat] from intl package.
   String format(String pattern) => DateFormat(pattern).format(this);
+
+  /// Returns [DateTime] with only information that is passed to the method.
+  /// In contrast to [DateTime.copyWith] method, this method does not copy
+  /// unspecified fields from the original [DateTime].
+  DateTime only({
+    int? year,
+    int month = 1,
+    int day = 1,
+    int hour = 0,
+    int minute = 0,
+    int second = 0,
+    int millisecond = 0,
+    int microsecond = 0,
+  }) {
+    return (isUtc ? DateTime.utc : DateTime.new)(
+      year ?? this.year,
+      month,
+      day,
+      hour,
+      minute,
+      second,
+      millisecond,
+      microsecond,
+    );
+  }
 }
 
 /// shot for [DateTime.now]
