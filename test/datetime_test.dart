@@ -202,4 +202,15 @@ void main() {
     final expected = date.fromNow();
     expect(actual.inSeconds, expected.inSeconds);
   });
+
+  test('only tests', () {
+    final date = DateTime(2020, 7, 24, 5, 35, 45);
+    expect(date.only(year: 2020), DateTime(2020, 1, 1, 0, 0, 0, 0, 0));
+    expect(date.only(month: 7), DateTime(2020, 7, 1, 0, 0, 0, 0, 0));
+    expect(date.only(day: 24), DateTime(2020, 1, 24, 0, 0, 0, 0, 0));
+    expect(date.only(hour: 5), DateTime(2020, 1, 1, 5, 0, 0, 0, 0));
+    expect(date.only(minute: 35), DateTime(2020, 1, 1, 0, 35, 0, 0, 0));
+    expect(date.only(second: 45), DateTime(2020, 1, 1, 0, 0, 45, 0, 0));
+    expect(date.only(millisecond: 10), DateTime(2020, 1, 1, 0, 0, 0, 10, 0));
+  });
 }
