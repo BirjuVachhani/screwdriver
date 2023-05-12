@@ -1,3 +1,9 @@
+## 4.0.0
+
+- Bump up minimum **Dart** version to `3.0.0`.
+- Upgrade dependencies.
+- Add `DateTime.only` extension to duplicate `DateTime` with only specific fields.
+
 ## 3.1.1
 
 - Fix `MAX_INT_VALUE` and `MIN_INT_VALUE` not compiling for JS.
