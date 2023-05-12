@@ -40,7 +40,7 @@ extension DoubleScrewdriver on double {
   bool get isWhole =>
       this != double.infinity &&
       this != double.negativeInfinity &&
-      this != double.nan &&
+      !isNaN &&
       truncate() == this;
 
   /// Rounds value [precision] number of fraction points.

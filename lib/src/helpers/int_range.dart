@@ -50,11 +50,11 @@ class IntRange extends Iterable<int> {
   /// The upper bound of for the range. This might be or might not
   /// be the last element which is totally based on the [start] and [step].
   /// Example:
-  /// 1. IntRangeIterator(1, 10, step: 2)
+  /// 1. IntRange(1, 10, step: 2)
   ///    It is a range of odd numbers which won't include 10 as the last
   ///    element despite 10 being the upper bound.
   ///
-  /// 2. IntRangeIterator(2, 10, step: 2)
+  /// 2. IntRange(2, 10, step: 2)
   ///    It is a range of even numbers which will include 10 as the last
   ///    element.
   final int end;
@@ -119,7 +119,7 @@ class IntRange extends Iterable<int> {
 /// For Example,
 ///       IntRangeIterator(1, 5) would give elements 1,2,3,4,5
 ///       IntRangeIterator(1, 10, step: 2) would give elements 1,3.5.7.9
-class IntRangeIterator extends Iterator<int> {
+class IntRangeIterator implements Iterator<int> {
   /// The lower bound of for the range.
   /// It will always be the first element.
   final int start;
@@ -155,9 +155,7 @@ class IntRangeIterator extends Iterator<int> {
       return true;
     }
     if (step > 0) {
-      if (currentElement >= end) {
-        return false;
-      }
+      if (currentElement >= end) return false;
       var next = currentElement + step;
       if (next > end) {
         return false;
@@ -166,9 +164,7 @@ class IntRangeIterator extends Iterator<int> {
       }
       return true;
     } else {
-      if (currentElement <= end) {
-        return false;
-      }
+      if (currentElement <= end) return false;
       var next = currentElement + step;
       if (next < end) {
         return false;
