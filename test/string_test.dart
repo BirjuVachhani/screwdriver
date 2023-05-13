@@ -225,4 +225,22 @@ void main() {
     // No more tests are required as this is just an alias for [String.indexOf]
     expect('Hello'.find('l'), equals(2));
   });
+
+  test('hasContent tests', () {
+    expect(''.hasContent, false);
+    expect(' '.hasContent, true);
+    String? str;
+    expect(str.hasContent, false);
+    str = 'abc';
+    expect(str.hasContent, true);
+  });
+
+  test('orEmpty tests', () {
+    expect(''.orEmpty, '');
+    expect(' '.orEmpty, ' ');
+    String? str;
+    expect(str.orEmpty, '');
+    str = 'abc';
+    expect(str.orEmpty, 'abc');
+  });
 }

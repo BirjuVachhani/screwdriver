@@ -206,4 +206,10 @@ extension NullableStringScrewdriver on String? {
     var value = this;
     return value != null && value.isNotBlank;
   }
+
+  /// Alias for [isNotNullOrEmpty]
+  bool get hasContent => isNotNullOrEmpty;
+
+  /// Returns [this] if it is not null, otherwise returns empty string.
+  String get orEmpty => this ?? '';
 }
