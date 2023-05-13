@@ -8,3 +8,4 @@ cov:
 open_cov:
   - open coverage/html/index.html
 stats: dart stats.dart --dry
+format: dart format --fix .

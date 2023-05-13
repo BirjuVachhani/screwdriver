@@ -63,4 +63,3 @@ final class DeBouncer {
     _timer?.cancel();
   }
 }
-
