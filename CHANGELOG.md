@@ -1,3 +1,9 @@
+## 4.1.0 [Unreleased]
+
+- Add `hasContent` and `orEmpty` extensions for `String?`.
+- Add missing docs.
+- Fix example not showing up in pub.dev.
+
 ## 4.0.0
 
 - Bump up minimum **Dart** version to `3.0.0`.
