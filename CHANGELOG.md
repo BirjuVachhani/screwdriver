@@ -3,6 +3,12 @@
 - Add `hasContent` and `orEmpty` extensions for `String?`.
 - Add missing docs.
 - Fix example not showing up in pub.dev.
+- Remove unnecessary backslashes from email regex.
+- [DEPRECATED] Deprecate `Pair` class in favor of Records in Dart 3. Use `Record` instead of `Pair` in all the
+  APIs. `Pair` will be removed in the next major release.
+- [DEPRECATED] Deprecate `pairWith` and `to` extensions on generic in favor of Records in Dart 3.
+- [BREAKING] Refactor `associate` and `associateTo` extensions on `Iterable` to use Records instead of `Pair`.
+- [BREAKING] Refactor `+` operator on `Map` to use Records instead of `Pair`.
 
 ## 4.0.0
 
@@ -19,7 +25,8 @@
 ## 3.1.0
 
 - Added `StreamSubscriptionMixin` to manage stream subscriptions. Supports scoped subscriptions as well.
-- Replace `BidirectionalIteratorScrewdriver` with `RuneIteratorScrewdriver` because of the deprecation of `BidirectionalIterator`.
+- Replace `BidirectionalIteratorScrewdriver` with `RuneIteratorScrewdriver` because of the deprecation
+  of `BidirectionalIterator`.
 
 ## 3.0.0
 
@@ -27,7 +34,8 @@
 - Added `rangeTo`, `until` and `downTo` extensions for `int` to create `IntRange`.
 - Added `coerceAtLeast`, `coerceAtMost`, and `coerceIn` extensions for `Comparable`.
 - Added `except` extension for `Map`.
-- Added `except`, `containsAll`, `containsNone`, `lastIndex`, `elementAtOrNull`, and `hasOnlyOneElement` extensions for `Iterable`.
+- Added `except`, `containsAll`, `containsNone`, `lastIndex`, `elementAtOrNull`, and `hasOnlyOneElement` extensions
+  for `Iterable`.
 - Added `readBytes` extension for `html.File`.
 - Added `roundToPrecision` extension for `double` and `num`.
 - Added `JsonMap`, `IntList`, `StringList`, `DoubleList`, `IntSet`, `StringSet` and `DoubleSet` typedefs.
@@ -46,12 +54,14 @@
 
 - Added back `isNullOrEmpty`, `isNotNullOrEmpty` extensions for `Iterable?`.
 - Added back `isNullOrEmpty`, `isNotNullOrEmpty`, `isNullOrBlank` , `isNotNullOrBlank` extensions for `String?`.
-- Added [collection](https://pub.dev/packages/collection) as a part of the package, so it can now be used from screwdriver. No need to explicitly add it.
+- Added [collection](https://pub.dev/packages/collection) as a part of the package, so it can now be used from
+  screwdriver. No need to explicitly add it.
 
 ## 2.0.0
 
 - Migrated to null safety.
-- Removed following extensions either because they are redundant in favor of non-nullable types or they are already available in the null safe version of official dart package [collection](https://pub.dev/packages/collection).
+- Removed following extensions either because they are redundant in favor of non-nullable types or they are already
+  available in the null safe version of official dart package [collection](https://pub.dev/packages/collection).
     - `Iterable.firstOrNull`
     - `Iterable.firstOrNullWhere`
     - `Iterable.lastOrNullWhere`
