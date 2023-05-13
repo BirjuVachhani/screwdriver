@@ -36,6 +36,7 @@ import 'package:meta/meta.dart';
 
 /// Represents a generic triple of three values.
 @immutable
+@Deprecated('Deprecated in favor of Records in Dart 3. Use Record instead')
 class Triple<F, S, T> {
   /// First value of triple.
   final F first;

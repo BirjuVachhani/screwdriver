@@ -6,6 +6,8 @@
 - Remove unnecessary backslashes from email regex.
 - [DEPRECATED] Deprecate `Pair` class in favor of Records in Dart 3. Use `Record` instead of `Pair` in all the
   APIs. `Pair` will be removed in the next major release.
+- [DEPRECATED] Deprecate `Triple` class in favor of Records in Dart 3. Use `Record` instead of `Triple` in all the
+  APIs. `Triple` will be removed in the next major release.
 - [DEPRECATED] Deprecate `pairWith` and `to` extensions on generic in favor of Records in Dart 3.
 - [BREAKING] Refactor `associate` and `associateTo` extensions on `Iterable` to use Records instead of `Pair`.
 - [BREAKING] Refactor `+` operator on `Map` to use Records instead of `Pair`.
