@@ -11,6 +11,7 @@
 - [DEPRECATED] Deprecate `pairWith` and `to` extensions on generic in favor of Records in Dart 3.
 - [BREAKING] Refactor `associate` and `associateTo` extensions on `Iterable` to use Records instead of `Pair`.
 - [BREAKING] Refactor `+` operator on `Map` to use Records instead of `Pair`.
+- Add `Debouncer.isRunning` getter to check if the debouncer is running.
 
 ## 4.0.0
 

@@ -39,6 +39,27 @@ void main() {
     await Future<void>.delayed(Duration(milliseconds: 600));
     verifyNever(mockedFunction.call());
   });
+
+  test('isRunning test', () async {
+    final debouncer = DeBouncer();
+    final mockedFunction = MockedDeBouncedFunction();
+    for (final _ in [1, 2, 3, 4, 5]) {
+      debouncer.run(mockedFunction);
+    }
+    expect(debouncer.isRunning, isTrue);
+    await Future<void>.delayed(Duration(milliseconds: 600));
+    verify(mockedFunction.call()).called(1);
+    expect(debouncer.isRunning, isFalse);
+
+    for (final _ in [1, 2, 3]) {
+      debouncer(mockedFunction);
+    }
+
+    expect(debouncer.isRunning, isTrue);
+    await Future<void>.delayed(Duration(milliseconds: 600));
+    verify(mockedFunction.call()).called(1);
+    expect(debouncer.isRunning, isFalse);
+  });
 }
 
 class MockedDeBouncedFunction extends Mock implements DeBouncedFunction {}
