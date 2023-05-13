@@ -36,6 +36,7 @@ import 'package:meta/meta.dart';
 
 /// Represents a generic pair of two values.
 @immutable
+@Deprecated('Deprecated in favor of Records in Dart 3. Use Record instead')
 class Pair<K, V> {
   /// First value of pair.
   final K first;

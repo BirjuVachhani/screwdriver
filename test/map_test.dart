@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 void main() {
   test('+ operator test', () {
     final emptyMap = <String, String>{};
-    emptyMap + Pair('name', 'John');
+    emptyMap + ('name', 'John');
     expect(emptyMap, equals({'name': 'John'}));
   });
 

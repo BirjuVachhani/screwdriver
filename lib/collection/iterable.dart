@@ -102,14 +102,14 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
   /// Returns a [Map] containing key-value pairs provided by [transform]
   /// function applied to elements of the given List.
-  Map<K, V> associate<K, V>(Pair<K, V> Function(E element) transform) =>
+  Map<K, V> associate<K, V>((K, V) Function(E element) transform) =>
       associateTo(<K, V>{}, transform);
 
   /// Populates and returns the [destination] map with key-value pairs
   /// provided by [transform] function applied to each element
   /// of the given iterable.
   Map<K, V> associateTo<K, V>(
-      Map<K, V> destination, Pair<K, V> Function(E element) transform) {
+      Map<K, V> destination, (K, V) Function(E element) transform) {
     for (final element in this) {
       destination + transform(element);
     }

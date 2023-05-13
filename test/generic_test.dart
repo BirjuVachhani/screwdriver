@@ -20,14 +20,6 @@ void main() {
     expect(45.takeUnless((obj) => obj.isOdd), null);
   });
 
-  test('pairWith tests', () {
-    expect(15.pairWith('odd'), Pair(15, 'odd'));
-  });
-
-  test('to tests', () {
-    expect(15.to('odd'), Pair(15, 'odd'));
-  });
-
   test('TODO tests', () {
     expect(() => TODO('unimplemented test'), throwsUnimplementedError);
   });

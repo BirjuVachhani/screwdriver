@@ -68,9 +68,11 @@ extension ScopeScrewdriver<T> on T {
   }
 
   /// alias for [to]
+  @Deprecated('Deprecated in favor of Records in Dart 3. Use Record instead')
   Pair<T, V> pairWith<V>(V value) => Pair(this, value);
 
   /// pairs [this] with given [value] and returns an instance of [Pair]
+  @Deprecated('Deprecated in favor of Records in Dart 3. Use Record instead')
   Pair<T, V> to<V>(V value) => Pair(this, value);
 }
 

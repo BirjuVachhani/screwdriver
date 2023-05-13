@@ -36,13 +36,13 @@ part of screwdriver;
 
 /// provides extensions for map
 extension MapScrewdriver<K, V> on Map<K, V> {
-  /// Allows to add [Pair] to [this]
-  void operator +(Pair<K, V> pair) => this[pair.first] = pair.second;
+  /// Allows to add a record entry to [this].
+  void operator +((K, V) entry) => this[entry.$1] = entry.$2;
 
-  /// Allows to add [MapEntry] to [this]
+  /// Allows to add [MapEntry] to [this].
   void operator <<(MapEntry<K, V> entry) => this[entry.key] = entry.value;
 
-  /// Converts [this] map into a JSON string
+  /// Converts [this] map into a JSON string.
   String toJson() => json.encode(this);
 
   /// Returns a new [Map] with the same keys and values as [this] except

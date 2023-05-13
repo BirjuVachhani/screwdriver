@@ -112,7 +112,7 @@ void main() {
     // associate
     expect(
         [DateTime(2015), DateTime(2020)]
-            .associate((element) => Pair(element.year, element.isLeapYear)),
+            .associate((element) => (element.year, element.isLeapYear)),
         equals({2015: false, 2020: true}));
 
     // associateBy
@@ -208,35 +208,34 @@ void main() {
 
   test('math tests', () {
     final list1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-    final list2 = [
-      Pair(1, 2.5),
-      Pair(2, 3.5),
-      Pair(3, 1.5),
-      Pair(4, 2.0),
-      Pair(3, 3.5),
-      Pair(1, 1.5),
+    final list2 = <(int, double)>[
+      (1, 2.5),
+      (2, 3.5),
+      (3, 1.5),
+      (4, 2.0),
+      (3, 3.5),
+      (1, 1.5),
     ];
+    (1, 2.0) == (2, 1.0);
     expect(<int>[].maxByOrNull((element) => element), null);
     expect(list1.maxByOrNull((element) => element), 10);
     expect(list1.maxBy((element) => element), 10);
-    expect(list2.maxBy((element) => element.first), Pair(4, 2.0));
-    expect(list2.maxBy((element) => element.second), Pair(2, 3.5));
-    expect(list2.maxByLast((element) => element.second), Pair(3, 3.5));
-    expect(
-        <Pair<int, int>>[].maxByLastOrNull((element) => element.second), null);
-    expect(list2.maxByLastOrNull((element) => element.second), Pair(3, 3.5));
+    expect(list2.maxBy((element) => element.$1), (4, 2.0));
+    expect(list2.maxBy((element) => element.$2), (2, 3.5));
+    expect(list2.maxByLast((element) => element.$2), (3, 3.5));
+    expect(<(int, int)>[].maxByLastOrNull((element) => element.$2), null);
+    expect(list2.maxByLastOrNull((element) => element.$2), (3, 3.5));
     expect(<int>[].minByOrNull((element) => element), null);
     expect(list1.minByOrNull((element) => element), 1);
     expect(list1.minBy((element) => element), 1);
-    expect(list2.minBy((element) => element.first), Pair(1, 2.5));
-    expect(
-        <Pair<int, int>>[].minByLastOrNull((element) => element.first), null);
-    expect(list2.minByLastOrNull((element) => element.first), Pair(1, 1.5));
-    expect(list2.minByLast((element) => element.first), Pair(1, 1.5));
-    expect(list2.minBy((element) => element.second), Pair(3, 1.5));
-    expect(list2.sumBy((element) => element.first), 14);
-    expect(list2.sumBy((element) => element.second), 14.5);
-    expect(list2.averageBy((element) => element.first), 14 / list2.length);
-    expect(list2.averageBy((element) => element.second), 14.5 / list2.length);
+    expect(list2.minBy((element) => element.$1), (1, 2.5));
+    expect(<(int, int)>[].minByLastOrNull((element) => element.$1), null);
+    expect(list2.minByLastOrNull((element) => element.$1), (1, 1.5));
+    expect(list2.minByLast((element) => element.$1), (1, 1.5));
+    expect(list2.minBy((element) => element.$2), (3, 1.5));
+    expect(list2.sumBy((element) => element.$1), 14);
+    expect(list2.sumBy((element) => element.$2), 14.5);
+    expect(list2.averageBy((element) => element.$1), 14 / list2.length);
+    expect(list2.averageBy((element) => element.$2), 14.5 / list2.length);
   });
 }
