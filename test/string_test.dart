@@ -243,4 +243,31 @@ void main() {
     str = 'abc';
     expect(str.orEmpty, 'abc');
   });
+
+  test('splitMapJoinRegex test', () {
+    final regex = RegExp(r'\$\{(?<name>[a-zA-Z0-9_]+)\}');
+    final result = r'Hello ${John}'.splitMapJoinRegex(
+      regex,
+      onMatch: (match) {
+        final name = match.namedGroup('name')!;
+        return name.toUpperCase();
+      },
+      onNonMatch: (text) => text.isNotEmpty ? '?' : '',
+    );
+    expect(result, equals('?JOHN'));
+  });
+
+  test('splitMap test', () {
+    final regex = RegExp(r'\$\{(?<name>[a-zA-Z0-9_]+)\}');
+    final List<int> result = r'Hello ${John} ${Doe}'.splitMap<int>(
+      regex,
+      onMatch: (match) {
+        final name = match.namedGroup('name')!;
+        return name.length;
+      },
+      onNonMatch: (text) => null,
+    );
+    expect(result.length, equals(2));
+    expect(result, containsAllInOrder([4, 3]));
+  });
 }
