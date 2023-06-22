@@ -27,4 +27,20 @@ void main() {
     expect(
         {'a': 1, 'b': 2, 'c': 3}.except(['a', 'd']), equals({'b': 2, 'c': 3}));
   });
+
+  test('records test', () {
+    final Map<String, dynamic> map = {
+      'name': 'John',
+      'age': 25,
+    };
+    expect(map.records, equals([
+      ('name', 'John'),
+      ('age', 25),
+    ]));
+
+    for(final (key, value) in map.records) {
+      expect(map[key], equals(value));
+    }
+
+  });
 }
