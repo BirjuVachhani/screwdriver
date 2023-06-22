@@ -35,7 +35,7 @@
 part of screwdriver;
 
 /// provides scope functions as extensions on [T]
-extension ScopeScrewdriver<T> on T {
+extension GenericScrewdriver<T> on T {
   /// Calls the specified function [block] with `this` value as its argument
   /// and returns `this` value.
   T apply(void Function(T obj) block) {
@@ -66,14 +66,6 @@ extension ScopeScrewdriver<T> on T {
     }
     return null;
   }
-
-  /// alias for [to]
-  @Deprecated('Deprecated in favor of Records in Dart 3. Use Record instead')
-  Pair<T, V> pairWith<V>(V value) => Pair(this, value);
-
-  /// pairs [this] with given [value] and returns an instance of [Pair]
-  @Deprecated('Deprecated in favor of Records in Dart 3. Use Record instead')
-  Pair<T, V> to<V>(V value) => Pair(this, value);
 }
 
 // Calls the specified function [block] with `this` value as its argument

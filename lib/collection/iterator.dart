@@ -39,10 +39,3 @@ extension IteratorScrewdriver<E> on Iterator<E> {
   /// Advances the current index and returns current element
   E? next() => moveNext() ? current : null;
 }
-
-/// provides extensions for [RuneIterator]
-@Deprecated('Use IteratorScrewdriver instead')
-extension RuneIteratorScrewdriver on RuneIterator {
-  /// moves the current index backwards and returns current element
-  int? previous() => movePrevious() ? current : null;
-}
