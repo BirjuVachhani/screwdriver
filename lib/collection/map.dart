@@ -49,4 +49,12 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   /// keys present [keys].
   Map<K, V> except(List<K> keys) =>
       Map.fromEntries(entries.where((entry) => !keys.contains(entry.key)));
+
+  /// Similar to [Map.entries] but returns an iterable of records instead of
+  /// [MapEntry].
+  Iterable<(K key, V value)> get records sync* {
+    for (final entry in entries) {
+      yield (entry.key, entry.value);
+    }
+  }
 }
