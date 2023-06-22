@@ -265,9 +265,9 @@ void main() {
         final name = match.namedGroup('name')!;
         return name.length;
       },
-      onNonMatch: (text) => null,
+      onNonMatch: (text) => text.trim().isNotEmpty ? text.trim().length : null,
     );
-    expect(result.length, equals(2));
-    expect(result, containsAllInOrder([4, 3]));
+    expect(result.length, equals(3));
+    expect(result, containsAllInOrder([5, 4, 3]));
   });
 }
