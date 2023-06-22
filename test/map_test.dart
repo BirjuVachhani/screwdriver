@@ -33,14 +33,10 @@ void main() {
       'name': 'John',
       'age': 25,
     };
-    expect(map.records, equals([
-      ('name', 'John'),
-      ('age', 25),
-    ]));
+    expect(map.records, equals([('name', 'John'), ('age', 25)]));
 
-    for(final (key, value) in map.records) {
+    for (final (key, value) in map.records) {
       expect(map[key], equals(value));
     }
-
   });
 }
