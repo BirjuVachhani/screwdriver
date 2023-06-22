@@ -1,3 +1,12 @@
+## 5.0.0
+
+- Add `splitMapJoinRegex` and `splitMap` extensions for `String`.
+- Add `records` extension for `Map`.
+- [BREAKING] Remove deprecated `Pair` class.
+- [BREAKING] Remove deprecated `Triple` class.
+- [BREAKING] Remove deprecated `to()` and `pairWith()` extensions on generic.
+- [BREAKING] Remove deprecated `previous()` extension on `RuneIterator` in favor of `movePrevious`.
+
 ## 4.1.0
 
 - Add `hasContent` and `orEmpty` extensions for `String?`.
