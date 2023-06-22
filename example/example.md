@@ -15,7 +15,19 @@ A Glimpse of Screwdriver
 '#hello'.removePrefix('#'); // hello
 ```
 
+#### Map
 
+```dart
+final Map<String, dynamic> map = {
+  'name': 'John',
+  'age': 24,
+};
+
+for(final (key, value) in map.records) {
+  print('$key: $value');
+}
+
+```
 
 #### Int
 
