@@ -179,6 +179,60 @@ extension StringScrewdriver on String {
   /// Compares two strings ignoring the case.
   bool equalsIgnoreCase(String matcher) =>
       toLowerCase() == matcher.toLowerCase();
+
+  /// An alternative to [String.splitMapJoin] which provides access to
+  /// [RegExpMatch] instead of [Match].
+  /// [Match] does not provide access to named groups. [RegExpMatch] does.
+  /// Reference: https://github.com/dart-lang/sdk/issues/52721
+  String splitMapJoinRegex(
+    RegExp regex, {
+    String Function(RegExpMatch match)? onMatch,
+    String Function(String text)? onNonMatch,
+  }) {
+    return splitMapJoin(
+      regex,
+      onMatch: onMatch != null
+          ? (match) {
+              match as RegExpMatch;
+              return onMatch(match);
+            }
+          : null,
+      onNonMatch: onNonMatch,
+    );
+  }
+
+  /// An alternative to [String.splitMapJoin] which allows to return mapped
+  /// values from [onMatch] and [onNonMatch] callbacks unlike the original
+  /// [String.splitMapJoin] which only allows to return [String] values.
+  ///
+  /// This uses [splitMapJoinRegex] internally which provides access to
+  /// [RegExpMatch] instead of [Match] providing access to named groups as well.
+  List<R> splitMap<R>(
+    RegExp regex, {
+    R? Function(RegExpMatch match)? onMatch,
+    R? Function(String text)? onNonMatch,
+  }) {
+    List<R> list = [];
+    splitMapJoinRegex(
+      regex,
+      onMatch: onMatch != null
+          ? (match) {
+              onMatch(match);
+              final result = onMatch(match);
+              if (result != null) list.add(result);
+              return match[0]!;
+            }
+          : null,
+      onNonMatch: onNonMatch != null
+          ? (nonMatch) {
+              final result = onNonMatch(nonMatch);
+              if (result != null) list.add(result);
+              return nonMatch;
+            }
+          : null,
+    );
+    return list;
+  }
 }
 
 /// Provides extensions for nullable [String].
