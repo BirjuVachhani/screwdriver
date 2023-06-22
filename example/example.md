@@ -26,7 +26,6 @@ final Map<String, dynamic> map = {
 for(final (key, value) in map.records) {
   print('$key: $value');
 }
-
 ```
 
 #### Int
