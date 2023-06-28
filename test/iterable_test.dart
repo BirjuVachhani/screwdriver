@@ -238,4 +238,13 @@ void main() {
     expect(list2.averageBy((element) => element.$1), 14 / list2.length);
     expect(list2.averageBy((element) => element.$2), 14.5 / list2.length);
   });
+
+  test('records test', () {
+    final List<String> list = ['a', 'b', 'c'];
+    expect(list.records, equals([(0, 'a'), (1, 'b'), (2, 'c')]));
+
+    for (final (index, item) in list.records) {
+      expect(list[index], equals(item));
+    }
+  });
 }
