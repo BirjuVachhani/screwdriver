@@ -61,4 +61,22 @@ void main() {
     expect(nullableInt.orZero, 10);
     expect(nullableDouble.orZero, 25.5);
   });
+
+  test('min, max on double tests', () {
+    expect(99.5.max(100), 99.5);
+    expect(100.34.max(100), 100);
+    expect(105.2.max(100.45), 100.45);
+
+    expect(99.7.min(100.21), 100.21);
+    expect(100.65.min(100), 100.65);
+    expect(105.31.min(100.32), 105.31);
+
+    expect(99.max(100), 99);
+    expect(100.max(100), 100);
+    expect(105.max(100), 100);
+
+    expect(99.min(100), 100);
+    expect(100.min(100), 100);
+    expect(105.min(100), 105);
+  });
 }
