@@ -5,6 +5,8 @@
 - Add `tryJsonDecode` function to safely decode JSON.
 - Add `closeTo` extension on `double`.
 - Add `max` and `min` extensions on `num`.
+- Add replaceFirstWhere and replaceLastWhere extensions on `List`.
+- Add `findBy`, `findByOrNull` and `findAllBy` extensions on `Iterable`.
 - Improve code documentation.
 
 ## 5.0.0
