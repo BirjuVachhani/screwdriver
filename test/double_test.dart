@@ -35,4 +35,13 @@ void main() {
     expect(
         double.negativeInfinity.roundToPrecision(2), double.negativeInfinity);
   });
+
+  test('isCloseTo test', () {
+    expect(2.0.isCloseTo(2), true);
+    expect(2.000000001.isCloseTo(2), true);
+    expect(2.000000001.isCloseTo(2.000000004), true);
+    expect(2.000000001.isCloseTo(2.00000004), false);
+    expect(2.000000001.isCloseTo(2.00000123, precision: 0.0001), true);
+    expect(2.000000001.isCloseTo(2.0004, precision: 0.0001), false);
+  });
 }
