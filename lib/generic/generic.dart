@@ -66,6 +66,16 @@ extension GenericScrewdriver<T> on T {
     }
     return null;
   }
+
+  /// A safe cast operation that returns null if the cast is not possible.
+  /// Otherwise, returns the casted value.
+  R? tryCast<R>() {
+    try {
+      return this as R?;
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 // Calls the specified function [block] with `this` value as its argument
