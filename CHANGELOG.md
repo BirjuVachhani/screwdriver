@@ -1,4 +1,4 @@
-## 5.0.1 [Unreleased]
+## 5.0.1
 
 - Add `T.tryCast()` extension on generics to cast an object to a type if possible.
 - Add `records` extension for `Iterable`.
@@ -7,7 +7,6 @@
 - Add `max` and `min` extensions on `num`.
 - Add replaceFirstWhere and replaceLastWhere extensions on `List`.
 - Add `findBy`, `findByOrNull` and `findAllBy` extensions on `Iterable`.
-- Improve code documentation.
 
 ## 5.0.0
 
