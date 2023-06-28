@@ -25,7 +25,8 @@ void main() {
       expect(list, equals([1, 2, 3, 4, 5]));
     });
 
-    test('should not modify the list and return false if the list is empty', () {
+    test('should not modify the list and return false if the list is empty',
+        () {
       final list = [];
       final result = list.replaceFirstWhere(0, (item) => item == 1);
       expect(result, isFalse);
@@ -48,7 +49,8 @@ void main() {
       expect(list, equals([1, 2, 3, 4, 5]));
     });
 
-    test('should not modify the list and return false if the list is empty', () {
+    test('should not modify the list and return false if the list is empty',
+        () {
       final list = [];
       final result = list.replaceLastWhere(0, (item) => item == 1);
       expect(result, isFalse);
