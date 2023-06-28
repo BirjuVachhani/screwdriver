@@ -47,6 +47,8 @@ dependencies:
   screwdriver: <latest_version>
 ```
 
+> Note: Screwdriver exports `collection` package as well. So, you don't need to add `collection` as a dependency in your project.
+
 2. Import library into your code.
 
 ```dart
