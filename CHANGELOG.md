@@ -2,6 +2,7 @@
 
 - Add `T.tryCast()` extension on generics to cast an object to a type if possible.
 - Add `records` extension for `Iterable`.
+- Add `tryJsonDecode` function to safely decode JSON.
 - Improve code documentation.
 
 ## 5.0.0
