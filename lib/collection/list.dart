@@ -38,4 +38,30 @@ part of screwdriver;
 extension ListScrewDriver<E> on List<E> {
   /// adds [element] into the list and returns the list
   List<E> operator <<(E element) => this..add(element);
+
+  /// Replaces an item in the list with [replacement] where [predicate] returns
+  /// true. Returns true if an item is replaced, false otherwise.
+  bool replaceFirstWhere(E replacement, bool Function(E item) predicate) {
+    if(isEmpty) return false;
+    for (int index = 0; index < length; index++) {
+      if (predicate(elementAt(index))) {
+        this[index] = replacement;
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// Replaces an item in the list with [replacement] where [predicate] returns
+  /// true. Returns true if an item is replaced, false otherwise.
+  bool replaceLastWhere(E replacement, bool Function(E item) predicate) {
+    if(isEmpty) return false;
+    for (int index = length - 1; index >= 0; index--) {
+      if (predicate(elementAt(index))) {
+        this[index] = replacement;
+        return true;
+      }
+    }
+    return false;
+  }
 }
