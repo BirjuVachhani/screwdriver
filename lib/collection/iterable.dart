@@ -425,6 +425,24 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// present in [other] collection.
   bool containsNone(Iterable<E> other) =>
       none((element) => other.contains(element));
+
+  /// Returns an iterable containing the items with their respective indices
+  /// in form of records.
+  ///
+  /// One of the use-cases includes iterating over the collection with access
+  /// to the index of each item in a for loop.
+  ///
+  /// e.g.
+  ///
+  /// for (final (index, item) in list.records) {
+  ///   print('$index: $item');
+  /// }
+  ///
+  Iterable<(int, E)> get records sync* {
+    for (int index = 0; index < length; index++) {
+      yield (index, elementAt(index));
+    }
+  }
 }
 
 /// provides extensions for nullable Iterable

@@ -52,6 +52,14 @@ extension MapScrewdriver<K, V> on Map<K, V> {
 
   /// Similar to [Map.entries] but returns an iterable of records instead of
   /// [MapEntry].
+  ///
+  /// One of the use-cases includes iterating over the collection with access
+  /// to the key of each item in a for loop.
+  /// e.g.
+  ///
+  /// for (final (key, value) in map.records) {
+  ///   print('$key: $value');
+  /// }
   Iterable<(K key, V value)> get records sync* {
     for (final entry in entries) {
       yield (entry.key, entry.value);
