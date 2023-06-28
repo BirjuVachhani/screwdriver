@@ -247,4 +247,96 @@ void main() {
       expect(list[index], equals(item));
     }
   });
+
+  group('findBy tests', () {
+    test('findBy should return the correct element when found', () {
+      final list = [1, 2, 3, 4, 5];
+      final result = list.findBy(3, (item) => item);
+      expect(result, equals(3));
+    });
+
+    test('findBy should throw StateError when no element is found', () {
+      final list = [1, 2, 3, 4, 5];
+      expect(() => list.findBy(6, (item) => item), throwsStateError);
+    });
+
+    test('findBy should work with custom object and selector', () {
+      final list = [
+        Person(name: 'Alice', age: 25),
+        Person(name: 'Bob', age: 30),
+        Person(name: 'Charlie', age: 35),
+      ];
+      final result = list.findBy('Bob', (person) => person.name);
+      expect(result, equals(Person(name: 'Bob', age: 30)));
+    });
+  });
+
+  group('findByOrNull', () {
+    test('should return the correct element when found', () {
+      final list = [1, 2, 3, 4, 5];
+      final result = list.findByOrNull(3, (item) => item);
+      expect(result, equals(3));
+    });
+
+    test('should return null when no element is found', () {
+      final list = [1, 2, 3, 4, 5];
+      final result = list.findByOrNull(6, (item) => item);
+      expect(result, isNull);
+    });
+
+    test('should work with custom object and selector', () {
+      final list = [
+        Person(name: 'Alice', age: 25),
+        Person(name: 'Bob', age: 30),
+        Person(name: 'Charlie', age: 35),
+      ];
+      final result = list.findByOrNull('Bob', (person) => person.name);
+      expect(result, equals(Person(name: 'Bob', age: 30)));
+    });
+  });
+
+  group('findAllBy', () {
+    test('should return a collection with matching elements when found', () {
+      final list = [1, 2, 3, 2, 4, 2, 5];
+      final result = list.findAllBy(2, (item) => item);
+      expect(result, containsAll([2, 2, 2]));
+    });
+
+    test('should return an empty collection when no element is found', () {
+      final list = [1, 2, 3, 4, 5];
+      final result = list.findAllBy(6, (item) => item);
+      expect(result, isEmpty);
+    });
+
+    test('should work with custom object and selector', () {
+      final list = [
+        Person(name: 'Alice', age: 25),
+        Person(name: 'Bob', age: 30),
+        Person(name: 'Charlie', age: 35),
+        Person(name: 'Alice', age: 40),
+      ];
+      final result = list.findAllBy('Alice', (person) => person.name);
+      expect(
+          result,
+          containsAll([
+            Person(name: 'Alice', age: 25),
+            Person(name: 'Alice', age: 40),
+          ]));
+    });
+  });
+}
+
+class Person {
+  final String name;
+  final int age;
+
+  Person({required this.name, required this.age});
+
+  @override
+  bool operator ==(other) {
+    return other is Person && other.name == name && other.age == age;
+  }
+
+  @override
+  int get hashCode => name.hashCode ^ age.hashCode;
 }
