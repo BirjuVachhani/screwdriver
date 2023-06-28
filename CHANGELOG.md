@@ -1,3 +1,9 @@
+## 5.0.1 [Unreleased]
+
+- Add `T.tryCast()` extension on generics to cast an object to a type if possible.
+- Add `records` extension for `Iterable`.
+- Improve code documentation.
+
 ## 5.0.0
 
 - Add `splitMapJoinRegex` and `splitMap` extensions for `String`.
