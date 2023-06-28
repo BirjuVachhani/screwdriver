@@ -46,6 +46,13 @@ extension DoubleScrewdriver on double {
   /// Rounds value [precision] number of fraction points.
   double roundToPrecision(int precision) =>
       double.parse((this).toStringAsFixed(precision));
+
+  /// Returns true if [this] is close to [other] within [precision].
+  /// By default, [precision] is set to 1.0e-8 which is 0.00000001 which makes
+  /// it suitable for most of the cases.
+  bool isCloseTo(double other, {double precision = 1.0e-8}) {
+    return (this - other).abs() <= precision;
+  }
 }
 
 /// Generates a non-negative random floating point value uniformly distributed
