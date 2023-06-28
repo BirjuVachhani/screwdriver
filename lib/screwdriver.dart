@@ -46,6 +46,7 @@ import 'src/utils.dart';
 export 'package:collection/collection.dart';
 
 export 'src/helpers/helpers.dart';
+export 'src/utils.dart';
 
 part 'async/future.dart';
 

@@ -32,6 +32,8 @@
 // Author: Birju Vachhani
 // Created Date: August 17, 2020
 
+import 'dart:convert';
+
 /// checks whether given year is a leap year or not
 /// How to determine whether a year is a leap year
 /// To determine whether a year is a leap year, follow these steps:
@@ -50,3 +52,16 @@
 /// 5. The year is not a leap year (it has 365 days).
 bool checkLeapYear(int year) =>
     year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
+
+/// A safe json decode function that uses [jsonDecode] and returns null if
+/// decoding fails.
+Object? tryJsonDecode(
+  String value, {
+  Object? Function(Object? key, Object? value)? reviver,
+}) {
+  try {
+    return jsonDecode(value, reviver: reviver);
+  } catch (e) {
+    return null;
+  }
+}
