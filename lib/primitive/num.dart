@@ -52,6 +52,29 @@ extension NumScrewdriver on num {
       num.parse((this).toStringAsFixed(precision));
 }
 
+/// Provides typed extensions for num and all its subtypes.
+extension TypedNumScrewdriver<T extends num> on T {
+  /// Returns [upperBound] if this value is greater than or equal to
+  /// [upperBound], otherwise returns this value.
+  ///
+  /// If [exclusive] is true, then it will return [upperBound] if this value
+  /// is greater than [upperBound].
+  T max(T upperBound, {bool exclusive = false}) {
+    if (exclusive) return this < upperBound ? this : upperBound;
+    return this < upperBound ? this : upperBound;
+  }
+
+  /// Returns [lowerBound] if this value is less than or equal to
+  /// [lowerBound], Otherwise returns this value.
+  ///
+  /// If [exclusive] is true, then it will return [lowerBound] if this value
+  /// is less than [lowerBound].
+  T min(T lowerBound, {bool exclusive = false}) {
+    if (exclusive) return this > lowerBound ? this : lowerBound;
+    return this > lowerBound ? this : lowerBound;
+  }
+}
+
 /// Provides extensions for nullable [num] types.
 extension NullableNumScrewdriver on num? {
   /// Returns this value or 0 if null. Useful for equations.
