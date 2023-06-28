@@ -443,6 +443,32 @@ extension IterableScrewDriver<E> on Iterable<E> {
       yield (index, elementAt(index));
     }
   }
+
+  /// Finds an element where the result of [selector] matches the [query].
+  /// Throws [StateError] if no element is found.
+  E findBy<S>(S query, S Function(E item) selector) {
+    for (final item in this) {
+      if (selector(item) == query) return item;
+    }
+    throw StateError('no element found');
+  }
+
+  /// Finds an element where the result of [selector] matches the [query].
+  /// Returns null if no element is found.
+  E? findByOrNull<C>(C query, C Function(E item) selector) {
+    for (final item in this) {
+      if (selector(item) == query) return item;
+    }
+    return null;
+  }
+
+  /// Finds all elements where the result of [selector] matches the [query].
+  /// Returns empty collection if no element is found.
+  Iterable<E> findAllBy<S>(S query, S Function(E item) selector) sync* {
+    for (final item in this) {
+      if (selector(item) == query) yield item;
+    }
+  }
 }
 
 /// provides extensions for nullable Iterable
