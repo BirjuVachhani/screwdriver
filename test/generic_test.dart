@@ -27,4 +27,14 @@ void main() {
   test('run tests', () {
     expect(run(() => int.parse('23') + 7), 30);
   });
+
+  test('tryCast tests', () {
+    expect('2'.tryCast<int>(), null);
+    expect('2'.tryCast<String>(), '2');
+
+    const double value = 2.5;
+    expect(value.tryCast<int>(), null);
+    expect(value.tryCast<double>(), 2.5);
+    expect(value.tryCast<num>(), 2.5);
+  });
 }
