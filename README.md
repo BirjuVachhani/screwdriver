@@ -16,7 +16,7 @@ A dart package aiming to provide useful extensions and helper functions to ease 
 - [collection](https://pub.dev/packages/collection) included for extra extensions.
 
 ## Stats
-
+Check out [EXTENSIONS.md](EXTENSIONS.md) for a complete list of all the available extensions.
 <!---stats_start-->
 ```yaml  
 Extensions:                    228
@@ -202,8 +202,9 @@ yesterday.isInDecember;
 
 
 
-Checkout [documentation][docs]
+Check out [EXTENSIONS.md](EXTENSIONS.md) for a complete list of all the available extensions.
 
+Checkout [documentation][docs] for more details.
 
 
 ## Features and bugs
