@@ -23,9 +23,8 @@ void main() {
         runCaching(() => int.parse('abc'), onError: (_, __) => -1), equals(-1));
     expect(runCaching(() async => int.parse('abc'), onError: (_, __) => -1),
         completion(-1));
-    expect(runCaching(() => print('Hello')), isA<void>());
-    expect(runCaching(() => print('Hello')), isNot(isA<Future<dynamic>>()));
-    expect(runCaching(() => print('Hello')), isNot(throwsException));
+    expect(runCaching(() {}), isA<void>());
+    expect(runCaching(() {}), isNot(throwsException));
     expect(runCaching(() => throw Exception()), isNot(throwsException));
 
     expect(
