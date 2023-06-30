@@ -35,7 +35,7 @@
 part of screwdriver;
 
 /// provides scope functions as extensions on [T]
-extension GenericScrewdriver<T> on T {
+extension GenericScrewdriver<T extends Object> on T {
   /// Calls the specified function [block] with `this` value as its argument
   /// and returns `this` value.
   T apply(void Function(T obj) block) {
