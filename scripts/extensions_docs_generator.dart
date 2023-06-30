@@ -63,7 +63,6 @@ void main(List<String> args) async {
 
   final IOSink sink;
   if (!isDry) {
-
     final String path = argsResult.wasParsed('output')
         ? argsResult['output'].toString()
         : '../EXTENSIONS.md';
