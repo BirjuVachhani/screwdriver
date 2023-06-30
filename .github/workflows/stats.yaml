@@ -26,7 +26,7 @@ jobs:
       - name: Install dependencies
         run: dart pub get
       - name: Generate Stats
-        run: dart stats.dart
+        run: dart scripts/stats.dart
       - name: Update Stats on README.md
         uses: EndBug/add-and-commit@v7
         env:
