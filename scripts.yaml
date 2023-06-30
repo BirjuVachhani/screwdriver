@@ -10,4 +10,4 @@ open_cov:
 format: dart format --fix .
 stats: dart scripts/stats.dart --dry
 statsgen: dart scripts/stats.dart
-docsgen: dart scripts/extensions_docs_generator.dart EXTENSIONS.md
+docsgen: dart scripts/extensions_docs_generator.dart -o EXTENSIONS.md

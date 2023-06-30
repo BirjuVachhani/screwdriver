@@ -63,12 +63,12 @@ void main(List<String> args) async {
 
   final IOSink sink;
   if (!isDry) {
-    print('Updating EXTENSIONS.md...');
 
     final String path = argsResult.wasParsed('output')
         ? argsResult['output'].toString()
         : '../EXTENSIONS.md';
 
+    print('Updating $path...');
     final outputFile = File(path);
     if (!outputFile.existsSync()) outputFile.createSync();
 
