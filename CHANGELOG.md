@@ -1,3 +1,11 @@
+## 5.0.2 [Unreleased]
+
+- Fix `runCaching` function not caching exceptions properly.
+- Improve `runCaching` function to have a `FutureOr<T?>` return type allowing either synchronous or asynchronous
+  execution.
+- Improve `runCaching` function to cache exceptions even on `onError` callback.
+- Avail list of all the extensions and functions in the package in `EXTENSIONS.md` file.
+
 ## 5.0.1
 
 - Add `T.tryCast()` extension on generics to cast an object to a type if possible.
