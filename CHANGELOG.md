@@ -1,4 +1,4 @@
-## 5.0.2 [Unreleased]
+## 5.2.0
 
 - Fix `runCaching` function not caching exceptions properly.
 - Improve `runCaching` function to have a `FutureOr<T?>` return type allowing either synchronous or asynchronous
@@ -6,7 +6,7 @@
 - Improve `runCaching` function to cache exceptions even on `onError` callback.
 - Avail list of all the extensions and functions in the package in `EXTENSIONS.md` file.
 - [BREAKING] Tighten the generic upperbound to `Object` for `apply`, `run`, `takeIf`, `takeUnless` and `tryCast`
-  extensions for improved type safety.
+  extensions for improved type safety. Use null-safe(?.) operator to fix.
 - [DEPRECATED] Deprecate global `run` function.
 
 ## 5.0.1

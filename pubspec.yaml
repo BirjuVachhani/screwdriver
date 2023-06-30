@@ -1,6 +1,6 @@
 name: screwdriver
 description: A dart package aiming to provide useful extensions and helper functions to ease and speed up development.
-version: 5.0.1
+version: 5.2.0
 homepage: https://github.com/birjuvachhani/screwdriver
 
 environment:
