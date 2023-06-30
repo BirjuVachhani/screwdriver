@@ -34,6 +34,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          add: 'README.md'
-          message: Update Stats on README.md
+          add: '*.md'
+          message: [CI] Update Stats & Extensions Docs.
           signoff: true
