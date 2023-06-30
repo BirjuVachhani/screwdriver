@@ -28,7 +28,7 @@ jobs:
       - name: Generate Stats
         run: dart scripts/stats.dart
       - name: Generate Extensions Docs
-        run: dart scripts/extensions_docs_generator.dart
+        run: dart scripts/extensions_docs_generator.dart EXTENSIONS.md
       - name: Update Stats on README.md
         uses: EndBug/add-and-commit@v7
         env:

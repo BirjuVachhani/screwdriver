@@ -18,5 +18,6 @@ dev_dependencies:
   coverage: ^1.6.3
   mockito: ^5.4.2
   analyzer: ^5.13.0
+  args: ^2.4.2
 
 scripts: scripts.yaml
