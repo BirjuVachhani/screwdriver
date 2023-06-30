@@ -5,6 +5,9 @@
   execution.
 - Improve `runCaching` function to cache exceptions even on `onError` callback.
 - Avail list of all the extensions and functions in the package in `EXTENSIONS.md` file.
+- [BREAKING] Tighten the generic upperbound to `Object` for `apply`, `run`, `takeIf`, `takeUnless` and `tryCast`
+  extensions for improved type safety.
+- [DEPRECATED] Deprecate global `run` function.
 
 ## 5.0.1
 
