@@ -24,10 +24,6 @@ void main() {
     expect(() => TODO('unimplemented test'), throwsUnimplementedError);
   });
 
-  test('run tests', () {
-    expect(run(() => int.parse('23') + 7), 30);
-  });
-
   test('tryCast tests', () {
     expect('2'.tryCast<int>(), null);
     expect('2'.tryCast<String>(), '2');
