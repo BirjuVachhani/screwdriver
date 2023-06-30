@@ -35,5 +35,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           add: '*.md'
-          message: [CI] Update Stats & Extensions Docs.
+          message: '[CI] Update Stats & Extensions Docs'
           signoff: true
