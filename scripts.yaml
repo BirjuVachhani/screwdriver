@@ -7,6 +7,8 @@ cov:
   - genhtml coverage/lcov.info -o coverage/html
 open_cov:
   - open coverage/html/index.html
+test:
+  - dart test .
 format: dart format --fix .
 stats: dart scripts/stats.dart --dry
 statsgen: dart scripts/stats.dart
