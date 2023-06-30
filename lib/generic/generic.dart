@@ -90,13 +90,56 @@ R run<R>(R Function() block) {
 void TODO([String? reason]) =>
     throw UnimplementedError(reason ?? 'An operation is not implemented.');
 
-/// Run given [action] in a try-catch block and calls [onError] on exception.
-T? runCaching<T>(T Function() action,
-    {T? Function(dynamic error, StackTrace stacktrace)? onError}) {
+/// Executes a provided action and handles potential errors.
+///
+/// The function returns T? which represents the result of the executed action
+/// if the action is not asynchronous. If the action completes successfully,
+/// the result is returned as is. If an exception occurs during the execution,
+/// the [onError] function is called with the error and stack trace. If the
+/// [onError] function is not provided or returns null, the error is swallowed
+/// and the result is set to null.
+///
+/// The function returns a [Future] of type T? which represents the result of
+/// the executed action if the action is asynchronous. If the action completes
+/// successfully, the result is returned as is. If an exception occurs during
+/// the execution, the [onError] function is called with the error and stack
+/// trace. If the [onError] function is not provided or returns null, the error
+/// is swallowed and the result is set to null.
+///
+/// If the [onError] function is synchronous, the result is returned as is. If
+/// it throws an error, the error is swallowed and the result is set to null.
+///
+/// If the [onError] function is asynchronous, a [Future] of type T? is
+/// returned. If the [onError] function completes successfully, the result is
+/// returned as is. If it throws an error, the error is swallowed and the
+/// result is set to null.
+FutureOr<T?> runCaching<T>(
+  FutureOr<T?> Function() action, {
+  FutureOr<T?> Function(dynamic error, StackTrace stacktrace)? onError,
+}) {
+  FutureOr<T?> result;
   try {
-    return action.call();
+    result = action.call();
   } catch (error, stacktrace) {
-    onError?.call(error, stacktrace);
-    return null;
+    try {
+      // call onError if exception occurs.
+      result = onError?.call(error, stacktrace);
+    } catch (error) {
+      // Swallow error if onError throws an error.
+      result = null;
+    }
   }
+
+  if (result is Future) {
+    return (result as Future<T?>)
+        // return the value if future completes successfully.
+        .then((value) => value)
+        // call onError if future completes with error.
+        .catchError(
+            (error, StackTrace stacktrace) => onError?.call(error, stacktrace))
+        // swallow error and return null if onError throws an error.
+        .catchError((error) => null);
+  }
+
+  return result;
 }
