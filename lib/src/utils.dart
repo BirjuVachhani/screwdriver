@@ -55,7 +55,7 @@ bool checkLeapYear(int year) =>
 
 /// A safe json decode function that uses [jsonDecode] and returns null if
 /// decoding fails.
-Object? tryJsonDecode(
+dynamic tryJsonDecode(
   String value, {
   Object? Function(Object? key, Object? value)? reviver,
 }) {
