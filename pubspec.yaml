@@ -21,3 +21,9 @@ dev_dependencies:
   args: ^2.4.2
 
 scripts: scripts.yaml
+
+topics:
+  - extensions
+  - helpers
+  - utility
+  - utils
