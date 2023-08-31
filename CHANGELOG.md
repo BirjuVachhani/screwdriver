@@ -1,3 +1,9 @@
+## 5.2.1 (Unreleased)
+
+- Change return type of `tryJsonDecode` to dynamic.
+- Add pub topics to package metadata.
+- Upgrade dependencies.
+
 ## 5.2.0
 
 - Fix `runCaching` function not caching exceptions properly.
