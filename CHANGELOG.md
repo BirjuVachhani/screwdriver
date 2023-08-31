@@ -1,4 +1,4 @@
-## 5.2.1 (Unreleased)
+## 5.2.1
 
 - Change return type of `tryJsonDecode` to dynamic.
 - Add pub topics to package metadata.
