@@ -1,6 +1,8 @@
 // Author: Birju Vachhani
 // Created Date: August 16, 2020
 
+import 'dart:math';
+
 import 'package:screwdriver/screwdriver.dart' hide DoubleScrewdriver;
 import 'package:test/test.dart';
 
@@ -88,5 +90,21 @@ void main() {
     expect(15.clampAtMost(10), equals(10));
     expect(20.clampAtMost(10), equals(10));
     expect((-100).clampAtMost(0), equals(-100));
+  });
+
+  test('inRadians tests', () {
+    expect(180.inRadians, equals(pi));
+    expect(360.inRadians, equals(2 * pi));
+    expect(90.inRadians, equals(pi / 2));
+    expect(45.inRadians, equals(pi / 4));
+    expect(0.inRadians, equals(0));
+  });
+
+  test('inDegrees tests', () {
+    expect(pi.inDegrees, equals(180));
+    expect(2 * pi.inDegrees, equals(360));
+    expect((pi / 2).inDegrees, equals(90));
+    expect((pi / 4).inDegrees, equals(45));
+    expect(0.inDegrees, equals(0));
   });
 }
