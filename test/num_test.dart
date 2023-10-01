@@ -73,4 +73,20 @@ void main() {
     expect(5.min(2), equals(5));
     expect(1.min(2, exclusive: true), equals(2));
   });
+
+  test('clampAtLeast', () {
+    expect(5.clampAtLeast(2), equals(5));
+    expect(5.clampAtLeast(2), equals(5));
+    expect(1.clampAtLeast(2), equals(2));
+    expect(0.clampAtLeast(2), equals(2));
+    expect((-10).clampAtLeast(0), equals(0));
+  });
+
+  test('clampAtMost', () {
+    expect(5.clampAtMost(10), equals(5));
+    expect(5.clampAtMost(10), equals(5));
+    expect(15.clampAtMost(10), equals(10));
+    expect(20.clampAtMost(10), equals(10));
+    expect((-100).clampAtMost(0), equals(-100));
+  });
 }
