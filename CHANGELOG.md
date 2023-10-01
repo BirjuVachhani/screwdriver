@@ -1,3 +1,10 @@
+## 5.3.0
+
+- [BREAKING] Remove deprecated global `run` function.
+- Add `num.inRadians` and `num.inDegrees` extensions for angle unit conversion.
+- Add `num.clampAtLeast` and `num.clampAtMost` extensions for clamping a number to a minimum or maximum value
+  respectively.
+
 ## 5.2.1
 
 - Change return type of `tryJsonDecode` to dynamic.
