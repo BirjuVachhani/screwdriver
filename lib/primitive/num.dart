@@ -50,6 +50,12 @@ extension NumScrewdriver on num {
   /// Rounds value [precision] number of fraction points.
   num roundToPrecision(int precision) =>
       num.parse((this).toStringAsFixed(precision));
+
+  /// Turns this number from degrees to radians.
+  double get inRadians => this * pi / 180;
+
+  /// Turns this number from radians to degrees.
+  double get inDegrees => this * 180 / pi;
 }
 
 /// Provides typed extensions for num and all its subtypes.
