@@ -73,6 +73,14 @@ extension TypedNumScrewdriver<T extends num> on T {
     if (exclusive) return this > lowerBound ? this : lowerBound;
     return this > lowerBound ? this : lowerBound;
   }
+
+  /// Returns this value if it is greater than or equal to [lowerBound].
+  /// Returns [lowerBound] otherwise.
+  T clampAtLeast(T lowerBound) => this < lowerBound ? lowerBound : this;
+
+  /// Returns this value if it is less than or equal to [upperBound].
+  /// Returns [upperBound] otherwise.
+  T clampAtMost(T upperBound) => this > upperBound ? upperBound : this;
 }
 
 /// Provides extensions for nullable [num] types.
