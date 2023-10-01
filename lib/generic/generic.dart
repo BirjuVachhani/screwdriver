@@ -78,11 +78,6 @@ extension GenericScrewdriver<T extends Object> on T {
   }
 }
 
-// Calls the specified function [block] with `this` value as its argument
-/// and returns `this` value.
-@Deprecated('Call block directly instead.')
-R run<R>(R Function() block) => block();
-
 /// Always throws [UnimplementedError] stating that operation is
 /// not implemented.
 // ignore: non_constant_identifier_names
