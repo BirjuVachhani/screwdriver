@@ -13,11 +13,11 @@ dependencies:
   collection: '>=1.17.1 <2.0.0'
 
 dev_dependencies:
-  lints: ^2.1.1
-  test: ^1.24.6
-  coverage: ^1.6.3
-  mockito: ^5.4.2
-  analyzer: ^5.13.0
+  lints: ^3.0.0
+  test: ^1.25.2
+  coverage: ^1.7.2
+  mockito: ^5.4.4
+  analyzer: ^6.4.1
   args: ^2.4.2
 
 scripts: scripts.yaml
