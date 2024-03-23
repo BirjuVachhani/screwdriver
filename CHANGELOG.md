@@ -1,3 +1,10 @@
+## 5.3.1
+
+- Add `Map.where`, `Map.whereNot`, `Map.removeKeys`, and `Map.only` extensions.
+- Add `double.roundToPrecision` extension.
+- Allow `Iterable` for `Map.except` extension.
+- Fix lint warnings.
+
 ## 5.3.0
 
 - [BREAKING] Remove deprecated global `run` function.
