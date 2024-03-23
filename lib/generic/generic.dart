@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 27, 2020
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 /// provides scope functions as extensions on [T]
 extension GenericScrewdriver<T extends Object> on T {

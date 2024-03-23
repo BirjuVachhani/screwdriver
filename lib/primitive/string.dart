@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 18, 2020
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 /// Provides extensions for [String].
 extension StringScrewdriver on String {

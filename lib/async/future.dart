@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 27, 2020
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 /// Runs given [action] no sooner than in the next event-loop iteration,
 /// after all micro-tasks have run.

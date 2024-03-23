@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: May 27, 2022
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 /// Extensions for nullable types
 extension ObjectScrewdriver on Object? {

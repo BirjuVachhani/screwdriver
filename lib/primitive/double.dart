@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 19, 2020
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 final NumberFormat _formatter = NumberFormat('0.##')..minimumFractionDigits = 0;
 
