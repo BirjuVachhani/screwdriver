@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 19, 2020
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 /// Provides extensions for [bool].
 extension BoolScrewdriver on bool {

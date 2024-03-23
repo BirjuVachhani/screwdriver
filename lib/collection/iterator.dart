@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 21, 2020
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 /// provides extensions for [Iterator]
 extension IteratorScrewdriver<E> on Iterator<E> {

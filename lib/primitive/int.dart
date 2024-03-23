@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 17, 2020
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 /// Provides extensions for [int].
 extension IntScrewdriver<T> on int {

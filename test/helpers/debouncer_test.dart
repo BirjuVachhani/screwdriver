@@ -16,13 +16,13 @@ void main() {
     final debouncer = DeBouncer();
     final mockedFunction = MockedDeBouncedFunction();
     for (final _ in [1, 2, 3, 4, 5]) {
-      debouncer.run(mockedFunction);
+      debouncer.run(mockedFunction.call);
     }
     await Future<void>.delayed(Duration(milliseconds: 600));
     verify(mockedFunction.call()).called(1);
 
     for (final _ in [1, 2, 3]) {
-      debouncer(mockedFunction);
+      debouncer(mockedFunction.call);
     }
 
     await Future<void>.delayed(Duration(milliseconds: 600));
@@ -33,7 +33,7 @@ void main() {
     final debouncer = DeBouncer();
     final mockedFunction = MockedDeBouncedFunction();
     for (final _ in [1, 2, 3, 4, 5]) {
-      debouncer.run(mockedFunction);
+      debouncer.run(mockedFunction.call);
     }
     debouncer.cancel();
     await Future<void>.delayed(Duration(milliseconds: 600));
@@ -44,7 +44,7 @@ void main() {
     final debouncer = DeBouncer();
     final mockedFunction = MockedDeBouncedFunction();
     for (final _ in [1, 2, 3, 4, 5]) {
-      debouncer.run(mockedFunction);
+      debouncer.run(mockedFunction.call);
     }
     expect(debouncer.isRunning, isTrue);
     await Future<void>.delayed(Duration(milliseconds: 600));
@@ -52,7 +52,7 @@ void main() {
     expect(debouncer.isRunning, isFalse);
 
     for (final _ in [1, 2, 3]) {
-      debouncer(mockedFunction);
+      debouncer(mockedFunction.call);
     }
 
     expect(debouncer.isRunning, isTrue);

@@ -32,7 +32,7 @@ void main() {
     });
 
     test('default scope tests', () async {
-      mixin.listenTo(controller.stream, onData);
+      mixin.listenTo(controller.stream, onData.call);
       controller.add(5);
 
       // delay to let stream emit.
@@ -47,11 +47,11 @@ void main() {
     });
 
     test('custom scope tests', () async {
-      mixin.listenTo(controller.stream, onData);
+      mixin.listenTo(controller.stream, onData.call);
       final scopedOnData = MockFunction();
 
       // custom scope
-      mixin.listenTo(controller.stream, scopedOnData, scope: 'abc');
+      mixin.listenTo(controller.stream, scopedOnData.call, scope: 'abc');
       controller.add(5);
 
       // delay to let stream emit.
@@ -66,7 +66,7 @@ void main() {
       verifyNoMoreInteractions(scopedOnData);
       verify(onData.call(any)).called(1);
 
-      mixin.listenTo(controller.stream, scopedOnData, scope: 'abc');
+      mixin.listenTo(controller.stream, scopedOnData.call, scope: 'abc');
 
       controller.add(15);
       await Future<dynamic>.delayed(Duration(milliseconds: 100));

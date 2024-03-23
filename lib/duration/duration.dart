@@ -32,7 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 22, 2020
 
-part of screwdriver;
+part of '../screwdriver.dart';
 
 /// provides extensions for [Duration].
 extension DurationScrewdriver on Duration {
