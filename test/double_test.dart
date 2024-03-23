@@ -19,7 +19,7 @@ void main() {
   });
 
   test('roundToPrecision tests', () {
-    expect(2.1234567890.roundToPrecision(0), 2.0);
+    expect(2.1234567890.roundToPrecision(0), 2);
     expect(2.1234567890.roundToPrecision(1), 2.1);
     expect(2.1234567890.roundToPrecision(2), 2.12);
     expect(2.1234567890.roundToPrecision(3), 2.123);
