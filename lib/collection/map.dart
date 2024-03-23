@@ -67,9 +67,9 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   /// Returns a new [Map] with the same keys and values as [this] where the
   /// key-value pair doesn't satisfy the [test] function.
   Map<K, V> whereNot(bool Function(K key, V value) test) => {
-    for (final MapEntry(:key, :value) in entries)
-      if (!test(key, value)) key: value
-  };
+        for (final MapEntry(:key, :value) in entries)
+          if (!test(key, value)) key: value
+      };
 
   /// Similar to [Map.entries] but returns an iterable of records instead of
   /// [MapEntry].
@@ -87,7 +87,9 @@ extension MapScrewdriver<K, V> on Map<K, V> {
     }
   }
 
-  /// TODO: doc
+  /// Removes all the keys present in [keys] from [this] map. If [this] is
+  /// an instance of [UnmodifiableMapBase], it will return a new map with
+  /// the same keys and values except the keys present in [keys].
   Map<K, V> removeKeys(Iterable<K> keys) {
     if (this is UnmodifiableMapBase) return except(keys);
     return this..removeWhere((key, value) => keys.contains(key));
