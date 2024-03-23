@@ -47,7 +47,7 @@ extension MapScrewdriver<K, V> on Map<K, V> {
 
   /// Returns a new [Map] with the same keys and values as [this] except
   /// keys present [keys].
-  Map<K, V> except(List<K> keys) =>
+  Map<K, V> except(Iterable<K> keys) =>
       Map.fromEntries(entries.where((entry) => !keys.contains(entry.key)));
 
   /// Similar to [Map.entries] but returns an iterable of records instead of
