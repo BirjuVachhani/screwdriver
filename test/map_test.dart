@@ -49,6 +49,13 @@ void main() {
         equals({'b': 2, 'c': 3}));
   });
 
+  test('removeKeys test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.removeKeys(['a', 'b']),
+        equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.removeKeys(['v', 'a']),
+        equals({'b': 2, 'c': 3}));
+  });
+
   test('records test', () {
     final Map<String, dynamic> map = {
       'name': 'John',
