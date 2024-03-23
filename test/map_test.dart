@@ -35,6 +35,13 @@ void main() {
         equals({'b': 2, 'c': 3}));
   });
 
+  test('whereNot test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.whereNot((key, value) => value <= 2),
+        equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.whereNot((key, value) => key == 'a'),
+        equals({'b': 2, 'c': 3}));
+  });
+
   test('only test', () {
     expect({'a': 1, 'b': 2, 'c': 3}.only(['c']),
         equals({'c': 3}));
