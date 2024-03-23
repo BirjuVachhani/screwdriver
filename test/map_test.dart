@@ -43,15 +43,12 @@ void main() {
   });
 
   test('only test', () {
-    expect({'a': 1, 'b': 2, 'c': 3}.only(['c']),
-        equals({'c': 3}));
-    expect({'a': 1, 'b': 2, 'c': 3}.only(['b', 'c']),
-        equals({'b': 2, 'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.only(['c']), equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.only(['b', 'c']), equals({'b': 2, 'c': 3}));
   });
 
   test('removeKeys test', () {
-    expect({'a': 1, 'b': 2, 'c': 3}.removeKeys(['a', 'b']),
-        equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.removeKeys(['a', 'b']), equals({'c': 3}));
     expect({'a': 1, 'b': 2, 'c': 3}.removeKeys(['v', 'a']),
         equals({'b': 2, 'c': 3}));
   });
