@@ -50,6 +50,20 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   Map<K, V> except(Iterable<K> keys) =>
       Map.fromEntries(entries.where((entry) => !keys.contains(entry.key)));
 
+  /// Returns a new [Map] with the same keys and values but only contains
+  /// the keys present in [keys].
+  Map<K, V> only(Iterable<K> keys) => {
+        for (final MapEntry(:key, :value) in entries)
+          if (keys.contains(key)) key: value
+      };
+
+  /// Returns a new [Map] with the same keys and values as [this] where the
+  /// key-value pair satisfies the [test] function. Similar to [Iterable.where].
+  Map<K, V> where(bool Function(K key, V value) test) => {
+        for (final MapEntry(:key, :value) in entries)
+          if (test(key, value)) key: value
+      };
+
   /// Similar to [Map.entries] but returns an iterable of records instead of
   /// [MapEntry].
   ///
@@ -64,5 +78,11 @@ extension MapScrewdriver<K, V> on Map<K, V> {
     for (final entry in entries) {
       yield (entry.key, entry.value);
     }
+  }
+
+  /// TODO: doc
+  Map<K, V> removeKeys(Iterable<K> keys) {
+    if (this is UnmodifiableMapBase) return except(keys);
+    return this..removeWhere((key, value) => keys.contains(key));
   }
 }
