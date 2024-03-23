@@ -34,6 +34,8 @@
 
 part of screwdriver;
 
+final NumberFormat _formatter = NumberFormat('0.##')..minimumFractionDigits = 0;
+
 /// Provides extensions for [double].
 extension DoubleScrewdriver on double {
   /// Returns to if [this] has .00000 fraction points
@@ -44,8 +46,16 @@ extension DoubleScrewdriver on double {
       truncate() == this;
 
   /// Rounds value [precision] number of fraction points.
-  double roundToPrecision(int precision) =>
-      double.parse((this).toStringAsFixed(precision));
+  /// Example:
+  /// 2.1234567890.roundToPrecision(0)=> 2
+  /// 2.1234567890.roundToPrecision(1)=> 2.1
+  /// 2.1234567890.roundToPrecision(2)=> 2.12
+  /// 2.1234567890.roundToPrecision(3)=> 2.123
+  double roundToPrecision(int nthPosition) {
+    if (isNaN || isInfinite || this == double.negativeInfinity) return this;
+    _formatter.maximumFractionDigits = nthPosition;
+    return double.parse(_formatter.format(this));
+  }
 
   /// Returns true if [this] is close to [other] within [precision].
   /// By default, [precision] is set to 1.0e-8 which is 0.00000001 which makes
