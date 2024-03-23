@@ -28,6 +28,20 @@ void main() {
         {'a': 1, 'b': 2, 'c': 3}.except(['a', 'd']), equals({'b': 2, 'c': 3}));
   });
 
+  test('where test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.where((key, value) => value > 2),
+        equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.where((key, value) => key != 'a'),
+        equals({'b': 2, 'c': 3}));
+  });
+
+  test('only test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.only(['c']),
+        equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.only(['b', 'c']),
+        equals({'b': 2, 'c': 3}));
+  });
+
   test('records test', () {
     final Map<String, dynamic> map = {
       'name': 'John',
