@@ -34,9 +34,14 @@ import 'dart:async';
 /// typedef for action function for [DeBouncer]
 typedef DeBounceAction = void Function();
 
-/// de-bounces [run] method calls and runs it only once in given [milliseconds]
+/// de-bounces [run] method calls and runs it only once in given [duration].
+/// It will ignore any calls to [run] until [duration] has passed since the
+/// last call to [run].
+/// It can be used to de-bounce any method calls like search, filter, etc.
 final class DeBouncer {
-  /// de-bounce period
+  /// de-bounce period. Default is 300 milliseconds.
+  /// It will ignore any calls to [run] until [duration] has passed since the
+  /// last call to [run].
   final Duration duration;
 
   /// Allows to run the first call immediately. Default is false.
@@ -92,5 +97,67 @@ final class DeBouncer {
   /// Allows to cancel current timer.
   void cancel() {
     _timer?.cancel();
+    _timer = null;
   }
 }
+
+/// global instance of [DeBouncer] to be used for debouncing actions. It can be
+/// used to debounce actions across the application. Use [debounce] function to
+/// debounce actions using this instance.
+///
+/// CAUTION:
+/// This instance will be shared across the application. If you want to have
+/// different debounce settings for different actions, you should create an
+/// instance of [DeBouncer] and use it for debouncing actions.
+///
+/// Also, it is recommended to use this instance only for simple use cases where
+/// you don't need to debounce 2 different actions at the same time! Otherwise,
+/// it will cause conflicts between the actions and you may not get the desired
+/// results. If you need to debounce multiple actions, you should create an
+/// instance of [DeBouncer] for each action.
+///
+/// See [debounce] function for more details.
+final DeBouncer deBouncer = DeBouncer();
+
+/// Helper function to debounce [action] calls using global [deBouncer] instance.
+/// If [immediateFirstRun] is set to true, it will run the [action] immediately
+/// for the first call and then it will wait for [duration] to run the next call
+/// if there's any.
+///
+/// This is helpful when you want to debounce a method call without creating an
+/// instance of [DeBouncer] class. However, you can create an instance of
+/// [DeBouncer] and use it for debouncing actions as well.
+///
+/// CAUTION:
+/// This function will use the global instance of [DeBouncer] and it will be
+/// shared across the application. If you want to have different debounce
+/// settings for different actions, you should create an instance of
+/// [DeBouncer] and use it for debouncing actions.
+///
+/// Also, it is recommended to
+/// use this function only for simple use cases where you don't need to
+/// debounce 2 different actions at the same time! Otherwise, it will cause
+/// conflicts between the actions and you may not get the desired results.
+/// If you need to debounce multiple actions, you should create an instance
+/// of [DeBouncer] for each action.
+///
+/// To cancel the current timer, you can call [DeBouncer.cancel] method on
+/// the global instance of [deBouncer].
+///
+/// e.g.
+/// ```dart
+/// // Using global instance of deBouncer to debounce actions.
+/// debounce(() {
+///  // your action here
+///  print('debounced action');
+///  });
+/// ```
+///
+/// ```dart
+/// debouncer.cancel(); // cancels the current action on global instance.
+/// ```
+///
+/// This will run the action immediately for the first call and then it will
+/// wait for 300 milliseconds to run the next call if there's any.
+void debounce(DeBounceAction action, {bool immediateFirstRun = false}) =>
+    deBouncer.run(action, immediateFirstRun: immediateFirstRun);
