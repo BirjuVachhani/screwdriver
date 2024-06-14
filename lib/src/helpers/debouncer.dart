@@ -117,7 +117,7 @@ final class DeBouncer {
 /// instance of [DeBouncer] for each action.
 ///
 /// See [debounce] function for more details.
-final DeBouncer deBouncer = DeBouncer();
+final DeBouncer debouncer = DeBouncer();
 
 /// Helper function to debounce [action] calls using global [deBouncer] instance.
 /// If [immediateFirstRun] is set to true, it will run the [action] immediately
@@ -160,4 +160,4 @@ final DeBouncer deBouncer = DeBouncer();
 /// This will run the action immediately for the first call and then it will
 /// wait for 300 milliseconds to run the next call if there's any.
 void debounce(DeBounceAction action, {bool immediateFirstRun = false}) =>
-    deBouncer.run(action, immediateFirstRun: immediateFirstRun);
+    debouncer.run(action, immediateFirstRun: immediateFirstRun);
