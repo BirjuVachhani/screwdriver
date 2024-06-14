@@ -29,6 +29,43 @@ void main() {
     verify(mockedFunction.call()).called(1);
   });
 
+  test('de-bouncing test with immediateFirstRun', () async {
+    DeBouncer debouncer = DeBouncer.immediate();
+    final MockedDeBouncedFunction mockedFunction = MockedDeBouncedFunction();
+    for (final _ in [1, 2, 3, 4, 5]) {
+      debouncer.run(mockedFunction.call);
+    }
+    verify(mockedFunction.call()).called(1);
+    await Future<void>.delayed(Duration(milliseconds: 600));
+
+    verify(mockedFunction.call()).called(1);
+    verifyNoMoreInteractions(mockedFunction);
+
+    for (final _ in [1, 2, 3, 4, 5]) {
+      debouncer.run(mockedFunction.call);
+    }
+    await Future<void>.delayed(Duration(milliseconds: 600));
+
+    verify(mockedFunction.call()).called(2);
+    verifyNoMoreInteractions(mockedFunction);
+
+    for (final _ in [1, 2, 3, 4, 5]) {
+      debouncer.run(mockedFunction.call, immediateFirstRun: false);
+    }
+    await Future<void>.delayed(Duration(milliseconds: 600));
+    verify(mockedFunction.call()).called(1);
+    verifyNoMoreInteractions(mockedFunction);
+
+    debouncer = DeBouncer();
+    for (final _ in [1, 2, 3, 4, 5]) {
+      debouncer.run(mockedFunction.call, immediateFirstRun: true);
+    }
+    verify(mockedFunction.call()).called(1);
+    await Future<void>.delayed(Duration(milliseconds: 300));
+    verify(mockedFunction.call()).called(1);
+    verifyNoMoreInteractions(mockedFunction);
+  });
+
   test('de-bouncer cancel test', () async {
     final debouncer = DeBouncer();
     final mockedFunction = MockedDeBouncedFunction();
