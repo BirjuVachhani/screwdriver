@@ -39,18 +39,49 @@ final class DeBouncer {
   /// de-bounce period
   final Duration duration;
 
+  /// Allows to run the first call immediately. Default is false.
+  /// If set to true, the first call to [run] will be executed immediately
+  /// calling the [action] and then it will wait for [duration] to run the next
+  /// call if there's any.
+  ///
+  /// If set to false, any call to [run] will be ignored until [duration] has
+  /// passed since the last call to [run] and then it will run the [action].
+  final bool immediateFirstRun;
+
   Timer? _timer;
 
   /// Returns true if timer is running and a call is scheduled to run in future
   /// else returns false.
   bool get isRunning => _timer?.isActive ?? false;
 
-  /// Allows to create an instance with optional [Duration]
+  /// Allows to create an instance with optional [Duration] with
+  /// immediateFirstRun set to false. See [immediateFirstRun] for more details.
   DeBouncer([Duration? duration])
-      : duration = duration ?? Duration(milliseconds: 300);
+      : duration = duration ?? Duration(milliseconds: 300),
+        immediateFirstRun = false;
+
+  /// Allows to create an instance with optional [Duration] with
+  /// immediateFirstRun set to true. See [immediateFirstRun] for more details.
+  DeBouncer.immediate([Duration? duration])
+      : duration = duration ?? Duration(milliseconds: 300),
+        immediateFirstRun = true;
 
   /// Runs [action] after debounced interval.
-  void run(DeBounceAction action) {
+  /// If [immediateFirstRun] is set to true, it will run the [action]
+  /// immediately for the first call and then it will wait for [duration] to
+  /// run the next call if there's any.
+  ///
+  /// This [immediateFirstRun] will override the instance level setting. If
+  /// not provided, it will use the instance level setting.
+  void run(DeBounceAction action, {bool? immediateFirstRun}) {
+    immediateFirstRun ??= this.immediateFirstRun;
+    if (immediateFirstRun && !isRunning) {
+      _timer?.cancel();
+      action();
+      // fake timer to prevent immediate call on next run.
+      _timer = Timer(duration, () {});
+      return;
+    }
     _timer?.cancel();
     _timer = Timer(duration, action);
   }
