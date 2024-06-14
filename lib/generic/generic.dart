@@ -34,6 +34,22 @@
 
 part of '../screwdriver.dart';
 
+/// Provides extensions on nullable types.
+extension GenericNullableScrewdriver<T extends Object?> on T? {
+  /// Checks truthiness of the value.
+  bool get isTruthy => switch (this) {
+        bool value => value,
+        num value => value != 0,
+        String value => value.isNotEmpty,
+        Iterable<dynamic> value => value.isNotEmpty,
+        Map<dynamic, dynamic> value => value.isNotEmpty,
+        _ => false,
+      };
+
+  /// Checks false-ness of the value.
+  bool get isFalsy => !isTruthy;
+}
+
 /// provides scope functions as extensions on [T]
 extension GenericScrewdriver<T extends Object> on T {
   /// Calls the specified function [block] with `this` value as its argument
