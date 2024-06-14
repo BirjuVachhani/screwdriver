@@ -33,4 +33,38 @@ void main() {
     expect(value.tryCast<double>(), 2.5);
     expect(value.tryCast<num>(), 2.5);
   });
+
+  test('isTruthy tests', () {
+    expect(null.isTruthy, isFalse);
+    expect(false.isTruthy, isFalse);
+    expect(true.isTruthy, isTrue);
+    expect(5.isTruthy, isTrue);
+    expect(0.isTruthy, isFalse);
+    expect(0.0.isTruthy, isFalse);
+    expect(0.1.isTruthy, isTrue);
+    expect(''.isTruthy, isFalse);
+    expect('hello'.isTruthy, isTrue);
+    expect([].isTruthy, isFalse);
+    expect([1].isTruthy, isTrue);
+    expect([1, 2.5, true, 'hello'].isTruthy, isTrue);
+    expect(<String, int>{}.isTruthy, isFalse);
+    expect({'name': 'John', 'age': 25, 'isStudent': false}.isTruthy, isTrue);
+  });
+
+  test('isFalsy tests', () {
+    expect(null.isFalsy, isTrue);
+    expect(false.isFalsy, isTrue);
+    expect(true.isFalsy, isFalse);
+    expect(5.isFalsy, isFalse);
+    expect(0.isFalsy, isTrue);
+    expect(0.0.isFalsy, isTrue);
+    expect(0.1.isFalsy, isFalse);
+    expect(''.isFalsy, isTrue);
+    expect('hello'.isFalsy, isFalse);
+    expect([].isFalsy, isTrue);
+    expect([1].isFalsy, isFalse);
+    expect([1, 2.5, true, 'hello'].isFalsy, isFalse);
+    expect(<String, int>{}.isFalsy, isTrue);
+    expect({'name': 'John', 'age': 25, 'isStudent': false}.isFalsy, isFalse);
+  });
 }
