@@ -32,7 +32,7 @@
 import 'dart:async';
 
 /// typedef for action function for [DeBouncer]
-typedef DeBounceAction = void Function();
+typedef DeBounceAction<R> = FutureOr<R> Function();
 
 /// de-bounces [run] method calls and runs it only once in given [duration].
 /// It will ignore any calls to [run] until [duration] has passed since the
@@ -78,21 +78,62 @@ final class DeBouncer {
   ///
   /// This [immediateFirstRun] will override the instance level setting. If
   /// not provided, it will use the instance level setting.
-  void run(DeBounceAction action, {bool? immediateFirstRun}) {
+  ///
+  /// Returns a [Future] that completes with the result of the [action] call
+  /// when it is executed. If [action] is async, it will wait for the
+  /// future to complete and then it will complete the returned future.
+  ///
+  /// Note that returned future will complete with the result of the [action]
+  /// call only when it is executed. If the [action] is not executed due to
+  /// debouncing, the returned future will not complete.
+  Future<R> run<R>(DeBounceAction<R> action, {bool? immediateFirstRun}) {
     immediateFirstRun ??= this.immediateFirstRun;
+    final completer = Completer<R>();
     if (immediateFirstRun && !isRunning) {
+      // Execute the action immediately and cancel the previous timer if any!
       _timer?.cancel();
-      action();
       // fake timer to prevent immediate call on next run.
       _timer = Timer(duration, () {});
-      return;
+      return _runAction<R>(action, completer);
     }
+
     _timer?.cancel();
-    _timer = Timer(duration, action);
+    _timer = Timer(duration, () => _runAction<R>(action, completer));
+
+    return completer.future;
   }
 
-  /// alias for [run]
-  void call(DeBounceAction action) => run(action);
+  Future<R> _runAction<R>(DeBounceAction<R> action, Completer<R> completer) {
+    final FutureOr<R> result = action();
+    if (result is Future<R>) {
+      // action is async and returns a future. Wait for the future to complete
+      // and then complete the completer.
+      result
+          .then((result) => completer.complete(result))
+          .catchError((Object e) => completer.completeError(e));
+      return completer.future;
+    }
+
+    // action is sync and returns a value.
+    completer.complete(result);
+    return completer.future;
+  }
+
+  /// alias for [run]. This also makes it so that you can use the instance
+  /// as a function.
+  ///
+  /// e.g.
+  /// ```dart
+  /// final debouncer = DeBouncer();
+  /// debouncer(() async {
+  ///   // your action here
+  ///   print('debounced action');
+  /// });
+  /// ```
+  ///
+  /// Returns a [Future] that completes with the result of the [action] call
+  /// when it is executed. See [run] for more details.
+  Future<R> call<R>(DeBounceAction<R> action) => run<R>(action);
 
   /// Allows to cancel current timer.
   void cancel() {
@@ -148,9 +189,9 @@ final DeBouncer debouncer = DeBouncer();
 /// ```dart
 /// // Using global instance of deBouncer to debounce actions.
 /// debounce(() {
-///  // your action here
-///  print('debounced action');
-///  });
+///   // your action here
+///   print('debounced action');
+/// });
 /// ```
 ///
 /// ```dart
@@ -159,5 +200,6 @@ final DeBouncer debouncer = DeBouncer();
 ///
 /// This will run the action immediately for the first call and then it will
 /// wait for 300 milliseconds to run the next call if there's any.
-void debounce(DeBounceAction action, {bool immediateFirstRun = false}) =>
-    debouncer.run(action, immediateFirstRun: immediateFirstRun);
+Future<R> debounce<R>(DeBounceAction<R> action,
+        {bool immediateFirstRun = false}) =>
+    debouncer.run<R>(action, immediateFirstRun: immediateFirstRun);
