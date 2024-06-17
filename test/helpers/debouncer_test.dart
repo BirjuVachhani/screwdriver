@@ -38,6 +38,30 @@ void main() {
     verify(mockedFunction.call()).called(1);
   });
 
+  test('de-bouncing test with returns', () async {
+    final debouncer = DeBouncer(Duration(milliseconds: 100));
+    int mockedFunction(int value) => value + 1;
+    late Future<int> result;
+    for (final value in [1, 2, 3, 4, 5]) {
+      result = debouncer.run(() => mockedFunction(value));
+    }
+
+    await expectLater(result, completes);
+    await expectLater(result, completion(6));
+
+    Future<int> mockedAsyncFunction(int value) async {
+      await Future.delayed(Duration(milliseconds: 100));
+      return value + 2;
+    }
+    late Future<int> asyncResult;
+    for (final value in [1, 2, 3, 4, 5]) {
+      asyncResult = debouncer.run(() => mockedAsyncFunction(value));
+    }
+
+    await expectLater(asyncResult, completes);
+    await expectLater(asyncResult, completion(7));
+  });
+
   test('de-bouncing test with immediateFirstRun', () async {
     DeBouncer debouncer = DeBouncer.immediate(Duration(milliseconds: 100));
     final MockedDeBouncedFunction mockedFunction = MockedDeBouncedFunction();
@@ -136,8 +160,29 @@ void main() {
 
 class MockedDeBouncedFunction extends Mock implements DeBouncedFunction {}
 
+class MockedReturningDeBouncedFunction<R> extends Mock
+    implements ReturningDeBouncedFunction<R> {}
+
+class MockedReturningDeBouncedAsyncFunction<R> extends Mock
+    implements ReturningDeBouncedAsyncFunction<R> {}
+
 class DeBouncedFunction {
   void call() {
     print('Function called');
+  }
+}
+
+class ReturningDeBouncedFunction<R> {
+  R call(R value) {
+    print('Function called');
+    return value;
+  }
+}
+
+class ReturningDeBouncedAsyncFunction<R> {
+  Future<R> call(R value) async {
+    print('Function called');
+    await Future.delayed(Duration(milliseconds: 100));
+    return value;
   }
 }
