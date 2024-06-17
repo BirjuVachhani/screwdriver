@@ -1,3 +1,12 @@
+## 5.4.0
+
+- add `isTruthy` and `isFalsy` extensions for generic nullable types.
+- Add `immediateFirstRun` option for `DeBouncer` to run the first call immediately.
+- Global `debouncer` instance and `debounce` function for easy access to the debouncer.
+- DeBouncer now allows returning a value from the debounced function in form of a `Future<R>` where `R` is the return
+  type.
+- Fix `capitalized` extension not working properly for strings with emojis.
+
 ## 5.3.1
 
 - Add `Map.where`, `Map.whereNot`, `Map.removeKeys`, and `Map.only` extensions.
