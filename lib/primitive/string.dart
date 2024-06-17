@@ -43,12 +43,12 @@ extension StringScrewdriver on String {
   bool get isNotBlank => trim().isNotEmpty;
 
   /// Converts the first character of [this] to upper case.
-  /// Note that this does not work if the first character of this string is
-  /// an Emoji character.
+  /// using [characters] allows to handle unicode characters that are more
+  /// than 1 byte long. e.g. emojis.
   String get capitalized {
     if (isBlank) return this;
-    if (length == 1) return toUpperCase();
-    return characters.first.toUpperCase() + substring(1);
+    if (characters.length == 1) return toUpperCase();
+    return characters.first.toUpperCase() + characters.skip(1).toString();
   }
 
   /// Returns [this] as [int] or null
