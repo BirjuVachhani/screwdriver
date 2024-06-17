@@ -53,6 +53,7 @@ void main() {
       await Future.delayed(Duration(milliseconds: 100));
       return value + 2;
     }
+
     late Future<int> asyncResult;
     for (final value in [1, 2, 3, 4, 5]) {
       asyncResult = debouncer.run(() => mockedAsyncFunction(value));
