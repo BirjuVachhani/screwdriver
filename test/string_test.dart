@@ -58,6 +58,7 @@ void main() {
     expect('Hello'.capitalized, 'Hello');
     expect('hello world'.capitalized, 'Hello world');
     expect('hello world 😊'.capitalized, 'Hello world 😊');
+    expect('😊hello world'.capitalized, '😊hello world');
   });
 
   test('toIntOrNull tests', () {
