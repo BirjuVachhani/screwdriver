@@ -56,6 +56,27 @@ void main() {
     expect(numbers.isNotNullOrEmpty, true);
   });
 
+  test('isBlank tests', () {
+    expect(<int>[].isBlank, isTrue);
+    expect([null].isBlank, isFalse);
+    expect([1, 2, 3].isBlank, isFalse);
+    List<int>? numbers;
+    expect(numbers.isBlank, isTrue);
+    numbers = [1, 2];
+    expect(numbers.isBlank, isFalse);
+  });
+
+  test('isNotBlank tests', () {
+    expect(<double>[].isNotBlank, isFalse);
+    expect([null].isNotBlank, isTrue);
+    expect([1, 2, 3].isNotBlank, isTrue);
+    List<int>? numbers;
+    expect(numbers.isNotBlank, isFalse);
+    numbers = [1, 2];
+    expect(numbers.isNotBlank, isTrue);
+  });
+
+
   test('getter tests', () {
     final list = [1, 2, 3];
     expect(list.secondOrNull, 2);
