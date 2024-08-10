@@ -78,7 +78,6 @@ void main() {
     expect(numbers.isNotBlank, isTrue);
   });
 
-
   test('getter tests', () {
     final list = [1, 2, 3];
     expect(list.secondOrNull, 2);
@@ -278,18 +277,18 @@ void main() {
   });
 
   test('toBase64 tests', () {
-    expect([1,2,3].toBase64(), 'AQID');
+    expect([1, 2, 3].toBase64(), 'AQID');
     expect(<int>[].toBase64(), '');
   });
 
   test('toUint8List tests', () {
-    final List<int> list = [1,2,3];
+    final List<int> list = [1, 2, 3];
     expect(list.toUint8List(), equals(Uint8List.fromList(list)));
     expect(<int>[].toUint8List(), equals(Uint8List(0)));
   });
 
   test('toUint16List tests', () {
-    final List<int> list = [1,2,3];
+    final List<int> list = [1, 2, 3];
     expect(list.toUint16List(), equals(Uint16List.fromList(list)));
     expect(<int>[].toUint16List(), equals(Uint16List(0)));
   });

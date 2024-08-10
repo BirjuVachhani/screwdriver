@@ -313,7 +313,8 @@ void main() {
   });
 
   test('toUtf16Bytes tests', () {
-    expect('save 🎉'.toUtf16Bytes(), equals([115, 97, 118, 101, 32, 55356, 57225]));
+    expect('save 🎉'.toUtf16Bytes(),
+        equals([115, 97, 118, 101, 32, 55356, 57225]));
     expect('save 🎉'.codeUnits, 'save 🎉'.toUtf16Bytes());
     expect(''.toUtf16Bytes(), equals([]));
     expect(''.toUtf16Bytes(), equals(Uint16List(0)));
