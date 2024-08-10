@@ -115,6 +115,12 @@ void main() {
             .associate((element) => (element.year, element.isLeapYear)),
         equals({2015: false, 2020: true}));
 
+    // toMap
+    expect(
+        [DateTime(2015), DateTime(2020)]
+            .toMap((element) => (element.year, element.isLeapYear)),
+        equals({2015: false, 2020: true}));
+
     // associateBy
     expect(
         [DateTime(2015), DateTime(2020)].associateBy((element) => element.year),
