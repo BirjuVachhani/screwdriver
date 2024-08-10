@@ -10,6 +10,13 @@ void main() {
     expect(5.run((obj) => (obj + 5).toString()), '10');
   });
 
+  test('scope functions tests with null', () {
+    List<int>? list;
+    int? a;
+    expect(list.apply((obj) => obj << 5), isNull);
+    expect(a.run((obj) => (obj + 5).toString()), isNull);
+  });
+
   test('takeIf tests', () {
     expect(5.takeIf((obj) => obj.isEven), null);
     expect(5.takeIf((obj) => obj.isOdd), 5);
