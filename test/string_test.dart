@@ -1,6 +1,9 @@
 // Author: Birju Vachhani
 // Created Date: August 16, 2020
 
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
 
@@ -294,5 +297,35 @@ void main() {
     expect('save'.suffix('Icon'), 'saveIcon');
     expect('saveIcon'.suffix('Icon'), 'saveIcon');
     expect('saveIcon'.suffix('Icon', force: true), 'saveIconIcon');
+  });
+
+  test('toBytes tests', () {
+    expect('save'.toBytes(), equals([115, 97, 118, 101]));
+    expect(utf8.decode([115, 97, 118, 101]), equals('save'));
+
+    expect('save 🎉'.toBytes(),
+        equals([115, 97, 118, 101, 32, 240, 159, 142, 137]));
+    expect(utf8.decode([115, 97, 118, 101, 32, 240, 159, 142, 137]),
+        equals('save 🎉'));
+
+    expect(''.toBytes(), equals([]));
+    expect(''.toBytes(), equals(Uint8List(0)));
+  });
+
+  test('toUtf16Bytes tests', () {
+    expect('save 🎉'.toUtf16Bytes(), equals([115, 97, 118, 101, 32, 55356, 57225]));
+    expect('save 🎉'.codeUnits, 'save 🎉'.toUtf16Bytes());
+    expect(''.toUtf16Bytes(), equals([]));
+    expect(''.toUtf16Bytes(), equals(Uint16List(0)));
+  });
+
+  test('toUnicodeBytes tests', () {
+    expect('save'.toUnicodeBytes(), equals([115, 97, 118, 101]));
+    expect('save'.runes, 'save'.toUnicodeBytes());
+
+    expect('save 🎉'.toUnicodeBytes(), equals([115, 97, 118, 101, 32, 127881]));
+    expect('save 🎉'.runes, 'save 🎉'.toUnicodeBytes());
+
+    expect(''.toUnicodeBytes(), equals([]));
   });
 }
