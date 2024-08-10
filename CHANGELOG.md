@@ -3,6 +3,9 @@
 - Add `hasExactMatch` extension for `Pattern` and `RegExp`.
 - Add `matchesExactly` extension for `String`.
 - Add `isBlank`, `isNotBlank`, and `toMap` extensions for `Iterable`.
+- Add `prefix` and `suffix` extensions for `String`.
+- Add `toBase64`, 'toUint8List', and `toUint16List` extensions for `Iterable<int>`.
+- Add `toBytes`, `toUtf16Bytes`, and `toUnicodeBytes` extension for `String`.
 
 ## 5.4.0
 
