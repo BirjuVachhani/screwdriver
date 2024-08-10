@@ -100,6 +100,12 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// alias for [Iterable.every]
   bool all(bool Function(E element) test) => every(test);
 
+  /// Alias for [associate].
+  /// Returns a [Map] containing key-value pairs provided by [transform]
+  /// function applied to elements of the given List.
+  Map<K, V> toMap<K, V>((K, V) Function(E element) transform) =>
+      associate<K, V>(transform);
+
   /// Returns a [Map] containing key-value pairs provided by [transform]
   /// function applied to elements of the given List.
   Map<K, V> associate<K, V>((K, V) Function(E element) transform) =>
@@ -473,13 +479,21 @@ extension IterableScrewDriver<E> on Iterable<E> {
 
 /// provides extensions for nullable Iterable
 extension NullableIterableScrewDriver<E> on Iterable<E>? {
-  /// Returns true if [this] is either null or empty collection
+  /// Returns true if [this] is either null or empty collection.
   bool get isNullOrEmpty {
     var iterable = this;
     return iterable == null || iterable.isEmpty;
   }
 
-  /// Returns true if [this] is neither null nor empty collection
+  /// Alias for [isNullOrEmpty].
+  /// Returns true if [this] is either null or empty collection.
+  bool get isBlank => isNullOrEmpty;
+
+  /// Alias for [isNotNullOrEmpty].
+  /// Returns true if [this] is neither null nor empty collection.
+  bool get isNotBlank => isNotNullOrEmpty;
+
+  /// Returns true if [this] is neither null nor empty collection.
   bool get isNotNullOrEmpty {
     var iterable = this;
     return iterable != null && iterable.isNotEmpty;
