@@ -2,6 +2,7 @@
 
 - Add `hasExactMatch` extension for `Pattern` and `RegExp`.
 - Add `matchesExactly` extension for `String`.
+- Add `isBlank`, `isNotBlank`, and `toMap` extensions for `Iterable`.
 
 ## 5.4.0
 
