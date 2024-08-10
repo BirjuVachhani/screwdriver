@@ -241,6 +241,18 @@ extension StringScrewdriver on String {
     );
     return list;
   }
+
+  /// Prepends given [prefix] to [this] if it does not already start with it.
+  /// If [force] is true, it will append the [prefix] regardless of whether
+  /// [this] already starts with it or not.
+  String prefix(String prefix, {bool force = false}) =>
+      startsWith(prefix) && !force ? this : '$prefix$this';
+
+  /// Appends given [suffix] to [this] if it does not already end with it.
+  /// If [force] is true, it will append the [suffix] regardless of whether
+  /// [this] already ends with it or not.
+  String suffix(String suffix, {bool force = false}) =>
+      endsWith(suffix) && !force ? this : '$this$suffix';
 }
 
 /// Provides extensions for nullable [String].
