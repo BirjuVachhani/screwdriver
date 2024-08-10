@@ -29,38 +29,17 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+// Author: Birju Vachhani
+// Created Date: July 3, 2024
 
-import 'dart:async';
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:math';
+part of '../screwdriver.dart';
 
-import 'package:characters/characters.dart';
-import 'package:collection/collection.dart';
-import 'package:intl/intl.dart';
-
-import 'src/helpers/helpers.dart';
-import 'src/utils.dart';
-
-export 'package:collection/collection.dart';
-
-export 'src/helpers/helpers.dart';
-export 'src/utils.dart';
-
-part 'async/future.dart';
-part 'collection/comparable.dart';
-part 'collection/iterable.dart';
-part 'collection/iterator.dart';
-part 'collection/list.dart';
-part 'collection/map.dart';
-part 'datetime/date_time.dart';
-part 'duration/duration.dart';
-part 'generic/generic.dart';
-part 'other/pattern.dart';
-part 'primitive/bool.dart';
-part 'primitive/double.dart';
-part 'primitive/int.dart';
-part 'primitive/num.dart';
-part 'primitive/object.dart';
-part 'primitive/string.dart';
+/// Provides extensions for [Pattern].
+extension PatternExt on Pattern {
+  /// Returns true if [input] exactly matches the patten.
+  bool hasExactMatch(String? input) {
+    final Match? match = matchAsPrefix(input ??= '');
+    if (match == null) return false;
+    return match.start == 0 && match.end == input.length;
+  }
+}
