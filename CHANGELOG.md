@@ -1,6 +1,11 @@
+## 5.5.0 [Unreleased]
+
+- Add `hasExactMatch` extension for `Pattern` and `RegExp`.
+- Add `matchesExactly` extension for `String`.
+
 ## 5.4.0
 
-- add `isTruthy` and `isFalsy` extensions for generic nullable types.
+- Add `isTruthy` and `isFalsy` extensions for generic nullable types.
 - Add `immediateFirstRun` option for `DeBouncer` to run the first call immediately.
 - Global `debouncer` instance and `debounce` function for easy access to the debouncer.
 - DeBouncer now allows returning a value from the debounced function in form of a `Future<R>` where `R` is the return
