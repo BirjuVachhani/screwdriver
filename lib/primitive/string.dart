@@ -138,6 +138,18 @@ extension StringScrewdriver on String {
   /// Returns a reversed string of [this]
   String get reversed => characters.toList().reversed.join();
 
+  /// Whether [this] is a valid regular expression or not. Creating an instance
+  /// of [RegExp] with invalid patten throws a [FormatException]. This allows
+  /// to check if a string is a valid regex pattern or not without throwing.
+  bool get isRegex {
+    try {
+      RegExp(this);
+    } on FormatException catch (_) {
+      return false;
+    }
+    return true;
+  }
+
   /// Tries to convert [this] into a [DateTime].
   DateTime? toDateTimeOrNull() => DateTime.tryParse(this);
 
@@ -266,4 +278,7 @@ extension NullableStringScrewdriver on String? {
 
   /// Returns [this] if it is not null, otherwise returns empty string.
   String get orEmpty => this ?? '';
+
+  /// Returns true if this string exactly matches the given [pattern].
+  bool matchesExactly(Pattern pattern) => pattern.hasExactMatch(this);
 }
