@@ -15,6 +15,15 @@ void main() {
     int? a;
     expect(list.apply((obj) => obj << 5), isNull);
     expect(a.run((obj) => (obj + 5).toString()), isNull);
+
+    list = [];
+    a = 5;
+    Future.delayed(Duration(milliseconds: 100), (){
+      list = null;
+      a = null;
+    });
+    expect(list.apply((obj) => obj << 5), equals([5]));
+    expect(a.run((obj) => (obj + 5).toString()), '10');
   });
 
   test('takeIf tests', () {
