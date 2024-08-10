@@ -48,6 +48,21 @@ extension GenericNullableScrewdriver<T extends Object?> on T? {
 
   /// Checks false-ness of the value.
   bool get isFalsy => !isTruthy;
+
+  /// Calls the specified function [block] with `this` value as its argument
+  /// and returns `this` value.
+  T? apply(void Function(T obj) block) {
+    if (this == null) return null;
+    block(this as T);
+    return this;
+  }
+
+  /// Calls the specified function [block] with `this` value as its argument
+  /// and returns `this` value.
+  R? run<R>(R Function(T obj) block) {
+    if (this == null) return null;
+    return block(this as T);
+  }
 }
 
 /// provides scope functions as extensions on [T]
