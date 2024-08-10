@@ -32,6 +32,8 @@
 // Author: Birju Vachhani
 // Created Date: August 20, 2020
 
+import 'dart:typed_data';
+
 import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
 
@@ -273,6 +275,23 @@ void main() {
     for (final (index, item) in list.records) {
       expect(list[index], equals(item));
     }
+  });
+
+  test('toBase64 tests', () {
+    expect([1,2,3].toBase64(), 'AQID');
+    expect(<int>[].toBase64(), '');
+  });
+
+  test('toUint8List tests', () {
+    final List<int> list = [1,2,3];
+    expect(list.toUint8List(), equals(Uint8List.fromList(list)));
+    expect(<int>[].toUint8List(), equals(Uint8List(0)));
+  });
+
+  test('toUint16List tests', () {
+    final List<int> list = [1,2,3];
+    expect(list.toUint16List(), equals(Uint16List.fromList(list)));
+    expect(<int>[].toUint16List(), equals(Uint16List(0)));
   });
 
   group('findBy tests', () {
