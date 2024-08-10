@@ -1,4 +1,4 @@
-## 5.5.0 [Unreleased]
+## 5.5.0
 
 - Add `hasExactMatch` extension for `Pattern` and `RegExp`.
 - Add `matchesExactly` extension for `String`.
