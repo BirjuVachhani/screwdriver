@@ -271,4 +271,16 @@ void main() {
     expect(result.length, equals(3));
     expect(result, containsAllInOrder([5, 4, 3]));
   });
+
+  test('matchesExactly tests', () {
+    expect('123'.matchesExactly(RegExp(r'\d+')), isTrue);
+    expect('123a'.matchesExactly(RegExp(r'\d+')), isFalse);
+    expect('123a'.contains(RegExp(r'\d+')), isTrue);
+  });
+
+  test('isRegex tests', () {
+    expect('123'.isRegex, isTrue);
+    expect(r'(\d+'.isRegex, isFalse);
+    expect(r'\d+'.isRegex, isTrue);
+  });
 }
