@@ -283,4 +283,16 @@ void main() {
     expect(r'(\d+'.isRegex, isFalse);
     expect(r'\d+'.isRegex, isTrue);
   });
+
+  test('prefix tests', () {
+    expect('Save'.prefix('icon'), 'iconSave');
+    expect('iconSave'.prefix('icon'), 'iconSave');
+    expect('iconSave'.prefix('icon', force: true), 'iconiconSave');
+  });
+
+  test('suffix tests', () {
+    expect('save'.suffix('Icon'), 'saveIcon');
+    expect('saveIcon'.suffix('Icon'), 'saveIcon');
+    expect('saveIcon'.suffix('Icon', force: true), 'saveIconIcon');
+  });
 }
