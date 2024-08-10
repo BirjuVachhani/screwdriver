@@ -499,3 +499,16 @@ extension NullableIterableScrewDriver<E> on Iterable<E>? {
     return iterable != null && iterable.isNotEmpty;
   }
 }
+
+/// provides extensions for List of integers. e.g. bytes
+extension IntListScrewdriver on List<int> {
+  /// Converts the list of integers to a base64 encoded string. e.g. converting
+  /// bytes to base64 string.
+  String toBase64() => base64Encode(this);
+
+  /// Converts [this] list of integers to a [Uint8List].
+  Uint8List toUint8List() => Uint8List.fromList(this);
+
+  /// Converts [this] list of integers to a [Uint16List].
+  Uint16List toUint16List() => Uint16List.fromList(this);
+}

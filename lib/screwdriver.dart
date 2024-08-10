@@ -35,6 +35,7 @@ import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
