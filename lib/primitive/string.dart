@@ -253,6 +253,17 @@ extension StringScrewdriver on String {
   /// [this] already ends with it or not.
   String suffix(String suffix, {bool force = false}) =>
       endsWith(suffix) && !force ? this : '$this$suffix';
+
+  /// Converts [this] string to bytes. Default encoding is UTF-8.
+  /// Use [toUtf16Bytes] for UTF-16 encoding.
+  List<int> toBytes() => utf8.encode(this);
+
+  /// Converts [this] string to bytes using UTF-16 encoding. Use [toBytes]
+  /// for UTF-8 encoding.
+  List<int> toUtf16Bytes() => codeUnits.toList();
+
+  /// Converts [this] string to bytes using Unicode encoding.
+  List<int> toUnicodeBytes() => runes.toList();
 }
 
 /// Provides extensions for nullable [String].
