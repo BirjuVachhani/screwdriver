@@ -18,7 +18,7 @@ void main() {
 
     list = [];
     a = 5;
-    Future.delayed(Duration(milliseconds: 100), (){
+    Future.delayed(Duration(milliseconds: 100), () {
       list = null;
       a = null;
     });

@@ -11,5 +11,4 @@ void main() {
     expect(RegExp(r'\d+').hasExactMatch('a123'), isFalse);
     expect(RegExp(r'\d+').hasMatch('a123'), isTrue);
   });
-
 }
