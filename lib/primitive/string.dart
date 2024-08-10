@@ -203,12 +203,8 @@ extension StringScrewdriver on String {
   }) {
     return splitMapJoin(
       regex,
-      onMatch: onMatch != null
-          ? (match) {
-              match as RegExpMatch;
-              return onMatch(match);
-            }
-          : null,
+      onMatch:
+          onMatch != null ? (match) => onMatch(match as RegExpMatch) : null,
       onNonMatch: onNonMatch,
     );
   }
