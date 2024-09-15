@@ -58,6 +58,7 @@ part 'collection/map.dart';
 part 'datetime/date_time.dart';
 part 'duration/duration.dart';
 part 'generic/generic.dart';
+part 'other/enum.dart';
 part 'other/pattern.dart';
 part 'primitive/bool.dart';
 part 'primitive/double.dart';

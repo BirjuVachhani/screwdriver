@@ -44,4 +44,3 @@ extension EnumIterableScrewdriver<T extends Enum> on Iterable<T> {
     return null;
   }
 }
-
