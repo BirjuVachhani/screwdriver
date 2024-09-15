@@ -79,6 +79,14 @@ void main() {
     expect(5646.twoDigits(), '5646');
   });
 
+  test('toFixedString test', () {
+    expect(24.toFixedString(2), '24');
+    expect(8.toFixedString(2), '08');
+    expect(0.toFixedString(2), '00');
+    expect(10.toFixedString(2), '10');
+    expect(5646.toFixedString(4), '5646');
+  });
+
   test('rangeTo, until and downTo tests', () {
     expect(48.rangeTo(68), IntRange(48, 68));
     expect(15.downTo(5), IntRange(15, 5, step: -1));
