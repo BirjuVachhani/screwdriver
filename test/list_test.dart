@@ -10,6 +10,12 @@ void main() {
     expect(<int>[] << 3, equals([3]));
   });
 
+  test('>> operator test', () {
+    expect([1, 2] >> 3, isFalse);
+    expect([1, 2] >> 2, isTrue);
+    expect(<int>[] >> 3, isFalse);
+  });
+
   group('replaceFirstWhere', () {
     test('should replace the first matching item and return true', () {
       final list = [1, 2, 3, 4, 5];
