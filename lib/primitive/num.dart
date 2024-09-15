@@ -87,6 +87,21 @@ extension TypedNumScrewdriver<T extends num> on T {
   /// Returns this value if it is less than or equal to [upperBound].
   /// Returns [upperBound] otherwise.
   T clampAtMost(T upperBound) => this > upperBound ? upperBound : this;
+
+  /// Alias for add operation.
+  T plus(num value) => (this + value) as T;
+
+  /// Alias for subtract operation.
+  T minus(num value) => (this - value) as T;
+
+  /// Alias for multiply operation.
+  T multiply(num value) => (this * value) as T;
+
+  /// Alias for divide operation.
+  num divide(num value) => (this / value);
+
+  /// Alias for modulo operation.
+  T mod(num value) => (this % value) as T;
 }
 
 /// Provides extensions for nullable [num] types.
