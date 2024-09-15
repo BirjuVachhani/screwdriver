@@ -73,7 +73,48 @@ extension IterableScrewDriver<E> on Iterable<E> {
   }
 
   /// alias for [Iterable.map]
-  Iterable<R> flatMap<R>(R Function(E element) transform) => map<R>(transform);
+  Iterable<R> flatMap<R>(Iterable<R> Function(E element) transform) sync* {
+    for (final element in this) {
+      yield* transform(element);
+    }
+  }
+
+  /// alias for [Iterable.map]
+  Iterable<R> flatMapNotNull<R>(
+      Iterable<R?>? Function(E element) transform) sync* {
+    for (final element in this) {
+      final result = transform(element);
+      if (result != null) yield* result.whereType<R>();
+    }
+  }
+
+  /// Similar to [Iterable.map] but also filters out null values.
+  ///
+  /// Returns a new lazy Iterable where each element is the result of
+  /// applying the given [transform] function to the corresponding element
+  /// of the original Iterable except for null values which are not present
+  /// in the resulting Iterable.
+  Iterable<R> mapNotNull<R>(R? Function(E element) transform) sync* {
+    for (final element in this) {
+      final result = transform(element);
+      if (result != null) yield result;
+    }
+  }
+
+  /// Similar to [List.mapIndexed], where index is also provided to the
+  /// [transform] function, but also filters out null values.
+  ///
+  /// Returns a new lazy Iterable where each element is the result of
+  /// applying the given [transform] function to the corresponding element
+  /// of the original Iterable except for null values which are not present
+  /// in the resulting Iterable.
+  Iterable<R> mapNotNullIndexed<R>(
+      R? Function(int index, E element) transform) sync* {
+    for (var index = 0; index < length; index++) {
+      final result = transform(index, elementAt(index));
+      if (result != null) yield result;
+    }
+  }
 
   /// alias for [Iterable.skip]
   Iterable<E> drop(int count) => skip(count);
@@ -511,4 +552,18 @@ extension IntListScrewdriver on List<int> {
 
   /// Converts [this] list of integers to a [Uint16List].
   Uint16List toUint16List() => Uint16List.fromList(this);
+}
+
+/// Provides extensions for Nested Iterables.
+extension NestedIterableScrewdriver<E> on Iterable<Iterable<E?>?>? {
+  /// Flattens the nested iterable to a single iterable.
+  Iterable<E> get flattenedNotNull sync* {
+    if (this == null) return;
+    for (final iterable in this!) {
+      if (iterable == null) continue;
+      for (final element in iterable) {
+        if (element != null) yield element;
+      }
+    }
+  }
 }
