@@ -105,8 +105,39 @@ void main() {
         equals([1, 3, 5, 7, 9]));
 
     // flatMap
-    expect([1, 2].flatMap((element) => element * 10), equals([10, 20]));
-    expect(<int>[].flatMap((element) => element * 10), equals(<int>[]));
+    expect(
+        [
+          [1],
+          [2]
+        ].flatMap((element) => element.map((e) => e * 10)),
+        equals([10, 20]));
+    expect(<List<int>>[].flatMap((element) => element.map((e) => e * 10)),
+        equals(<int>[]));
+
+    // flatMapNotNull
+    final List<List<int?>?> nullableNestedList = [
+      [1],
+      null,
+      [2]
+    ];
+    expect(
+        nullableNestedList
+            .flatMapNotNull((element) => element?.map((e) => e * 10)),
+        equals(<int>[10, 20]));
+
+    // mapNotNull
+    final List<double?> nullableList = [1.0, null, 2.0];
+    expect(nullableList.mapNotNull((element) => element?.multiply(10)),
+        equals([10.0, 20.0]));
+    expect([].mapNotNull((element) => element?.multiply(10)), isEmpty);
+
+    // mapNotNullIndexed
+    expect(
+        list.mapNotNullIndexed(
+            (index, element) => index.isEven ? element : null),
+        equals([1, 3, 5, 7, 9]));
+    expect(nullableList.mapNotNullIndexed((index, element) => element),
+        equals([1.0, 2.0]));
 
     // drop
     expect(list.drop(7), equals([8, 9]));
@@ -232,6 +263,19 @@ void main() {
         {'name': 'John'}
       ]),
     );
+
+    // flattened
+    expect(
+        [
+          [1, 2],
+          [3, 4],
+          [5, 6],
+          null,
+        ].flattenedNotNull,
+        equals([1, 2, 3, 4, 5, 6]));
+    expect(<List<String>>[].flattenedNotNull, isEmpty);
+    final List<Set<String>>? nullList = null;
+    expect(nullList.flattenedNotNull, isEmpty);
   });
 
   test('math tests', () {
