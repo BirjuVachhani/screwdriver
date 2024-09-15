@@ -115,7 +115,7 @@ void main() {
         equals(<int>[]));
 
     // flatMapNotNull
-    final List<List<int?>?> nullableNestedList = [
+    final List<List<int>?> nullableNestedList = [
       [1],
       null,
       [2]
