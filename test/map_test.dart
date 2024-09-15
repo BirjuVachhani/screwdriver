@@ -64,4 +64,23 @@ void main() {
       expect(map[key], equals(value));
     }
   });
+
+  test('reverse test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.reversed, equals({1: 'a', 2: 'b', 3: 'c'}));
+    expect({}.reversed, equals({}));
+    expect({'a': 1, 'b': 1, 'c': 2}.reversed, equals({1: 'b', 2: 'c'}));
+  });
+
+  test('findByValue test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.findByValue(2).key, equals('b'));
+    expect({'a': 1, 'b': 2, 'c': 3}.findByValue(2).value, equals(2));
+    expect(
+        () => {'a': 1, 'b': 2, 'c': 3}.findByValue(4), throwsA(isA<Error>()));
+  });
+
+  test('findByValueOrNull test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.findByValueOrNull(2)?.key, equals('b'));
+    expect({'a': 1, 'b': 2, 'c': 3}.findByValueOrNull(2)?.value, equals(2));
+    expect({'a': 1, 'b': 2, 'c': 3}.findByValueOrNull(4), isNull);
+  });
 }
