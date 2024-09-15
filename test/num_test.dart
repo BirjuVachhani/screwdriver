@@ -107,4 +107,139 @@ void main() {
     expect((pi / 4).inDegrees, equals(45));
     expect(0.inDegrees, equals(0));
   });
+
+  test('plus tests', () {
+    expect(5.plus(4), equals(9));
+    expect(5.plus(4), isA<int>());
+    int? nullableInt;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableInt = 5;
+    });
+    expect(nullableInt?.plus(4), isNull);
+
+    expect(5.0.plus(4), equals(9.0));
+    expect(5.0.plus(4), isA<double>());
+    double? nullableDouble;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableDouble = 5.0;
+    });
+    expect(nullableDouble?.plus(4), isNull);
+
+    num numValue = 5;
+    expect(numValue.plus(4), equals(9));
+    expect(numValue.plus(4), isA<num>());
+    num? nullableNum;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableNum = 5;
+    });
+    expect(nullableNum?.plus(4), isNull);
+  });
+
+  test('minus tests', () {
+    expect(5.minus(4), equals(1));
+    expect(5.minus(4), isA<int>());
+    int? nullableInt;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableInt = 5;
+    });
+    expect(nullableInt?.minus(4), isNull);
+
+    expect(5.0.minus(4), equals(1.0));
+    expect(5.0.minus(4), isA<double>());
+    double? nullableDouble;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableDouble = 5.0;
+    });
+    expect(nullableDouble?.minus(4), isNull);
+
+    num numValue = 5;
+    expect(numValue.minus(4), equals(1));
+    expect(numValue.minus(4), isA<num>());
+    num? nullableNum;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableNum = 5;
+    });
+    expect(nullableNum?.minus(4), isNull);
+  });
+
+  test('multiply tests', () {
+    expect(5.multiply(4), equals(20));
+    expect(5.multiply(4), isA<int>());
+    int? nullableInt;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableInt = 5;
+    });
+    expect(nullableInt?.multiply(4), isNull);
+
+    expect(5.0.multiply(4), equals(20.0));
+    expect(5.0.multiply(4), isA<double>());
+    double? nullableDouble;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableDouble = 5.0;
+    });
+    expect(nullableDouble?.multiply(4), isNull);
+
+    num numValue = 5;
+    expect(numValue.multiply(4), equals(20));
+    expect(numValue.multiply(4), isA<num>());
+    num? nullableNum;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableNum = 5;
+    });
+    expect(nullableNum?.multiply(4), isNull);
+  });
+
+  test('divide tests', () {
+    expect(20.divide(4), equals(5));
+    expect(20.divide(4), isA<double>());
+    int? nullableInt;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableInt = 20;
+    });
+    expect(nullableInt?.divide(4), isNull);
+
+    expect(20.0.divide(4), equals(5.0));
+    expect(20.0.divide(4), isA<double>());
+    double? nullableDouble;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableDouble = 20.0;
+    });
+    expect(nullableDouble?.divide(4), isNull);
+
+    num numValue = 20;
+    expect(numValue.divide(4), equals(5));
+    expect(numValue.divide(4), isA<num>());
+    num? nullableNum;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableNum = 20;
+    });
+    expect(nullableNum?.divide(4), isNull);
+  });
+
+  test('mod tests', () {
+    expect(20.mod(4), equals(0));
+    expect(20.mod(4), isA<int>());
+    int? nullableInt;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableInt = 20;
+    });
+    expect(nullableInt?.mod(4), isNull);
+
+    expect(20.0.mod(4), equals(0.0));
+    expect(20.0.mod(4), isA<double>());
+    double? nullableDouble;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableDouble = 20.0;
+    });
+    expect(nullableDouble?.mod(4), isNull);
+
+    num numValue = 20;
+    expect(numValue.mod(4), equals(0));
+    expect(numValue.mod(4), isA<num>());
+    num? nullableNum;
+    Future.delayed(Duration(seconds: 1), () {
+      nullableNum = 20;
+    });
+    expect(nullableNum?.mod(4), isNull);
+  });
 }
