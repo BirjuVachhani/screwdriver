@@ -121,7 +121,15 @@ extension IntScrewdriver<T> on int {
 
   /// Returns [int] as string which has a zero appended as prefix if [this]
   /// is a single digit value.
-  String twoDigits() => this < 10 ? '0$this' : toString();
+  String twoDigits() => toFixedString(2);
+
+  /// Returns [int] as string which has a zero appended as prefix if [this]
+  /// is less than [width] digits.
+  /// e.g.  5.toFixedString(2)  // returns '05'
+  ///       20.toFixedString(3) // returns '020'
+  ///       20.toFixedString(2) // returns '20'
+  String toFixedString(int width, {String padCharacter = '0'}) =>
+      toString().padLeft(width, padCharacter);
 
   /// Creates an [IntRange] starting from this to [end] inclusively with
   /// default step size of 1.
@@ -138,9 +146,35 @@ extension IntScrewdriver<T> on int {
   /// Returns a range from this value up to but excluding the
   /// specified [end] value.
   IntRange until(int end) => IntRange(this, end - 1);
+
+  int multiply(int value) => this * value;
+
+  int divide(int value) => this ~/ value;
+
+  int plus(int value) => this + value;
+
+  int minus(int value) => this - value;
 }
 
 /// Generates a non-negative random integer uniformly distributed in the range
 /// rom 0, inclusive, to [max], exclusive.
 /// default [max] is 1_000_000
 int randomInt({int? max}) => Random().nextInt(max ?? 1000000);
+
+extension NullableIntScrewdriver on int? {
+  int multiply(int value) => (this ?? 1) * value;
+
+  int divide(int value) => (this ?? 0) ~/ value;
+
+  int plus(int value) => (this ?? 0) + value;
+
+  int minus(int value) => (this ?? 0) - value;
+
+  operator *(int value) => multiply(value);
+
+  operator /(int value) => divide(value);
+
+  operator +(int value) => plus(value);
+
+  operator -(int value) => minus(value);
+}
