@@ -146,35 +146,11 @@ extension IntScrewdriver<T> on int {
   /// Returns a range from this value up to but excluding the
   /// specified [end] value.
   IntRange until(int end) => IntRange(this, end - 1);
-
-  int multiply(int value) => this * value;
-
-  int divide(int value) => this ~/ value;
-
-  int plus(int value) => this + value;
-
-  int minus(int value) => this - value;
 }
 
 /// Generates a non-negative random integer uniformly distributed in the range
 /// rom 0, inclusive, to [max], exclusive.
-/// default [max] is 1_000_000
-int randomInt({int? max}) => Random().nextInt(max ?? 1000000);
-
-extension NullableIntScrewdriver on int? {
-  int multiply(int value) => (this ?? 1) * value;
-
-  int divide(int value) => (this ?? 0) ~/ value;
-
-  int plus(int value) => (this ?? 0) + value;
-
-  int minus(int value) => (this ?? 0) - value;
-
-  operator *(int value) => multiply(value);
-
-  operator /(int value) => divide(value);
-
-  operator +(int value) => plus(value);
-
-  operator -(int value) => minus(value);
+/// default [max] is a max int value allowed by [Random].
+int randomInt({int? max, int? seed}) {
+  return Random(seed).nextInt(max ?? 4294967296);
 }

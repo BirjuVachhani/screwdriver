@@ -1,6 +1,8 @@
 // Author: Birju Vachhani
 // Created Date: August 16, 2020
 
+import 'dart:math';
+
 import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
 
@@ -69,6 +71,8 @@ void main() {
   test('random test', () {
     expect(randomInt(), isA<int>());
     expect(randomInt(max: 100), predicate<int>((value) => value < 100));
+    expect(randomInt(seed: 543), Random(543).nextInt(4294967296));
+    expect(randomInt(max: 100, seed: 543), Random(543).nextInt(100));
   });
 
   test('twoDigits test', () {
