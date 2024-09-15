@@ -39,6 +39,9 @@ extension ListScrewDriver<E> on List<E> {
   /// adds [element] into the list and returns the list
   List<E> operator <<(E element) => this..add(element);
 
+  /// Removes [element] from the list and returns true if the element is removed.
+  bool operator >>(E element) => remove(element);
+
   /// Replaces an item in the list with [replacement] where [predicate] returns
   /// true. Returns true if an item is replaced, false otherwise.
   bool replaceFirstWhere(E replacement, bool Function(E item) predicate) {
