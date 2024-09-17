@@ -1,3 +1,20 @@
+## 5.6.0 [Unreleased]
+
+- Add `byNameOrNull` extension on enum.
+- Add `toFixedString` extension on int.
+- [BREAKING] Fix `flatMap` extension to behaving correctly.
+- Iterable extensions:
+  - Add `flatMapNotNull` extension.
+  - Add `mapNotNull` extension.
+  - Add `mapNotNullIndexed` extension.
+  - Add 'flattenedNotNull' extension.
+- Add `<<` operator extension for List.
+- `randomInt` function improvements:
+  - add `seed` option.
+  - Change default max value to max int value allowed by Random.
+- Add `reversed`, `findByValue` and `findByValueOrNull` map extensions.
+- Add `plus`, `minus`, `multiply`, `divide` and `mod` extensions for num.
+
 ## 5.5.0
 
 - Add `hasExactMatch` extension for `Pattern` and `RegExp`.
