@@ -1,4 +1,4 @@
-## 5.6.0 [Unreleased]
+## 5.6.0
 
 - Add `byNameOrNull` extension on enum.
 - Add `toFixedString` extension on int.
