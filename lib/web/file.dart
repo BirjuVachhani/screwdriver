@@ -29,8 +29,44 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'dart:async';
-import 'dart:html';
-import 'dart:typed_data';
+// Author: Birju Vachhani
+// Created Date: May 27, 2022
 
-part 'html/file.dart';
+part of '../screwdriver_web.dart';
+
+/// provides extensions for [File]
+extension FileScrewdriver on File {
+  /// Reads the [File] and returns the content as bytes.
+  Future<Uint8List> readAsBytes() async {
+    final Completer<Uint8List> completer = Completer<Uint8List>();
+    final FileReader reader = FileReader();
+    // final ProgressEvent event =
+    //     await EventStreamProviders.loadEvent.forTarget(reader).first;
+
+    void changeEventListener(Event e) async {
+      final ByteBuffer byteBuffer = (reader.result as JSArrayBuffer).toDart;
+      completer.complete(byteBuffer.asUint8List());
+    }
+
+    reader.addEventListener('load', changeEventListener.toJS);
+    reader.readAsArrayBuffer(this);
+
+    return completer.future;
+  }
+
+  /// Reads the [File] and returns the content as a string.
+  Future<String> readAsString() async {
+    final Completer<String> completer = Completer<String>();
+    final FileReader reader = FileReader();
+
+    void changeEventListener(Event e) async {
+      final String text = (reader.result as JSString).toDart;
+      completer.complete(text);
+    }
+
+    reader.addEventListener('load', changeEventListener.toJS);
+    reader.readAsText(this);
+
+    return completer.future;
+  }
+}

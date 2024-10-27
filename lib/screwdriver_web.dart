@@ -29,20 +29,9 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-// Author: Birju Vachhani
-// Created Date: May 27, 2022
+import 'dart:async';
+import 'dart:js_interop';
+import 'package:web/web.dart';
+import 'dart:typed_data';
 
-part of '../screwdriver_html.dart';
-
-/// provides extensions for [File]
-extension FileScrewdriver on File {
-  /// Returns bytes of the html file.
-  Future<Uint8List> readBytes() async {
-    final Completer<List<int>> bytesFile = Completer<List<int>>();
-    final FileReader reader = FileReader();
-    reader.onLoad.listen(
-        (event) => bytesFile.complete(reader.result as FutureOr<List<int>>?));
-    reader.readAsArrayBuffer(this);
-    return Uint8List.fromList(await bytesFile.future);
-  }
-}
+part 'web/file.dart';
