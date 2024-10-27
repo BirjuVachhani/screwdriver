@@ -67,4 +67,7 @@ extension ListScrewDriver<E> on List<E> {
     }
     return false;
   }
+
+  /// Reverse the list if [condition] is true.
+  Iterable<E> reverseIf(bool condition) => condition ? toList().reversed : this;
 }
