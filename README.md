@@ -21,12 +21,12 @@ Check out [EXTENSIONS.md](EXTENSIONS.md) for a complete list of all the availabl
 ```yaml  
 Extensions:                    270
 Helper Classes:                5
-Helper Functions & Getters:    21
+Helper Functions & Getters:    22
 Typedefs:                      8
 Mixins:                        2
 ```
 
-> *Last Updated: Sun, Oct 27, 2024 - 03:58 PM*
+> *Last Updated: Sun, Oct 27, 2024 - 04:22 PM*
 
 <!---stats_end-->
 
