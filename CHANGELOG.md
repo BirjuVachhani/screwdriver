@@ -1,3 +1,9 @@
+## 5.7.0
+
+- Support WASM by removing `dart:html` dependency and replacing it with `web` and `dart:js_interop`.
+- Add `reverseIf` extension for `List`.
+- Add `completer` helper function to use `Completer` api in a more concise way.
+
 ## 5.6.0
 
 - Add `byNameOrNull` extension on enum.
