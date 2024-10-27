@@ -62,5 +62,13 @@ void main() {
       expect(result, isFalse);
       expect(list, isEmpty);
     });
+
+    test('reverseIf test', () {
+      expect([].reverseIf(true), isEmpty);
+      expect([].reverseIf(false), isEmpty);
+      expect([1, 2, 3].reverseIf(true), equals([3, 2, 1]));
+      expect([1, 2, 3].reverseIf(false), equals([1, 2, 3]));
+      expect([1, 2, 3].reverseIf(4 % 2 == 0), equals([3, 2, 1]));
+    });
   });
 }
