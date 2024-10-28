@@ -169,13 +169,15 @@ void outputFunctions(IOSink sink, Stats stats, {required bool isDry}) {
 }
 
 String sanitizeDocComment(String comment) {
-  return comment
+  String sanitized = comment;
+  sanitized = sanitized
       .trim()
       .replaceAll('///', '')
-      // remove \n from description
-      .replaceAll('\n', ' ')
-      // remove [] from description
-      .splitMapJoin(
+      .split('\n')
+      .takeWhile((line) => line.trim().isNotEmpty)
+      .join(' ');
+  // remove [] from description
+  sanitized = sanitized.splitMapJoin(
     RegExp(r'\[(\S+)\]'),
     onMatch: (match) {
       final block = match.group(1);
@@ -183,6 +185,17 @@ String sanitizeDocComment(String comment) {
       return '`$block`';
     },
   ).capitalized;
+  if (sanitized.indexOf('```') case int index) {
+    if (index != -1) {
+      sanitized = sanitized.substring(0, index);
+    }
+  }
+  if (sanitized.indexOf('Example') case int index) {
+    if (index != -1) {
+      sanitized = sanitized.substring(0, index);
+    }
+  }
+  return sanitized;
 }
 
 Future<Stats> getStats(String library) async {
