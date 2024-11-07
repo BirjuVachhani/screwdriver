@@ -1,3 +1,7 @@
+## 5.7.1 (Unreleased)
+
+- Add `takeAfter`, `takeAfterLast`, `takeBefore`, `takeBeforeLast`, and `takeBetween` extensions for `String`.
+
 ## 5.7.0
 
 - Support WASM by removing `dart:html` dependency and replacing it with `web` and `dart:js_interop`.
