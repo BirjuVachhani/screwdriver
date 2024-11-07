@@ -329,4 +329,50 @@ void main() {
 
     expect(''.toUnicodeBytes(), equals([]));
   });
+
+  test('takeAfter tests', () {
+    expect('Hello World'.takeAfter('Hello'), equals(' World'));
+    expect('Hello World'.takeAfter('World'), isEmpty);
+    expect('Hello World'.takeAfter(''), equals('Hello World'));
+    expect('Hello John Wick'.takeAfter('John'), equals(' Wick'));
+    expect('12345he321'.takeAfter(RegExp(r'[0-9]+')), equals('he321'));
+    expect('Hello World'.takeAfter('Hello World'), isEmpty);
+    expect('12345he321'.takeAfter(RegExp(r'[a-z]+')), equals('321'));
+    expect('12345he321'.takeAfter(RegExp(r'[A-Z]+')), isEmpty);
+  });
+
+  test('takeBefore tests', () {
+    expect('Hello World'.takeBefore(' World'), equals('Hello'));
+    expect('Hello World'.takeBefore('Hello'), isEmpty);
+    expect('Hello World'.takeBefore(''), isEmpty);
+    expect('Hello John Wick'.takeBefore(' John'), equals('Hello'));
+    expect('12345he3'.takeBefore(RegExp(r'[0-9]+')), isEmpty);
+    expect('12345he3'.takeBefore(RegExp(r'[a-z]+')), equals('12345'));
+    expect('12345he3'.takeBefore(RegExp(r'[A-Z]+')), isEmpty);
+    expect('Hello World'.takeBefore('Hello World'), isEmpty);
+  });
+
+  test('takeBetween tests', () {
+    expect('<p>Hello</p>'.takeBetween('<p>', '</p>'), equals('Hello'));
+    expect('Hello John Wick'.takeBetween('Hello ', ' Wick'), equals('John'));
+    expect('12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[0-9]+')), equals('he'));
+    expect('12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[a-z]+')), isEmpty);
+    expect('12345he3'.takeBetween(RegExp(r'[0-9]+')), equals('he'));
+    expect('*Hello*'.takeBetween('*'), equals('Hello'));
+  });
+
+  test('takeAfterLast tests', () {
+    expect('Hello World'.takeAfterLast('Hello '), equals('World'));
+    expect('Hello World'.takeAfterLast('World'), isEmpty);
+    expect('Hello World'.takeAfterLast(''), isEmpty);
+    expect('123she45he3'.takeAfterLast(RegExp(r'[a-z]+')), equals('3'));
+  });
+
+  test('takeBeforeLast tests', () {
+    expect('Hello World'.takeBeforeLast(' World'), equals('Hello'));
+    expect('Hello World Hello'.takeBeforeLast('Hello'), equals('Hello World '));
+    expect('Hello World'.takeBeforeLast('Hello'), isEmpty);
+    expect('123she45he3'.takeBeforeLast(RegExp(r'[a-z]+')), equals('123she45'));
+    expect('123she45he3'.takeBeforeLast(RegExp(r'[a-z]{3}')), equals('123'));
+  });
 }
