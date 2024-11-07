@@ -264,6 +264,45 @@ extension StringScrewdriver on String {
 
   /// Converts [this] string to bytes using Unicode encoding.
   List<int> toUnicodeBytes() => runes.toList();
+
+  /// Returns the substring after the first occurrence of [pattern].
+  /// Returns empty string if [pattern] is not found.
+  String takeAfter(Pattern pattern) {
+    final Match? match = pattern.allMatches(this).firstOrNull;
+    return match == null ? '' : substring(match.end);
+  }
+
+  /// Returns the substring before the first occurrence of [pattern].
+  /// Returns empty string if [pattern] is not found.
+  String takeBefore(Pattern pattern) {
+    final Match? match = pattern.allMatches(this).firstOrNull;
+    return match == null ? '' : substring(0, match.start);
+  }
+
+  /// Returns the substring after the last occurrence of [pattern].
+  /// Returns empty string if [pattern] is not found.
+  String takeAfterLast(Pattern pattern) {
+    final Match? match = pattern.allMatches(this).lastOrNull;
+    return match == null ? '' : substring(match.end);
+  }
+
+  /// Returns the substring before the last occurrence of [pattern].
+  /// Returns empty string if [pattern] is not found.
+  String takeBeforeLast(Pattern pattern) {
+    final Match? match = pattern.allMatches(this).lastOrNull;
+    return match == null ? '' : substring(0, match.start);
+  }
+
+  /// Returns the substring between the first occurrence of [start] and [end].
+  /// Returns empty string if [start] or [end] is not found.
+  String takeBetween(Pattern start, [Pattern? end]) {
+    final Match? startMatch = start.allMatches(this).firstOrNull;
+    if (startMatch == null) return '';
+    final Match? endMatch =
+        (end ?? start).allMatches(this, startMatch.end).firstOrNull;
+    if (endMatch == null) return '';
+    return substring(startMatch.end, endMatch.start);
+  }
 }
 
 /// Provides extensions for nullable [String].
