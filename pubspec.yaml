@@ -16,7 +16,7 @@ dependencies:
 dev_dependencies:
   lints: ^5.0.0
   test: ^1.25.8
-  coverage: ^1.10.0
+  coverage: ^1.11.0
   mockito: ^5.4.4
   analyzer: ^6.8.0
   args: ^2.6.0
