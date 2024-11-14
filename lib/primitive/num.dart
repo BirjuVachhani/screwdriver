@@ -102,6 +102,20 @@ extension TypedNumScrewdriver<T extends num> on T {
 
   /// Alias for modulo operation.
   T mod(num value) => (this % value) as T;
+
+  /// Creates an [Degrees] object from this value. This [Degrees] object
+  /// being an extension type on [double] can be used everywhere
+  /// [double] is used.
+  Degrees get degrees => Degrees(toDouble());
+
+  /// Creates an [Radians] object from this value. This [Radians] object
+  /// being an extension type on [double] can be used everywhere
+  /// [double] is used.
+  Radians get radians => Radians(toDouble());
+
+  /// Creates an [Turns] object from this value. This [Turns] object
+  /// being an extension type on [double] can be used everywhere
+  Turns get turns => Turns(toDouble());
 }
 
 /// Provides extensions for nullable [num] types.
