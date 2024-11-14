@@ -1,4 +1,4 @@
-## 5.7.1 (Unreleased)
+## 5.8.0
 
 - Add `takeAfter`, `takeAfterLast`, `takeBefore`, `takeBeforeLast`, and `takeBetween` extensions for `String`.
 - Bump up minimum **Dart SDK** version to `3.3.0`.
