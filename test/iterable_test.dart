@@ -211,9 +211,14 @@ void main() {
     // union
     expect([1, 2].union([2, 4, 5]), equals([1, 2, 4, 5]));
 
+    // countBy
+    expect(list.countBy((element) => element.isOdd), 5);
+    expect(<int>[].countBy((element) => element.isOdd), 0);
+
     // count
-    expect(list.count((element) => element.isOdd), 5);
-    expect(<int>[].count((element) => element.isOdd), 0);
+    expect([1, 1, 2, 3, 4, 5, 7, 1, 5, 1].count(1), 4);
+    expect([1, 1, 2, 3, 4, 5, 7, 1, 5, 1].count(22), 0);
+    expect(<int>[].count(5), 0);
 
     // foldRight
     expect(

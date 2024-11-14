@@ -247,11 +247,20 @@ extension IterableScrewDriver<E> on Iterable<E> {
   Iterable<E> union(Iterable<E> other) => (toSet()..addAll(other)).toList();
 
   /// Returns the number of elements matching the given [predicate].
-  int count(bool Function(E element) predicate) {
+  int countBy(bool Function(E element) predicate) {
     if (isEmpty) return 0;
     var count = 0;
     for (var element in this) {
       if (predicate(element)) ++count;
+    }
+    return count;
+  }
+
+  /// Returns the number of elements matching the given [predicate].
+  int count(E element) {
+    int count = 0;
+    for (final e in this) {
+      if (e == element) count++;
     }
     return count;
   }
