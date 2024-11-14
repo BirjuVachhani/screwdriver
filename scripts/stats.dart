@@ -13,6 +13,7 @@ class Stats {
   List<String> functions = [];
   List<String> classes = [];
   List<String> variables = [];
+  List<String> extensionTypes = [];
   int extensions = 0;
   int typedefs = 0;
   int mixins = 0;
@@ -22,6 +23,7 @@ class Stats {
     required this.classes,
     required this.variables,
     required this.extensions,
+    required this.extensionTypes,
     required this.typedefs,
     required this.mixins,
   });
@@ -31,6 +33,7 @@ class Stats {
         classes: classes + other.classes,
         variables: variables + other.variables,
         extensions: extensions + other.extensions,
+        extensionTypes: extensionTypes + other.extensionTypes,
         typedefs: typedefs + other.typedefs,
         mixins: mixins + other.mixins,
       );
@@ -54,6 +57,7 @@ void main(List<String> args) async {
 
 ```yaml  
 Extensions:                    ${stats.extensions}
+Extension Types:               ${stats.extensionTypes.length}
 Helper Classes:                ${stats.classes.length}
 Helper Functions & Getters:    ${stats.functions.length + stats.variables.length}
 Typedefs:                      ${stats.typedefs}
@@ -84,6 +88,7 @@ Mixins:                        ${stats.mixins}
   print('STATS');
   print('==================================================================');
   print('Extensions:                    ${stats.extensions}');
+  print('Extension Types:               ${stats.extensionTypes.length}');
   print('Helper Classes:                ${stats.classes.length}');
   print('Helper Functions & Getters:    '
       '${stats.functions.length + stats.variables.length}');
@@ -104,6 +109,7 @@ Future<Stats> getStats(String library) async {
   var helpersFunctions = <String>[];
   var helpersClasses = <String>[];
   var helperVariables = <String>[];
+  var extensionTypes = <String>[];
   var extensions = 0;
   var typedefs = 0;
   var mixins = 0;
@@ -118,6 +124,8 @@ Future<Stats> getStats(String library) async {
         .wherePublic()
         .expand((element) => element.methods)
         .length;
+    extensionTypes +=
+        part.extensionTypes.wherePublic().map((e) => e.displayName).toList();
     helpersClasses +=
         part.classes.wherePublic().map((e) => e.displayName).toList();
     helperVariables +=
@@ -131,26 +139,26 @@ Future<Stats> getStats(String library) async {
     classes: helpersClasses,
     functions: helpersFunctions,
     extensions: extensions,
+    extensionTypes: extensionTypes,
     typedefs: typedefs,
     mixins: mixins,
   );
 
-  for (final CompilationUnitElement unit in result.element.units) {
-    collectExports(unit, stats, checkForSrcDir: true);
-  }
+  collectExports(result.element, stats, checkForSrcDir: true);
   return stats;
 }
 
-void collectExports(CompilationUnitElement element, Stats stats,
+void collectExports(LibraryOrAugmentationElement element, Stats stats,
     {bool checkForSrcDir = false}) {
-  for (final LibraryExportElement exp
-      in element.enclosingElement.libraryExports) {
-    final DirectiveUri uri = exp.uri;
+  for (final exp in element.libraryExports) {
+    final uri = exp.uri;
     if (uri is! DirectiveUriWithLibrary) continue;
     if (!checkForSrcDir || uri.relativeUriString.startsWith('src') == true) {
-      for (final CompilationUnitElement unit in exp.exportedLibrary!.units) {
+      for (final unit in exp.exportedLibrary!.units) {
         stats.classes
             .addAll(unit.classes.wherePublic().map((e) => e.displayName));
+        stats.extensionTypes.addAll(
+            unit.extensionTypes.wherePublic().map((e) => e.displayName));
         stats.functions
             .addAll(unit.functions.wherePublic().map((e) => e.displayName));
         stats.variables
@@ -167,7 +175,7 @@ void collectExports(CompilationUnitElement element, Stats stats,
         stats.mixins += unit.mixins.wherePublic().length;
 
         if (unit.enclosingElement.libraryExports.isNotEmpty) {
-          collectExports(unit, stats);
+          collectExports(unit.enclosingElement, stats);
         }
       }
     }

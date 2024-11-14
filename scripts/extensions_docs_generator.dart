@@ -232,19 +232,17 @@ Future<Stats> getStats(String library) async {
     mixins: mixins,
   );
 
-  for (final unit in result.element.units) {
-    collectExports(unit, stats, checkForSrcDir: true);
-  }
+  collectExports(result.element, stats, checkForSrcDir: true);
   return stats;
 }
 
-void collectExports(CompilationUnitElement element, Stats stats,
+void collectExports(LibraryOrAugmentationElement element, Stats stats,
     {bool checkForSrcDir = false}) {
-  for (final exp in element.enclosingElement.libraryExports) {
+  for (final exp in element.libraryExports) {
     final uri = exp.uri;
     if (uri is! DirectiveUriWithLibrary) continue;
     if (!checkForSrcDir || uri.relativeUriString.startsWith('src') == true) {
-      for (final CompilationUnitElement unit in exp.exportedLibrary!.units) {
+      for (final unit in exp.exportedLibrary!.units) {
         stats.classes.addAll(unit.classes.wherePublic());
         stats.functions.addAll(unit.functions.wherePublic());
         stats.variables.addAll(unit.accessors.wherePublic());
@@ -253,8 +251,8 @@ void collectExports(CompilationUnitElement element, Stats stats,
         stats.typedefs += unit.typeAliases.wherePublic().toList();
         stats.mixins += unit.mixins.wherePublic().toList();
 
-        if (unit.enclosingElement.libraryExports.isNotEmpty == true) {
-          collectExports(unit, stats);
+        if (unit.enclosingElement.libraryExports.isNotEmpty) {
+          collectExports(unit.enclosingElement, stats);
         }
       }
     }
