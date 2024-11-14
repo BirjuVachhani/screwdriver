@@ -1,6 +1,13 @@
 ## 5.7.1 (Unreleased)
 
 - Add `takeAfter`, `takeAfterLast`, `takeBefore`, `takeBeforeLast`, and `takeBetween` extensions for `String`.
+- Bump up minimum **Dart SDK** version to `3.3.0`.
+- [DEPRECATED] Deprecate `inDegrees` and `inRadians` extensions for `num` in favor of `degrees.inRadians` and
+  `radians.inDegrees`.
+- [BREAKING] Rename `count` extension for `Iterable` to `countBy`.
+- Add `count` extension for `Iterable` to count occurrences of an element.
+- Add `Degrees`, 'Radians', and 'Turns' extension types for angle unit conversion.
+- Add `degrees`, `radians`, and `turns` extensions for `num` to convert to angle units.
 
 ## 5.7.0
 
@@ -14,14 +21,14 @@
 - Add `toFixedString` extension on int.
 - [BREAKING] Fix `flatMap` extension to behaving correctly.
 - Iterable extensions:
-  - Add `flatMapNotNull` extension.
-  - Add `mapNotNull` extension.
-  - Add `mapNotNullIndexed` extension.
-  - Add 'flattenedNotNull' extension.
+    - Add `flatMapNotNull` extension.
+    - Add `mapNotNull` extension.
+    - Add `mapNotNullIndexed` extension.
+    - Add 'flattenedNotNull' extension.
 - Add `<<` operator extension for List.
 - `randomInt` function improvements:
-  - add `seed` option.
-  - Change default max value to max int value allowed by Random.
+    - add `seed` option.
+    - Change default max value to max int value allowed by Random.
 - Add `reversed`, `findByValue` and `findByValueOrNull` map extensions.
 - Add `plus`, `minus`, `multiply`, `divide` and `mod` extensions for num.
 
