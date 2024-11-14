@@ -93,31 +93,29 @@ void main(List<String> args) async {
 
   outputExtensions(sink, stats, isDry: isDry);
   outputFunctions(sink, stats, isDry: isDry);
+  outputClasses(sink, stats, isDry: isDry);
   outputExtensionTypes(sink, stats, isDry: isDry);
 
   if (!isDry) sink.close();
 }
 
 void outputExtensions(IOSink sink, Stats stats, {required bool isDry}) {
-  sink.writeln('# Extensions');
+  sink.writeln('## Extensions');
   sink.writeln('\n');
 
   for (final extension in stats.extensions) {
     String path = extension.source.toString();
     final String githubFilePath = path.replaceAll(RegExp(r'.*lib'),
         'https://github.com/BirjuVachhani/screwdriver/blob/main/lib');
-    final DartType type = extension.extendedType;
-    if (type is TypeParameterType) {
-      sink.writeln('### on ${type.bound}');
-    } else {
-      sink.writeln('### on ${extension.extendedType}');
-    }
+    final String name = getDartTypeBaseName(extension.extendedType);
+    sink.writeln('### on `${name.replaceAll('\\', '')}`');
 
     // table header
     sink.writeln('| Extension | Type | Description |');
     sink.writeln('|---|---|---|');
 
     for (final accessor in extension.accessors) {
+      if(accessor.isPrivate) continue;
       final description =
           sanitizeDocComment(accessor.documentationComment ?? 'Not provided');
       final String type = accessor.isGetter
@@ -137,6 +135,7 @@ void outputExtensions(IOSink sink, Stats stats, {required bool isDry}) {
     }
 
     for (final MethodElement method in extension.methods) {
+      if(method.isPrivate) continue;
       // Get the line number of the method
       final lineNumber = LineInfo.fromContent(method.source.contents.data)
           .getLocation(method.nameOffset)
@@ -153,7 +152,7 @@ void outputExtensions(IOSink sink, Stats stats, {required bool isDry}) {
 }
 
 void outputFunctions(IOSink sink, Stats stats, {required bool isDry}) {
-  sink.writeln('# Functions');
+  sink.writeln('## Functions');
 
   // table header
   sink.writeln('| Name | Description |');
@@ -177,29 +176,100 @@ void outputFunctions(IOSink sink, Stats stats, {required bool isDry}) {
   sink.writeln('\n');
 }
 
+void outputClasses(IOSink sink, Stats stats, {required bool isDry}) {
+  sink.writeln('## Helper Classes');
+
+  // table header
+  sink.writeln('| Name | Description |');
+  sink.writeln('|---|---|');
+
+  for (final helperClass in stats.classes) {
+    String path = helperClass.source.toString();
+    final String githubFilePath = path.replaceAll(RegExp(r'.*lib'),
+        'https://github.com/BirjuVachhani/screwdriver/blob/main/lib');
+
+    // Get the line number of the method
+    final lineNumber = LineInfo.fromContent(helperClass.source.contents.data)
+        .getLocation(helperClass.nameOffset)
+        .lineNumber;
+
+    final description =
+    sanitizeDocComment(helperClass.documentationComment ?? 'Not provided');
+    sink.writeln(
+        '| [`${helperClass.displayName}`]($githubFilePath#L$lineNumber) | $description |');
+  }
+  sink.writeln('\n');
+}
+
 void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
-  sink.writeln('# Extensions Types (${stats.extensionTypes.length})');
+  sink.writeln('## Extensions Types');
   sink.writeln('\n');
 
   // table header
-  sink.writeln('| Extension Type | on | Description |');
-  sink.writeln('|---|---|---|');
+  // sink.writeln('| Extension Type | on | Description |');
+  // sink.writeln('|---|---|---|');
+  //
+  // for (final extensionType in stats.extensionTypes) {
+  //   String path = extensionType.source.toString();
+  //   final String githubFilePath = path.replaceAll(RegExp(r'.*lib'),
+  //       'https://github.com/BirjuVachhani/screwdriver/blob/main/lib');
+  //
+  //   // Get the line number of the method
+  //   final lineNumber = LineInfo.fromContent(extensionType.source.contents.data)
+  //       .getLocation(extensionType.nameOffset)
+  //       .lineNumber;
+  //
+  //   final description = sanitizeDocComment(
+  //       extensionType.documentationComment ?? 'Not provided');
+  //
+  //   sink.writeln(
+  //       '| [`${extensionType.displayName}`]($githubFilePath#L$lineNumber) | `${extensionType.representation.type.element?.name ?? 'N/A'}` | $description |');
+  // }
 
   for (final extensionType in stats.extensionTypes) {
     String path = extensionType.source.toString();
     final String githubFilePath = path.replaceAll(RegExp(r'.*lib'),
         'https://github.com/BirjuVachhani/screwdriver/blob/main/lib');
+    sink.writeln('### ${extensionType.displayName}');
 
-    // Get the line number of the method
-    final lineNumber = LineInfo.fromContent(extensionType.source.contents.data)
-        .getLocation(extensionType.nameOffset)
-        .lineNumber;
+    // table header
+    sink.writeln('| Field/Method | Type | Description |');
+    sink.writeln('|---|---|---|');
 
-    final description = sanitizeDocComment(
-        extensionType.documentationComment ?? 'Not provided');
+    for (final accessor in extensionType.accessors) {
+      if(accessor.isPrivate) continue;
+      final description =
+          sanitizeDocComment(accessor.documentationComment ?? 'Not provided');
+      final String type = accessor.isGetter
+          ? 'getter'
+          : accessor.isSetter
+              ? 'setter'
+              : accessor.isOperator
+                  ? 'operator'
+                  : 'operator';
 
-    sink.writeln(
-        '| [`${extensionType.displayName}`]($githubFilePath#L$lineNumber) | `${extensionType.representation.type.element?.name ?? 'N/A'}` | $description |');
+      final lineNumber = LineInfo.fromContent(accessor.source.contents.data)
+          .getLocation(accessor.nameOffset)
+          .lineNumber;
+
+      sink.writeln(
+          '| [`${accessor.displayName}`]($githubFilePath#L$lineNumber) | `${type.toUpperCase()}` | $description |');
+    }
+
+    for (final MethodElement method in extensionType.methods) {
+      if(method.isPrivate) continue;
+      // Get the line number of the method
+      final lineNumber = LineInfo.fromContent(method.source.contents.data)
+          .getLocation(method.nameOffset)
+          .lineNumber;
+
+      final description =
+          sanitizeDocComment(method.documentationComment ?? 'Not provided');
+      sink.writeln(
+          '| [`${method.displayName}`]($githubFilePath#L$lineNumber) | `METHOD` | $description |');
+    }
+
+    sink.writeln('\n');
   }
   sink.writeln('\n');
 }
@@ -207,29 +277,95 @@ void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
 void generateTableOfContents(IOSink sink, Stats stats) {
   sink.writeln('## Table of Contents');
 
-  // Extensions
-  sink.writeln('- [Extensions](#extensions)');
-  for (final extension in stats.extensions) {
-    final DartType type = extension.extendedType;
-    if (type is TypeParameterType) {
-      sink.writeln('  - [${type.bound}](#on-${type.bound})');
+  sink.writeln('| Extension on (${stats.extensions.length}) | Functions (${stats.functions.length}) | Helper Classes (${stats.classes.length}) | Extension Type (${stats.extensionTypes.length}) |');
+  sink.writeln('|---|---|---|---|');
+
+  final maxLength = [
+    stats.extensions.length,
+    stats.functions.length,
+    stats.classes.length,
+    stats.extensionTypes.length,
+  ].max.toInt();
+
+  for (int index = 0; index <= maxLength; index++) {
+    sink.write('|');
+    if (index < stats.extensions.length) {
+      final String name =
+          getDartTypeBaseName(stats.extensions[index].extendedType);
+      sink.write(' [$name](#on-${formatMarkdownLink(name)})');
     } else {
-      sink.writeln(
-          '  - [${extension.extendedType}](#on-${extension.extendedType})');
+      sink.write(' ');
     }
+    sink.write(' |');
+    if (index < stats.functions.length) {
+      sink.write(' [${stats.functions[index].displayName}](#functions)');
+    } else {
+      sink.write(' ');
+    }
+    sink.write(' |');
+    if (index < stats.classes.length) {
+      sink.write(' [${stats.classes[index].displayName}](#helper-classes)');
+    } else {
+      sink.write(' ');
+    }
+    sink.write(' |');
+    if (index < stats.extensionTypes.length) {
+      final extensionType = stats.extensionTypes[index];
+      sink.write(
+          ' [${extensionType.displayName}](#${formatMarkdownLink(extensionType.displayName)})');
+    } else {
+      sink.write(' ');
+    }
+    sink.writeln(' |');
   }
 
-  // Functions
-  sink.writeln('- [Functions](#functions)');
-  for (final function in stats.functions) {
-    sink.writeln('  - [${function.displayName}](#functions)');
-  }
+  // Extensions
+  // sink.writeln('- [Extensions](#extensions)');
+  // for (final extension in stats.extensions) {
+  //   final DartType type = extension.extendedType;
+  //   if (type is TypeParameterType) {
+  //     sink.writeln('  - [${type.bound}](#on-${type.bound})');
+  //   } else {
+  //     sink.writeln(
+  //         '  - [${extension.extendedType}](#on-${extension.extendedType})');
+  //   }
+  // }
+  //
+  // // Functions
+  // sink.writeln('- [Functions](#functions)');
+  // for (final function in stats.functions) {
+  //   sink.writeln('  - [${function.displayName}](#functions)');
+  // }
+  //
+  // // Extension Types
+  // sink.writeln('- [Extension Types](#extension-types)');
+  // for (final extensionType in stats.extensionTypes) {
+  //   sink.writeln('  - [${extensionType.displayName}](#extension-types)');
+  // }
+}
 
-  // Extension Types
-  sink.writeln('- [Extension Types](#extension-types)');
-  for (final extensionType in stats.extensionTypes) {
-    sink.writeln('  - [${extensionType.displayName}](#extension-types)');
+String getDartTypeBaseName(DartType type) {
+  if (type is TypeParameterType) type = type.bound;
+  // return '${type.element!.displayName}${type.nullabilitySuffix == NullabilitySuffix.question ? '?' : ''}';
+  return '$type'.replaceAll('<', r'\<').replaceAll('>', r'\>');
+}
+
+String formatMarkdownTitle(String title) {
+  if (title.endsWith('?')) {
+    title = '${title.substring(0, title.length - 1)} (Nullable)';
   }
+  return title;
+}
+
+String formatMarkdownLink(String title) {
+  return title
+      .toLowerCase()
+      .replaceAll('\\', '')
+      .replaceAll('<', '')
+      .replaceAll('>', '')
+      .replaceAll('?', '')
+      .replaceAll(RegExp(r"""[~`!@#\$%^&*()_+<>:"{},.;'[]/?]"""), '')
+      .replaceAll(' ', '-');
 }
 
 String sanitizeDocComment(String comment) {
