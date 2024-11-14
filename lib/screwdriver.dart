@@ -29,7 +29,7 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library screwdriver;
+library;
 
 import 'dart:async';
 import 'dart:collection';
