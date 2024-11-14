@@ -52,10 +52,14 @@ extension NumScrewdriver on num {
       num.parse((this).toStringAsFixed(precision));
 
   /// Turns this number from degrees to radians.
-  double get inRadians => this * pi / 180;
+  @Deprecated(
+      'Deprecated in favor of more readable and clear degrees.inRadians getter')
+  double get inRadians => degrees.inRadians;
 
   /// Turns this number from radians to degrees.
-  double get inDegrees => this * 180 / pi;
+  @Deprecated(
+      'Deprecated in favor of more readable and clear radians.inDegrees getter')
+  double get inDegrees => radians.inDegrees;
 }
 
 /// Provides typed extensions for num and all its subtypes.
