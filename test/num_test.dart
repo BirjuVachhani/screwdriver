@@ -92,20 +92,22 @@ void main() {
     expect((-100).clampAtMost(0), equals(-100));
   });
 
-  test('inRadians tests', () {
-    expect(180.inRadians, equals(pi));
-    expect(360.inRadians, equals(2 * pi));
-    expect(90.inRadians, equals(pi / 2));
-    expect(45.inRadians, equals(pi / 4));
-    expect(0.inRadians, equals(0));
+  test('degrees tests', () {
+    expect(180.degrees, equals(180));
+    expect(180.degrees.inRadians, equals(pi));
+    expect(180.degrees.inRadians.inDegrees, equals(180));
   });
 
-  test('inDegrees tests', () {
-    expect(pi.inDegrees, equals(180));
-    expect(2 * pi.inDegrees, equals(360));
-    expect((pi / 2).inDegrees, equals(90));
-    expect((pi / 4).inDegrees, equals(45));
-    expect(0.inDegrees, equals(0));
+  test('radians tests', () {
+    expect(pi.radians, equals(pi));
+    expect(pi.radians.inDegrees, equals(180));
+    expect(pi.radians.inDegrees.inRadians, equals(pi));
+  });
+
+  test('turns tests', () {
+    expect(0.5.turns, equals(0.5));
+    expect(0.5.turns.inDegrees, equals(180));
+    expect(0.5.turns.inRadians, equals(pi));
   });
 
   test('plus tests', () {
