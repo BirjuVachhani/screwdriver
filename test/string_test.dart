@@ -355,8 +355,10 @@ void main() {
   test('takeBetween tests', () {
     expect('<p>Hello</p>'.takeBetween('<p>', '</p>'), equals('Hello'));
     expect('Hello John Wick'.takeBetween('Hello ', ' Wick'), equals('John'));
-    expect('12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[0-9]+')), equals('he'));
-    expect('12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[a-z]+')), isEmpty);
+    expect('12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[0-9]+')),
+        equals('he'));
+    expect(
+        '12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[a-z]+')), isEmpty);
     expect('12345he3'.takeBetween(RegExp(r'[0-9]+')), equals('he'));
     expect('*Hello*'.takeBetween('*'), equals('Hello'));
   });
