@@ -240,7 +240,7 @@ Future<Stats> getStats(String library) async {
 
 void collectExports(CompilationUnitElement element, Stats stats,
     {bool checkForSrcDir = false}) {
-  for (final exp in element.libraryExports) {
+  for (final exp in element.enclosingElement.libraryExports) {
     final uri = exp.uri;
     if (uri is! DirectiveUriWithLibrary) continue;
     if (!checkForSrcDir || uri.relativeUriString.startsWith('src') == true) {
@@ -253,7 +253,7 @@ void collectExports(CompilationUnitElement element, Stats stats,
         stats.typedefs += unit.typeAliases.wherePublic().toList();
         stats.mixins += unit.mixins.wherePublic().toList();
 
-        if (unit.libraryExports.isNotEmpty == true) {
+        if (unit.enclosingElement.libraryExports.isNotEmpty == true) {
           collectExports(unit, stats);
         }
       }
