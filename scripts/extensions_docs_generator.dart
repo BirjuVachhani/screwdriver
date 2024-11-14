@@ -115,7 +115,7 @@ void outputExtensions(IOSink sink, Stats stats, {required bool isDry}) {
     sink.writeln('|---|---|---|');
 
     for (final accessor in extension.accessors) {
-      if(accessor.isPrivate) continue;
+      if (accessor.isPrivate) continue;
       final description =
           sanitizeDocComment(accessor.documentationComment ?? 'Not provided');
       final String type = accessor.isGetter
@@ -135,7 +135,7 @@ void outputExtensions(IOSink sink, Stats stats, {required bool isDry}) {
     }
 
     for (final MethodElement method in extension.methods) {
-      if(method.isPrivate) continue;
+      if (method.isPrivate) continue;
       // Get the line number of the method
       final lineNumber = LineInfo.fromContent(method.source.contents.data)
           .getLocation(method.nameOffset)
@@ -194,7 +194,7 @@ void outputClasses(IOSink sink, Stats stats, {required bool isDry}) {
         .lineNumber;
 
     final description =
-    sanitizeDocComment(helperClass.documentationComment ?? 'Not provided');
+        sanitizeDocComment(helperClass.documentationComment ?? 'Not provided');
     sink.writeln(
         '| [`${helperClass.displayName}`]($githubFilePath#L$lineNumber) | $description |');
   }
@@ -237,7 +237,7 @@ void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
     sink.writeln('|---|---|---|');
 
     for (final accessor in extensionType.accessors) {
-      if(accessor.isPrivate) continue;
+      if (accessor.isPrivate) continue;
       final description =
           sanitizeDocComment(accessor.documentationComment ?? 'Not provided');
       final String type = accessor.isGetter
@@ -257,7 +257,7 @@ void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
     }
 
     for (final MethodElement method in extensionType.methods) {
-      if(method.isPrivate) continue;
+      if (method.isPrivate) continue;
       // Get the line number of the method
       final lineNumber = LineInfo.fromContent(method.source.contents.data)
           .getLocation(method.nameOffset)
@@ -277,7 +277,8 @@ void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
 void generateTableOfContents(IOSink sink, Stats stats) {
   sink.writeln('## Table of Contents');
 
-  sink.writeln('| Extension on (${stats.extensions.length}) | Functions (${stats.functions.length}) | Helper Classes (${stats.classes.length}) | Extension Type (${stats.extensionTypes.length}) |');
+  sink.writeln(
+      '| Extension on (${stats.extensions.length}) | Functions (${stats.functions.length}) | Helper Classes (${stats.classes.length}) | Extension Type (${stats.extensionTypes.length}) |');
   sink.writeln('|---|---|---|---|');
 
   final maxLength = [
