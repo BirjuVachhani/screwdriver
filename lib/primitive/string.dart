@@ -303,6 +303,12 @@ extension StringScrewdriver on String {
     if (endMatch == null) return '';
     return substring(startMatch.end, endMatch.start);
   }
+
+  /// Returns the substring with the first [count] characters.
+  String take(int count) => characters.take(count).toString();
+
+  /// Returns the substring with the last [count] characters.
+  String takeLast(int count) => characters.takeLast(count).toString();
 }
 
 /// Provides extensions for nullable [String].
