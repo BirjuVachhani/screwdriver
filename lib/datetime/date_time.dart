@@ -45,29 +45,6 @@ extension DateTimeScrewdriver on DateTime {
   /// This is helpful in cases where comparison of only dates is required.
   DateTime get dateOnly => DateTime(year, month, day);
 
-  /// Returns Duration difference between [this] and current time
-  Duration fromNow() => difference(now());
-
-  /// Returns true if the date of [this] occurs before the date of [other].
-  ///
-  /// The comparison is independent of whether the time is in UTC or
-  /// in the local time zone.
-  bool isBeforeDate(DateTime other) => dateOnly.isBefore(other.dateOnly);
-
-  /// Returns true if the date of [this] occurs after the date of [other].
-  ///
-  /// The comparison is independent of whether the time is in UTC or
-  /// in the local time zone.
-  bool isAfterDate(DateTime other) => dateOnly.isAfter(other.dateOnly);
-
-  /// Returns true if the date of [this] occurs on the same day as
-  /// the date of [other].
-  ///
-  /// The comparison is independent of whether the time is in UTC or
-  /// in the local time zone.
-  bool isSameDateAs(DateTime other) =>
-      dateOnly.isAtSameMomentAs(other.dateOnly);
-
   /// Returns true if [this] is same as the date of today.
   /// This doesn't account for time.
   bool get isToday {
@@ -197,6 +174,20 @@ extension DateTimeScrewdriver on DateTime {
   /// Returns true if [this] is a leap year
   bool get isLeapYear => checkLeapYear(year);
 
+  /// Returns [DateTime] with previous day
+  DateTime get previousDay => subtract(Duration(days: 1));
+
+  /// Returns [DateTime] with next day
+  DateTime get nextDay => add(Duration(days: 1));
+
+  /// Returns [DateTime] with previous year
+  DateTime get previousYear => DateTime(
+      year - 1, month, day, hour, minute, second, millisecond, microsecond);
+
+  /// Returns [DateTime] with next year
+  DateTime get nextYear => DateTime(
+      year + 1, month, day, hour, minute, second, millisecond, microsecond);
+
   /// Returns true if [this] occurs before [other].
   ///
   /// The comparison is independent of whether the time is in UTC or
@@ -213,28 +204,13 @@ extension DateTimeScrewdriver on DateTime {
   ///
   /// The comparison is independent of whether the time is in UTC or
   /// in the local time zone.
-  bool operator <=(DateTime other) =>
-      isBefore(other) || isAtSameMomentAs(other);
+  bool operator <=(DateTime other) => isSameOrBeforeDate(other);
 
   /// Returns true if [this] occurs after or at the same moment as [other].
   ///
   /// The comparison is independent of whether the time is in UTC or
   /// in the local time zone.
-  bool operator >=(DateTime other) => isAfter(other) || isAtSameMomentAs(other);
-
-  /// Returns [DateTime] with previous day
-  DateTime get previousDay => subtract(Duration(days: 1));
-
-  /// Returns [DateTime] with next day
-  DateTime get nextDay => add(Duration(days: 1));
-
-  /// Returns [DateTime] with previous year
-  DateTime get previousYear => DateTime(
-      year - 1, month, day, hour, minute, second, millisecond, microsecond);
-
-  /// Returns [DateTime] with next year
-  DateTime get nextYear => DateTime(
-      year + 1, month, day, hour, minute, second, millisecond, microsecond);
+  bool operator >=(DateTime other) => isSameOrAfterDate(other);
 
   /// + operator that Adds [duration] to [this]
   /// e.g.
@@ -245,6 +221,49 @@ extension DateTimeScrewdriver on DateTime {
   /// e.g.
   ///       DateTime fiveDaysAgo = DateTime.now() - 5.days;
   DateTime operator -(Duration duration) => subtract(duration);
+
+  /// Returns Duration difference between [this] and current time
+  Duration fromNow() => difference(now());
+
+  /// Returns true if the date of [this] occurs before the date of [other].
+  ///
+  /// The comparison is independent of whether the time is in UTC or
+  /// in the local time zone.
+  bool isBeforeDate(DateTime other) => dateOnly.isBefore(other.dateOnly);
+
+  /// Returns true if the date of [this] occurs on the same day as
+  /// the date of [other] or before it.
+  ///
+  /// The comparison is independent of whether the time is in UTC or
+  /// in the local time zone.
+  bool isSameOrBeforeDate(DateTime other) {
+    other = other.dateOnly;
+    return dateOnly.isSameDateAs(other) || dateOnly.isBefore(other);
+  }
+
+  /// Returns true if the date of [this] occurs after the date of [other].
+  ///
+  /// The comparison is independent of whether the time is in UTC or
+  /// in the local time zone.
+  bool isAfterDate(DateTime other) => dateOnly.isAfter(other.dateOnly);
+
+  /// Returns true if the date of [this] occurs on the same day as
+  /// the date of [other] or after it.
+  ///
+  /// The comparison is independent of whether the time is in UTC or
+  /// in the local time zone.
+  bool isSameOrAfterDate(DateTime other) {
+    other = other.dateOnly;
+    return dateOnly.isSameDateAs(other) || dateOnly.isAfter(other);
+  }
+
+  /// Returns true if the date of [this] occurs on the same day as
+  /// the date of [other].
+  ///
+  /// The comparison is independent of whether the time is in UTC or
+  /// in the local time zone.
+  bool isSameDateAs(DateTime other) =>
+      dateOnly.isAtSameMomentAs(other.dateOnly);
 
   /// Returns true if [this] falls between [date1] and [date2] irrespective
   /// of the order in the Calender.

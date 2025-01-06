@@ -36,7 +36,6 @@ part of '../screwdriver.dart';
 
 /// provides extensions for map
 extension MapScrewdriver<K, V> on Map<K, V> {
-
   /// Returns a new [Map] with the keys and values reversed such that
   /// the values become keys and keys become values.
   ///
