@@ -1,9 +1,9 @@
-## 5.9.0
+## 5.9.0 (Unreleased)
 
 - Add `isSameOrBeforeDate` and `isSameOrAfterDate` extensions for `DateTime`.
 - [BREAKING] `Iterable.except` now takes items as params directly (max 6) instead of a list. Replace it with
   `Iterable.exceptAll` to take a list.
-- Add `take` and `takeLast` extensions for `String`.
+- Add `take`, `takeLast` and `lastIndex` extensions for `String`.
 - Add `buildString` and `randomString` helper methods.
 - Add `space` and `newline` extensions for `StringBuffer`. 
 - Add `file` and `subdir` extensions for `Directory`.
