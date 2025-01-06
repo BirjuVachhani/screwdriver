@@ -40,16 +40,6 @@ extension NumScrewdriver on num {
   /// Use [abs] for conversion to positive numbers.
   num get negative => sign > 0 ? -this : this;
 
-  /// Turns this number from degrees to radians.
-  @Deprecated(
-      'Deprecated in favor of more readable and clear degrees.inRadians getter')
-  double get inRadians => degrees.inRadians;
-
-  /// Turns this number from radians to degrees.
-  @Deprecated(
-      'Deprecated in favor of more readable and clear radians.inDegrees getter')
-  double get inDegrees => radians.inDegrees;
-
   /// Returns true if [this] falls between [value1] and [value2] irrespective
   /// of the order of [value1] and [value2].
   /// Includes boundaries if [inclusive] is true.
