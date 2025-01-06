@@ -489,7 +489,25 @@ extension IterableScrewDriver<E> on Iterable<E> {
   }
 
   /// Alias for [subtract].
-  Iterable<E> except(Iterable<E> other) => subtract(other);
+  Iterable<E> except(
+    E other, [
+    E? other1,
+    E? other2,
+    E? other3,
+    E? other4,
+    E? other5,
+  ]) =>
+      subtract([
+        other,
+        if (other1 != null) other1,
+        if (other2 != null) other2,
+        if (other3 != null) other3,
+        if (other4 != null) other4,
+        if (other5 != null) other5,
+      ]);
+
+  /// Alias for [subtract].
+  Iterable<E> exceptAll(Iterable<E> other) => subtract(other);
 
   /// Returns true if the collection contains all the elements
   /// present in [other] collection.
