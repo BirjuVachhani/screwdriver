@@ -237,14 +237,15 @@ void main() {
     // except tests
     expect([1, 2, 3].except(2), containsAllInOrder(<int>[1, 3]));
     expect([1, 2, 3].except(1, 5), containsAllInOrder(<int>[2, 3]));
-
-    expect([1, 2, 3].exceptAll([2]), containsAllInOrder(<int>[1, 3]));
-    expect([1, 2, 3].exceptAll([1, 5]), containsAllInOrder(<int>[2, 3]));
+    expect([1, 2, 3, 4, 5, 6].except(1, 2, 3, 4, 5, 6), isEmpty);
+    expect([4, 5, 6].except(1, 2, 3, 4, 5, 6), isEmpty);
+    expect([1, 2, 3, 'Hello', 5, 6].except(1, 2, 3, 'Hello'),
+        containsAllInOrder(<int>[5, 6]));
 
     // exceptAll tests
     expect([1, 2, 3].exceptAll([2]), containsAllInOrder(<int>[1, 3]));
-    expect([1, 2, 3].exceptAll([]), containsAllInOrder(<int>[1, 2, 3]));
     expect([1, 2, 3].exceptAll([1, 5]), containsAllInOrder(<int>[2, 3]));
+    expect([1, 2, 3].exceptAll([]), containsAllInOrder(<int>[1, 2, 3]));
 
     // containsAll tests
     expect([1, 2, 3].containsAll([1, 2]), isTrue);
