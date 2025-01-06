@@ -3,9 +3,11 @@
 - Add `isSameOrBeforeDate` and `isSameOrAfterDate` extensions for `DateTime`.
 - [BREAKING] `Iterable.except` now takes items as params directly (max 6) instead of a list. Replace it with
   `Iterable.exceptAll` to take a list.
+- [BREAKING] Remove deprecated `inDegrees` and `inRadians` extensions for `num` in favor of `degrees.inRadians` and
+  `radians.inDegrees`.
 - Add `take`, `takeLast` and `lastIndex` extensions for `String`.
 - Add `buildString` and `randomString` helper methods.
-- Add `space` and `newline` extensions for `StringBuffer`. 
+- Add `space` and `newline` extensions for `StringBuffer`.
 - Add `file` and `subdir` extensions for `Directory`.
 
 ## 5.8.0
