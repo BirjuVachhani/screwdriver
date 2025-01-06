@@ -377,4 +377,23 @@ void main() {
     expect('123she45he3'.takeBeforeLast(RegExp(r'[a-z]+')), equals('123she45'));
     expect('123she45he3'.takeBeforeLast(RegExp(r'[a-z]{3}')), equals('123'));
   });
+
+  test('take tests', () {
+    expect('Hello World'.take(5), equals('Hello'));
+    expect('Hello World'.take(20), equals('Hello World'));
+    expect(''.take(5), equals(''));
+    expect('❤️Hello'.take(1), equals('❤️'));
+    expect('❤️Hello'.take(6), equals('❤️Hello'));
+    expect('❤️Hello'.take(20), equals('❤️Hello'));
+  });
+
+  test('takeLast tests', () {
+    expect('Hello World'.takeLast(5), equals('World'));
+    expect('Hello World'.takeLast(20), equals('Hello World'));
+    expect('Hello World'.takeLast(11), equals('Hello World'));
+    expect(''.takeLast(5), equals(''));
+    expect('Hello ❤️'.takeLast(1), equals('❤️'));
+    expect('Hello ❤️'.takeLast(7), equals('Hello ❤️'));
+    expect('Hello ❤️'.takeLast(20), equals('Hello ❤️'));
+  });
 }
