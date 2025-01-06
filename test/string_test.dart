@@ -434,4 +434,10 @@ void main() {
         randomString(5, pool: 'Hello🎉', seed: 20));
     expect(randomString(5, pool: 'Hello🎉', seed: 20), equals('lo🎉o🎉'));
   });
+
+  test('lastIndex tests', () {
+    expect('Hello'.lastIndex, equals(4));
+    expect(''.lastIndex, equals(-1));
+    expect('a'.lastIndex, equals(0));
+  });
 }
