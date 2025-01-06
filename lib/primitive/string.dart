@@ -101,6 +101,9 @@ extension StringScrewdriver on String {
       .map((e) => e.toUpperCase() == e ? e.toLowerCase() : e.toUpperCase())
       .join();
 
+  /// Returns the index of the last character in [this].
+  int get lastIndex => length - 1;
+
   /// Returns [this] as [int] or null
   /// Radix be between 2..36
   int? toIntOrNull({int? radix}) => int.tryParse(this, radix: radix);
