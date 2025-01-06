@@ -346,3 +346,56 @@ extension NullableStringScrewdriver on String? {
   /// Returns true if this string exactly matches the given [pattern].
   bool matchesExactly(Pattern pattern) => pattern.hasExactMatch(this);
 }
+
+/// Allows to build a string with [StringBuffer] using [builder].
+String buildString(void Function(StringBuffer buffer) builder) {
+  final buffer = StringBuffer();
+  builder(buffer);
+  return buffer.toString();
+}
+
+/// Generates a random string of given [length].
+/// [alphabets] decides whether to include alphabets or not.
+/// [digits] decides whether to include digits or not.
+/// [specialChars] decides whether to include special characters or not.
+///
+/// [seed] is used to seed the RNG. Use the same seed to generate the same
+/// sequence again.
+///
+/// [pool] is a custom set of characters to use for generating the string.
+/// [alphabets], [digits], and [specialChars] are ignored if [pool] is provided
+/// and not empty.
+String randomString(
+  int length, {
+  bool alphabets = true,
+  bool digits = true,
+  bool specialChars = false,
+  int? seed,
+  String? pool,
+}) {
+  if (length <= 0) return '';
+
+  final StringBuffer buffer = StringBuffer();
+  if (pool == null || pool.isEmpty) {
+    if (alphabets) {
+      buffer.write('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ');
+    }
+    if (digits) buffer.write('0123456789');
+    if (specialChars) buffer.write('!@#\$%^&*()_+-=[]{}|;:,.<>?');
+
+    pool = buffer.toString();
+    buffer.clear();
+  }
+
+  if (pool.isEmpty) {
+    throw ArgumentError('At least one character set must be enabled');
+  }
+
+  final Characters poolChars = Characters(pool);
+
+  final random = Random(seed);
+  for (int index = 0; index < length; index++) {
+    buffer.write(poolChars.elementAt(random.nextInt(poolChars.length)));
+  }
+  return buffer.toString();
+}
