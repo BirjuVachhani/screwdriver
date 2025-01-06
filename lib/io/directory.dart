@@ -29,11 +29,21 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-import 'dart:async';
-import 'dart:convert';
-import 'dart:io';
+// Author: Birju Vachhani
+// Created Date: November 14, 2024
 
-import 'package:path/path.dart' as p;
+part of '../screwdriver_io.dart';
 
-part 'io/directory.dart';
-part 'io/file.dart';
+/// Provides extensions for [Directory].
+extension DirectoryScrewdriver on Directory {
+  File file(String fileName) => File(p.join(path, fileName));
+
+  Directory subDir(
+    String part1, [
+    String? part2,
+    String? part3,
+    String? part4,
+    String? part5,
+  ]) =>
+      Directory(p.join(path, part1, part2, part3, part4, part5));
+}
