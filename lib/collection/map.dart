@@ -36,6 +36,15 @@ part of '../screwdriver.dart';
 
 /// provides extensions for map
 extension MapScrewdriver<K, V> on Map<K, V> {
+
+  /// Returns a new [Map] with the keys and values reversed such that
+  /// the values become keys and keys become values.
+  ///
+  /// Note: In case of duplicate values, the last key-value pair will be persisted
+  /// in the new map and the rest will be discarded.
+  Map<V, K> get reversed =>
+      Map.fromEntries(entries.map((e) => MapEntry(e.value, e.key)));
+
   /// Allows to add a record entry to [this].
   void operator +((K, V) entry) => this[entry.$1] = entry.$2;
 
@@ -94,14 +103,6 @@ extension MapScrewdriver<K, V> on Map<K, V> {
     if (this is UnmodifiableMapBase) return except(keys);
     return this..removeWhere((key, value) => keys.contains(key));
   }
-
-  /// Returns a new [Map] with the keys and values reversed such that
-  /// the values become keys and keys become values.
-  ///
-  /// Note: In case of duplicate values, the last key-value pair will be persisted
-  /// in the new map and the rest will be discarded.
-  Map<V, K> get reversed =>
-      Map.fromEntries(entries.map((e) => MapEntry(e.value, e.key)));
 
   /// Finds the first key-value pair where the value is equal to [value].
   MapEntry<K, V> findByValue(V value) =>

@@ -40,6 +40,16 @@ extension NumScrewdriver on num {
   /// Use [abs] for conversion to positive numbers.
   num get negative => sign > 0 ? -this : this;
 
+  /// Turns this number from degrees to radians.
+  @Deprecated(
+      'Deprecated in favor of more readable and clear degrees.inRadians getter')
+  double get inRadians => degrees.inRadians;
+
+  /// Turns this number from radians to degrees.
+  @Deprecated(
+      'Deprecated in favor of more readable and clear radians.inDegrees getter')
+  double get inDegrees => radians.inDegrees;
+
   /// Returns true if [this] falls between [value1] and [value2] irrespective
   /// of the order of [value1] and [value2].
   /// Includes boundaries if [inclusive] is true.
@@ -50,20 +60,24 @@ extension NumScrewdriver on num {
   /// Rounds value [precision] number of fraction points.
   num roundToPrecision(int precision) =>
       num.parse((this).toStringAsFixed(precision));
-
-  /// Turns this number from degrees to radians.
-  @Deprecated(
-      'Deprecated in favor of more readable and clear degrees.inRadians getter')
-  double get inRadians => degrees.inRadians;
-
-  /// Turns this number from radians to degrees.
-  @Deprecated(
-      'Deprecated in favor of more readable and clear radians.inDegrees getter')
-  double get inDegrees => radians.inDegrees;
 }
 
 /// Provides typed extensions for num and all its subtypes.
 extension TypedNumScrewdriver<T extends num> on T {
+  /// Creates an [Degrees] object from this value. This [Degrees] object
+  /// being an extension type on [double] can be used everywhere
+  /// [double] is used.
+  Degrees get degrees => Degrees(toDouble());
+
+  /// Creates an [Radians] object from this value. This [Radians] object
+  /// being an extension type on [double] can be used everywhere
+  /// [double] is used.
+  Radians get radians => Radians(toDouble());
+
+  /// Creates an [Turns] object from this value. This [Turns] object
+  /// being an extension type on [double] can be used everywhere
+  Turns get turns => Turns(toDouble());
+
   /// Returns [upperBound] if this value is greater than or equal to
   /// [upperBound], otherwise returns this value.
   ///
@@ -106,20 +120,6 @@ extension TypedNumScrewdriver<T extends num> on T {
 
   /// Alias for modulo operation.
   T mod(num value) => (this % value) as T;
-
-  /// Creates an [Degrees] object from this value. This [Degrees] object
-  /// being an extension type on [double] can be used everywhere
-  /// [double] is used.
-  Degrees get degrees => Degrees(toDouble());
-
-  /// Creates an [Radians] object from this value. This [Radians] object
-  /// being an extension type on [double] can be used everywhere
-  /// [double] is used.
-  Radians get radians => Radians(toDouble());
-
-  /// Creates an [Turns] object from this value. This [Turns] object
-  /// being an extension type on [double] can be used everywhere
-  Turns get turns => Turns(toDouble());
 }
 
 /// Provides extensions for nullable [num] types.

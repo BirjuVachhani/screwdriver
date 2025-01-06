@@ -51,6 +51,56 @@ extension StringScrewdriver on String {
     return characters.first.toUpperCase() + characters.skip(1).toString();
   }
 
+  /// Returns true if [this] is a binary string which only contains 1's and 0's
+  bool get isBinary => toIntOrNull(radix: 2) != null;
+
+  /// Returns true if [this] is a hex string which only
+  /// contains 0-9 and A-F | a-f
+  bool get isHexadecimal => toIntOrNull(radix: 16) != null;
+
+  /// Returns true if [this] is a hex string which only
+  /// contains 0-7
+  bool get isOctal => toIntOrNull(radix: 8) != null;
+
+  /// Returns true if [this] is an int
+  bool get isDecimal => toIntOrNull() != null;
+
+  /// Returns true if [this] is a double
+  bool get isDouble => toDoubleOrNull() != null;
+
+  /// Returns true if [this] happens to be an email
+  /// This uses RFC822 email validation specs which is widely accepted.
+  /// check this: https://regexr.com/2rhq7
+  /// Original Ref: https://www.ietf.org/rfc/rfc822.txt
+  bool get isEmail => RegExp(
+          r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
+          caseSensitive: false)
+      .hasMatch(this);
+
+  /// Returns a reversed string of [this]
+  String get reversed => characters.toList().reversed.join();
+
+  /// Whether [this] is a valid regular expression or not. Creating an instance
+  /// of [RegExp] with invalid patten throws a [FormatException]. This allows
+  /// to check if a string is a valid regex pattern or not without throwing.
+  bool get isRegex {
+    try {
+      RegExp(this);
+    } on FormatException catch (_) {
+      return false;
+    }
+    return true;
+  }
+
+  /// This would tokenize [this] into words by breaking it with space.
+  List<String> get words =>
+      trim().split(' ').where((element) => element.isNotBlank).toList();
+
+  /// Toggles the case of the characters
+  String get toggledCase => characters
+      .map((e) => e.toUpperCase() == e ? e.toLowerCase() : e.toUpperCase())
+      .join();
+
   /// Returns [this] as [int] or null
   /// Radix be between 2..36
   int? toIntOrNull({int? radix}) => int.tryParse(this, radix: radix);
@@ -109,53 +159,8 @@ extension StringScrewdriver on String {
   String removeSuffix(String suffix) =>
       endsWith(suffix) ? substring(0, length - suffix.length) : this;
 
-  /// Returns true if [this] is a binary string which only contains 1's and 0's
-  bool get isBinary => toIntOrNull(radix: 2) != null;
-
-  /// Returns true if [this] is a hex string which only
-  /// contains 0-9 and A-F | a-f
-  bool get isHexadecimal => toIntOrNull(radix: 16) != null;
-
-  /// Returns true if [this] is a hex string which only
-  /// contains 0-7
-  bool get isOctal => toIntOrNull(radix: 8) != null;
-
-  /// Returns true if [this] is an int
-  bool get isDecimal => toIntOrNull() != null;
-
-  /// Returns true if [this] is a double
-  bool get isDouble => toDoubleOrNull() != null;
-
-  /// Returns true if [this] happens to be an email
-  /// This uses RFC822 email validation specs which is widely accepted.
-  /// check this: https://regexr.com/2rhq7
-  /// Original Ref: https://www.ietf.org/rfc/rfc822.txt
-  bool get isEmail => RegExp(
-          r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
-          caseSensitive: false)
-      .hasMatch(this);
-
-  /// Returns a reversed string of [this]
-  String get reversed => characters.toList().reversed.join();
-
-  /// Whether [this] is a valid regular expression or not. Creating an instance
-  /// of [RegExp] with invalid patten throws a [FormatException]. This allows
-  /// to check if a string is a valid regex pattern or not without throwing.
-  bool get isRegex {
-    try {
-      RegExp(this);
-    } on FormatException catch (_) {
-      return false;
-    }
-    return true;
-  }
-
   /// Tries to convert [this] into a [DateTime].
   DateTime? toDateTimeOrNull() => DateTime.tryParse(this);
-
-  /// This would tokenize [this] into words by breaking it with space.
-  List<String> get words =>
-      trim().split(' ').where((element) => element.isNotBlank).toList();
 
   /// Converts [this] to a JSON map.
   Map<String, dynamic> parseJson() => json.decode(this) as Map<String, dynamic>;
@@ -182,11 +187,6 @@ extension StringScrewdriver on String {
   /// Note that this does not work properly if the first character of any
   /// word is an Emoji character.
   String title() => split(' ').map((e) => e.capitalized).join(' ');
-
-  /// Toggles the case of the characters
-  String get toggledCase => characters
-      .map((e) => e.toUpperCase() == e ? e.toLowerCase() : e.toUpperCase())
-      .join();
 
   /// Compares two strings ignoring the case.
   bool equalsIgnoreCase(String matcher) =>

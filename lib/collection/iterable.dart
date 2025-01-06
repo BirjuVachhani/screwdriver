@@ -50,6 +50,24 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Returns true if the collection only has 1 element.
   bool get hasOnlyOneElement => length == 1;
 
+  /// Returns an iterable containing the items with their respective indices
+  /// in form of records.
+  ///
+  /// One of the use-cases includes iterating over the collection with access
+  /// to the index of each item in a for loop.
+  ///
+  /// e.g.
+  ///
+  /// for (final (index, item) in list.records) {
+  ///   print('$index: $item');
+  /// }
+  ///
+  Iterable<(int, E)> get records sync* {
+    for (int index = 0; index < length; index++) {
+      yield (index, elementAt(index));
+    }
+  }
+
   /// Appends all elements matching the given [predicate] to
   /// the given [destination].
   Iterable<E> filterTo(
@@ -481,24 +499,6 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// present in [other] collection.
   bool containsNone(Iterable<E> other) =>
       none((element) => other.contains(element));
-
-  /// Returns an iterable containing the items with their respective indices
-  /// in form of records.
-  ///
-  /// One of the use-cases includes iterating over the collection with access
-  /// to the index of each item in a for loop.
-  ///
-  /// e.g.
-  ///
-  /// for (final (index, item) in list.records) {
-  ///   print('$index: $item');
-  /// }
-  ///
-  Iterable<(int, E)> get records sync* {
-    for (int index = 0; index < length; index++) {
-      yield (index, elementAt(index));
-    }
-  }
 
   /// Finds an element where the result of [selector] matches the [query].
   /// Throws [StateError] if no element is found.

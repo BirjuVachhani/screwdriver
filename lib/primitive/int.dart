@@ -95,6 +95,13 @@ extension IntScrewdriver<T> on int {
   /// e.g   8564.digits    // returns [8, 5, 6, 4]
   List<int> get digits => toString().split('').map(int.parse).toList();
 
+  /// Returns true for non-zero values just like C language.
+  /// e.g
+  ///       1.asBool      // returns true
+  ///       0.asBool      // returns false
+  ///     452.asBool      // returns true
+  bool get asBool => this != 0;
+
   /// Returns true if [this] can be completely divisible by [divider]
   bool isDivisibleBy(int divider) => this % divider == 0;
 
@@ -111,13 +118,6 @@ extension IntScrewdriver<T> on int {
   List<T> repeat(T Function(int count) func) {
     return [for (var i = 1; i <= abs(); i++) func(i)];
   }
-
-  /// Returns true for non-zero values just like C language.
-  /// e.g
-  ///       1.asBool      // returns true
-  ///       0.asBool      // returns false
-  ///     452.asBool      // returns true
-  bool get asBool => this != 0;
 
   /// Returns [int] as string which has a zero appended as prefix if [this]
   /// is a single digit value.

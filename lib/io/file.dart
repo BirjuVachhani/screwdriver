@@ -36,6 +36,20 @@ part of '../screwdriver_io.dart';
 
 /// provides extensions for [File]
 extension FileScrewdriver on File {
+  /// Returns a [Future] containing a [bool] indicating whether
+  /// [this] file is empty or not.
+  Future<bool> get isEmpty async => await length() == 0;
+
+  /// Returns true if [this] file is empty
+  bool get isEmptySync => lengthSync() == 0;
+
+  /// operator that allows to append [value] string at the end of the file
+  /// using provided UTF-8 encoding.
+  void operator <<(String value) => appendStringSync(value);
+
+  /// Allows to append content of [file] to [this].
+  void operator +(File file) => appendFromSync(file);
+
   /// Copies content of [this] to [other] file.
   Future<void> copyTo(File other) async {
     final sink = other.openWrite();
@@ -111,18 +125,4 @@ extension FileScrewdriver on File {
     fileAccess.writeFromSync(file.readAsBytesSync().toList());
     fileAccess.closeSync();
   }
-
-  /// operator that allows to append [value] string at the end of the file
-  /// using provided UTF-8 encoding.
-  void operator <<(String value) => appendStringSync(value);
-
-  /// Allows to append content of [file] to [this].
-  void operator +(File file) => appendFromSync(file);
-
-  /// Returns a [Future] containing a [bool] indicating whether
-  /// [this] file is empty or not.
-  Future<bool> get isEmpty async => await length() == 0;
-
-  /// Returns true if [this] file is empty
-  bool get isEmptySync => lengthSync() == 0;
 }
