@@ -1,4 +1,4 @@
-## 5.9.0 (Unreleased)
+## 5.9.0
 
 - Add `isSameOrBeforeDate` and `isSameOrAfterDate` extensions for `DateTime`.
 - [BREAKING] `Iterable.except` now takes items as params directly (max 6) instead of a list. Replace it with
