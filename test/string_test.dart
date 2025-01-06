@@ -421,7 +421,7 @@ void main() {
         throwsArgumentError);
     expect(
         randomString(5, alphabets: false, digits: false, specialChars: true)
-            .matchesExactly(RegExp(r'[\W]{5}')),
+            .matchesExactly(RegExp(r'[\W|!_]{5}')),
         isTrue);
     expect(randomString(10, seed: 200), randomString(10, seed: 200));
     expect(randomString(10, seed: 200), isNot(randomString(10, seed: 300)));
