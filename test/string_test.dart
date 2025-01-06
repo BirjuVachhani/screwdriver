@@ -396,4 +396,42 @@ void main() {
     expect('Hello ❤️'.takeLast(7), equals('Hello ❤️'));
     expect('Hello ❤️'.takeLast(20), equals('Hello ❤️'));
   });
+
+  test('buildString tests', () {
+    expect(buildString((builder) {}), '');
+    expect(buildString((builder) => builder.write('Hello')), 'Hello');
+    expect(buildString((builder) => builder.writeln('Hello')), 'Hello\n');
+  });
+
+  test('randomString tests', () {
+    expect(randomString(-5).length, 0);
+    expect(randomString(-5), '');
+    expect(randomString(0).length, 0);
+    expect(randomString(0), '');
+    expect(randomString(5).length, 5);
+    expect(randomString(10).length, 10);
+
+    expect(
+        randomString(5, digits: false).matchesExactly(RegExp(r'[a-zA-Z]{5}')),
+        isTrue);
+    expect(
+        randomString(5, alphabets: false).matchesExactly(RegExp(r'[0-9]{5}')),
+        isTrue);
+    expect(() => randomString(5, alphabets: false, digits: false),
+        throwsArgumentError);
+    expect(
+        randomString(5, alphabets: false, digits: false, specialChars: true)
+            .matchesExactly(RegExp(r'[\W]{5}')),
+        isTrue);
+    expect(randomString(10, seed: 200), randomString(10, seed: 200));
+    expect(randomString(10, seed: 200), isNot(randomString(10, seed: 300)));
+
+    expect(randomString(5, pool: 'H'), equals('HHHHH'));
+    expect(
+        randomString(5, pool: 'Hello').matchesExactly(RegExp(r'[H|e|l|o]{5}')),
+        isTrue);
+    expect(randomString(5, pool: 'Hello🎉', seed: 20),
+        randomString(5, pool: 'Hello🎉', seed: 20));
+    expect(randomString(5, pool: 'Hello🎉', seed: 20), equals('lo🎉o🎉'));
+  });
 }
