@@ -34,6 +34,56 @@ void main() {
         true);
   });
 
+  test('isSameOrAfterDate test', () {
+    expect(
+        DateTime.now()
+            .add(Duration(seconds: 10))
+            .isSameOrAfterDate(DateTime.now()),
+        true);
+    expect(
+        DateTime.now()
+            .add(Duration(hours: 24))
+            .isSameOrAfterDate(DateTime.now()),
+        true);
+    expect(
+        DateTime(2025, 1, 26, 9, 10)
+            .isSameOrAfterDate(DateTime(2025, 1, 10, 23, 2)),
+        true);
+    expect(
+        DateTime(2025, 1, 20, 9, 10)
+            .isSameOrAfterDate(DateTime(2025, 1, 26, 23, 2)),
+        false);
+    expect(
+        DateTime(2025, 1, 26, 9, 10)
+            .isSameOrAfterDate(DateTime(2025, 1, 26, 10, 10)),
+        true);
+  });
+
+  test('isSameOrBeforeDate test', () {
+    expect(
+        DateTime.now()
+            .subtract(Duration(seconds: 10))
+            .isSameOrBeforeDate(DateTime.now()),
+        true);
+    expect(
+        DateTime.now()
+            .subtract(Duration(hours: 24))
+            .isSameOrBeforeDate(DateTime.now()),
+        true);
+    expect(
+        DateTime(2025, 1, 26, 9, 10)
+            .isSameOrBeforeDate(DateTime(2025, 1, 10, 23, 2)),
+        false);
+    expect(
+        DateTime(2025, 1, 20, 9, 10)
+            .isSameOrBeforeDate(DateTime(2025, 1, 26, 23, 2)),
+        true);
+    expect(
+        DateTime(2025, 1, 26, 9, 10)
+            .isSameOrBeforeDate(DateTime(2025, 1, 26, 10, 10)),
+        true);
+  });
+
   test('isSameDateAs test', () {
     expect(
         DateTime.now().add(Duration(seconds: 10)).isSameDateAs(DateTime.now()),
