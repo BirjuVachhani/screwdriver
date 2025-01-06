@@ -436,11 +436,12 @@ Future<Stats> getStats(String library) async {
     mixins: mixins,
   );
 
-  collectExports(result.element, stats, checkForSrcDir: true);
+  collectExports(result.element.definingCompilationUnit, stats,
+      checkForSrcDir: true);
   return stats;
 }
 
-void collectExports(LibraryOrAugmentationElement element, Stats stats,
+void collectExports(CompilationUnitElement element, Stats stats,
     {bool checkForSrcDir = false}) {
   for (final exp in element.libraryExports) {
     final uri = exp.uri;
@@ -455,8 +456,8 @@ void collectExports(LibraryOrAugmentationElement element, Stats stats,
         stats.typedefs += unit.typeAliases.wherePublic().toList();
         stats.mixins += unit.mixins.wherePublic().toList();
 
-        if (unit.enclosingElement.libraryExports.isNotEmpty) {
-          collectExports(unit.enclosingElement, stats);
+        if (unit.libraryExports.isNotEmpty) {
+          collectExports(unit, stats);
         }
       }
     }
