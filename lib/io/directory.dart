@@ -36,8 +36,25 @@ part of '../screwdriver_io.dart';
 
 /// Provides extensions for [Directory].
 extension DirectoryScrewdriver on Directory {
+  /// Creates a [File] instance with the given [fileName] in this directory.
+  /// 
+  /// Example:
+  /// ```dart
+  /// final dir = Directory('path/to/dir');
+  /// final file = dir.file('test.txt'); // Creates File at 'path/to/dir/test.txt'
+  /// ```
   File file(String fileName) => File(p.join(path, fileName));
 
+  /// Creates a [Directory] instance representing a subdirectory in this directory.
+  /// 
+  /// Takes up to 5 path components that will be joined together with this directory's path.
+  /// All components after [part1] are optional.
+  ///
+  /// Example:
+  /// ```dart
+  /// final dir = Directory('path/to/dir');
+  /// final subDir = dir.subDir('foo', 'bar'); // Creates Directory at 'path/to/dir/foo/bar'
+  /// ```
   Directory subDir(
     String part1, [
     String? part2,

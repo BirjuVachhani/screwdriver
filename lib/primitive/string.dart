@@ -130,7 +130,7 @@ extension StringScrewdriver on String {
   /// Uses [prefix] as [suffix] if [suffix] is null.
   /// e.g.
   ///       'hello'.wrap("*");          // returns *hello*
-  ///       'html'.wrap('<','>');       // returns <html>
+  ///       'html'.wrap('<','>');       // returns `<html>`
   String wrap(String prefix, [String? suffix]) =>
       (prefix) + this + (suffix ?? prefix);
 
@@ -138,7 +138,7 @@ extension StringScrewdriver on String {
   /// Uses [prefix] as [suffix] if [suffix] is null.
   /// e.g.
   ///       '*hello*'.unwrap("*");          // returns hello
-  ///       '<html>'.unwrap('<','>');       // returns html
+  ///       `<html>`.unwrap('<','>');       // returns html
   String unwrap(String prefix, [String? suffix]) {
     suffix ??= prefix;
     if (startsWith(prefix)) {
