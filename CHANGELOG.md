@@ -1,3 +1,9 @@
+## 5.10.0 (Unreleased)
+
+- New `Consumeable` api with `consume`, `consumeOnce` functions and `asConsumable`.
+- New `tryCatch` and `tryCatchOnly` functions.
+- New `tryCatch` extension on `Future`.
+
 ## 5.9.0
 
 - Add `isSameOrBeforeDate` and `isSameOrAfterDate` extensions for `DateTime`.
