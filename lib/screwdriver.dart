@@ -41,6 +41,7 @@ import 'package:characters/characters.dart';
 import 'package:collection/collection.dart';
 import 'package:intl/intl.dart';
 
+import 'src/helpers/consumable.dart';
 import 'src/helpers/helpers.dart';
 import 'src/utils.dart';
 

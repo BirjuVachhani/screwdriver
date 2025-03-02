@@ -107,6 +107,18 @@ extension GenericScrewdriver<T extends Object> on T {
       return null;
     }
   }
+
+  /// Creates a [MultiConsumable] from this value that can be consumed multiple times.
+  ///
+  /// [times] specifies how many times the value can be consumed before being exhausted.
+  ///
+  /// Example:
+  ///
+  Consumable<T> asConsumable({int times = 1}) =>
+      MultiConsumable<T>(this, times: times);
+
+  /// Creates a [SingleConsumable] from this value that can only be consumed once.
+  Consumable<T> asConsumableOnce() => SingleConsumable<T>(this);
 }
 
 /// Always throws [UnimplementedError] stating that operation is
