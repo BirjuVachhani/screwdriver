@@ -2,6 +2,7 @@
 // Created Date: August 27, 2020
 
 import 'package:screwdriver/screwdriver.dart';
+import 'package:screwdriver/src/helpers/consumable.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -82,5 +83,20 @@ void main() {
     expect([1, 2.5, true, 'hello'].isFalsy, isFalse);
     expect(<String, int>{}.isFalsy, isTrue);
     expect({'name': 'John', 'age': 25, 'isStudent': false}.isFalsy, isFalse);
+  });
+
+  test('asConsumable extension creates multi-use consumable', () {
+    final consumable = 42.asConsumable(times: 2);
+    expect(consumable, isA<MultiConsumable<int>>());
+    expect(consumable.consume(), equals(42));
+    expect(consumable.consume(), equals(42));
+    expect(consumable.consume(), isNull);
+  });
+
+  test('asConsumableOnce extension creates single-use consumable', () {
+    final consumable = 42.asConsumableOnce();
+    expect(consumable, isA<SingleConsumable<int>>());
+    expect(consumable.consume(), equals(42));
+    expect(consumable.consume(), isNull);
   });
 }
