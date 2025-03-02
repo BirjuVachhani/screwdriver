@@ -72,7 +72,11 @@ abstract base class Consumable<T extends Object> {
   T? _value;
 
   /// Creates a new consumable with the given [value].
-  Consumable(T value) : _value = value;
+  Consumable(T value) : _value = value {
+    if (value is Consumable) {
+      throw ArgumentError('Wrapping an existing consumable is not allowed.');
+    }
+  }
 
   /// Creates a [SingleConsumable] that can only be consumed once.
   factory Consumable.single(T value) => SingleConsumable(value);
