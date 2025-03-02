@@ -91,12 +91,12 @@ void main() {
     expect(consumable.consume(), equals(42));
     expect(consumable.consume(), equals(42));
     expect(consumable.consume(), isNull);
-  });
 
-  test('asConsumableOnce extension creates single-use consumable', () {
-    final consumable = 42.asConsumableOnce();
-    expect(consumable, isA<SingleConsumable<int>>());
-    expect(consumable.consume(), equals(42));
-    expect(consumable.consume(), isNull);
+    final textConsumable = 'Hello'.asConsumable();
+    expect(textConsumable, isA<SingleConsumable<String>>());
+    expect(textConsumable.consume(), equals('Hello'));
+    expect(textConsumable.consume(), isNull);
+
+    expect(() => 33.asConsumable().asConsumable(), throwsArgumentError);
   });
 }

@@ -26,6 +26,10 @@ void main() {
 
     test('consume throws ArgumentError when times is negative', () {
       expect(() => consume(42, times: -1), throwsA(isA<ArgumentError>()));
+      expect(() => consume(consume(22)), throwsArgumentError);
+      expect(() => consumeOnce(consume(22)), throwsArgumentError);
+      expect(() => consumeOnce(consumeOnce(22)), throwsArgumentError);
+      expect(() => consume(consumeOnce(22)), throwsArgumentError);
     });
   });
 
@@ -35,6 +39,10 @@ void main() {
       expect(consumable, isA<SingleConsumable<int>>());
       expect(consumable.consume(), equals(42));
       expect(consumable.consume(), isNull);
+      expect(
+          () => Consumable.single(Consumable.single(12)), throwsArgumentError);
+      expect(
+          () => Consumable.single(Consumable.multi(12)), throwsArgumentError);
     });
 
     test('Consumable.multi creates multi-use consumable', () {
@@ -43,6 +51,9 @@ void main() {
       expect(consumable.consume(), equals(42));
       expect(consumable.consume(), equals(42));
       expect(consumable.consume(), isNull);
+      expect(() => Consumable.multi(Consumable.multi(12)), throwsArgumentError);
+      expect(
+          () => Consumable.multi(Consumable.single(12)), throwsArgumentError);
     });
 
     test('isConsumed returns correct state', () {
@@ -73,6 +84,10 @@ void main() {
       final consumable = SingleConsumable(42);
       expect(consumable.consume(), equals(42));
       expect(consumable.consume(), isNull);
+      expect(() => SingleConsumable(SingleConsumable('Hello')),
+          throwsArgumentError);
+      expect(() => SingleConsumable(MultiConsumable('Hello')),
+          throwsArgumentError);
     });
 
     test('becomes consumed after first use', () {
@@ -91,6 +106,10 @@ void main() {
       expect(consumable.consume(), equals(42));
       expect(consumable.consume(), equals(42));
       expect(consumable.consume(), isNull);
+      expect(
+          () => MultiConsumable(MultiConsumable('Hello')), throwsArgumentError);
+      expect(() => MultiConsumable(SingleConsumable('Hello')),
+          throwsArgumentError);
     });
 
     test('becomes consumed after all uses exhausted', () {
@@ -98,8 +117,10 @@ void main() {
       expect(consumable.isConsumed, isFalse);
       consumable.consume();
       expect(consumable.isConsumed, isFalse);
+      expect(consumable.remaining, equals(1));
       consumable.consume();
       expect(consumable.isConsumed, isTrue);
+      expect(consumable.remaining, equals(0));
     });
 
     test('markConsumed exhausts all remaining uses', () {
