@@ -43,3 +43,36 @@ Future<T> post<T>(FutureOr<T> Function() action) =>
 /// next event-loop iteration, after all micro-tasks have run.
 Future<T> postDelayed<T>(int millis, FutureOr<T> Function() action) =>
     Future.delayed(Duration(milliseconds: millis), action);
+
+/// Provides extensions on [Future].
+extension FutureScrewdriver<R> on Future<R> {
+  /// Safely executes this future and catches specific error types.
+  ///
+  /// Returns a tuple containing either:
+  /// - The successful result and null error, or
+  /// - A null result and the caught error wrapped in [TryCatchError]
+  ///
+  /// Type Parameters:
+  /// - [E]: The specific type of error to catch
+  ///
+  /// Example:
+  /// ```dart
+  /// final (data, error) = await myFuture.tryCatch<HttpException>();
+  /// if (error != null) {
+  ///   // Handle HttpException
+  /// } else {
+  ///   // Use data
+  /// }
+  /// ```
+  ///
+  /// See also:
+  /// - [tryCatchOnly] for a standalone version of this function
+  Future<(R? data, TryCatchError<E>? error)>
+      tryCatch<E extends Object>() async {
+    try {
+      return (await this, null);
+    } on E catch (error, stacktrace) {
+      return (null, TryCatchError<E>(error, stacktrace));
+    }
+  }
+}
