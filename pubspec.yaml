@@ -20,7 +20,7 @@ dev_dependencies:
   coverage: ^1.11.1
   mockito: ^5.4.5
   analyzer: ^7.3.0
-  args: ^2.6.0
+  args: ^2.7.0
 
 scripts: scripts.yaml
 
