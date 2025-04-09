@@ -12,9 +12,11 @@ void main() {
   });
 
   test('<< operator test', () {
-    final emptyMap = <String, String>{};
-    emptyMap << MapEntry('name', 'John');
+    final emptyMap = <String, dynamic>{};
+    emptyMap << ('name', 'John');
     expect(emptyMap, equals({'name': 'John'}));
+    emptyMap << ('age', 24);
+    expect(emptyMap, equals({'name': 'John', 'age': 24}));
   });
 
   test('toJson test', () {
