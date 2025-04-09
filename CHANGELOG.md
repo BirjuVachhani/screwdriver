@@ -4,6 +4,7 @@
 - New `tryCatch` and `tryCatchOnly` functions.
 - New `tryCatch` extension on `Future`.
 - [BREAKING] `<<` operator on `Map` now takes a record instead of a `MapEntry`.
+- Add `containsAll`, `containsAny`, `containsNone` extensions for `Map`.
 
 ## 5.9.0
 
