@@ -1,4 +1,4 @@
-## 5.10.0 (Unreleased)
+## 5.10.0
 
 - New `Consumeable` api with `consume`, `consumeOnce` functions and `asConsumable`.
 - New `tryCatch` and `tryCatchOnly` functions.
