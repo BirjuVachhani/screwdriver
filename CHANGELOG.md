@@ -3,6 +3,7 @@
 - New `Consumeable` api with `consume`, `consumeOnce` functions and `asConsumable`.
 - New `tryCatch` and `tryCatchOnly` functions.
 - New `tryCatch` extension on `Future`.
+- [BREAKING] `<<` operator on `Map` now takes a record instead of a `MapEntry`.
 
 ## 5.9.0
 
