@@ -40,4 +40,5 @@ export 'int_range.dart';
 export 'mixins/serializable_mixin.dart';
 export 'mixins/stream_subscription_mixin.dart';
 export 'pre_conditions.dart';
+export 'try_catch.dart';
 export 'typedefs.dart';

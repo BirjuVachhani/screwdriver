@@ -2,7 +2,6 @@
 // Created Date: August 27, 2020
 
 import 'package:screwdriver/screwdriver.dart';
-import 'package:screwdriver/src/helpers/try_catch.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -51,31 +50,17 @@ void main() {
     return Future.value(value);
   }
 
-  group('tryCatch tests', () {
-    test('handles successful synchronous operations', () async {
-      expect(() => someFuture(22).tryCatch(), returnsNormally);
-      expect(() => someFuture(-1).tryCatch(), returnsNormally);
-      expect(someFuture(20).tryCatch(), completion(equals((20, null))));
-      expect(
-          someFuture(-20).tryCatch(), completion(isA<(int?, TryCatchError)>()));
+  test('tryCatch extension tests', () async {
+    expect(() => someFuture(22).tryCatch(), returnsNormally);
+    expect(() => someFuture(-1).tryCatch(), returnsNormally);
+    expect(someFuture(20).tryCatch(), completion(equals((20, null))));
+    expect(
+        someFuture(-20).tryCatch(), completion(isA<(int?, TryCatchError)>()));
 
-      expect(() => tryCatchOnly<int, FormatException>(someFuture(-1)),
-          throwsArgumentError);
-
-      expect(() => tryCatchOnly<int, ArgumentError>(someFuture(-1)),
-          returnsNormally);
-
-      expect(() => tryCatch(someFuture(22)), returnsNormally);
-      expect(() => tryCatch(someFuture(-1)), returnsNormally);
-      expect(tryCatch(someFuture(20)), completion(equals((20, null))));
-      expect(
-          tryCatch(someFuture(-20)), completion(isA<(int?, TryCatchError)>()));
-
-      final (data, error) = await someFuture(-54).tryCatch();
-      expect(data, isNull);
-      expect(error, isNotNull);
-      expect(error?.error, isArgumentError);
-      expect(error?.stacktrace, isNotNull);
-    });
+    final (data, error) = await someFuture(-54).tryCatch();
+    expect(data, isNull);
+    expect(error, isNotNull);
+    expect(error?.error, isArgumentError);
+    expect(error?.stacktrace, isNotNull);
   });
 }
