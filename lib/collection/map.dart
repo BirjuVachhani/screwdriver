@@ -51,7 +51,11 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   void operator <<((K, V) entry) => this[entry.$1] = entry.$2;
 
   /// Converts [this] map into a JSON string.
+  @Deprecated('Use toJsonString() instead')
   String toJson() => json.encode(this);
+
+  /// Converts [this] map into a JSON string.
+  String toJsonString() => json.encode(this);
 
   /// Returns a new [Map] with the same keys and values as [this] except
   /// keys present [keys].
@@ -111,4 +115,13 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   /// Returns `null` if no such key-value pair is found.
   MapEntry<K, V>? findByValueOrNull(V value) =>
       entries.firstWhereOrNull((element) => element.value == value);
+
+  /// Checks if the map contains all the keys present in [keys].
+  bool containsAll(Iterable<K> keys) => keys.every(containsKey);
+
+  /// Checks if the map contains any of the keys present in [keys].
+  bool containsAny(Iterable<K> keys) => keys.any(containsKey);
+
+  /// Checks if the map contains none of the keys present in [keys].
+  bool containsNone(Iterable<K> keys) => keys.every((key) => !containsKey(key));
 }

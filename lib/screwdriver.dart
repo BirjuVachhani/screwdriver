@@ -43,7 +43,6 @@ import 'package:intl/intl.dart';
 
 import 'src/helpers/consumable.dart';
 import 'src/helpers/helpers.dart';
-import 'src/helpers/try_catch.dart';
 import 'src/utils.dart';
 
 export 'package:collection/collection.dart';
