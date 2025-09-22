@@ -1,10 +1,10 @@
 ## 5.11.0 (Unreleased)
 
 - New `Directory` extensions:
-  - `Directory.deleteIfExists`
-  - `Directory.deleteIfExistsSync`
-  - `Directory.createIfMissing`
-  - `Directory.createIfMissingSync`
+  - `deleteIfExists`
+  - `deleteIfExistsSync`
+  - `createIfMissing`
+  - `createIfMissingSync`
 - New `File` extensions:
   - `copyToSync`
   - `createIfMissing`
@@ -12,6 +12,7 @@
   - `deleteIfExists`
   - `deleteIfExistsSync`
 - Improved `File.clear` and `File.clearSync` performance.
+- New `String.replaceLast` extension.
 
 ## 5.10.0
 
