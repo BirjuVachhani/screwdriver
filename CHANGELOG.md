@@ -1,4 +1,4 @@
-## 5.11.0 (Unreleased)
+## 5.11.0
 
 - New `Directory` extensions:
   - `deleteIfExists`
@@ -13,6 +13,7 @@
   - `deleteIfExistsSync`
 - Improved `File.clear` and `File.clearSync` performance.
 - New `String.replaceLast` extension.
+- [Deprecation] Deprecate `Map.toJson()` in favor of `Map.toJsonString()` for better clarity.
 
 ## 5.10.0
 
