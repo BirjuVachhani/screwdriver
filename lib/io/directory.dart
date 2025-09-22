@@ -63,4 +63,29 @@ extension DirectoryScrewdriver on Directory {
     String? part5,
   ]) =>
       Directory(p.join(path, part1, part2, part3, part4, part5));
+
+  /// Deletes the directory and its contents if it exists.
+  Future<FileSystemEntity?> deleteIfExists({bool recursive = false}) async {
+    if (await exists()) {
+      return await delete(recursive: recursive);
+    }
+    return null;
+  }
+
+  /// Synchronously deletes the directory and its contents if it exists.
+  void deleteIfExistsSync({bool recursive = false}) {
+    if (existsSync()) deleteSync(recursive: recursive);
+  }
+
+  /// Creates the directory if it does not exist.
+  /// Returns the directory instance.
+  Future<Directory> createIfMissing({bool recursive = false}) async {
+    if (!await exists()) return await create(recursive: recursive);
+    return this;
+  }
+
+  /// Synchronously creates the directory if it does not exist.
+  void createIfMissingSync({bool recursive = false}) {
+    if (!existsSync()) createSync(recursive: recursive);
+  }
 }

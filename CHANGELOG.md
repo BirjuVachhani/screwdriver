@@ -1,3 +1,18 @@
+## 5.11.0 (Unreleased)
+
+- New `Directory` extensions:
+  - `Directory.deleteIfExists`
+  - `Directory.deleteIfExistsSync`
+  - `Directory.createIfMissing`
+  - `Directory.createIfMissingSync`
+- New `File` extensions:
+  - `copyToSync`
+  - `createIfMissing`
+  - `createIfMissingSync`
+  - `deleteIfExists`
+  - `deleteIfExistsSync`
+- Improved `File.clear` and `File.clearSync` performance.
+
 ## 5.10.0
 
 - New `Consumeable` api with `consume`, `consumeOnce` functions and `asConsumable`.

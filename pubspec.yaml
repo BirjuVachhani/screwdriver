@@ -13,13 +13,14 @@ dependencies:
   collection: '>=1.17.1 <2.0.0'
   web: '>=1.0.0 <2.0.0'
   path: '>=1.8.0 <2.0.0'
+  universal_io: '>=2.2.0 <3.0.0'
 
 dev_dependencies:
-  lints: ^5.1.1
-  test: ^1.25.15
-  coverage: ^1.11.1
-  mockito: ^5.4.5
-  analyzer: ^7.3.0
+  lints: ^6.0.0
+  test: ^1.26.3
+  coverage: ^1.15.0
+  mockito: ^5.5.0
+  analyzer: ^7.5.5
   args: ^2.7.0
 
 scripts: scripts.yaml

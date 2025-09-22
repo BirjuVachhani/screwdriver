@@ -57,11 +57,30 @@ extension FileScrewdriver on File {
     await sink.close();
   }
 
+  /// Copies content of [this] to [other] file.
+  void copyToSync(File other) {
+    final otherSink = other.openSync(mode: FileMode.write);
+    final thisStream = openRead();
+    StreamSubscription<List<int>>? sub;
+    sub = thisStream.listen(
+      (data) => otherSink.writeFromSync(data),
+      onDone: () {
+        otherSink.close();
+        sub?.cancel();
+      },
+      onError: (Object e) {
+        otherSink.close();
+        sub?.cancel();
+        throw e;
+      },
+    );
+  }
+
   /// Asynchronously flushes all the data in [this] file leaving it to be empty.
-  Future<void> clear() => writeAsString('');
+  Future<void> clear({bool flush = false}) => writeAsBytes([], flush: flush);
 
   /// Synchronously flushes all the data in [this] file leaving it to be empty.
-  void clearSync() => writeAsStringSync('');
+  void clearSync({bool flush = false}) => writeAsBytesSync([], flush: flush);
 
   /// Calls [block] whenever the [this] file is modified.
   /// Returns [StreamSubscription] which allows to cancel the listener.
@@ -91,8 +110,7 @@ extension FileScrewdriver on File {
 
   /// Appends [value] string as a new line at the end of the file using
   /// provided [encoding].
-  Future<void> appendStringLine(String value,
-      {Encoding encoding = utf8}) async {
+  Future<void> appendStringLine(String value, {Encoding encoding = utf8}) async {
     final sink = openWrite(mode: FileMode.writeOnlyAppend, encoding: encoding);
     sink.writeln(value);
     await sink.close();
@@ -124,5 +142,29 @@ extension FileScrewdriver on File {
     final fileAccess = openSync(mode: FileMode.writeOnlyAppend);
     fileAccess.writeFromSync(file.readAsBytesSync().toList());
     fileAccess.closeSync();
+  }
+
+  /// Creates the file if it does not exist.
+  /// Returns the file instance.
+  Future<File> createIfMissing({bool recursive = false, bool exclusive = false}) async {
+    if (!await exists()) return await create(recursive: recursive, exclusive: exclusive);
+    return this;
+  }
+
+  /// Synchronously creates the file if it does not exist.
+  void createIfMissingSync({bool recursive = false, bool exclusive = false}) {
+    if (!existsSync()) createSync(recursive: recursive, exclusive: exclusive);
+  }
+
+  /// Deletes the file if it exists.
+  /// Returns the deleted file instance or [this] if the file did not exist.
+  Future<FileSystemEntity> deleteIfExists({bool recursive = false}) async {
+    if (await exists()) return await delete(recursive: recursive);
+    return this;
+  }
+
+  /// Synchronously deletes the file if it exists.
+  void deleteIfExistsSync({bool recursive = false}) {
+    if (existsSync()) deleteSync(recursive: recursive);
   }
 }
