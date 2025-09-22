@@ -328,7 +328,7 @@
 | [`milliseconds`](https://github.com/BirjuVachhani/screwdriver/blob/main/lib/primitive/int.dart#L82) | `GETTER` |  Returns `Duration` equal to `this` no. of milliseconds |
 | [`microseconds`](https://github.com/BirjuVachhani/screwdriver/blob/main/lib/primitive/int.dart#L85) | `GETTER` |  Returns `Duration` equal to `this` no. of microseconds |
 | [`length`](https://github.com/BirjuVachhani/screwdriver/blob/main/lib/primitive/int.dart#L91) | `GETTER` |  Returns no. of digits  e.g.  3.length   // returns 1       21.length   // returns 2      541.length  // returns 3 |
-| [`digits`](https://github.com/BirjuVachhani/screwdriver/blob/main/lib/primitive/int.dart#L96) | `GETTER` |  Returns list of digits of `this`  e.g   12345.digits    // returns [1, 2, 3, 4, 5]  e.g   8564.digits    // returns [8, 5, 6, 4] |
+| [`digits`](https://github.com/BirjuVachhani/screwdriver/blob/main/lib/primitive/int.dart#L96) | `GETTER` |  Returns list of digits of `this`  e.g   12345.digits    // returns \[1, 2, 3, 4, 5\]  e.g   8564.digits    // returns \[8, 5, 6, 4\] |
 | [`asBool`](https://github.com/BirjuVachhani/screwdriver/blob/main/lib/primitive/int.dart#L103) | `GETTER` |  Returns true for non-zero values just like C language.  e.g        1.asBool      // returns true        0.asBool      // returns false      452.asBool      // returns true |
 | [`isDivisibleBy`](https://github.com/BirjuVachhani/screwdriver/blob/main/lib/primitive/int.dart#L106) | `METHOD` |  Returns true if `this` can be completely divisible by `divider` |
 | [`isDivisibleByAll`](https://github.com/BirjuVachhani/screwdriver/blob/main/lib/primitive/int.dart#L110) | `METHOD` |  Returns true if `this` can be completely divisible  by all of the `dividers`. |
