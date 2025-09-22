@@ -52,7 +52,7 @@ extension MapScrewdriver<K, V> on Map<K, V> {
 
   /// Converts [this] map into a JSON string.
   @Deprecated('Use toJsonString() instead')
-  String toJson() => json.encode(this);
+  String toJson() => toJsonString();
 
   /// Converts [this] map into a JSON string.
   String toJsonString() => json.encode(this);

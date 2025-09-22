@@ -204,13 +204,11 @@ void main() {
           await Process.run('chmod', ['444', readOnlyDir.path]);
         }
 
-        bool errorThrown = false;
         try {
           sourceFile.copyToSync(targetInReadOnlyDir);
           // Wait for the async stream operations and error to occur
           await Future.delayed(Duration(milliseconds: 200));
         } catch (e) {
-          errorThrown = true;
           expect(e, isA<FileSystemException>());
         }
 
@@ -239,8 +237,9 @@ void main() {
 
       // Clean up any test directories
       final nonExistentDir = Directory('non_existent_dir');
-      if (nonExistentDir.existsSync())
+      if (nonExistentDir.existsSync()) {
         nonExistentDir.deleteSync(recursive: true);
+      }
 
       final readOnlyDir = Directory('readonly_test_dir');
       if (readOnlyDir.existsSync()) {

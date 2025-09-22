@@ -1,6 +1,7 @@
 // Author: Birju Vachhani
 // Created Date: April 05, 2021
 
+// ignore_for_file: deprecated_member_use
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/results.dart';
@@ -405,7 +406,6 @@ Future<Stats> getStats(String library) async {
       resourceProvider: PhysicalResourceProvider.INSTANCE);
   final session = collection.contexts[0].currentSession;
   final libPath = session.uriConverter.uriToPath(Uri.parse(library)) ?? '';
-  // ignore: deprecated_member_use
   final result =
       await session.getResolvedLibrary(libPath) as ResolvedLibraryResult;
   var helpersFunctions = <FunctionElement>[];

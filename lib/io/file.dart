@@ -110,8 +110,7 @@ extension FileScrewdriver on File {
 
   /// Appends [value] string as a new line at the end of the file using
   /// provided [encoding].
-  Future<void> appendStringLine(String value,
-      {Encoding encoding = utf8}) async {
+  Future<void> appendStringLine(String value, {Encoding encoding = utf8}) async {
     final sink = openWrite(mode: FileMode.writeOnlyAppend, encoding: encoding);
     sink.writeln(value);
     await sink.close();
@@ -147,10 +146,10 @@ extension FileScrewdriver on File {
 
   /// Creates the file if it does not exist.
   /// Returns the file instance.
-  Future<File> createIfMissing(
-      {bool recursive = false, bool exclusive = false}) async {
-    if (!await exists())
+  Future<File> createIfMissing({bool recursive = false, bool exclusive = false}) async {
+    if (!await exists()) {
       return await create(recursive: recursive, exclusive: exclusive);
+    }
     return this;
   }
 

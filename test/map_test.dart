@@ -20,7 +20,9 @@ void main() {
   });
 
   test('toJson test', () {
+    // ignore: deprecated_member_use_from_same_package
     expect({'name': 'John'}.toJson(), equals('{"name":"John"}'));
+    // ignore: deprecated_member_use_from_same_package
     expect(<String, dynamic>{}.toJson(), equals('{}'));
 
     expect({'name': 'John'}.toJsonString(), equals('{"name":"John"}'));
@@ -29,22 +31,17 @@ void main() {
 
   test('except test', () {
     expect({'a': 1, 'b': 2, 'c': 3}.except(['a', 'b']), equals({'c': 3}));
-    expect(
-        {'a': 1, 'b': 2, 'c': 3}.except(['a', 'd']), equals({'b': 2, 'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.except(['a', 'd']), equals({'b': 2, 'c': 3}));
   });
 
   test('where test', () {
-    expect({'a': 1, 'b': 2, 'c': 3}.where((key, value) => value > 2),
-        equals({'c': 3}));
-    expect({'a': 1, 'b': 2, 'c': 3}.where((key, value) => key != 'a'),
-        equals({'b': 2, 'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.where((key, value) => value > 2), equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.where((key, value) => key != 'a'), equals({'b': 2, 'c': 3}));
   });
 
   test('whereNot test', () {
-    expect({'a': 1, 'b': 2, 'c': 3}.whereNot((key, value) => value <= 2),
-        equals({'c': 3}));
-    expect({'a': 1, 'b': 2, 'c': 3}.whereNot((key, value) => key == 'a'),
-        equals({'b': 2, 'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.whereNot((key, value) => value <= 2), equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.whereNot((key, value) => key == 'a'), equals({'b': 2, 'c': 3}));
   });
 
   test('only test', () {
@@ -54,8 +51,7 @@ void main() {
 
   test('removeKeys test', () {
     expect({'a': 1, 'b': 2, 'c': 3}.removeKeys(['a', 'b']), equals({'c': 3}));
-    expect({'a': 1, 'b': 2, 'c': 3}.removeKeys(['v', 'a']),
-        equals({'b': 2, 'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.removeKeys(['v', 'a']), equals({'b': 2, 'c': 3}));
   });
 
   test('records test', () {
@@ -79,8 +75,7 @@ void main() {
   test('findByValue test', () {
     expect({'a': 1, 'b': 2, 'c': 3}.findByValue(2).key, equals('b'));
     expect({'a': 1, 'b': 2, 'c': 3}.findByValue(2).value, equals(2));
-    expect(
-        () => {'a': 1, 'b': 2, 'c': 3}.findByValue(4), throwsA(isA<Error>()));
+    expect(() => {'a': 1, 'b': 2, 'c': 3}.findByValue(4), throwsA(isA<Error>()));
   });
 
   test('findByValueOrNull test', () {
