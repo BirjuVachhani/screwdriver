@@ -305,12 +305,13 @@ extension StringScrewdriver on String {
   /// If [from] is not found, returns [this].
   /// [start] can be used to specify the starting index to search from.
   /// If [from] is a [String], it uses [lastIndexOf] to find the last occurrence.
-  ///
   String replaceLast(Pattern from, String to, [int? start]) {
+    if (start != null) RangeError.checkValueInInterval(start, 0, length, "start");
+
     if (from is String) {
       final lastIndex = lastIndexOf(from, start);
       if (lastIndex == -1) return this;
-      return replaceRange(lastIndex, lastIndex + from.toString().length, to);
+      return replaceRange(lastIndex, lastIndex + from.length, to);
     }
 
     final match = from.allMatches(this, start ?? 0);
