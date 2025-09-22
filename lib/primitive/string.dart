@@ -93,10 +93,13 @@ extension StringScrewdriver on String {
   }
 
   /// This would tokenize [this] into words by breaking it with space.
-  List<String> get words => trim().split(' ').where((element) => element.isNotBlank).toList();
+  List<String> get words =>
+      trim().split(' ').where((element) => element.isNotBlank).toList();
 
   /// Toggles the case of the characters
-  String get toggledCase => characters.map((e) => e.toUpperCase() == e ? e.toLowerCase() : e.toUpperCase()).join();
+  String get toggledCase => characters
+      .map((e) => e.toUpperCase() == e ? e.toLowerCase() : e.toUpperCase())
+      .join();
 
   /// Returns the index of the last character in [this].
   int get lastIndex => length - 1;
@@ -128,7 +131,8 @@ extension StringScrewdriver on String {
   /// e.g.
   ///       'hello'.wrap("*");          // returns *hello*
   ///       'html'.wrap('<','>');       // returns `<html>`
-  String wrap(String prefix, [String? suffix]) => (prefix) + this + (suffix ?? prefix);
+  String wrap(String prefix, [String? suffix]) =>
+      (prefix) + this + (suffix ?? prefix);
 
   /// unwraps [this] between [prefix] and [suffix].
   /// Uses [prefix] as [suffix] if [suffix] is null.
@@ -138,7 +142,8 @@ extension StringScrewdriver on String {
   String unwrap(String prefix, [String? suffix]) {
     suffix ??= prefix;
     if (startsWith(prefix)) {
-      return substring(prefix.length, endsWith(suffix) ? length - suffix.length : length);
+      return substring(
+          prefix.length, endsWith(suffix) ? length - suffix.length : length);
     }
     return endsWith(suffix) ? substring(0, length - suffix.length) : this;
   }
@@ -147,13 +152,15 @@ extension StringScrewdriver on String {
   /// e.g.
   ///       'hello-world'.removePrefix('hello');    // returns -world
   ///       'hello-world'.removePrefix('world');    // returns hello-world
-  String removePrefix(String prefix) => startsWith(prefix) ? substring(prefix.length) : this;
+  String removePrefix(String prefix) =>
+      startsWith(prefix) ? substring(prefix.length) : this;
 
   /// removes [suffix] from [this] and returns remaining.
   /// e.g.
   ///       'hello-world'.removeSuffix('world');    // returns hello-
   ///       'hello-world'.removeSuffix('hello');    // returns hello-world
-  String removeSuffix(String suffix) => endsWith(suffix) ? substring(0, length - suffix.length) : this;
+  String removeSuffix(String suffix) =>
+      endsWith(suffix) ? substring(0, length - suffix.length) : this;
 
   /// Tries to convert [this] into a [DateTime].
   DateTime? toDateTimeOrNull() => DateTime.tryParse(this);
@@ -162,7 +169,8 @@ extension StringScrewdriver on String {
   Map<String, dynamic> parseJson() => json.decode(this) as Map<String, dynamic>;
 
   /// Converts [this] to a JSON map.
-  List<Map<String, dynamic>> parseJsonArray() => List<Map<String, dynamic>>.from(json.decode(this) as Iterable);
+  List<Map<String, dynamic>> parseJsonArray() =>
+      List<Map<String, dynamic>>.from(json.decode(this) as Iterable);
 
   /// Returns count of given [match] in this string
   int count(String match, {bool caseSensitive = true}) {
@@ -184,7 +192,8 @@ extension StringScrewdriver on String {
   String title() => split(' ').map((e) => e.capitalized).join(' ');
 
   /// Compares two strings ignoring the case.
-  bool equalsIgnoreCase(String matcher) => toLowerCase() == matcher.toLowerCase();
+  bool equalsIgnoreCase(String matcher) =>
+      toLowerCase() == matcher.toLowerCase();
 
   /// An alternative to [String.splitMapJoin] which provides access to
   /// [RegExpMatch] instead of [Match].
@@ -197,7 +206,8 @@ extension StringScrewdriver on String {
   }) {
     return splitMapJoin(
       regex,
-      onMatch: onMatch != null ? (match) => onMatch(match as RegExpMatch) : null,
+      onMatch:
+          onMatch != null ? (match) => onMatch(match as RegExpMatch) : null,
       onNonMatch: onNonMatch,
     );
   }
@@ -238,12 +248,14 @@ extension StringScrewdriver on String {
   /// Prepends given [prefix] to [this] if it does not already start with it.
   /// If [force] is true, it will append the [prefix] regardless of whether
   /// [this] already starts with it or not.
-  String prefix(String prefix, {bool force = false}) => startsWith(prefix) && !force ? this : '$prefix$this';
+  String prefix(String prefix, {bool force = false}) =>
+      startsWith(prefix) && !force ? this : '$prefix$this';
 
   /// Appends given [suffix] to [this] if it does not already end with it.
   /// If [force] is true, it will append the [suffix] regardless of whether
   /// [this] already ends with it or not.
-  String suffix(String suffix, {bool force = false}) => endsWith(suffix) && !force ? this : '$this$suffix';
+  String suffix(String suffix, {bool force = false}) =>
+      endsWith(suffix) && !force ? this : '$this$suffix';
 
   /// Converts [this] string to bytes. Default encoding is UTF-8.
   /// Use [toUtf16Bytes] for UTF-16 encoding.
@@ -289,7 +301,8 @@ extension StringScrewdriver on String {
   String takeBetween(Pattern start, [Pattern? end]) {
     final Match? startMatch = start.allMatches(this).firstOrNull;
     if (startMatch == null) return '';
-    final Match? endMatch = (end ?? start).allMatches(this, startMatch.end).firstOrNull;
+    final Match? endMatch =
+        (end ?? start).allMatches(this, startMatch.end).firstOrNull;
     if (endMatch == null) return '';
     return substring(startMatch.end, endMatch.start);
   }
@@ -306,7 +319,8 @@ extension StringScrewdriver on String {
   /// [start] can be used to specify the starting index to search from.
   /// If [from] is a [String], it uses [lastIndexOf] to find the last occurrence.
   String replaceLast(Pattern from, String to, [int? start]) {
-    if (start != null) RangeError.checkValueInInterval(start, 0, length, "start");
+    if (start != null)
+      RangeError.checkValueInInterval(start, 0, length, "start");
 
     if (from is String) {
       final lastIndex = lastIndexOf(from, start);

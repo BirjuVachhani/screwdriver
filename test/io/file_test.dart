@@ -239,7 +239,8 @@ void main() {
 
       // Clean up any test directories
       final nonExistentDir = Directory('non_existent_dir');
-      if (nonExistentDir.existsSync()) nonExistentDir.deleteSync(recursive: true);
+      if (nonExistentDir.existsSync())
+        nonExistentDir.deleteSync(recursive: true);
 
       final readOnlyDir = Directory('readonly_test_dir');
       if (readOnlyDir.existsSync()) {

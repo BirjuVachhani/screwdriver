@@ -442,10 +442,12 @@ void main() {
   });
 
   test('replaceLast tests', () {
-    expect('Hello World Hello'.replaceLast('Hello', 'Hi'), equals('Hello World Hi'));
+    expect('Hello World Hello'.replaceLast('Hello', 'Hi'),
+        equals('Hello World Hi'));
     expect('abc abc abc'.replaceLast('abc', 'xyz'), equals('abc abc xyz'));
     expect('test test test'.replaceLast('test', ''), equals('test test '));
-    expect('hello world'.replaceLast('world', 'universe'), equals('hello universe'));
+    expect('hello world'.replaceLast('world', 'universe'),
+        equals('hello universe'));
 
     expect('Hello World'.replaceLast('NotFound', 'Hi'), equals('Hello World'));
     expect(''.replaceLast('Hello', 'Hi'), equals(''));
@@ -458,13 +460,19 @@ void main() {
     expect(() => 'abc abc abc'.replaceLast('abc', 'xyz', 12), throwsRangeError);
     expect(() => 'abc abc abc'.replaceLast('abc', 'xyz', -1), throwsRangeError);
 
-    expect('Hello World Hello'.replaceLast(RegExp(r'Hello'), 'Hi'), equals('Hello World Hi'));
+    expect('Hello World Hello'.replaceLast(RegExp(r'Hello'), 'Hi'),
+        equals('Hello World Hi'));
     expect('123 456 789'.replaceLast(RegExp(r'\d+'), 'X'), equals('123 456 X'));
-    expect('abc ABC abc'.replaceLast(RegExp(r'[A-Z]+'), 'xyz'), equals('abc xyz abc'));
-    expect('Hello World'.replaceLast(RegExp(r'NotFound'), 'Hi'), equals('Hello World'));
+    expect('abc ABC abc'.replaceLast(RegExp(r'[A-Z]+'), 'xyz'),
+        equals('abc xyz abc'));
+    expect('Hello World'.replaceLast(RegExp(r'NotFound'), 'Hi'),
+        equals('Hello World'));
 
-    expect('test1 test2 test3'.replaceLast(RegExp(r'test\d'), 'item'), equals('test1 test2 item'));
-    expect('abc def abc'.replaceLast(RegExp(r'abc'), 'xyz', 4), equals('abc def xyz'));
-    expect('Hello World Hello'.replaceLast(RegExp(r'Hello'), 'Hi', 6), equals('Hello World Hi'));
+    expect('test1 test2 test3'.replaceLast(RegExp(r'test\d'), 'item'),
+        equals('test1 test2 item'));
+    expect('abc def abc'.replaceLast(RegExp(r'abc'), 'xyz', 4),
+        equals('abc def xyz'));
+    expect('Hello World Hello'.replaceLast(RegExp(r'Hello'), 'Hi', 6),
+        equals('Hello World Hi'));
   });
 }
