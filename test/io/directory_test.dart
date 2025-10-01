@@ -22,12 +22,9 @@ void main() {
       expect(dir.subDir('sub').path, equals(p.join('temp', 'sub')));
       expect(dir.subDir('').path, equals('temp'));
       expect(dir.subDir(r'sub/sub').path, equals(p.join('temp', 'sub', 'sub')));
-      expect(dir.subDir('sub', 'sub1').path,
-          equals(p.join('temp', 'sub', 'sub1')));
-      expect(dir.subDir('sub', 'sub1', 'sub2').path,
-          equals(p.join('temp', 'sub', 'sub1', 'sub2')));
-      expect(dir.subDir('sub', 'sub1', 'sub2', 'sub3').path,
-          equals(p.join('temp', 'sub', 'sub1', 'sub2', 'sub3')));
+      expect(dir.subDir('sub', 'sub1').path, equals(p.join('temp', 'sub', 'sub1')));
+      expect(dir.subDir('sub', 'sub1', 'sub2').path, equals(p.join('temp', 'sub', 'sub1', 'sub2')));
+      expect(dir.subDir('sub', 'sub1', 'sub2', 'sub3').path, equals(p.join('temp', 'sub', 'sub1', 'sub2', 'sub3')));
       expect(dir.subDir('sub', 'sub1', 'sub2', 'sub3', 'sub4').path,
           equals(p.join('temp', 'sub', 'sub1', 'sub2', 'sub3', 'sub4')));
     });

@@ -64,10 +64,8 @@ mixin StreamSubscriptionMixin {
     bool? cancelOnError,
     String scope = defaultScope,
   }) {
-    final subscription = stream.listen(onData,
-        onError: onError, onDone: onDone, cancelOnError: cancelOnError);
-    _scopes.update(scope, (list) => list..add(subscription),
-        ifAbsent: () => [subscription]);
+    final subscription = stream.listen(onData, onError: onError, onDone: onDone, cancelOnError: cancelOnError);
+    _scopes.update(scope, (list) => list..add(subscription), ifAbsent: () => [subscription]);
     return subscription;
   }
 

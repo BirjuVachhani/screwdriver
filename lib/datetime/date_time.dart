@@ -57,9 +57,7 @@ extension DateTimeScrewdriver on DateTime {
   bool get isYesterday {
     final now = DateTime.now();
     final yesterday = DateTime(now.year, now.month, now.day - 1);
-    return day == yesterday.day &&
-        month == yesterday.month &&
-        year == yesterday.year;
+    return day == yesterday.day && month == yesterday.month && year == yesterday.year;
   }
 
   /// Returns true if [this] occurs a day after today
@@ -67,9 +65,7 @@ extension DateTimeScrewdriver on DateTime {
   bool get isTomorrow {
     final now = DateTime.now();
     final tomorrow = DateTime(now.year, now.month, now.day + 1);
-    return day == tomorrow.day &&
-        month == tomorrow.month &&
-        year == tomorrow.year;
+    return day == tomorrow.day && month == tomorrow.month && year == tomorrow.year;
   }
 
   /// Returns true if [this] occurs in past
@@ -181,12 +177,10 @@ extension DateTimeScrewdriver on DateTime {
   DateTime get nextDay => add(Duration(days: 1));
 
   /// Returns [DateTime] with previous year
-  DateTime get previousYear => DateTime(
-      year - 1, month, day, hour, minute, second, millisecond, microsecond);
+  DateTime get previousYear => DateTime(year - 1, month, day, hour, minute, second, millisecond, microsecond);
 
   /// Returns [DateTime] with next year
-  DateTime get nextYear => DateTime(
-      year + 1, month, day, hour, minute, second, millisecond, microsecond);
+  DateTime get nextYear => DateTime(year + 1, month, day, hour, minute, second, millisecond, microsecond);
 
   /// Returns true if [this] occurs before [other].
   ///
@@ -262,19 +256,16 @@ extension DateTimeScrewdriver on DateTime {
   ///
   /// The comparison is independent of whether the time is in UTC or
   /// in the local time zone.
-  bool isSameDateAs(DateTime other) =>
-      dateOnly.isAtSameMomentAs(other.dateOnly);
+  bool isSameDateAs(DateTime other) => dateOnly.isAtSameMomentAs(other.dateOnly);
 
   /// Returns true if [this] falls between [date1] and [date2] irrespective
   /// of the order in the Calender.
   bool isBetween(DateTime date1, DateTime date2) =>
-      (isAfter(date1) && isBefore(date2)) ||
-      (isAfter(date2) && isBefore(date1));
+      (isAfter(date1) && isBefore(date2)) || (isAfter(date2) && isBefore(date1));
 
   /// Removes any information that is equal to or smaller than milliseconds.
   /// Returned instance will have 0 milliseconds and microseconds.
-  DateTime truncateMicros() =>
-      DateTime(year, month, day, hour, minute, second, millisecond);
+  DateTime truncateMicros() => DateTime(year, month, day, hour, minute, second, millisecond);
 
   /// Removes any information that is equal to or smaller than milliseconds.
   /// Returned instance will have 0 milliseconds and microseconds.

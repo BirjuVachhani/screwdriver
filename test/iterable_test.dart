@@ -95,14 +95,11 @@ void main() {
     expect(<int>[].filter((element) => element.isEven), equals(<int>[]));
 
     // filterTo
-    expect(list.filterTo([1, 3], (element) => element == 5).toList(),
-        equals([1, 3, 5]));
-    expect(
-        <int>[].filterTo([1, 2], (element) => element.isEven), equals([1, 2]));
+    expect(list.filterTo([1, 3], (element) => element == 5).toList(), equals([1, 3, 5]));
+    expect(<int>[].filterTo([1, 2], (element) => element.isEven), equals([1, 2]));
 
     // filterIndexed
-    expect(list.filterIndexed((index, element) => index.isEven),
-        equals([1, 3, 5, 7, 9]));
+    expect(list.filterIndexed((index, element) => index.isEven), equals([1, 3, 5, 7, 9]));
 
     // flatMap
     expect(
@@ -111,8 +108,7 @@ void main() {
           [2]
         ].flatMap((element) => element.map((e) => e * 10)),
         equals([10, 20]));
-    expect(<List<int>>[].flatMap((element) => element.map((e) => e * 10)),
-        equals(<int>[]));
+    expect(<List<int>>[].flatMap((element) => element.map((e) => e * 10)), equals(<int>[]));
 
     // flatMapNotNull
     final List<List<int>?> nullableNestedList = [
@@ -120,24 +116,16 @@ void main() {
       null,
       [2]
     ];
-    expect(
-        nullableNestedList
-            .flatMapNotNull((element) => element?.map((e) => e * 10)),
-        equals(<int>[10, 20]));
+    expect(nullableNestedList.flatMapNotNull((element) => element?.map((e) => e * 10)), equals(<int>[10, 20]));
 
     // mapNotNull
     final List<double?> nullableList = [1.0, null, 2.0];
-    expect(nullableList.mapNotNull((element) => element?.multiply(10)),
-        equals([10.0, 20.0]));
+    expect(nullableList.mapNotNull((element) => element?.multiply(10)), equals([10.0, 20.0]));
     expect([].mapNotNull((element) => element?.multiply(10)), isEmpty);
 
     // mapNotNullIndexed
-    expect(
-        list.mapNotNullIndexed(
-            (index, element) => index.isEven ? element : null),
-        equals([1, 3, 5, 7, 9]));
-    expect(nullableList.mapNotNullIndexed((index, element) => element),
-        equals([1.0, 2.0]));
+    expect(list.mapNotNullIndexed((index, element) => index.isEven ? element : null), equals([1, 3, 5, 7, 9]));
+    expect(nullableList.mapNotNullIndexed((index, element) => element), equals([1.0, 2.0]));
 
     // drop
     expect(list.drop(7), equals([8, 9]));
@@ -163,26 +151,19 @@ void main() {
     expect(<int>[].all((element) => element < 10), true);
 
     // associate
-    expect(
-        [DateTime(2015), DateTime(2020)]
-            .associate((element) => (element.year, element.isLeapYear)),
+    expect([DateTime(2015), DateTime(2020)].associate((element) => (element.year, element.isLeapYear)),
         equals({2015: false, 2020: true}));
 
     // toMap
-    expect(
-        [DateTime(2015), DateTime(2020)]
-            .toMap((element) => (element.year, element.isLeapYear)),
+    expect([DateTime(2015), DateTime(2020)].toMap((element) => (element.year, element.isLeapYear)),
         equals({2015: false, 2020: true}));
 
     // associateBy
-    expect(
-        [DateTime(2015), DateTime(2020)].associateBy((element) => element.year),
+    expect([DateTime(2015), DateTime(2020)].associateBy((element) => element.year),
         equals({2015: DateTime(2015), 2020: DateTime(2020)}));
 
     // associateWith
-    expect(
-        [DateTime(2015), DateTime(2020)]
-            .associateWith((element) => element.isLeapYear),
+    expect([DateTime(2015), DateTime(2020)].associateWith((element) => element.isLeapYear),
         equals({DateTime(2015): false, DateTime(2020): true}));
 
     // groupBy
@@ -197,10 +178,7 @@ void main() {
     expect([1, 1, 2, 2, 2, 3, 4, 4, 5, 5, 5].distinct(), [1, 2, 3, 4, 5]);
 
     // distinctBy
-    expect(
-        [1, 1, 2, 2, 2, 3, 4, 4, 5, 5, 5, 6]
-            .distinctBy((element) => element % 3),
-        [1, 2, 3]);
+    expect([1, 1, 2, 2, 2, 3, 4, 4, 5, 5, 5, 6].distinctBy((element) => element % 3), [1, 2, 3]);
 
     // intersect
     expect([1, 2, 3].intersect([2, 3, 4, 5]), equals([2, 3]));
@@ -221,26 +199,18 @@ void main() {
     expect(<int>[].count(5), 0);
 
     // foldRight
-    expect(
-        [1, 2, 3].foldRight<int>(
-            0, (previousValue, element) => previousValue * 2 + element),
-        17);
+    expect([1, 2, 3].foldRight<int>(0, (previousValue, element) => previousValue * 2 + element), 17);
 
     // foldRightIndexed
     expect(
-        [1, 2, 3].foldRightIndexed<int>(
-            0,
-            (index, previousValue, element) =>
-                previousValue + index * 2 + element),
-        12);
+        [1, 2, 3].foldRightIndexed<int>(0, (index, previousValue, element) => previousValue + index * 2 + element), 12);
 
     // except tests
     expect([1, 2, 3].except(2), containsAllInOrder(<int>[1, 3]));
     expect([1, 2, 3].except(1, 5), containsAllInOrder(<int>[2, 3]));
     expect([1, 2, 3, 4, 5, 6].except(1, 2, 3, 4, 5, 6), isEmpty);
     expect([4, 5, 6].except(1, 2, 3, 4, 5, 6), isEmpty);
-    expect([1, 2, 3, 'Hello', 5, 6].except(1, 2, 3, 'Hello'),
-        containsAllInOrder(<int>[5, 6]));
+    expect([1, 2, 3, 'Hello', 5, 6].except(1, 2, 3, 'Hello'), containsAllInOrder(<int>[5, 6]));
 
     // exceptAll tests
     expect([1, 2, 3].exceptAll([2]), containsAllInOrder(<int>[1, 3]));

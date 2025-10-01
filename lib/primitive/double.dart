@@ -39,11 +39,7 @@ final NumberFormat _formatter = NumberFormat('0.##')..minimumFractionDigits = 0;
 /// Provides extensions for [double].
 extension DoubleScrewdriver on double {
   /// Returns to if [this] has .00000 fraction points
-  bool get isWhole =>
-      this != double.infinity &&
-      this != double.negativeInfinity &&
-      !isNaN &&
-      truncate() == this;
+  bool get isWhole => this != double.infinity && this != double.negativeInfinity && !isNaN && truncate() == this;
 
   /// Rounds value [precision] number of fraction points.
   /// Example:

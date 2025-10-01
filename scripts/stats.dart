@@ -45,10 +45,8 @@ class Stats {
 /// --dry: if provided, it will not update README.md file. It will only print
 /// the stats to console.
 void main(List<String> args) async {
-  final screwdriverStats =
-      await getStats('package:screwdriver/screwdriver.dart');
-  final screwdriverIoStats =
-      await getStats('package:screwdriver/screwdriver_io.dart');
+  final screwdriverStats = await getStats('package:screwdriver/screwdriver.dart');
+  final screwdriverIoStats = await getStats('package:screwdriver/screwdriver_io.dart');
 
   final isDry = args.contains('--dry');
 
@@ -100,12 +98,10 @@ Mixins:                        ${stats.mixins}
 
 Future<Stats> getStats(String library) async {
   final collection = AnalysisContextCollectionImpl(
-      includedPaths: <String>[Directory('lib').absolute.path],
-      resourceProvider: PhysicalResourceProvider.INSTANCE);
+      includedPaths: <String>[Directory('lib').absolute.path], resourceProvider: PhysicalResourceProvider.INSTANCE);
   final session = collection.contexts[0].currentSession;
   final libPath = session.uriConverter.uriToPath(Uri.parse(library)) ?? '';
-  final result =
-      await session.getResolvedLibrary(libPath) as ResolvedLibraryResult;
+  final result = await session.getResolvedLibrary(libPath) as ResolvedLibraryResult;
   var helpersFunctions = <String>[];
   var helpersClasses = <String>[];
   var helperVariables = <String>[];
@@ -114,22 +110,12 @@ Future<Stats> getStats(String library) async {
   var typedefs = 0;
   var mixins = 0;
   for (final part in result.element.units) {
-    helpersFunctions +=
-        part.functions.wherePublic().map((e) => e.displayName).toList();
-    extensions += part.extensions
-        .wherePublic()
-        .expand((element) => element.fields)
-        .length;
-    extensions += part.extensions
-        .wherePublic()
-        .expand((element) => element.methods)
-        .length;
-    extensionTypes +=
-        part.extensionTypes.wherePublic().map((e) => e.displayName).toList();
-    helpersClasses +=
-        part.classes.wherePublic().map((e) => e.displayName).toList();
-    helperVariables +=
-        part.accessors.wherePublic().map((e) => e.displayName).toList();
+    helpersFunctions += part.functions.wherePublic().map((e) => e.displayName).toList();
+    extensions += part.extensions.wherePublic().expand((element) => element.fields).length;
+    extensions += part.extensions.wherePublic().expand((element) => element.methods).length;
+    extensionTypes += part.extensionTypes.wherePublic().map((e) => e.displayName).toList();
+    helpersClasses += part.classes.wherePublic().map((e) => e.displayName).toList();
+    helperVariables += part.accessors.wherePublic().map((e) => e.displayName).toList();
     typedefs += part.typeAliases.wherePublic().length;
     mixins += part.mixins.wherePublic().length;
   }
@@ -144,34 +130,22 @@ Future<Stats> getStats(String library) async {
     mixins: mixins,
   );
 
-  collectExports(result.element.definingCompilationUnit, stats,
-      checkForSrcDir: true);
+  collectExports(result.element.definingCompilationUnit, stats, checkForSrcDir: true);
   return stats;
 }
 
-void collectExports(CompilationUnitElement element, Stats stats,
-    {bool checkForSrcDir = false}) {
+void collectExports(CompilationUnitElement element, Stats stats, {bool checkForSrcDir = false}) {
   for (final exp in element.libraryExports) {
     final uri = exp.uri;
     if (uri is! DirectiveUriWithLibrary) continue;
     if (!checkForSrcDir || uri.relativeUriString.startsWith('src') == true) {
       for (final unit in exp.exportedLibrary!.units) {
-        stats.classes
-            .addAll(unit.classes.wherePublic().map((e) => e.displayName));
-        stats.extensionTypes.addAll(
-            unit.extensionTypes.wherePublic().map((e) => e.displayName));
-        stats.functions
-            .addAll(unit.functions.wherePublic().map((e) => e.displayName));
-        stats.variables
-            .addAll(unit.accessors.wherePublic().map((e) => e.displayName));
-        stats.extensions += unit.extensions
-            .wherePublic()
-            .expand((element) => element.methods)
-            .length;
-        stats.extensions += unit.extensions
-            .wherePublic()
-            .expand((element) => element.fields)
-            .length;
+        stats.classes.addAll(unit.classes.wherePublic().map((e) => e.displayName));
+        stats.extensionTypes.addAll(unit.extensionTypes.wherePublic().map((e) => e.displayName));
+        stats.functions.addAll(unit.functions.wherePublic().map((e) => e.displayName));
+        stats.variables.addAll(unit.accessors.wherePublic().map((e) => e.displayName));
+        stats.extensions += unit.extensions.wherePublic().expand((element) => element.methods).length;
+        stats.extensions += unit.extensions.wherePublic().expand((element) => element.fields).length;
         stats.typedefs += unit.typeAliases.wherePublic().length;
         stats.mixins += unit.mixins.wherePublic().length;
 

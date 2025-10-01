@@ -15,15 +15,11 @@ void main() {
   });
 
   test('tryCatch function test', () async {
-    expect(() => tryCatchOnly<int, FormatException>(someFuture(-1)),
-        throwsArgumentError);
+    expect(() => tryCatchOnly<int, FormatException>(someFuture(-1)), throwsArgumentError);
 
-    expect(() => tryCatchOnly<int, ArgumentError>(someFuture(-1)),
-        returnsNormally);
+    expect(() => tryCatchOnly<int, ArgumentError>(someFuture(-1)), returnsNormally);
 
-    expect(tryCatchOnly<int, ArgumentError>(someFuture(20)),
-        completion(equals((20, null))));
-    expect(tryCatchOnly<int, ArgumentError>(someFuture(-20)),
-        completion(isA<(int?, TryCatchError<ArgumentError>)>()));
+    expect(tryCatchOnly<int, ArgumentError>(someFuture(20)), completion(equals((20, null))));
+    expect(tryCatchOnly<int, ArgumentError>(someFuture(-20)), completion(isA<(int?, TryCatchError<ArgumentError>)>()));
   });
 }

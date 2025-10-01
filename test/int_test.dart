@@ -25,22 +25,14 @@ void main() {
   });
 
   test('DateTime conversion tests', () {
-    expect(
-        2.weeksAgo.truncateMillis(), DateTime.now().truncateMillis() - 2.weeks);
-    expect(2.weeksAfter.truncateMillis(),
-        DateTime.now().truncateMillis() + 2.weeks);
-    expect(
-        5.daysAgo.truncateMillis(), DateTime.now().truncateMillis() - 5.days);
-    expect(
-        5.daysAfter.truncateMillis(), DateTime.now().truncateMillis() + 5.days);
-    expect(
-        5.hoursAgo.truncateMillis(), DateTime.now().truncateMillis() - 5.hours);
-    expect(5.hoursAfter.truncateMillis(),
-        DateTime.now().truncateMillis() + 5.hours);
-    expect(30.minutesAgo.truncateMillis(),
-        DateTime.now().truncateMillis() - 30.minutes);
-    expect(30.minutesAfter.truncateMillis(),
-        DateTime.now().truncateMillis() + 30.minutes);
+    expect(2.weeksAgo.truncateMillis(), DateTime.now().truncateMillis() - 2.weeks);
+    expect(2.weeksAfter.truncateMillis(), DateTime.now().truncateMillis() + 2.weeks);
+    expect(5.daysAgo.truncateMillis(), DateTime.now().truncateMillis() - 5.days);
+    expect(5.daysAfter.truncateMillis(), DateTime.now().truncateMillis() + 5.days);
+    expect(5.hoursAgo.truncateMillis(), DateTime.now().truncateMillis() - 5.hours);
+    expect(5.hoursAfter.truncateMillis(), DateTime.now().truncateMillis() + 5.hours);
+    expect(30.minutesAgo.truncateMillis(), DateTime.now().truncateMillis() - 30.minutes);
+    expect(30.minutesAfter.truncateMillis(), DateTime.now().truncateMillis() + 30.minutes);
   });
 
   test('repeat method tests', () {

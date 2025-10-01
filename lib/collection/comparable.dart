@@ -64,8 +64,7 @@ extension ComparableScrewdriver<E extends Comparable<dynamic>> on E {
   /// greater than [max] value.
   E coerceIn(E min, E max) {
     if (min > max) {
-      throw IllegalArgumentException(
-          'Cannot coerce value to an empty range: maximum $max is '
+      throw IllegalArgumentException('Cannot coerce value to an empty range: maximum $max is '
           'less than minimum $min.');
     }
     if (this < min) return min;

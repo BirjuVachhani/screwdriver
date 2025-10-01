@@ -48,8 +48,7 @@ extension NumScrewdriver on num {
       : (this > value1 && this < value2) || (this > value2 && this < value1);
 
   /// Rounds value [precision] number of fraction points.
-  num roundToPrecision(int precision) =>
-      num.parse((this).toStringAsFixed(precision));
+  num roundToPrecision(int precision) => num.parse((this).toStringAsFixed(precision));
 }
 
 /// Provides typed extensions for num and all its subtypes.

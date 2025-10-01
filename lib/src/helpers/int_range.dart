@@ -98,16 +98,11 @@ class IntRange extends Iterable<int> {
 
   @override
   bool operator ==(Object other) {
-    return other is IntRange &&
-        first == other.first &&
-        last == other.last &&
-        step == other.step;
+    return other is IntRange && first == other.first && last == other.last && step == other.step;
   }
 
   @override
-  String toString() => step > 0
-      ? '$start rangeTo $end step $step'
-      : '$start downTo $end step $step';
+  String toString() => step > 0 ? '$start rangeTo $end step $step' : '$start downTo $end step $step';
 }
 
 /// An iterator over a progression of values of type [int].

@@ -10,17 +10,14 @@ void main() {
     expect(() => check(35.isOdd), returnsNormally);
     expect(() => checkNotNull(null), throwsA(isA<IllegalStateException>()));
     expect(checkNotNull(5), 5);
-    expect(IllegalStateException('test error').toString(),
-        'IllegalStateException: test error');
+    expect(IllegalStateException('test error').toString(), 'IllegalStateException: test error');
   });
 
   test('require && requireNotNull tests', () {
     expect(() => require(35.isEven), throwsA(isA<IllegalArgumentException>()));
     expect(() => require(35.isOdd), returnsNormally);
-    expect(
-        () => requireNotNull(null), throwsA(isA<IllegalArgumentException>()));
+    expect(() => requireNotNull(null), throwsA(isA<IllegalArgumentException>()));
     expect(requireNotNull(5), 5);
-    expect(IllegalArgumentException('test error').toString(),
-        'IllegalArgumentException: test error');
+    expect(IllegalArgumentException('test error').toString(), 'IllegalArgumentException: test error');
   });
 }

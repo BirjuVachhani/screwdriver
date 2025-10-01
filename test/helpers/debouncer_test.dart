@@ -161,11 +161,9 @@ void main() {
 
 class MockedDeBouncedFunction extends Mock implements DeBouncedFunction {}
 
-class MockedReturningDeBouncedFunction<R> extends Mock
-    implements ReturningDeBouncedFunction<R> {}
+class MockedReturningDeBouncedFunction<R> extends Mock implements ReturningDeBouncedFunction<R> {}
 
-class MockedReturningDeBouncedAsyncFunction<R> extends Mock
-    implements ReturningDeBouncedAsyncFunction<R> {}
+class MockedReturningDeBouncedAsyncFunction<R> extends Mock implements ReturningDeBouncedAsyncFunction<R> {}
 
 class DeBouncedFunction {
   void call() {

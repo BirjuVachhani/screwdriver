@@ -50,8 +50,7 @@ import 'dart:convert';
 /// 4. The year is a leap year (it has 366 days).
 ///
 /// 5. The year is not a leap year (it has 365 days).
-bool checkLeapYear(int year) =>
-    year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
+bool checkLeapYear(int year) => year % 400 == 0 || (year % 4 == 0 && year % 100 != 0);
 
 /// A safe json decode function that uses [jsonDecode] and returns null if
 /// decoding fails.

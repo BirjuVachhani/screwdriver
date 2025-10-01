@@ -32,8 +32,7 @@ void main() {
 
     expect(double.nan.roundToPrecision(2), isNaN);
     expect(double.infinity.roundToPrecision(2), double.infinity);
-    expect(
-        double.negativeInfinity.roundToPrecision(2), double.negativeInfinity);
+    expect(double.negativeInfinity.roundToPrecision(2), double.negativeInfinity);
   });
 
   test('isCloseTo test', () {

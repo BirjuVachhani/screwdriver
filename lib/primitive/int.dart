@@ -107,8 +107,7 @@ extension IntScrewdriver<T> on int {
 
   /// Returns true if [this] can be completely divisible
   /// by all of the [dividers].
-  bool isDivisibleByAll(List<int> dividers) =>
-      dividers.every((divider) => this % divider == 0);
+  bool isDivisibleByAll(List<int> dividers) => dividers.every((divider) => this % divider == 0);
 
   /// runs [func] for [this] number of times.
   /// This is irrespective of the sign of [this]. the for loop will always
@@ -128,8 +127,7 @@ extension IntScrewdriver<T> on int {
   /// e.g.  5.toFixedString(2)  // returns '05'
   ///       20.toFixedString(3) // returns '020'
   ///       20.toFixedString(2) // returns '20'
-  String toFixedString(int width, {String padCharacter = '0'}) =>
-      toString().padLeft(width, padCharacter);
+  String toFixedString(int width, {String padCharacter = '0'}) => toString().padLeft(width, padCharacter);
 
   /// Creates an [IntRange] starting from this to [end] inclusively with
   /// default step size of 1.

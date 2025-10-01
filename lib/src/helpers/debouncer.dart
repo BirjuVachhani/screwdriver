@@ -108,9 +108,7 @@ final class DeBouncer {
     if (result is Future<R>) {
       // action is async and returns a future. Wait for the future to complete
       // and then complete the completer.
-      result
-          .then((result) => completer.complete(result))
-          .catchError((Object e) => completer.completeError(e));
+      result.then((result) => completer.complete(result)).catchError((Object e) => completer.completeError(e));
       return completer.future;
     }
 
@@ -200,6 +198,5 @@ final DeBouncer debouncer = DeBouncer();
 ///
 /// This will run the action immediately for the first call and then it will
 /// wait for 300 milliseconds to run the next call if there's any.
-Future<R> debounce<R>(DeBounceAction<R> action,
-        {bool immediateFirstRun = false}) =>
+Future<R> debounce<R>(DeBounceAction<R> action, {bool immediateFirstRun = false}) =>
     debouncer.run<R>(action, immediateFirstRun: immediateFirstRun);

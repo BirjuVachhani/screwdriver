@@ -41,8 +41,7 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   ///
   /// Note: In case of duplicate values, the last key-value pair will be persisted
   /// in the new map and the rest will be discarded.
-  Map<V, K> get reversed =>
-      Map.fromEntries(entries.map((e) => MapEntry(e.value, e.key)));
+  Map<V, K> get reversed => Map.fromEntries(entries.map((e) => MapEntry(e.value, e.key)));
 
   /// Allows to add a record entry to [this].
   void operator +((K, V) entry) => this[entry.$1] = entry.$2;
@@ -59,8 +58,7 @@ extension MapScrewdriver<K, V> on Map<K, V> {
 
   /// Returns a new [Map] with the same keys and values as [this] except
   /// keys present [keys].
-  Map<K, V> except(Iterable<K> keys) =>
-      Map.fromEntries(entries.where((entry) => !keys.contains(entry.key)));
+  Map<K, V> except(Iterable<K> keys) => Map.fromEntries(entries.where((entry) => !keys.contains(entry.key)));
 
   /// Returns a new [Map] with the same keys and values but only contains
   /// the keys present in [keys].
@@ -108,13 +106,11 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   }
 
   /// Finds the first key-value pair where the value is equal to [value].
-  MapEntry<K, V> findByValue(V value) =>
-      entries.firstWhere((element) => element.value == value);
+  MapEntry<K, V> findByValue(V value) => entries.firstWhere((element) => element.value == value);
 
   /// Finds the first key-value pair where the value is equal to [value].
   /// Returns `null` if no such key-value pair is found.
-  MapEntry<K, V>? findByValueOrNull(V value) =>
-      entries.firstWhereOrNull((element) => element.value == value);
+  MapEntry<K, V>? findByValueOrNull(V value) => entries.firstWhereOrNull((element) => element.value == value);
 
   /// Checks if the map contains all the keys present in [keys].
   bool containsAll(Iterable<K> keys) => keys.every(containsKey);

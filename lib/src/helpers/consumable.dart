@@ -45,8 +45,7 @@ import 'package:meta/meta.dart';
 /// print(consumable.consume()); // Prints: 42
 /// print(consumable.consume()); // Prints: null
 /// ```
-Consumable<T> consumeOnce<T extends Object>(T value) =>
-    SingleConsumable<T>(value);
+Consumable<T> consumeOnce<T extends Object>(T value) => SingleConsumable<T>(value);
 
 /// Creates a [Consumable] that can be consumed multiple times.
 ///
@@ -60,8 +59,7 @@ Consumable<T> consumeOnce<T extends Object>(T value) =>
 /// print(consumable.consume()); // Prints: 42
 /// print(consumable.consume()); // Prints: null
 /// ```
-Consumable<T> consume<T extends Object>(T value, {int times = 1}) =>
-    MultiConsumable<T>(value, times: times);
+Consumable<T> consume<T extends Object>(T value, {int times = 1}) => MultiConsumable<T>(value, times: times);
 
 /// Base class for implementing consumable values.
 ///
@@ -84,8 +82,7 @@ abstract base class Consumable<T extends Object> {
   /// Creates a [MultiConsumable] that can be consumed multiple times.
   ///
   /// [times] specifies how many times the value can be consumed before being exhausted.
-  factory Consumable.multi(T value, {int times = 1}) =>
-      MultiConsumable(value, times: times);
+  factory Consumable.multi(T value, {int times = 1}) => MultiConsumable(value, times: times);
 
   /// Whether the value has been fully consumed.
   bool get isConsumed => _value == null;

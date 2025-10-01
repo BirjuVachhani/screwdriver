@@ -2,15 +2,13 @@
 ///
 /// [E] is the type of error that will be wrapped.
 /// The internal value is a tuple containing the error and optional stack trace.
-extension type TryCatchError<E extends Object>._(
-    (E error, StackTrace? stackTrace) value) {
+extension type TryCatchError<E extends Object>._((E error, StackTrace? stackTrace) value) {
   /// Creates a new [TryCatchError] instance.
   ///
   /// Parameters:
   /// - [error]: The error object to wrap
   /// - [stackTrace]: Optional stack trace associated with the error
-  factory TryCatchError(E error, [StackTrace? stackTrace]) =>
-      TryCatchError<E>._((error, stackTrace));
+  factory TryCatchError(E error, [StackTrace? stackTrace]) => TryCatchError<E>._((error, stackTrace));
 
   /// Returns the wrapped error object.
   E get error => value.$1;
@@ -33,8 +31,7 @@ extension type TryCatchError<E extends Object>._(
 /// - [future]: The Future operation to execute
 ///
 /// Returns a tuple containing the result and error, where one will always be null.
-Future<(R? data, TryCatchError<E>? error)> tryCatchOnly<R, E extends Object>(
-    Future<R> future) async {
+Future<(R? data, TryCatchError<E>? error)> tryCatchOnly<R, E extends Object>(Future<R> future) async {
   try {
     return (await future, null);
   } on E catch (error, stacktrace) {

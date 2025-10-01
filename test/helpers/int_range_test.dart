@@ -159,14 +159,12 @@ void main() {
   test('IntRangeIterator equality test', () {
     expect(IntRange(1, 15), IntRange(1, 15));
     expect(IntRange(1, 15, step: 2) == IntRange(1, 15), isFalse);
-    expect({IntRange(25, 15, step: -1), IntRange(25, 15, step: -1)},
-        equals({IntRange(25, 15, step: -1)}));
+    expect({IntRange(25, 15, step: -1), IntRange(25, 15, step: -1)}, equals({IntRange(25, 15, step: -1)}));
   });
 
   test('IntRangeIterator reversed test', () {
     expect(IntRange(25, 15, step: -3).toList(), equals([25, 22, 19, 16]));
-    expect(IntRange(25, 15, step: -3).reversed().toList(),
-        equals([16, 19, 22, 25]));
+    expect(IntRange(25, 15, step: -3).reversed().toList(), equals([16, 19, 22, 25]));
     expect(IntRange(25, 15, step: -3).reversed(), IntRange(16, 25, step: 3));
   });
 }

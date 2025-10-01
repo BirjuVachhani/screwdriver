@@ -156,8 +156,7 @@ void main() {
   });
 
   test('toDateTimeOrNull tests', () {
-    expect('2020-04-24 15:30:00.000000'.toDateTimeOrNull(),
-        DateTime(2020, 4, 24, 15, 30));
+    expect('2020-04-24 15:30:00.000000'.toDateTimeOrNull(), DateTime(2020, 4, 24, 15, 30));
     expect('2020-04-24'.toDateTimeOrNull(), DateTime(2020, 4, 24));
   });
 
@@ -194,21 +193,13 @@ void main() {
   });
 
   test('title tests', () {
-    expect("He's an engineer, isn't he?".title(),
-        equals("He's An Engineer, Isn't He?"));
-    expect('My favorite number is 87😊.'.title(),
-        equals('My Favorite Number Is 87😊.'));
+    expect("He's an engineer, isn't he?".title(), equals("He's An Engineer, Isn't He?"));
+    expect('My favorite number is 87😊.'.title(), equals('My Favorite Number Is 87😊.'));
   });
 
   test('equalsIgnoreCase tests', () {
-    expect(
-        "He's an engineer, isn't he?"
-            .equalsIgnoreCase("He's an EnGineer, IsN't hE?"),
-        isTrue);
-    expect(
-        'My favorite number is 87😊.'
-            .equalsIgnoreCase('my Favorite NUMBER Is 87😊.'),
-        isTrue);
+    expect("He's an engineer, isn't he?".equalsIgnoreCase("He's an EnGineer, IsN't hE?"), isTrue);
+    expect('My favorite number is 87😊.'.equalsIgnoreCase('my Favorite NUMBER Is 87😊.'), isTrue);
     expect('çå†'.equalsIgnoreCase('ÇÅ†'), isTrue);
     expect('ß'.equalsIgnoreCase('ß'), isTrue);
   });
@@ -303,18 +294,15 @@ void main() {
     expect('save'.toBytes(), equals([115, 97, 118, 101]));
     expect(utf8.decode([115, 97, 118, 101]), equals('save'));
 
-    expect('save 🎉'.toBytes(),
-        equals([115, 97, 118, 101, 32, 240, 159, 142, 137]));
-    expect(utf8.decode([115, 97, 118, 101, 32, 240, 159, 142, 137]),
-        equals('save 🎉'));
+    expect('save 🎉'.toBytes(), equals([115, 97, 118, 101, 32, 240, 159, 142, 137]));
+    expect(utf8.decode([115, 97, 118, 101, 32, 240, 159, 142, 137]), equals('save 🎉'));
 
     expect(''.toBytes(), equals([]));
     expect(''.toBytes(), equals(Uint8List(0)));
   });
 
   test('toUtf16Bytes tests', () {
-    expect('save 🎉'.toUtf16Bytes(),
-        equals([115, 97, 118, 101, 32, 55356, 57225]));
+    expect('save 🎉'.toUtf16Bytes(), equals([115, 97, 118, 101, 32, 55356, 57225]));
     expect('save 🎉'.codeUnits, 'save 🎉'.toUtf16Bytes());
     expect(''.toUtf16Bytes(), equals([]));
     expect(''.toUtf16Bytes(), equals(Uint16List(0)));
@@ -355,10 +343,8 @@ void main() {
   test('takeBetween tests', () {
     expect('<p>Hello</p>'.takeBetween('<p>', '</p>'), equals('Hello'));
     expect('Hello John Wick'.takeBetween('Hello ', ' Wick'), equals('John'));
-    expect('12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[0-9]+')),
-        equals('he'));
-    expect(
-        '12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[a-z]+')), isEmpty);
+    expect('12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[0-9]+')), equals('he'));
+    expect('12345he3'.takeBetween(RegExp(r'[0-9]+'), RegExp(r'[a-z]+')), isEmpty);
     expect('12345he3'.takeBetween(RegExp(r'[0-9]+')), equals('he'));
     expect('*Hello*'.takeBetween('*'), equals('Hello'));
   });
@@ -411,27 +397,17 @@ void main() {
     expect(randomString(5).length, 5);
     expect(randomString(10).length, 10);
 
-    expect(
-        randomString(5, digits: false).matchesExactly(RegExp(r'[a-zA-Z]{5}')),
-        isTrue);
-    expect(
-        randomString(5, alphabets: false).matchesExactly(RegExp(r'[0-9]{5}')),
-        isTrue);
-    expect(() => randomString(5, alphabets: false, digits: false),
-        throwsArgumentError);
-    expect(
-        randomString(5, alphabets: false, digits: false, specialChars: true)
-            .matchesExactly(RegExp(r'[\W|!_]{5}')),
+    expect(randomString(5, digits: false).matchesExactly(RegExp(r'[a-zA-Z]{5}')), isTrue);
+    expect(randomString(5, alphabets: false).matchesExactly(RegExp(r'[0-9]{5}')), isTrue);
+    expect(() => randomString(5, alphabets: false, digits: false), throwsArgumentError);
+    expect(randomString(5, alphabets: false, digits: false, specialChars: true).matchesExactly(RegExp(r'[\W|!_]{5}')),
         isTrue);
     expect(randomString(10, seed: 200), randomString(10, seed: 200));
     expect(randomString(10, seed: 200), isNot(randomString(10, seed: 300)));
 
     expect(randomString(5, pool: 'H'), equals('HHHHH'));
-    expect(
-        randomString(5, pool: 'Hello').matchesExactly(RegExp(r'[H|e|l|o]{5}')),
-        isTrue);
-    expect(randomString(5, pool: 'Hello🎉', seed: 20),
-        randomString(5, pool: 'Hello🎉', seed: 20));
+    expect(randomString(5, pool: 'Hello').matchesExactly(RegExp(r'[H|e|l|o]{5}')), isTrue);
+    expect(randomString(5, pool: 'Hello🎉', seed: 20), randomString(5, pool: 'Hello🎉', seed: 20));
     expect(randomString(5, pool: 'Hello🎉', seed: 20), equals('lo🎉o🎉'));
   });
 
@@ -442,12 +418,10 @@ void main() {
   });
 
   test('replaceLast tests', () {
-    expect('Hello World Hello'.replaceLast('Hello', 'Hi'),
-        equals('Hello World Hi'));
+    expect('Hello World Hello'.replaceLast('Hello', 'Hi'), equals('Hello World Hi'));
     expect('abc abc abc'.replaceLast('abc', 'xyz'), equals('abc abc xyz'));
     expect('test test test'.replaceLast('test', ''), equals('test test '));
-    expect('hello world'.replaceLast('world', 'universe'),
-        equals('hello universe'));
+    expect('hello world'.replaceLast('world', 'universe'), equals('hello universe'));
 
     expect('Hello World'.replaceLast('NotFound', 'Hi'), equals('Hello World'));
     expect(''.replaceLast('Hello', 'Hi'), equals(''));
@@ -460,19 +434,13 @@ void main() {
     expect(() => 'abc abc abc'.replaceLast('abc', 'xyz', 12), throwsRangeError);
     expect(() => 'abc abc abc'.replaceLast('abc', 'xyz', -1), throwsRangeError);
 
-    expect('Hello World Hello'.replaceLast(RegExp(r'Hello'), 'Hi'),
-        equals('Hello World Hi'));
+    expect('Hello World Hello'.replaceLast(RegExp(r'Hello'), 'Hi'), equals('Hello World Hi'));
     expect('123 456 789'.replaceLast(RegExp(r'\d+'), 'X'), equals('123 456 X'));
-    expect('abc ABC abc'.replaceLast(RegExp(r'[A-Z]+'), 'xyz'),
-        equals('abc xyz abc'));
-    expect('Hello World'.replaceLast(RegExp(r'NotFound'), 'Hi'),
-        equals('Hello World'));
+    expect('abc ABC abc'.replaceLast(RegExp(r'[A-Z]+'), 'xyz'), equals('abc xyz abc'));
+    expect('Hello World'.replaceLast(RegExp(r'NotFound'), 'Hi'), equals('Hello World'));
 
-    expect('test1 test2 test3'.replaceLast(RegExp(r'test\d'), 'item'),
-        equals('test1 test2 item'));
-    expect('abc def abc'.replaceLast(RegExp(r'abc'), 'xyz', 4),
-        equals('abc def xyz'));
-    expect('Hello World Hello'.replaceLast(RegExp(r'Hello'), 'Hi', 6),
-        equals('Hello World Hi'));
+    expect('test1 test2 test3'.replaceLast(RegExp(r'test\d'), 'item'), equals('test1 test2 item'));
+    expect('abc def abc'.replaceLast(RegExp(r'abc'), 'xyz', 4), equals('abc def xyz'));
+    expect('Hello World Hello'.replaceLast(RegExp(r'Hello'), 'Hi', 6), equals('Hello World Hi'));
   });
 }

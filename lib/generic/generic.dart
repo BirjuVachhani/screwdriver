@@ -123,8 +123,7 @@ extension GenericScrewdriver<T extends Object> on T {
 /// Always throws [UnimplementedError] stating that operation is
 /// not implemented.
 // ignore: non_constant_identifier_names
-void TODO([String? reason]) =>
-    throw UnimplementedError(reason ?? 'An operation is not implemented.');
+void TODO([String? reason]) => throw UnimplementedError(reason ?? 'An operation is not implemented.');
 
 /// Executes a provided action and handles potential errors.
 ///
@@ -171,8 +170,7 @@ FutureOr<T?> runCaching<T>(
         // return the value if future completes successfully.
         .then((value) => value)
         // call onError if future completes with error.
-        .catchError(
-            (error, StackTrace stacktrace) => onError?.call(error, stacktrace))
+        .catchError((error, StackTrace stacktrace) => onError?.call(error, stacktrace))
         // swallow error and return null if onError throws an error.
         .catchError((error) => null);
   }
