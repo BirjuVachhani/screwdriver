@@ -36,8 +36,7 @@ part of '../screwdriver.dart';
 
 /// Runs given [action] no sooner than in the next event-loop iteration,
 /// after all micro-tasks have run.
-Future<T> post<T>(FutureOr<T> Function() action) =>
-    Future.delayed(Duration.zero, action);
+Future<T> post<T>(FutureOr<T> Function() action) => Future.delayed(Duration.zero, action);
 
 /// Runs given [action] after a delay of [millis], no sooner than in the
 /// next event-loop iteration, after all micro-tasks have run.
@@ -67,12 +66,20 @@ extension FutureScrewdriver<R> on Future<R> {
   ///
   /// See also:
   /// - [tryCatchOnly] for a standalone version of this function
-  Future<(R? data, TryCatchError<E>? error)>
-      tryCatch<E extends Object>() async {
+  Future<(R? data, TryCatchError<E>? error)> tryCatch<E extends Object>() async {
     try {
       return (await this, null);
     } on E catch (error, stacktrace) {
       return (null, TryCatchError<E>(error, stacktrace));
     }
   }
+
+  /// Marks this future as intentionally unawaited to suppress linter warnings.
+  ///
+  /// Extension form of [async.unawaited]. This makes its it easy to use unawaited in a less verbose way keeping
+  /// your code clean.
+  ///
+  /// How is it different from just ignoring the future with `myFuture.ignore();`?
+  ///   - Ignoring a future ignores errors it throws, which is almost never what you want.
+  void get unawaited => async.unawaited(this);
 }
