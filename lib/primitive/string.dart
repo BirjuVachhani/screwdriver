@@ -101,6 +101,12 @@ extension StringScrewdriver on String {
   /// Returns the index of the last character in [this].
   int get lastIndex => length - 1;
 
+  /// Returns [this] if it is not empty, otherwise returns null.
+  String? get orNullIfEmpty => isNotEmpty ? this : null;
+
+  /// Returns [this] if it is not blank, otherwise returns null.
+  String? get orNullIfBlank => isNotBlank ? this : null;
+
   /// Returns [this] as [int] or null
   /// Radix be between 2..36
   int? toIntOrNull({int? radix}) => int.tryParse(this, radix: radix);
