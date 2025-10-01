@@ -1,3 +1,7 @@
+## 5.12.0 (Unreleased)
+
+- New `unawaited` extension on `Future`.
+
 ## 5.11.0
 
 - New `Directory` extensions:
