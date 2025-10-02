@@ -1,6 +1,7 @@
 ## 5.12.0 (Unreleased)
 
 - New `unawaited` extension on `Future`.
+- New `orNullIfEmpty` and `orEmptyIfNull` extensions on `String?`.
 
 ## 5.11.0
 
