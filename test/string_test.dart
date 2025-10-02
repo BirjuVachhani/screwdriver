@@ -239,6 +239,24 @@ void main() {
     expect(str.orEmpty, 'abc');
   });
 
+  test('orNullIfEmpty tests', () {
+    expect(''.orNullIfEmpty, isNull);
+    expect(' '.orNullIfEmpty, ' ');
+    expect('abc'.orNullIfEmpty, 'abc');
+    expect('hello world'.orNullIfEmpty, 'hello world');
+    expect('   '.orNullIfEmpty, '   ');
+  });
+
+  test('orNullIfBlank tests', () {
+    expect(''.orNullIfBlank, isNull);
+    expect(' '.orNullIfBlank, isNull);
+    expect('   '.orNullIfBlank, isNull);
+    expect('\t\n'.orNullIfBlank, isNull);
+    expect('abc'.orNullIfBlank, 'abc');
+    expect('hello world'.orNullIfBlank, 'hello world');
+    expect('  abc  '.orNullIfBlank, '  abc  ');
+  });
+
   test('splitMapJoinRegex test', () {
     final regex = RegExp(r'\$\{(?<name>[a-zA-Z0-9_]+)\}');
     final result = r'Hello ${John}'.splitMapJoinRegex(
