@@ -1,4 +1,4 @@
-## 5.12.0 (Unreleased)
+## 5.12.0
 
 - Bump minimum Dart SDK version to `3.9.0`.
 - New `unawaited` extension on `Future`.
