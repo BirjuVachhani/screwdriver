@@ -237,8 +237,9 @@ void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
 
     for (final getter in extensionType.getters) {
       if (getter.isPrivate) continue;
-      final description = sanitizeDocComment(getter.documentationComment ?? 'Not provided');
       final frag = getter.firstFragment;
+      if (frag.nameOffset == null) continue;
+      final description = sanitizeDocComment(getter.documentationComment ?? 'Not provided');
       final lineNumber = LineInfo.fromContent(
         frag.libraryFragment.source.contents.data,
       ).getLocation(frag.nameOffset!).lineNumber;
@@ -247,8 +248,9 @@ void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
 
     for (final setter in extensionType.setters) {
       if (setter.isPrivate) continue;
-      final description = sanitizeDocComment(setter.documentationComment ?? 'Not provided');
       final frag = setter.firstFragment;
+      if (frag.nameOffset == null) continue;
+      final description = sanitizeDocComment(setter.documentationComment ?? 'Not provided');
       final lineNumber = LineInfo.fromContent(
         frag.libraryFragment.source.contents.data,
       ).getLocation(frag.nameOffset!).lineNumber;
@@ -259,6 +261,7 @@ void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
       if (method.isPrivate) continue;
       // Get the line number of the method
       final frag = method.firstFragment;
+      if (frag.nameOffset == null) continue;
       final lineNumber = LineInfo.fromContent(
         frag.libraryFragment.source.contents.data,
       ).getLocation(frag.nameOffset!).lineNumber;
