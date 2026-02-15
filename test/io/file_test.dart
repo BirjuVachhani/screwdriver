@@ -151,14 +151,17 @@ void main() {
       late Object caughtError;
 
       // Wrap the test in a zone to catch the error that gets rethrown by onError
-      await runZonedGuarded(() async {
-        sourceFile.copyToSync(targetFile);
-        // Wait for the async stream operations and error to occur
-        await Future.delayed(Duration(milliseconds: 200));
-      }, (error, stack) {
-        errorCaught = true;
-        caughtError = error;
-      });
+      await runZonedGuarded(
+        () async {
+          sourceFile.copyToSync(targetFile);
+          // Wait for the async stream operations and error to occur
+          await Future.delayed(Duration(milliseconds: 200));
+        },
+        (error, stack) {
+          errorCaught = true;
+          caughtError = error;
+        },
+      );
 
       // Verify that the error was caught and is of the expected type
       expect(errorCaught, isTrue);

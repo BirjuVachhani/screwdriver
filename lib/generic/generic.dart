@@ -38,13 +38,13 @@ part of '../screwdriver.dart';
 extension GenericNullableScrewdriver<T extends Object?> on T? {
   /// Checks truthiness of the value.
   bool get isTruthy => switch (this) {
-        bool value => value,
-        num value => value != 0,
-        String value => value.isNotEmpty,
-        Iterable<dynamic> value => value.isNotEmpty,
-        Map<dynamic, dynamic> value => value.isNotEmpty,
-        _ => false,
-      };
+    bool value => value,
+    num value => value != 0,
+    String value => value.isNotEmpty,
+    Iterable<dynamic> value => value.isNotEmpty,
+    Map<dynamic, dynamic> value => value.isNotEmpty,
+    _ => false,
+  };
 
   /// Checks false-ness of the value.
   bool get isFalsy => !isTruthy;

@@ -182,8 +182,9 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// Populates and returns the [destination] mutable map with key-value pairs,
   /// where key is provided by the [keySelector] function applied to each
   /// element of the given iterable and value is the element itself.
-  Map<K, E> associateByTo<K>(Map<K, E> destination, K Function(E element) keySelector) =>
-      {for (final element in this) keySelector(element): element};
+  Map<K, E> associateByTo<K>(Map<K, E> destination, K Function(E element) keySelector) => {
+    for (final element in this) keySelector(element): element,
+  };
 
   /// Returns a [Map] where keys are elements from the given iterable
   /// and values are produced by the [valueSelector] function
@@ -194,8 +195,9 @@ extension IterableScrewDriver<E> on Iterable<E> {
   /// pairs for each element of the given iterable,
   /// where key is the element itself and value is provided
   /// by the [valueSelector] function applied to that key.
-  Map<E, V> associateWithTo<V>(Map<E, V> destination, V Function(E element) valueSelector) =>
-      {for (final element in this) element: valueSelector(element)};
+  Map<E, V> associateWithTo<V>(Map<E, V> destination, V Function(E element) valueSelector) => {
+    for (final element in this) element: valueSelector(element),
+  };
 
   /// Groups elements of the original iterable by the key returned by
   /// the given [keySelector] function applied to each element
@@ -472,15 +474,14 @@ extension IterableScrewDriver<E> on Iterable<E> {
     E? other3,
     E? other4,
     E? other5,
-  ]) =>
-      subtract([
-        other,
-        if (other1 != null) other1,
-        if (other2 != null) other2,
-        if (other3 != null) other3,
-        if (other4 != null) other4,
-        if (other5 != null) other5,
-      ]);
+  ]) => subtract([
+    other,
+    if (other1 != null) other1,
+    if (other2 != null) other2,
+    if (other3 != null) other3,
+    if (other4 != null) other4,
+    if (other5 != null) other5,
+  ]);
 
   /// Alias for [subtract].
   Iterable<E> exceptAll(Iterable<E> other) => subtract(other);

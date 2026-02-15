@@ -174,11 +174,12 @@ void main() {
 
   test('parseJsonArray tests', () {
     expect(
-        '[{"name":"John"},{"name":"Steve"}]'.parseJsonArray(),
-        equals([
-          {'name': 'John'},
-          {'name': 'Steve'}
-        ]));
+      '[{"name":"John"},{"name":"Steve"}]'.parseJsonArray(),
+      equals([
+        {'name': 'John'},
+        {'name': 'Steve'},
+      ]),
+    );
     expect('[]'.parseJsonArray(), equals(<int>[]));
     expect(() => 'random'.parseJsonArray(), throwsFormatException);
   });
@@ -418,8 +419,10 @@ void main() {
     expect(randomString(5, digits: false).matchesExactly(RegExp(r'[a-zA-Z]{5}')), isTrue);
     expect(randomString(5, alphabets: false).matchesExactly(RegExp(r'[0-9]{5}')), isTrue);
     expect(() => randomString(5, alphabets: false, digits: false), throwsArgumentError);
-    expect(randomString(5, alphabets: false, digits: false, specialChars: true).matchesExactly(RegExp(r'[\W|!_]{5}')),
-        isTrue);
+    expect(
+      randomString(5, alphabets: false, digits: false, specialChars: true).matchesExactly(RegExp(r'[\W|!_]{5}')),
+      isTrue,
+    );
     expect(randomString(10, seed: 200), randomString(10, seed: 200));
     expect(randomString(10, seed: 200), isNot(randomString(10, seed: 300)));
 

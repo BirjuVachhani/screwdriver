@@ -67,19 +67,22 @@ class IntRange extends Iterable<int> {
     require(step != 0, 'Step must be non-zero.');
     require(start != end, 'start and end value must not be equal.');
     require(
-        step != MIN_INT_VALUE,
-        'Step must be greater than MIN_INT_VALUE to avoid overflow '
-        'on negation.');
+      step != MIN_INT_VALUE,
+      'Step must be greater than MIN_INT_VALUE to avoid overflow '
+      'on negation.',
+    );
     if (step > 0) {
       require(
-          start < end,
-          'The end value must be greater than the start value when the step '
-          'is greater than 0.');
+        start < end,
+        'The end value must be greater than the start value when the step '
+        'is greater than 0.',
+      );
     } else {
       require(
-          start > end,
-          'The end value must be less than the start value when the step '
-          'is less than 0.');
+        start > end,
+        'The end value must be less than the start value when the step '
+        'is less than 0.',
+      );
     }
   }
 

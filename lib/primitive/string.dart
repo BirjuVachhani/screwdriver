@@ -73,9 +73,9 @@ extension StringScrewdriver on String {
   /// check this: https://regexr.com/2rhq7
   /// Original Ref: https://www.ietf.org/rfc/rfc822.txt
   bool get isEmail => RegExp(
-          r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
-          caseSensitive: false)
-      .hasMatch(this);
+    r"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$",
+    caseSensitive: false,
+  ).hasMatch(this);
 
   /// Returns a reversed string of [this]
   String get reversed => characters.toList().reversed.join();

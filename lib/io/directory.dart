@@ -61,8 +61,7 @@ extension DirectoryScrewdriver on Directory {
     String? part3,
     String? part4,
     String? part5,
-  ]) =>
-      Directory(p.join(path, part1, part2, part3, part4, part5));
+  ]) => Directory(p.join(path, part1, part2, part3, part4, part5));
 
   /// Deletes the directory and its contents if it exists.
   Future<FileSystemEntity?> deleteIfExists({bool recursive = false}) async {

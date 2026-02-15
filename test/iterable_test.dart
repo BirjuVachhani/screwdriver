@@ -103,18 +103,19 @@ void main() {
 
     // flatMap
     expect(
-        [
-          [1],
-          [2]
-        ].flatMap((element) => element.map((e) => e * 10)),
-        equals([10, 20]));
+      [
+        [1],
+        [2],
+      ].flatMap((element) => element.map((e) => e * 10)),
+      equals([10, 20]),
+    );
     expect(<List<int>>[].flatMap((element) => element.map((e) => e * 10)), equals(<int>[]));
 
     // flatMapNotNull
     final List<List<int>?> nullableNestedList = [
       [1],
       null,
-      [2]
+      [2],
     ];
     expect(nullableNestedList.flatMapNotNull((element) => element?.map((e) => e * 10)), equals(<int>[10, 20]));
 
@@ -151,28 +152,37 @@ void main() {
     expect(<int>[].all((element) => element < 10), true);
 
     // associate
-    expect([DateTime(2015), DateTime(2020)].associate((element) => (element.year, element.isLeapYear)),
-        equals({2015: false, 2020: true}));
+    expect(
+      [DateTime(2015), DateTime(2020)].associate((element) => (element.year, element.isLeapYear)),
+      equals({2015: false, 2020: true}),
+    );
 
     // toMap
-    expect([DateTime(2015), DateTime(2020)].toMap((element) => (element.year, element.isLeapYear)),
-        equals({2015: false, 2020: true}));
+    expect(
+      [DateTime(2015), DateTime(2020)].toMap((element) => (element.year, element.isLeapYear)),
+      equals({2015: false, 2020: true}),
+    );
 
     // associateBy
-    expect([DateTime(2015), DateTime(2020)].associateBy((element) => element.year),
-        equals({2015: DateTime(2015), 2020: DateTime(2020)}));
+    expect(
+      [DateTime(2015), DateTime(2020)].associateBy((element) => element.year),
+      equals({2015: DateTime(2015), 2020: DateTime(2020)}),
+    );
 
     // associateWith
-    expect([DateTime(2015), DateTime(2020)].associateWith((element) => element.isLeapYear),
-        equals({DateTime(2015): false, DateTime(2020): true}));
+    expect(
+      [DateTime(2015), DateTime(2020)].associateWith((element) => element.isLeapYear),
+      equals({DateTime(2015): false, DateTime(2020): true}),
+    );
 
     // groupBy
     expect(
-        list.groupBy((element) => element.isEven ? 'even' : 'odd'),
-        equals({
-          'even': [2, 4, 6, 8],
-          'odd': [1, 3, 5, 7, 9],
-        }));
+      list.groupBy((element) => element.isEven ? 'even' : 'odd'),
+      equals({
+        'even': [2, 4, 6, 8],
+        'odd': [1, 3, 5, 7, 9],
+      }),
+    );
 
     // distinct
     expect([1, 1, 2, 2, 2, 3, 4, 4, 5, 5, 5].distinct(), [1, 2, 3, 4, 5]);
@@ -203,7 +213,9 @@ void main() {
 
     // foldRightIndexed
     expect(
-        [1, 2, 3].foldRightIndexed<int>(0, (index, previousValue, element) => previousValue + index * 2 + element), 12);
+      [1, 2, 3].foldRightIndexed<int>(0, (index, previousValue, element) => previousValue + index * 2 + element),
+      12,
+    );
 
     // except tests
     expect([1, 2, 3].except(2), containsAllInOrder(<int>[1, 3]));
@@ -241,22 +253,23 @@ void main() {
     // onEach
     expect(
       [
-        {'name': 'Birju'}
+        {'name': 'Birju'},
       ].onEach((element) => element['name'] = 'John'),
       equals([
-        {'name': 'John'}
+        {'name': 'John'},
       ]),
     );
 
     // flattened
     expect(
-        [
-          [1, 2],
-          [3, 4],
-          [5, 6],
-          null,
-        ].flattenedNotNull,
-        equals([1, 2, 3, 4, 5, 6]));
+      [
+        [1, 2],
+        [3, 4],
+        [5, 6],
+        null,
+      ].flattenedNotNull,
+      equals([1, 2, 3, 4, 5, 6]),
+    );
     expect(<List<String>>[].flattenedNotNull, isEmpty);
     final List<Set<String>>? nullList = null;
     expect(nullList.flattenedNotNull, isEmpty);
@@ -390,11 +403,12 @@ void main() {
       ];
       final result = list.findAllBy('Alice', (person) => person.name);
       expect(
-          result,
-          containsAll([
-            Person(name: 'Alice', age: 25),
-            Person(name: 'Alice', age: 40),
-          ]));
+        result,
+        containsAll([
+          Person(name: 'Alice', age: 25),
+          Person(name: 'Alice', age: 40),
+        ]),
+      );
     });
   });
 }

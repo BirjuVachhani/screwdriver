@@ -25,8 +25,10 @@ void main() {
       expect(dir.subDir('sub', 'sub1').path, equals(p.join('temp', 'sub', 'sub1')));
       expect(dir.subDir('sub', 'sub1', 'sub2').path, equals(p.join('temp', 'sub', 'sub1', 'sub2')));
       expect(dir.subDir('sub', 'sub1', 'sub2', 'sub3').path, equals(p.join('temp', 'sub', 'sub1', 'sub2', 'sub3')));
-      expect(dir.subDir('sub', 'sub1', 'sub2', 'sub3', 'sub4').path,
-          equals(p.join('temp', 'sub', 'sub1', 'sub2', 'sub3', 'sub4')));
+      expect(
+        dir.subDir('sub', 'sub1', 'sub2', 'sub3', 'sub4').path,
+        equals(p.join('temp', 'sub', 'sub1', 'sub2', 'sub3', 'sub4')),
+      );
     });
 
     group('deleteIfExists tests', () {

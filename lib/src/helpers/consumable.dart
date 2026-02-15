@@ -130,9 +130,7 @@ final class MultiConsumable<T extends Object> extends Consumable<T> {
   /// Creates a new multi-use consumable with the given [value] and consumption [times].
   ///
   /// The value can be consumed up to [times] times before being exhausted.
-  MultiConsumable(super.value, {int times = 1})
-      : _count = times,
-        _remaining = times {
+  MultiConsumable(super.value, {int times = 1}) : _count = times, _remaining = times {
     if (times < 1) throw ArgumentError('times must be greater than 1');
   }
 

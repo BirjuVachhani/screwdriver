@@ -61,15 +61,13 @@ final class DeBouncer {
 
   /// Allows to create an instance with optional [Duration] with
   /// immediateFirstRun set to false. See [immediateFirstRun] for more details.
-  DeBouncer([Duration? duration])
-      : duration = duration ?? Duration(milliseconds: 300),
-        immediateFirstRun = false;
+  DeBouncer([Duration? duration]) : duration = duration ?? Duration(milliseconds: 300), immediateFirstRun = false;
 
   /// Allows to create an instance with optional [Duration] with
   /// immediateFirstRun set to true. See [immediateFirstRun] for more details.
   DeBouncer.immediate([Duration? duration])
-      : duration = duration ?? Duration(milliseconds: 300),
-        immediateFirstRun = true;
+    : duration = duration ?? Duration(milliseconds: 300),
+      immediateFirstRun = true;
 
   /// Runs [action] after debounced interval.
   /// If [immediateFirstRun] is set to true, it will run the [action]

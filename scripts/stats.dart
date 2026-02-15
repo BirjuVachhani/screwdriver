@@ -29,14 +29,14 @@ class Stats {
   });
 
   Stats operator +(Stats other) => Stats(
-        functions: functions + other.functions,
-        classes: classes + other.classes,
-        variables: variables + other.variables,
-        extensions: extensions + other.extensions,
-        extensionTypes: extensionTypes + other.extensionTypes,
-        typedefs: typedefs + other.typedefs,
-        mixins: mixins + other.mixins,
-      );
+    functions: functions + other.functions,
+    classes: classes + other.classes,
+    variables: variables + other.variables,
+    extensions: extensions + other.extensions,
+    extensionTypes: extensionTypes + other.extensionTypes,
+    typedefs: typedefs + other.typedefs,
+    mixins: mixins + other.mixins,
+  );
 }
 
 /// Script to generate stats for this package.
@@ -51,7 +51,8 @@ void main(List<String> args) async {
 
   final stats = screwdriverStats + screwdriverIoStats;
 
-  var output = '''
+  var output =
+      '''
 
 ```yaml  
 Extensions:                    ${stats.extensions}
@@ -88,8 +89,10 @@ Mixins:                        ${stats.mixins}
   print('Extensions:                    ${stats.extensions}');
   print('Extension Types:               ${stats.extensionTypes.length}');
   print('Helper Classes:                ${stats.classes.length}');
-  print('Helper Functions & Getters:    '
-      '${stats.functions.length + stats.variables.length}');
+  print(
+    'Helper Functions & Getters:    '
+    '${stats.functions.length + stats.variables.length}',
+  );
   print('Typedefs:                      ${stats.typedefs}');
   print('Mixins:                        ${stats.mixins}');
   print('==================================================================');
@@ -97,7 +100,9 @@ Mixins:                        ${stats.mixins}
 
 Future<Stats> getStats(String library) async {
   final collection = AnalysisContextCollectionImpl(
-      includedPaths: <String>[Directory('lib').absolute.path], resourceProvider: PhysicalResourceProvider.INSTANCE);
+    includedPaths: <String>[Directory('lib').absolute.path],
+    resourceProvider: PhysicalResourceProvider.INSTANCE,
+  );
   final session = collection.contexts[0].currentSession;
   final libPath = session.uriConverter.uriToPath(Uri.parse(library)) ?? '';
   final result = await session.getResolvedLibrary(libPath) as ResolvedLibraryResult;

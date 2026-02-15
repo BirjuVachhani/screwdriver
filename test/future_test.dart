@@ -26,8 +26,10 @@ void main() {
     expect(runCaching(() => throw Exception()), isNot(throwsException));
 
     expect(runCaching(() => throw Exception(), onError: (_, __) => throw UnimplementedError()), isNot(throwsException));
-    expect(await runCaching(() async => throw Exception(), onError: (_, __) => throw UnimplementedError()),
-        isNot(throwsException));
+    expect(
+      await runCaching(() async => throw Exception(), onError: (_, __) => throw UnimplementedError()),
+      isNot(throwsException),
+    );
 
     await expectLater(await runCaching(() => int.parse('5')), 5);
     await expectLater(await runCaching(() => int.parse('5a')), null);

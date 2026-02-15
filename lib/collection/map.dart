@@ -66,9 +66,9 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   /// Returns a new [Map] with the same keys and values but only contains
   /// the keys present in [keys].
   Map<K, V> only(Iterable<K> keys) => {
-        for (final MapEntry(:key, :value) in entries)
-          if (keys.contains(key)) key: value
-      };
+    for (final MapEntry(:key, :value) in entries)
+      if (keys.contains(key)) key: value,
+  };
 
   /// Alias for [only] method.
   Map<K, V> take(Iterable<K> keys) => only(keys);
@@ -76,23 +76,23 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   /// Returns a new [Map] with the same keys and values as [this] where the
   /// key-value pair satisfies the [test] function. Similar to [Iterable.where].
   Map<K, V> where(bool Function(K key, V value) test) => {
-        for (final MapEntry(:key, :value) in entries)
-          if (test(key, value)) key: value
-      };
+    for (final MapEntry(:key, :value) in entries)
+      if (test(key, value)) key: value,
+  };
 
   /// Returns a new [Map] with the same keys and values as [this] where the
   /// key satisfies the [test] function.
   Map<K, V> whereKey(bool Function(K key) test) => {
-        for (final MapEntry(:key, :value) in entries)
-          if (test(key)) key: value
-      };
+    for (final MapEntry(:key, :value) in entries)
+      if (test(key)) key: value,
+  };
 
   /// Returns a new [Map] with the same keys and values as [this] where the
   /// key-value pair doesn't satisfy the [test] function.
   Map<K, V> whereNot(bool Function(K key, V value) test) => {
-        for (final MapEntry(:key, :value) in entries)
-          if (!test(key, value)) key: value
-      };
+    for (final MapEntry(:key, :value) in entries)
+      if (!test(key, value)) key: value,
+  };
 
   /// Similar to [Map.entries] but returns an iterable of records instead of
   /// [MapEntry].
