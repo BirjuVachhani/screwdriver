@@ -32,9 +32,10 @@
 // Author: Birju Vachhani
 // Created Date: November 9, 2025
 
+part of '../screwdriver.dart';
+
 /// Extension methods for [Stream] related to Screwdriver patterns.
 extension StreamScrewdriver<E> on Stream<E> {
-
   /// Waits for the stream to emit the specified [item] and returns it.
   Future<E> waitFor(E item) async => firstWhere((e) => e == item);
 }

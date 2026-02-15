@@ -3,7 +3,7 @@
 
 import 'dart:async';
 
-import 'package:screwdriver/async/stream.dart';
+import 'package:screwdriver/screwdriver.dart';
 import 'package:test/test.dart';
 
 void main() {

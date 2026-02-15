@@ -31,8 +31,8 @@
 
 library;
 
-import 'dart:async';
 import 'dart:async' as async;
+import 'dart:async';
 import 'dart:collection';
 import 'dart:convert';
 import 'dart:math';
@@ -52,6 +52,7 @@ export 'src/helpers/helpers.dart';
 export 'src/utils.dart';
 
 part 'async/future.dart';
+part 'async/stream.dart';
 part 'collection/comparable.dart';
 part 'collection/iterable.dart';
 part 'collection/iterator.dart';
