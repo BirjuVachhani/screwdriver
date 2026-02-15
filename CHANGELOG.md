@@ -1,7 +1,15 @@
 ## 5.12.0 (Unreleased)
 
+- Bump minimum Dart SDK version to `3.9.0`.
 - New `unawaited` extension on `Future`.
-- New `orNullIfEmpty` and `orEmptyIfNull` extensions on `String?`.
+- New `orNullIfEmpty` and `orNullIfBlank` extensions on `String`.
+- New `Stream.waitFor` extension to wait for a specific item emission.
+- New `isExactType` and `isSubType` type checking utility functions.
+- New `Map` extensions:
+  - `>>` operator to remove a key.
+  - `take` as an alias for `only`.
+  - `whereKey` to filter by key predicate.
+  - `containsOnly` to check if the map's keys are all within a given set.
 
 ## 5.11.0
 
