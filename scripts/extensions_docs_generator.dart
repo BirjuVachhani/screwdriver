@@ -1,7 +1,6 @@
 // Author: Birju Vachhani
 // Created Date: April 05, 2021
 
-// ignore_for_file: deprecated_member_use
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/results.dart';
@@ -15,12 +14,12 @@ import 'package:intl/intl.dart';
 import 'package:screwdriver/screwdriver.dart';
 
 class Stats {
-  List<FunctionElement> functions = [];
+  List<TopLevelFunctionElement> functions = [];
   List<ClassElement> classes = [];
-  List<PropertyAccessorElement> variables = [];
+  List<GetterElement> variables = [];
   List<ExtensionElement> extensions = [];
   List<ExtensionTypeElement> extensionTypes = [];
-  List<TypeDefiningElement> typedefs = [];
+  List<TypeAliasElement> typedefs = [];
   List<MixinElement> mixins = [];
 
   Stats({
@@ -34,14 +33,14 @@ class Stats {
   });
 
   Stats operator +(Stats other) => Stats(
-        functions: functions + other.functions,
-        classes: classes + other.classes,
-        variables: variables + other.variables,
-        extensions: extensions + other.extensions,
-        extensionTypes: extensionTypes + other.extensionTypes,
-        typedefs: typedefs + other.typedefs,
-        mixins: mixins + other.mixins,
-      );
+    functions: functions + other.functions,
+    classes: classes + other.classes,
+    variables: variables + other.variables,
+    extensions: extensions + other.extensions,
+    extensionTypes: extensionTypes + other.extensionTypes,
+    typedefs: typedefs + other.typedefs,
+    mixins: mixins + other.mixins,
+  );
 }
 
 /// Script to generate stats for this package.
@@ -99,9 +98,11 @@ void outputExtensions(IOSink sink, Stats stats, {required bool isDry}) {
   sink.writeln('\n');
 
   for (final extension in stats.extensions) {
-    String path = extension.source.toString();
-    final String githubFilePath =
-        path.replaceAll(RegExp(r'.*lib'), 'https://github.com/BirjuVachhani/screwdriver/blob/main/lib');
+    String path = extension.firstFragment.libraryFragment.source.toString();
+    final String githubFilePath = path.replaceAll(
+      RegExp(r'.*lib'),
+      'https://github.com/BirjuVachhani/screwdriver/blob/main/lib',
+    );
     final String name = getDartTypeBaseName(extension.extendedType);
     sink.writeln('### on `${name.replaceAll('\\', '')}`');
 
@@ -109,28 +110,33 @@ void outputExtensions(IOSink sink, Stats stats, {required bool isDry}) {
     sink.writeln('| Extension | Type | Description |');
     sink.writeln('|---|---|---|');
 
-    for (final accessor in extension.accessors) {
-      if (accessor.isPrivate) continue;
-      final description = sanitizeDocComment(accessor.documentationComment ?? 'Not provided');
-      final String type = accessor.isGetter
-          ? 'getter'
-          : accessor.isSetter
-              ? 'setter'
-              : accessor.isOperator
-                  ? 'operator'
-                  : 'operator';
+    for (final getter in extension.getters) {
+      if (getter.isPrivate) continue;
+      final description = sanitizeDocComment(getter.documentationComment ?? 'Not provided');
+      final frag = getter.firstFragment;
+      final lineNumber = LineInfo.fromContent(
+        frag.libraryFragment.source.contents.data,
+      ).getLocation(frag.nameOffset!).lineNumber;
+      sink.writeln('| [`${getter.displayName}`]($githubFilePath#L$lineNumber) | `GETTER` | $description |');
+    }
 
-      final lineNumber =
-          LineInfo.fromContent(accessor.source.contents.data).getLocation(accessor.nameOffset).lineNumber;
-
-      sink.writeln(
-          '| [`${accessor.displayName}`]($githubFilePath#L$lineNumber) | `${type.toUpperCase()}` | $description |');
+    for (final setter in extension.setters) {
+      if (setter.isPrivate) continue;
+      final description = sanitizeDocComment(setter.documentationComment ?? 'Not provided');
+      final frag = setter.firstFragment;
+      final lineNumber = LineInfo.fromContent(
+        frag.libraryFragment.source.contents.data,
+      ).getLocation(frag.nameOffset!).lineNumber;
+      sink.writeln('| [`${setter.displayName}`]($githubFilePath#L$lineNumber) | `SETTER` | $description |');
     }
 
     for (final MethodElement method in extension.methods) {
       if (method.isPrivate) continue;
       // Get the line number of the method
-      final lineNumber = LineInfo.fromContent(method.source.contents.data).getLocation(method.nameOffset).lineNumber;
+      final frag = method.firstFragment;
+      final lineNumber = LineInfo.fromContent(
+        frag.libraryFragment.source.contents.data,
+      ).getLocation(frag.nameOffset!).lineNumber;
 
       final description = sanitizeDocComment(method.documentationComment ?? 'Not provided');
       sink.writeln('| [`${method.displayName}`]($githubFilePath#L$lineNumber) | `METHOD` | $description |');
@@ -148,12 +154,17 @@ void outputFunctions(IOSink sink, Stats stats, {required bool isDry}) {
   sink.writeln('|---|---|');
 
   for (final function in stats.functions) {
-    String path = function.source.toString();
-    final String githubFilePath =
-        path.replaceAll(RegExp(r'.*lib'), 'https://github.com/BirjuVachhani/screwdriver/blob/main/lib');
+    final frag = function.firstFragment;
+    String path = frag.libraryFragment.source.toString();
+    final String githubFilePath = path.replaceAll(
+      RegExp(r'.*lib'),
+      'https://github.com/BirjuVachhani/screwdriver/blob/main/lib',
+    );
 
     // Get the line number of the method
-    final lineNumber = LineInfo.fromContent(function.source.contents.data).getLocation(function.nameOffset).lineNumber;
+    final lineNumber = LineInfo.fromContent(
+      frag.libraryFragment.source.contents.data,
+    ).getLocation(frag.nameOffset!).lineNumber;
 
     final description = sanitizeDocComment(function.documentationComment ?? 'Not provided');
     sink.writeln('| [`${function.displayName}`]($githubFilePath#L$lineNumber) | $description |');
@@ -169,13 +180,17 @@ void outputClasses(IOSink sink, Stats stats, {required bool isDry}) {
   sink.writeln('|---|---|');
 
   for (final helperClass in stats.classes) {
-    String path = helperClass.source.toString();
-    final String githubFilePath =
-        path.replaceAll(RegExp(r'.*lib'), 'https://github.com/BirjuVachhani/screwdriver/blob/main/lib');
+    final frag = helperClass.firstFragment;
+    String path = frag.libraryFragment.source.toString();
+    final String githubFilePath = path.replaceAll(
+      RegExp(r'.*lib'),
+      'https://github.com/BirjuVachhani/screwdriver/blob/main/lib',
+    );
 
     // Get the line number of the method
-    final lineNumber =
-        LineInfo.fromContent(helperClass.source.contents.data).getLocation(helperClass.nameOffset).lineNumber;
+    final lineNumber = LineInfo.fromContent(
+      frag.libraryFragment.source.contents.data,
+    ).getLocation(frag.nameOffset!).lineNumber;
 
     final description = sanitizeDocComment(helperClass.documentationComment ?? 'Not provided');
     sink.writeln('| [`${helperClass.displayName}`]($githubFilePath#L$lineNumber) | $description |');
@@ -209,37 +224,44 @@ void outputExtensionTypes(IOSink sink, Stats stats, {required bool isDry}) {
   // }
 
   for (final extensionType in stats.extensionTypes) {
-    String path = extensionType.source.toString();
-    final String githubFilePath =
-        path.replaceAll(RegExp(r'.*lib'), 'https://github.com/BirjuVachhani/screwdriver/blob/main/lib');
+    String path = extensionType.firstFragment.libraryFragment.source.toString();
+    final String githubFilePath = path.replaceAll(
+      RegExp(r'.*lib'),
+      'https://github.com/BirjuVachhani/screwdriver/blob/main/lib',
+    );
     sink.writeln('### ${extensionType.displayName}');
 
     // table header
     sink.writeln('| Field/Method | Type | Description |');
     sink.writeln('|---|---|---|');
 
-    for (final accessor in extensionType.accessors) {
-      if (accessor.isPrivate) continue;
-      final description = sanitizeDocComment(accessor.documentationComment ?? 'Not provided');
-      final String type = accessor.isGetter
-          ? 'getter'
-          : accessor.isSetter
-              ? 'setter'
-              : accessor.isOperator
-                  ? 'operator'
-                  : 'operator';
+    for (final getter in extensionType.getters) {
+      if (getter.isPrivate) continue;
+      final description = sanitizeDocComment(getter.documentationComment ?? 'Not provided');
+      final frag = getter.firstFragment;
+      final lineNumber = LineInfo.fromContent(
+        frag.libraryFragment.source.contents.data,
+      ).getLocation(frag.nameOffset!).lineNumber;
+      sink.writeln('| [`${getter.displayName}`]($githubFilePath#L$lineNumber) | `GETTER` | $description |');
+    }
 
-      final lineNumber =
-          LineInfo.fromContent(accessor.source.contents.data).getLocation(accessor.nameOffset).lineNumber;
-
-      sink.writeln(
-          '| [`${accessor.displayName}`]($githubFilePath#L$lineNumber) | `${type.toUpperCase()}` | $description |');
+    for (final setter in extensionType.setters) {
+      if (setter.isPrivate) continue;
+      final description = sanitizeDocComment(setter.documentationComment ?? 'Not provided');
+      final frag = setter.firstFragment;
+      final lineNumber = LineInfo.fromContent(
+        frag.libraryFragment.source.contents.data,
+      ).getLocation(frag.nameOffset!).lineNumber;
+      sink.writeln('| [`${setter.displayName}`]($githubFilePath#L$lineNumber) | `SETTER` | $description |');
     }
 
     for (final MethodElement method in extensionType.methods) {
       if (method.isPrivate) continue;
       // Get the line number of the method
-      final lineNumber = LineInfo.fromContent(method.source.contents.data).getLocation(method.nameOffset).lineNumber;
+      final frag = method.firstFragment;
+      final lineNumber = LineInfo.fromContent(
+        frag.libraryFragment.source.contents.data,
+      ).getLocation(frag.nameOffset!).lineNumber;
 
       final description = sanitizeDocComment(method.documentationComment ?? 'Not provided');
       sink.writeln('| [`${method.displayName}`]($githubFilePath#L$lineNumber) | `METHOD` | $description |');
@@ -254,7 +276,8 @@ void generateTableOfContents(IOSink sink, Stats stats) {
   sink.writeln('## Table of Contents');
 
   sink.writeln(
-      '| Extension on (${stats.extensions.length}) | Functions (${stats.functions.length}) | Helper Classes (${stats.classes.length}) | Extension Type (${stats.extensionTypes.length}) |');
+    '| Extension on (${stats.extensions.length}) | Functions (${stats.functions.length}) | Helper Classes (${stats.classes.length}) | Extension Type (${stats.extensionTypes.length}) |',
+  );
   sink.writeln('|---|---|---|---|');
 
   final maxLength = [
@@ -347,14 +370,16 @@ String sanitizeDocComment(String comment) {
   String sanitized = comment;
   sanitized = sanitized.trim().replaceAll('///', '').split('\n').takeWhile((line) => line.trim().isNotEmpty).join(' ');
   // remove [] from description
-  sanitized = sanitized.splitMapJoin(
-    RegExp(r'\[(\S+)\]'),
-    onMatch: (match) {
-      final block = match.group(1);
-      if (block == null) return match[0]!;
-      return '`$block`';
-    },
-  ).capitalized;
+  sanitized = sanitized
+      .splitMapJoin(
+        RegExp(r'\[(\S+)\]'),
+        onMatch: (match) {
+          final block = match.group(1);
+          if (block == null) return match[0]!;
+          return '`$block`';
+        },
+      )
+      .capitalized;
   if (sanitized.indexOf('```') case int index) {
     if (index != -1) {
       sanitized = sanitized.substring(0, index);
@@ -370,27 +395,20 @@ String sanitizeDocComment(String comment) {
 
 Future<Stats> getStats(String library) async {
   final collection = AnalysisContextCollectionImpl(
-      includedPaths: <String>[Directory('lib').absolute.path], resourceProvider: PhysicalResourceProvider.INSTANCE);
+    includedPaths: <String>[Directory('lib').absolute.path],
+    resourceProvider: PhysicalResourceProvider.INSTANCE,
+  );
   final session = collection.contexts[0].currentSession;
   final libPath = session.uriConverter.uriToPath(Uri.parse(library)) ?? '';
   final result = await session.getResolvedLibrary(libPath) as ResolvedLibraryResult;
-  var helpersFunctions = <FunctionElement>[];
-  var helpersClasses = <ClassElement>[];
-  var helperVariables = <PropertyAccessorElement>[];
-  var extensions = <ExtensionElement>[];
-  var extensionTypes = <ExtensionTypeElement>[];
-  var typedefs = <TypeDefiningElement>[];
-  var mixins = <MixinElement>[];
-
-  for (final part in result.element.units) {
-    helpersFunctions += part.functions.wherePublic().toList();
-    extensions += part.extensions.wherePublic().toList();
-    extensionTypes += part.extensionTypes.wherePublic().toList();
-    helpersClasses += part.classes.wherePublic().toList();
-    helperVariables += part.accessors.wherePublic().toList();
-    typedefs += part.typeAliases.wherePublic().toList();
-    mixins += part.mixins.wherePublic().toList();
-  }
+  final lib = result.element;
+  final helpersFunctions = lib.topLevelFunctions.wherePublic().toList();
+  final helpersClasses = lib.classes.wherePublic().toList();
+  final helperVariables = lib.getters.wherePublic().toList();
+  final extensions = lib.extensions.wherePublic().toList();
+  final extensionTypes = lib.extensionTypes.wherePublic().toList();
+  final typedefs = lib.typeAliases.wherePublic().toList();
+  final mixins = lib.mixins.wherePublic().toList();
 
   final stats = Stats(
     variables: helperVariables,
@@ -402,27 +420,27 @@ Future<Stats> getStats(String library) async {
     mixins: mixins,
   );
 
-  collectExports(result.element.definingCompilationUnit, stats, checkForSrcDir: true);
+  collectExports(result.element.firstFragment, stats, checkForSrcDir: true);
   return stats;
 }
 
-void collectExports(CompilationUnitElement element, Stats stats, {bool checkForSrcDir = false}) {
-  for (final exp in element.libraryExports) {
+void collectExports(LibraryFragment fragment, Stats stats, {bool checkForSrcDir = false}) {
+  for (final exp in fragment.libraryExports) {
     final uri = exp.uri;
     if (uri is! DirectiveUriWithLibrary) continue;
-    if (!checkForSrcDir || uri.relativeUriString.startsWith('src') == true) {
-      for (final unit in exp.exportedLibrary!.units) {
-        stats.classes.addAll(unit.classes.wherePublic());
-        stats.functions.addAll(unit.functions.wherePublic());
-        stats.variables.addAll(unit.accessors.wherePublic());
-        stats.extensions += unit.extensions.wherePublic().toList();
-        stats.extensionTypes += unit.extensionTypes.wherePublic().toList();
-        stats.typedefs += unit.typeAliases.wherePublic().toList();
-        stats.mixins += unit.mixins.wherePublic().toList();
+    if (!checkForSrcDir || uri.relativeUriString.startsWith('src')) {
+      final exportedLib = exp.exportedLibrary!;
+      stats.classes.addAll(exportedLib.classes.wherePublic());
+      stats.functions.addAll(exportedLib.topLevelFunctions.wherePublic());
+      stats.variables.addAll(exportedLib.getters.wherePublic());
+      stats.extensions += exportedLib.extensions.wherePublic().toList();
+      stats.extensionTypes += exportedLib.extensionTypes.wherePublic().toList();
+      stats.typedefs += exportedLib.typeAliases.wherePublic().toList();
+      stats.mixins += exportedLib.mixins.wherePublic().toList();
 
-        if (unit.libraryExports.isNotEmpty) {
-          collectExports(unit, stats);
-        }
+      final exportedFragment = exportedLib.firstFragment;
+      if (exportedFragment.libraryExports.isNotEmpty) {
+        collectExports(exportedFragment, stats);
       }
     }
   }

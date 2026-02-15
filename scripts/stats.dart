@@ -1,7 +1,6 @@
 // Author: Birju Vachhani
 // Created Date: April 05, 2021
 
-// ignore_for_file: deprecated_member_use
 import 'dart:io';
 
 import 'package:analyzer/dart/analysis/results.dart';
@@ -102,23 +101,16 @@ Future<Stats> getStats(String library) async {
   final session = collection.contexts[0].currentSession;
   final libPath = session.uriConverter.uriToPath(Uri.parse(library)) ?? '';
   final result = await session.getResolvedLibrary(libPath) as ResolvedLibraryResult;
-  var helpersFunctions = <String>[];
-  var helpersClasses = <String>[];
-  var helperVariables = <String>[];
-  var extensionTypes = <String>[];
+  final lib = result.element;
+  final helpersFunctions = lib.topLevelFunctions.wherePublic().map((e) => e.displayName).toList();
+  final helpersClasses = lib.classes.wherePublic().map((e) => e.displayName).toList();
+  final helperVariables = lib.getters.wherePublic().map((e) => e.displayName).toList();
+  final extensionTypes = lib.extensionTypes.wherePublic().map((e) => e.displayName).toList();
   var extensions = 0;
-  var typedefs = 0;
-  var mixins = 0;
-  for (final part in result.element.units) {
-    helpersFunctions += part.functions.wherePublic().map((e) => e.displayName).toList();
-    extensions += part.extensions.wherePublic().expand((element) => element.fields).length;
-    extensions += part.extensions.wherePublic().expand((element) => element.methods).length;
-    extensionTypes += part.extensionTypes.wherePublic().map((e) => e.displayName).toList();
-    helpersClasses += part.classes.wherePublic().map((e) => e.displayName).toList();
-    helperVariables += part.accessors.wherePublic().map((e) => e.displayName).toList();
-    typedefs += part.typeAliases.wherePublic().length;
-    mixins += part.mixins.wherePublic().length;
-  }
+  extensions += lib.extensions.wherePublic().expand((element) => element.fields).length;
+  extensions += lib.extensions.wherePublic().expand((element) => element.methods).length;
+  final typedefs = lib.typeAliases.wherePublic().length;
+  final mixins = lib.mixins.wherePublic().length;
 
   final stats = Stats(
     variables: helperVariables,
@@ -130,28 +122,28 @@ Future<Stats> getStats(String library) async {
     mixins: mixins,
   );
 
-  collectExports(result.element.definingCompilationUnit, stats, checkForSrcDir: true);
+  collectExports(result.element.firstFragment, stats, checkForSrcDir: true);
   return stats;
 }
 
-void collectExports(CompilationUnitElement element, Stats stats, {bool checkForSrcDir = false}) {
-  for (final exp in element.libraryExports) {
+void collectExports(LibraryFragment fragment, Stats stats, {bool checkForSrcDir = false}) {
+  for (final exp in fragment.libraryExports) {
     final uri = exp.uri;
     if (uri is! DirectiveUriWithLibrary) continue;
-    if (!checkForSrcDir || uri.relativeUriString.startsWith('src') == true) {
-      for (final unit in exp.exportedLibrary!.units) {
-        stats.classes.addAll(unit.classes.wherePublic().map((e) => e.displayName));
-        stats.extensionTypes.addAll(unit.extensionTypes.wherePublic().map((e) => e.displayName));
-        stats.functions.addAll(unit.functions.wherePublic().map((e) => e.displayName));
-        stats.variables.addAll(unit.accessors.wherePublic().map((e) => e.displayName));
-        stats.extensions += unit.extensions.wherePublic().expand((element) => element.methods).length;
-        stats.extensions += unit.extensions.wherePublic().expand((element) => element.fields).length;
-        stats.typedefs += unit.typeAliases.wherePublic().length;
-        stats.mixins += unit.mixins.wherePublic().length;
+    if (!checkForSrcDir || uri.relativeUriString.startsWith('src')) {
+      final exportedLib = exp.exportedLibrary!;
+      stats.classes.addAll(exportedLib.classes.wherePublic().map((e) => e.displayName));
+      stats.extensionTypes.addAll(exportedLib.extensionTypes.wherePublic().map((e) => e.displayName));
+      stats.functions.addAll(exportedLib.topLevelFunctions.wherePublic().map((e) => e.displayName));
+      stats.variables.addAll(exportedLib.getters.wherePublic().map((e) => e.displayName));
+      stats.extensions += exportedLib.extensions.wherePublic().expand((element) => element.methods).length;
+      stats.extensions += exportedLib.extensions.wherePublic().expand((element) => element.fields).length;
+      stats.typedefs += exportedLib.typeAliases.wherePublic().length;
+      stats.mixins += exportedLib.mixins.wherePublic().length;
 
-        if (unit.libraryExports.isNotEmpty) {
-          collectExports(unit, stats);
-        }
+      final exportedFragment = exportedLib.firstFragment;
+      if (exportedFragment.libraryExports.isNotEmpty) {
+        collectExports(exportedFragment, stats);
       }
     }
   }
