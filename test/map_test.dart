@@ -107,4 +107,35 @@ void main() {
     expect({}.containsNone([]), isTrue);
     expect({}.containsNone(['a']), isTrue);
   });
+
+  test('>> operator test', () {
+    final map = {'a': 1, 'b': 2, 'c': 3};
+    map >> 'b';
+    expect(map, equals({'a': 1, 'c': 3}));
+    map >> 'z'; // removing non-existent key should not throw
+    expect(map, equals({'a': 1, 'c': 3}));
+  });
+
+  test('take test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.take(['c']), equals({'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.take(['b', 'c']), equals({'b': 2, 'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.take([]), equals({}));
+    expect({'a': 1, 'b': 2, 'c': 3}.take(['z']), equals({}));
+  });
+
+  test('whereKey test', () {
+    expect({'a': 1, 'b': 2, 'c': 3}.whereKey((key) => key == 'a'), equals({'a': 1}));
+    expect({'a': 1, 'b': 2, 'c': 3}.whereKey((key) => key != 'a'), equals({'b': 2, 'c': 3}));
+    expect({'a': 1, 'b': 2, 'c': 3}.whereKey((key) => key.compareTo('b') >= 0), equals({'b': 2, 'c': 3}));
+    expect(<String, int>{}.whereKey((key) => true), equals({}));
+  });
+
+  test('containsOnly test', () {
+    expect({'a': 1, 'b': 2}.containsOnly(['a', 'b']), isTrue);
+    expect({'a': 1, 'b': 2}.containsOnly(['a', 'b', 'c']), isTrue);
+    expect({'a': 1, 'b': 2, 'c': 3}.containsOnly(['a', 'b']), isFalse);
+    expect(<String, int>{}.containsOnly([]), isTrue);
+    expect(<String, int>{}.containsOnly(['a']), isTrue);
+    expect({'a': 1}.containsOnly([]), isFalse);
+  });
 }

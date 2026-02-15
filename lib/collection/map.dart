@@ -49,6 +49,9 @@ extension MapScrewdriver<K, V> on Map<K, V> {
   /// Allows to add [MapEntry] to [this].
   void operator <<((K, V) entry) => this[entry.$1] = entry.$2;
 
+  /// Allows to remove a key from [this].
+  void operator >>(K key) => remove(key);
+
   /// Converts [this] map into a JSON string.
   @Deprecated('Use toJsonString() instead')
   String toJson() => toJsonString();
@@ -67,11 +70,21 @@ extension MapScrewdriver<K, V> on Map<K, V> {
           if (keys.contains(key)) key: value
       };
 
+  /// Alias for [only] method.
+  Map<K, V> take(Iterable<K> keys) => only(keys);
+
   /// Returns a new [Map] with the same keys and values as [this] where the
   /// key-value pair satisfies the [test] function. Similar to [Iterable.where].
   Map<K, V> where(bool Function(K key, V value) test) => {
         for (final MapEntry(:key, :value) in entries)
           if (test(key, value)) key: value
+      };
+
+  /// Returns a new [Map] with the same keys and values as [this] where the
+  /// key satisfies the [test] function.
+  Map<K, V> whereKey(bool Function(K key) test) => {
+        for (final MapEntry(:key, :value) in entries)
+          if (test(key)) key: value
       };
 
   /// Returns a new [Map] with the same keys and values as [this] where the
@@ -120,4 +133,14 @@ extension MapScrewdriver<K, V> on Map<K, V> {
 
   /// Checks if the map contains none of the keys present in [keys].
   bool containsNone(Iterable<K> keys) => keys.every((key) => !containsKey(key));
+
+  /// Checks if the map contains only the keys present in [keys].
+  bool containsOnly(Iterable<K> keys) {
+    for (final key in this.keys) {
+      if (!keys.contains(key)) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
