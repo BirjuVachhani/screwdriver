@@ -64,3 +64,10 @@ dynamic tryJsonDecode(
     return null;
   }
 }
+
+/// Checks whether [T1] and [T2] are exactly the same type.
+bool isExactType<T1, T2>() => T1 == T2;
+
+/// Checks whether [Sub] is a subtype of [Parent].
+/// This is a nice little trick that uses Dart's type system to check for subtyping
+bool isSubType<Sub, Parent>() => <Sub>[] is List<Parent>;
