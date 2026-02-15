@@ -19,15 +19,15 @@ void main() {
     expect(() => runCaching(() => int.parse('abc')), isNot(throwsException));
     expect(runCaching(() async => int.parse('abc')), completes);
     expect(runCaching(() async => int.parse('abc')), completion(null));
-    expect(runCaching(() => int.parse('abc'), onError: (_, __) => -1), equals(-1));
-    expect(runCaching(() async => int.parse('abc'), onError: (_, __) => -1), completion(-1));
+    expect(runCaching(() => int.parse('abc'), onError: (_, _) => -1), equals(-1));
+    expect(runCaching(() async => int.parse('abc'), onError: (_, _) => -1), completion(-1));
     expect(runCaching(() {}), isA<void>());
     expect(runCaching(() {}), isNot(throwsException));
     expect(runCaching(() => throw Exception()), isNot(throwsException));
 
-    expect(runCaching(() => throw Exception(), onError: (_, __) => throw UnimplementedError()), isNot(throwsException));
+    expect(runCaching(() => throw Exception(), onError: (_, _) => throw UnimplementedError()), isNot(throwsException));
     expect(
-      await runCaching(() async => throw Exception(), onError: (_, __) => throw UnimplementedError()),
+      await runCaching(() async => throw Exception(), onError: (_, _) => throw UnimplementedError()),
       isNot(throwsException),
     );
 

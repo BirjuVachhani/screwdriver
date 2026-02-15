@@ -476,11 +476,11 @@ extension IterableScrewDriver<E> on Iterable<E> {
     E? other5,
   ]) => subtract([
     other,
-    if (other1 != null) other1,
-    if (other2 != null) other2,
-    if (other3 != null) other3,
-    if (other4 != null) other4,
-    if (other5 != null) other5,
+    ?other1,
+    ?other2,
+    ?other3,
+    ?other4,
+    ?other5,
   ]);
 
   /// Alias for [subtract].
