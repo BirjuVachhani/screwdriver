@@ -19,15 +19,15 @@ A dart package aiming to provide useful extensions and helper functions to ease 
 Check out [EXTENSIONS.md](EXTENSIONS.md) for a complete list of all the available extensions.
 <!---stats_start-->
 ```yaml  
-Extensions:                    306
+Extensions:                    311
 Extension Types:               4
 Helper Classes:                5
-Helper Functions & Getters:    26
+Helper Functions & Getters:    28
 Typedefs:                      8
 Mixins:                        2
 ```
 
-> *Last Updated: Thu, Oct 02, 2025 - 05:27 AM*
+> *Last Updated: Sun, Feb 15, 2026 - 05:17 PM*
 
 <!---stats_end-->
 
