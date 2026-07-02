@@ -6,6 +6,7 @@
   - Add `random` and `randomOrNull` extensions for `Set`.
   - Update generic `Iterable.random` and `Iterable.randomOrNull` to use [Reservoir Sampling](https://en.wikipedia.org/wiki/Reservoir_sampling) for fair, single-pass random selection.
   - Improve tests and documentation for random collection extensions.
+- Add `toStream` extension for `Iterable`.
 
 ## 5.12.0
 
