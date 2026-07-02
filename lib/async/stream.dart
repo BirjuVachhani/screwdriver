@@ -34,8 +34,17 @@
 
 part of '../screwdriver.dart';
 
-/// Extension methods for [Stream] related to Screwdriver patterns.
+/// Extension methods for [Stream].
 extension StreamScrewdriver<E> on Stream<E> {
   /// Waits for the stream to emit the specified [item] and returns it.
   Future<E> waitFor(E item) async => firstWhere((e) => e == item);
+
+  /// Returns a new stream that emits only values of type [R] from the original stream.
+  Stream<R> whereType<R>() => where((e) => e is R).cast<R>();
+}
+
+/// Extension methods for [Stream] with null types.
+extension NullableStreamScrewdriver<E> on Stream<E?> {
+  /// Returns a new stream that emits only non-null values from the original stream.
+  Stream<E> get nonNulls => where((e) => e != null).cast<E>();
 }
