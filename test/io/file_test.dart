@@ -2,6 +2,7 @@
 // Created Date: August 30, 2020
 
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
 // ignore: import_of_legacy_library_into_null_safe
@@ -422,6 +423,144 @@ void main() {
 
     tearDown(() {
       if (testFile.existsSync()) testFile.deleteSync();
+    });
+  });
+
+  group('readBytesRange tests', () {
+    final file = File('range_test.txt');
+
+    setUp(() {
+      // "hello world" — 11 ASCII bytes (0-10)
+      file.writeAsBytesSync('hello world'.codeUnits);
+    });
+
+    test('reads bytes from the start', () {
+      expect(file.readBytesRange(0, 5), equals('hello'.codeUnits));
+    });
+
+    test('reads bytes from the middle', () {
+      expect(file.readBytesRange(6, 11), equals('world'.codeUnits));
+    });
+
+    test('reads a single byte', () {
+      expect(file.readBytesRange(0, 1), equals([104])); // 'h'
+    });
+
+    test('reads a byte in the middle', () {
+      expect(file.readBytesRange(5, 6), equals([32])); // ' '
+    });
+
+    test('reads the full file', () {
+      expect(file.readBytesRange(0, 11), equals('hello world'.codeUnits));
+    });
+
+    test('empty range returns empty list', () {
+      expect(file.readBytesRange(3, 3), isEmpty);
+    });
+
+    test('negative start throws RangeError', () {
+      expect(() => file.readBytesRange(-1, 5), throwsRangeError);
+    });
+
+    test('negative end throws RangeError', () {
+      expect(() => file.readBytesRange(0, -1), throwsRangeError);
+    });
+
+    test('end less than start throws RangeError', () {
+      expect(() => file.readBytesRange(5, 3), throwsRangeError);
+    });
+
+    test('both negative throws RangeError', () {
+      expect(() => file.readBytesRange(-2, -1), throwsRangeError);
+    });
+
+    test('reads from non-zero offset correctly', () {
+      expect(file.readBytesRange(2, 7), equals('llo w'.codeUnits));
+    });
+
+    test('range beyond file length returns available bytes', () {
+      // readSync returns what is available rather than throwing
+      final result = file.readBytesRange(8, 20);
+      expect(result, equals('rld'.codeUnits));
+    });
+
+    tearDown(() {
+      if (file.existsSync()) file.deleteSync();
+    });
+  });
+
+  group('streamLines tests', () {
+    final file = File('lines_test.txt');
+
+    tearDown(() {
+      if (file.existsSync()) file.deleteSync();
+    });
+
+    test('streams all lines from a multi-line file', () async {
+      file.writeAsStringSync('line1\nline2\nline3');
+      expect(await file.streamLines().toList(), equals(['line1', 'line2', 'line3']));
+    });
+
+    test('streams a single line with no newline', () async {
+      file.writeAsStringSync('only line');
+      expect(await file.streamLines().toList(), equals(['only line']));
+    });
+
+    test('empty file produces empty stream', () async {
+      file.writeAsBytesSync([]);
+      expect(await file.streamLines().toList(), isEmpty);
+    });
+
+    test('trailing newline produces no extra empty line', () async {
+      file.writeAsStringSync('line1\nline2\n');
+      expect(await file.streamLines().toList(), equals(['line1', 'line2']));
+    });
+
+    test('windows line endings are handled', () async {
+      file.writeAsBytesSync('line1\r\nline2\r\nline3'.codeUnits);
+      expect(await file.streamLines().toList(), equals(['line1', 'line2', 'line3']));
+    });
+
+    test('take: null returns all lines', () async {
+      file.writeAsStringSync('a\nb\nc');
+      expect(await file.streamLines(take: null).toList(), equals(['a', 'b', 'c']));
+    });
+
+    test('take: 0 returns empty stream', () async {
+      file.writeAsStringSync('a\nb\nc');
+      expect(await file.streamLines(take: 0).toList(), isEmpty);
+    });
+
+    test('take: 1 returns only the first line', () async {
+      file.writeAsStringSync('first\nsecond\nthird');
+      expect(await file.streamLines(take: 1).toList(), equals(['first']));
+    });
+
+    test('take less than total lines returns first n lines', () async {
+      file.writeAsStringSync('a\nb\nc\nd\ne');
+      expect(await file.streamLines(take: 3).toList(), equals(['a', 'b', 'c']));
+    });
+
+    test('take greater than total lines returns all lines', () async {
+      file.writeAsStringSync('a\nb');
+      expect(await file.streamLines(take: 100).toList(), equals(['a', 'b']));
+    });
+
+    test('negative take throws ArgumentError', () {
+      file.writeAsStringSync('a\nb');
+      expect(() => file.streamLines(take: -1), throwsArgumentError);
+    });
+
+    test('custom decoder is used', () async {
+      // Write latin-1 encoded bytes that are invalid UTF-8
+      file.writeAsBytesSync([104, 101, 108, 108, 111]); // "hello" in latin-1
+      final result = await file.streamLines(decoder: latin1.decoder).toList();
+      expect(result, equals(['hello']));
+    });
+
+    test('file with only newlines produces empty strings per line', () async {
+      file.writeAsStringSync('\n\n');
+      expect(await file.streamLines().toList(), equals(['', '']));
     });
   });
 }
