@@ -1,6 +1,11 @@
 ## 5.13.0 (Unreleased)
 
 - New `whereType` and `nonNulls` extensions for `Stream`.
+- Improve random element extensions for collections:
+  - Add optimized `random` and `randomOrNull` behavior for `List` using indexed access.
+  - Add `random` and `randomOrNull` extensions for `Set`.
+  - Update generic `Iterable.random` and `Iterable.randomOrNull` to use [Reservoir Sampling](https://en.wikipedia.org/wiki/Reservoir_sampling) for fair, single-pass random selection.
+  - Improve tests and documentation for random collection extensions.
 
 ## 5.12.0
 
