@@ -1,3 +1,7 @@
+## 5.13.0 (Unreleased)
+
+- New `whereType` and `nonNulls` extensions for `Stream`.
+
 ## 5.12.0
 
 - Bump minimum Dart SDK version to `3.9.0`.
