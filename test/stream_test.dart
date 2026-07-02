@@ -62,5 +62,34 @@ void main() {
       expect(await future, equals(7));
       await controller.close();
     });
+
+    test('whereType filters', () {
+      final stream = Stream.fromIterable([1, 2.0, 'Hello', true]);
+
+      final typed = stream.whereType<String>();
+      expect(typed, isA<Stream<String>>());
+      expect(typed, emitsInAnyOrder(['Hello']));
+      expect(typed, neverEmits([1, 2.0, true]));
+    });
+
+    test('whereType filter on nullable stream', () {
+      final stream = Stream.fromIterable([null, 1, 2.0, 'Hello', true]);
+
+      final typed = stream.whereType<int>();
+      expect(typed, isA<Stream<int>>());
+      expect(typed, emitsInOrder([1]));
+      expect(typed, neverEmits([null, 'Hello', 2.0, true]));
+    });
+  });
+
+  group('NullableStreamScrewdriver', () {
+    test('nonNulls test', () {
+      final stream = Stream.fromIterable([null, 1, 2.0, 'Hello', true]);
+      final nonNullStream = stream.nonNulls;
+
+      expect(nonNullStream, isA<Stream<Object>>());
+      expect(nonNullStream, neverEmits(null));
+      expect(nonNullStream, emitsInOrder([1, 2.0, 'Hello', true]));
+    });
   });
 }
