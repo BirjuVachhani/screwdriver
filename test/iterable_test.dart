@@ -32,6 +32,7 @@
 // Author: Birju Vachhani
 // Created Date: August 20, 2020
 
+import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:screwdriver/screwdriver.dart';
@@ -308,6 +309,95 @@ void main() {
     expect(list2.averageBy((element) => element.$2), 14.5 / list2.length);
   });
 
+  test('randomOrNull returns null for empty set', () {
+    expect(<int>{}.randomOrNull(), isNull);
+  });
+
+  test('random throws for empty set', () {
+    expect(() => <int>{}.random(), throwsStateError);
+  });
+
+  test('single element set returns the only element', () {
+    expect({42}.random(), 42);
+    expect({42}.randomOrNull(), 42);
+  });
+
+  test('works with nullable element type', () {
+    final set = <String?>{null};
+    expect(set.random(), isNull);
+    expect(set.randomOrNull(), isNull);
+  });
+
+  test('uses provided Random', () {
+    final random = Random(42);
+    final set = {1, 2, 3, 4, 5};
+
+    final first = set.random(random);
+    final second = set.random(random);
+
+    expect(set.contains(first), isTrue);
+    expect(set.contains(second), isTrue);
+  });
+
+  test('randomOrNull returns null for empty iterable', () {
+    final iterable = <int>[].where((element) => element.isEven);
+
+    expect(iterable.randomOrNull(), isNull);
+  });
+
+  test('random throws for empty iterable', () {
+    final iterable = <int>[].where((element) => element.isEven);
+
+    expect(() => iterable.random(), throwsStateError);
+  });
+
+  test('single element iterable returns the only element', () {
+    final iterable = [42].where((element) => element.isEven);
+
+    expect(iterable.random(), 42);
+    expect(iterable.randomOrNull(), 42);
+  });
+
+  test('iterable random works with nullable element type', () {
+    final iterable = <String?>[null].where((element) => true);
+
+    expect(iterable.random(), isNull);
+    expect(iterable.randomOrNull(), isNull);
+  });
+
+  test('iterable random uses provided Random', () {
+    final random = Random(42);
+    final iterable = [1, 2, 3, 4, 5].where((element) => element.isOdd);
+
+    final first = iterable.random(random);
+    final second = iterable.random(random);
+
+    expect([1, 3, 5], contains(first));
+    expect([1, 3, 5], contains(second));
+  });
+
+  test('iterable randomOrNull uses reservoir sampling replacement path', () {
+    final iterable = [1, 2, 3].where((element) => true);
+
+    final result = iterable.randomOrNull(_AlwaysZeroRandom());
+
+    expect(result, 3);
+  });
+
+  test('iterable random walks lazy iterable only once', () {
+    var moveNextCount = 0;
+
+    final iterable = Iterable<int>.generate(5, (index) {
+      moveNextCount++;
+      return index + 1;
+    }).where((element) => element.isOdd);
+
+    final result = iterable.random(Random(42));
+
+    expect([1, 3, 5], contains(result));
+    expect(moveNextCount, 5);
+  });
+
   test('records test', () {
     final List<String> list = ['a', 'b', 'c'];
     expect(list.records, equals([(0, 'a'), (1, 'b'), (2, 'c')]));
@@ -426,4 +516,15 @@ class Person {
 
   @override
   int get hashCode => name.hashCode ^ age.hashCode;
+}
+
+class _AlwaysZeroRandom implements Random {
+  @override
+  bool nextBool() => false;
+
+  @override
+  double nextDouble() => 0;
+
+  @override
+  int nextInt(int max) => 0;
 }

@@ -70,4 +70,51 @@ extension ListScrewDriver<E> on List<E> {
 
   /// Reverse the list if [condition] is true.
   Iterable<E> reverseIf(bool condition) => condition ? toList().reversed : this;
+
+  /// Returns a random element from this list.
+  ///
+  /// Returns `null` if this list is empty.
+  ///
+  /// If [random] is provided, it is used as the random number generator.
+  /// This allows callers to pass a seeded [Random] for deterministic behavior
+  /// or [Random.secure] for security-sensitive randomness.
+  ///
+  /// This operation is O(1), because [List] provides indexed access.
+  E? randomOrNull([Random? random]) {
+    if (length == 0) return null;
+    if (length == 1) return first;
+
+    final generator = random ?? Random();
+    return this[generator.nextInt(length)];
+  }
+
+  /// Returns a random element from this list.
+  ///
+  /// Throws a [StateError] if this list is empty.
+  ///
+  /// If [random] is provided, it is used as the random number generator.
+  /// This allows callers to pass a seeded [Random] for deterministic behavior
+  /// or [Random.secure] for security-sensitive randomness.
+  ///
+  /// This operation is O(1), because [List] provides indexed access.
+  E random([Random? random]) {
+    if (length == 0) throw StateError('No elements');
+    if (length == 1) return first;
+
+    final generator = random ?? Random();
+    return this[generator.nextInt(length)];
+  }
+}
+
+/// provides extensions for List of integers. e.g. bytes
+extension IntListScrewdriver on List<int> {
+  /// Converts the list of integers to a base64 encoded string. e.g. converting
+  /// bytes to base64 string.
+  String toBase64() => base64Encode(this);
+
+  /// Converts [this] list of integers to a [Uint8List].
+  Uint8List toUint8List() => Uint8List.fromList(this);
+
+  /// Converts [this] list of integers to a [Uint16List].
+  Uint16List toUint16List() => Uint16List.fromList(this);
 }

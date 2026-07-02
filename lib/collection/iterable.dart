@@ -294,20 +294,74 @@ extension IterableScrewDriver<E> on Iterable<E> {
     return accumulator;
   }
 
-  /// Returns a random element from [this]. Returns null if no elements
-  /// are present.
+  /// Returns a random element from this iterable.
+  ///
+  /// Returns `null` if this iterable is empty.
+  ///
+  /// If [random] is provided, it is used as the random number generator.
+  /// This allows callers to pass a seeded [Random] for deterministic behavior
+  /// or [Random.secure] for security-sensitive randomness.
+  ///
+  /// This uses the Reservoir Sampling technique to choose a random element
+  /// fairly without knowing the iterable length in advance.
+  ///
+  /// This operation is O(n) and only walks the iterable once. It avoids the
+  /// simple `elementAt(random.nextInt(length))` approach because, for a generic
+  /// [Iterable], both [length] and [elementAt] may require walking the iterable.
   E? randomOrNull([Random? random]) {
-    if (isEmpty) return null;
-    if (length == 1) return first;
-    return elementAt((random ?? Random()).nextInt(length));
+    final iterator = this.iterator;
+
+    if (!iterator.moveNext()) return null;
+
+    var selected = iterator.current;
+    var count = 1;
+    final generator = random ?? Random();
+
+    while (iterator.moveNext()) {
+      count++;
+
+      if (generator.nextInt(count) == 0) {
+        selected = iterator.current;
+      }
+    }
+
+    return selected;
   }
 
-  /// Returns a random element from [this].
-  /// Throws [StateError] if there are no elements in the collection.
+  /// Returns a random element from this iterable.
+  ///
+  /// Throws a [StateError] if this iterable is empty.
+  ///
+  /// If [random] is provided, it is used as the random number generator.
+  /// This allows callers to pass a seeded [Random] for deterministic behavior
+  /// or [Random.secure] for security-sensitive randomness.
+  ///
+  /// This uses the Reservoir Sampling technique to choose a random element
+  /// fairly without knowing the iterable length in advance.
+  ///
+  /// This operation is O(n) and only walks the iterable once. It avoids the
+  /// simple `elementAt(random.nextInt(length))` approach because, for a generic
+  /// [Iterable], both [length] and [elementAt] may require walking the iterable.
   E random([Random? random]) {
-    if (isEmpty) throw StateError('no elements');
-    if (length == 1) return first;
-    return elementAt((random ?? Random()).nextInt(length));
+    final iterator = this.iterator;
+
+    if (!iterator.moveNext()) {
+      throw StateError('No elements');
+    }
+
+    var selected = iterator.current;
+    var count = 1;
+    final generator = random ?? Random();
+
+    while (iterator.moveNext()) {
+      count++;
+
+      if (generator.nextInt(count) == 0) {
+        selected = iterator.current;
+      }
+    }
+
+    return selected;
   }
 
   /// Performs the given [action] on each element and returns the
@@ -542,19 +596,6 @@ extension NullableIterableScrewDriver<E> on Iterable<E>? {
     var iterable = this;
     return iterable != null && iterable.isNotEmpty;
   }
-}
-
-/// provides extensions for List of integers. e.g. bytes
-extension IntListScrewdriver on List<int> {
-  /// Converts the list of integers to a base64 encoded string. e.g. converting
-  /// bytes to base64 string.
-  String toBase64() => base64Encode(this);
-
-  /// Converts [this] list of integers to a [Uint8List].
-  Uint8List toUint8List() => Uint8List.fromList(this);
-
-  /// Converts [this] list of integers to a [Uint16List].
-  Uint16List toUint16List() => Uint16List.fromList(this);
 }
 
 /// Provides extensions for Nested Iterables.

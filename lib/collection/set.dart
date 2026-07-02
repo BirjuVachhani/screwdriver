@@ -29,45 +29,50 @@
  *  POSSIBILITY OF SUCH DAMAGE.
  */
 
-library;
+// Author: Birju Vachhani
+// Created Date: August 20, 2020
 
-import 'dart:async' as async;
-import 'dart:async';
-import 'dart:collection';
-import 'dart:convert';
-import 'dart:math';
-import 'dart:typed_data';
+part of '../screwdriver.dart';
 
-import 'package:characters/characters.dart';
-import 'package:collection/collection.dart';
-import 'package:intl/intl.dart';
+/// Provides extensions for [Set].
+extension SetScrewdriver<E> on Set<E> {
+  /// Returns a random element from this set.
+  ///
+  /// Returns `null` if this set is empty.
+  ///
+  /// If [random] is provided, it is used as the random number generator.
+  /// This allows callers to pass a seeded [Random] for deterministic behavior
+  /// or [Random.secure] for security-sensitive randomness.
+  ///
+  /// This operation is O(n), because [Set] does not provide indexed access.
+  E? randomOrNull([Random? random]) {
+    final length = this.length;
 
-import 'src/helpers/consumable.dart';
-import 'src/helpers/helpers.dart';
-import 'src/utils.dart';
+    if (length == 0) return null;
+    if (length == 1) return first;
 
-export 'package:collection/collection.dart';
+    random ??= Random();
 
-export 'src/helpers/helpers.dart';
-export 'src/utils.dart';
+    return elementAt(random.nextInt(length));
+  }
 
-part 'async/future.dart';
-part 'async/stream.dart';
-part 'collection/comparable.dart';
-part 'collection/iterable.dart';
-part 'collection/iterator.dart';
-part 'collection/list.dart';
-part 'collection/map.dart';
-part 'collection/set.dart';
-part 'datetime/date_time.dart';
-part 'duration/duration.dart';
-part 'generic/generic.dart';
-part 'other/enum.dart';
-part 'other/pattern.dart';
-part 'other/string_buffer.dart';
-part 'primitive/bool.dart';
-part 'primitive/double.dart';
-part 'primitive/int.dart';
-part 'primitive/num.dart';
-part 'primitive/object.dart';
-part 'primitive/string.dart';
+  /// Returns a random element from this set.
+  ///
+  /// Throws a [StateError] if this set is empty.
+  ///
+  /// If [random] is provided, it is used as the random number generator.
+  /// This allows callers to pass a seeded [Random] for deterministic behavior
+  /// or [Random.secure] for security-sensitive randomness.
+  ///
+  /// This operation is O(n), because [Set] does not provide indexed access.
+  E random([Random? random]) {
+    final length = this.length;
+
+    if (length == 0) throw StateError('No elements');
+    if (length == 1) return first;
+
+    random ??= Random();
+
+    return elementAt(random.nextInt(length));
+  }
+}
