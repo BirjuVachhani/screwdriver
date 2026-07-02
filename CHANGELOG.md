@@ -9,6 +9,7 @@
 - Add `toStream` extension for `Iterable`.
 - [Fix] flush file before close in all append methods in File extensions.
 - [Breaking] Change/Fix return type of `File.appendBytesSync` extension from `Future<void>` to `void`. 
+- New `readBytesRange` and `streamLines` extensions for `File`.
 
 ## 5.12.0
 
