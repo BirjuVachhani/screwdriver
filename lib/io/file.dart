@@ -128,7 +128,7 @@ extension FileScrewdriver on File {
   }
 
   /// Appends [value] bytes at the end of the file.
-  Future<void> appendBytesSync(List<int> value) async {
+  void appendBytesSync(List<int> value) {
     final fileAccess = openSync(mode: FileMode.writeOnlyAppend);
     fileAccess.writeFromSync(value);
     fileAccess.flushSync();
