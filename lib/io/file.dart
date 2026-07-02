@@ -176,4 +176,47 @@ extension FileScrewdriver on File {
   void deleteIfExistsSync({bool recursive = false}) {
     if (existsSync()) deleteSync(recursive: recursive);
   }
+
+  /// Synchronously reads a byte range from [this] file.
+  ///
+  /// Returns a list of bytes from position [start] (inclusive) to [end]
+  /// (exclusive). Both [start] and [end] are zero-based byte offsets.
+  ///
+  /// Throws a [RangeError] if [start] is negative, [end] is negative, or
+  /// [end] is less than [start].
+  List<int> readBytesRange(int start, int end) {
+    RangeError.checkNotNegative(start, 'start');
+    RangeError.checkNotNegative(end, 'end');
+    if (end < start) {
+      throw RangeError.range(end, start, null, 'end', 'end must be >= start');
+    }
+    final fileAccess = openSync(mode: FileMode.read);
+    try {
+      fileAccess.setPositionSync(start);
+      return fileAccess.readSync(end - start);
+    } finally {
+      fileAccess.closeSync();
+    }
+  }
+
+  /// Streams the content of [this] file as lines of text.
+  ///
+  /// Each item emitted by the returned stream is one line from the file,
+  /// with line endings stripped.
+  ///
+  /// [take] limits the number of lines returned. If null, all lines are
+  /// emitted. If 0, an empty stream is returned.
+  ///
+  /// [decoder] overrides the default UTF-8 decoder used to convert raw bytes
+  /// to a string before splitting on line boundaries.
+  ///
+  /// Throws an [ArgumentError] if [take] is negative.
+  Stream<String> streamLines({int? take, Converter<List<int>, String>? decoder}) {
+    if (take != null) {
+      if (take < 0) throw ArgumentError.value(take, 'take', 'must not be negative');
+      if (take == 0) return Stream.empty();
+    }
+    final stream = LineSplitter().bind((decoder ?? utf8.decoder).bind(openRead()));
+    return take == null ? stream : stream.take(take);
+  }
 }
