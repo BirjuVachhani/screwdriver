@@ -98,6 +98,7 @@ extension FileScrewdriver on File {
   Future<void> appendString(String value, {Encoding encoding = utf8}) async {
     final fileAccess = await open(mode: FileMode.writeOnlyAppend);
     await fileAccess.writeString(value, encoding: encoding);
+    await fileAccess.flush();
     await fileAccess.close();
   }
 
@@ -105,6 +106,7 @@ extension FileScrewdriver on File {
   void appendStringSync(String value, {Encoding encoding = utf8}) {
     final fileAccess = openSync(mode: FileMode.writeOnlyAppend);
     fileAccess.writeStringSync(value, encoding: encoding);
+    fileAccess.flushSync();
     fileAccess.closeSync();
   }
 
@@ -113,6 +115,7 @@ extension FileScrewdriver on File {
   Future<void> appendStringLine(String value, {Encoding encoding = utf8}) async {
     final sink = openWrite(mode: FileMode.writeOnlyAppend, encoding: encoding);
     sink.writeln(value);
+    await sink.flush();
     await sink.close();
   }
 
@@ -120,6 +123,7 @@ extension FileScrewdriver on File {
   Future<void> appendBytes(List<int> value) async {
     final fileAccess = await open(mode: FileMode.writeOnlyAppend);
     await fileAccess.writeFrom(value);
+    await fileAccess.flush();
     await fileAccess.close();
   }
 
@@ -127,6 +131,7 @@ extension FileScrewdriver on File {
   Future<void> appendBytesSync(List<int> value) async {
     final fileAccess = openSync(mode: FileMode.writeOnlyAppend);
     fileAccess.writeFromSync(value);
+    fileAccess.flushSync();
     fileAccess.closeSync();
   }
 
@@ -134,6 +139,7 @@ extension FileScrewdriver on File {
   Future<void> appendFrom(File file) async {
     final sink = openWrite(mode: FileMode.writeOnlyAppend);
     await sink.addStream(file.openRead());
+    await sink.flush();
     await sink.close();
   }
 
@@ -141,6 +147,7 @@ extension FileScrewdriver on File {
   void appendFromSync(File file) {
     final fileAccess = openSync(mode: FileMode.writeOnlyAppend);
     fileAccess.writeFromSync(file.readAsBytesSync().toList());
+    fileAccess.flushSync();
     fileAccess.closeSync();
   }
 
