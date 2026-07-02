@@ -573,6 +573,29 @@ extension IterableScrewDriver<E> on Iterable<E> {
       if (selector(item) == query) yield item;
     }
   }
+
+  /// Converts this iterable into a stream.
+  ///
+  /// If [interval] is provided and greater than [Duration.zero], each element is
+  /// emitted after the given interval. Otherwise, elements are emitted
+  /// synchronously from this iterable.
+  ///
+  /// When [interval] is provided, this method takes a snapshot of the iterable
+  /// before creating the stream, so later changes to the source iterable do not
+  /// affect the emitted values.
+  Stream<E> toStream({Duration? interval}) {
+    if (interval != null && interval > Duration.zero) {
+      // Capture the iterable by copying to avoid mutation related issues while streaming.
+      final items = List<E>.of(this);
+
+      return Stream.periodic(
+        interval,
+        (count) => items[count],
+      ).take(items.length);
+    }
+
+    return Stream.fromIterable(this);
+  }
 }
 
 /// provides extensions for nullable Iterable
