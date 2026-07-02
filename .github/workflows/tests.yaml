@@ -13,11 +13,14 @@ on:
 
 jobs:
   tests_and_coverage:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v7
       - name: Install Dart SDK
-        uses: dart-lang/setup-dart@v1
+        run: |
+          brew trust dart-lang/dart
+          brew tap dart-lang/dart
+          brew install dart
       - name: Install dependencies
         run: dart pub get
       - name: Run tests
