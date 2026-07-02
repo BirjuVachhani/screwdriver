@@ -12,17 +12,11 @@ on:
 
 jobs:
   update_stats:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Tap Google's Dart formula repository
-        run: brew tap dart-lang/dart
-      - name: Install the Dart formula
-        run: brew install dart
-      - uses: actions/checkout@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/checkout@v7
+      - name: Install Dart SDK
+        uses: dart-lang/setup-dart@v1
       - name: Install dependencies
         run: dart pub get
       - name: Generate Stats

@@ -13,23 +13,21 @@ on:
 
 jobs:
   tests_and_coverage:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
-      - name: Tap Google's Dart formula repository
-        run: brew tap dart-lang/dart
-      - name: Install the Dart formula
-        run: brew install dart
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v7
+      - name: Install Dart SDK
+        uses: dart-lang/setup-dart@v1
       - name: Install dependencies
         run: dart pub get
       - name: Run tests
-        run: dart pub run test
+        run: dart test
       - name: Install coverage package
         run: dart pub global activate coverage
       - name: Generate coverage report
-        run: dart pub run coverage:test_with_coverage
+        run: dart run coverage:test_with_coverage
       - name: Generate lcov file
-        run: dart pub run coverage:format_coverage --packages=.dart_tool/package_config.json --lcov -i coverage/coverage.json -o coverage/lcov.info
-      - uses: codecov/codecov-action@v3
+        run: dart run coverage:format_coverage --packages=.dart_tool/package_config.json --lcov -i coverage/coverage.json -o coverage/lcov.info
+      - uses: codecov/codecov-action@v7
         with:
           file: coverage/lcov.info
