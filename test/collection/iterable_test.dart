@@ -398,6 +398,65 @@ void main() {
     expect(moveNextCount, 5);
   });
 
+  test('toStream emits iterable elements without interval', () async {
+    final iterable = [1, 2, 3].where((element) => element.isOdd);
+
+    await expectLater(iterable.toStream(), emitsInOrder([1, 3, emitsDone]));
+  });
+
+  test('toStream emits iterable elements when interval is null', () async {
+    final iterable = [1, 2, 3].where((element) => element.isOdd);
+
+    await expectLater(iterable.toStream(interval: null), emitsInOrder([1, 3, emitsDone]));
+  });
+
+  test('toStream treats zero interval as no interval', () async {
+    final iterable = [1, 2, 3].where((element) => element.isOdd);
+
+    await expectLater(
+      iterable.toStream(interval: Duration.zero),
+      emitsInOrder([1, 3, emitsDone]),
+    );
+  });
+
+  test('toStream treats negative interval as no interval', () async {
+    final iterable = [1, 2, 3].where((element) => element.isOdd);
+
+    await expectLater(
+      iterable.toStream(interval: const Duration(milliseconds: -1)),
+      emitsInOrder([1, 3, emitsDone]),
+    );
+  });
+
+  test('toStream emits iterable elements with interval', () async {
+    final iterable = [1, 2, 3].where((element) => element.isOdd);
+
+    await expectLater(
+      iterable.toStream(interval: const Duration(milliseconds: 1)),
+      emitsInOrder([1, 3, emitsDone]),
+    );
+  });
+
+  test('toStream with interval emits done for empty iterable', () async {
+    final iterable = <int>[].where((element) => element.isOdd);
+
+    await expectLater(
+      iterable.toStream(interval: const Duration(milliseconds: 1)),
+      emitsDone,
+    );
+  });
+
+  test('toStream with interval snapshots iterable before source mutation', () async {
+    final list = [1, 2, 3];
+    final stream = list.toStream(interval: const Duration(milliseconds: 1));
+
+    list
+      ..clear()
+      ..addAll([4, 5, 6]);
+
+    await expectLater(stream, emitsInOrder([1, 2, 3, emitsDone]));
+  });
+
   test('records test', () {
     final List<String> list = ['a', 'b', 'c'];
     expect(list.records, equals([(0, 'a'), (1, 'b'), (2, 'c')]));
