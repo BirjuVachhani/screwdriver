@@ -34,6 +34,7 @@
 
 export 'angle.dart';
 export 'async.dart';
+export 'compile_mode.dart';
 export 'debouncer.dart';
 export 'int_constants_io.dart' if (dart.library.js) 'int_constants_web.dart';
 export 'int_range.dart';
