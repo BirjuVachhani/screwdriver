@@ -32,10 +32,32 @@
 // Author: Birju Vachhani
 // Created Date: May 27, 2022
 
+import 'dart:convert';
+
+import 'package:meta/meta.dart';
+
 import '../typedefs.dart';
+
+const _indentChar = ' ';
 
 /// A mixin that can be used to make a class serializable.
 mixin SerializableMixin {
   /// converts the object to json map.
+  @useResult
   JsonMap toJson();
+
+  /// converts the object to json string.
+  String toJsonString({
+    bool pretty = false,
+    Object? Function(Object? nonEncodable)? toEncodable,
+    int indent = 2,
+  }) {
+    if (pretty) {
+      if (toEncodable == null) {
+        return JsonEncoder.withIndent(_indentChar * indent).convert(toJson());
+      }
+      return JsonEncoder.withIndent(_indentChar * indent, toEncodable).convert(toJson());
+    }
+    return jsonEncode(toJson(), toEncodable: toEncodable);
+  }
 }
