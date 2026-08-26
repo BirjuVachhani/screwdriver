@@ -82,4 +82,17 @@ extension FutureScrewdriver<R> on Future<R> {
   /// How is it different from just ignoring the future with `myFuture.ignore();`?
   ///   - Ignoring a future ignores errors it throws, which is almost never what you want.
   void get unawaited => async.unawaited(this);
+
+  /// Converts this [Future] into a [Completer].
+  Completer<R> asCompleter() {
+    final completer = Completer<R>();
+    then((value) {
+      if (completer.isCompleted) return;
+      completer.complete(value);
+    }).catchError((Object error, StackTrace stackTrace) {
+      if (completer.isCompleted) return;
+      completer.completeError(error, stackTrace);
+    });
+    return completer;
+  }
 }
