@@ -34,30 +34,60 @@
 
 part of '../screwdriver_io.dart';
 
-/// provides extensions for [File]
+/// ASCII/UTF-8 byte value for the line-feed character `\n`.
+const int _newline = 0x0A;
+
+/// Flattens [chunks] into a single [Uint8List], decodes it with [encoding],
+/// splits on newlines, and strips a trailing empty string produced by a
+/// trailing `\n` (so callers never receive a phantom empty last line).
+///
+/// Chunks must be in file order (earliest bytes first). Pre-computing the
+/// total size allows a single fixed-size allocation instead of a growable
+/// list, and [Uint8List] stores one byte per element rather than the eight
+/// bytes that a boxed [List<int>] uses.
+List<String> _toLines(Iterable<List<int>> chunks, Encoding encoding) {
+  final totalSize = chunks.fold(0, (sum, c) => sum + c.length);
+  final buffer = Uint8List(totalSize);
+  var offset = 0;
+  for (final chunk in chunks) {
+    buffer.setRange(offset, offset + chunk.length, chunk);
+    offset += chunk.length;
+  }
+  final lines = encoding.decode(buffer).split('\n');
+  if (lines.isNotEmpty && lines.last.isEmpty) lines.removeLast();
+  return lines;
+}
+
+/// Extensions on [File] providing convenience methods for common I/O tasks:
+/// appending content, copying, clearing, watching, reading byte ranges,
+/// and streaming or tail-reading lines.
 extension FileScrewdriver on File {
   /// Returns a [Future] containing a [bool] indicating whether
   /// [this] file is empty or not.
   Future<bool> get isEmpty async => await length() == 0;
 
-  /// Returns true if [this] file is empty
+  /// Returns true if [this] file is empty.
   bool get isEmptySync => lengthSync() == 0;
 
-  /// operator that allows to append [value] string at the end of the file
-  /// using provided UTF-8 encoding.
+  /// Appends [value] to [this] file using UTF-8 encoding.
   void operator <<(String value) => appendStringSync(value);
 
-  /// Allows to append content of [file] to [this].
+  /// Appends the content of [file] to [this] file.
   void operator +(File file) => appendFromSync(file);
 
-  /// Copies content of [this] to [other] file.
+  /// Asynchronously copies the content of [this] to [other], overwriting
+  /// [other] if it already exists.
   Future<void> copyTo(File other) async {
     final sink = other.openWrite();
     await sink.addStream(openRead());
     await sink.close();
   }
 
-  /// Copies content of [this] to [other] file.
+  /// Synchronously copies the content of [this] to [other], overwriting
+  /// [other] if it already exists.
+  ///
+  /// Uses a stream subscription internally; any error during the copy closes
+  /// [other] and rethrows.
   void copyToSync(File other) {
     final otherSink = other.openSync(mode: FileMode.write);
     final thisStream = openRead();
@@ -76,10 +106,15 @@ extension FileScrewdriver on File {
     );
   }
 
-  /// Asynchronously flushes all the data in [this] file leaving it to be empty.
+  /// Asynchronously truncates [this] file to zero bytes, leaving it empty.
+  ///
+  /// If [flush] is true, the OS buffer is flushed to disk before the returned
+  /// [Future] completes.
   Future<void> clear({bool flush = false}) => writeAsBytes([], flush: flush);
 
-  /// Synchronously flushes all the data in [this] file leaving it to be empty.
+  /// Synchronously truncates [this] file to zero bytes, leaving it empty.
+  ///
+  /// If [flush] is true, the OS buffer is flushed to disk before returning.
   void clearSync({bool flush = false}) => writeAsBytesSync([], flush: flush);
 
   /// Calls [block] whenever the [this] file is modified.
@@ -94,7 +129,7 @@ extension FileScrewdriver on File {
     return watch(events: FileSystemEvent.delete).listen((event) => block());
   }
 
-  /// Appends [value] string at the end of the file using provided [encoding].
+  /// Appends [value] to [this] file using [encoding] (defaults to UTF-8).
   Future<void> appendString(String value, {Encoding encoding = utf8}) async {
     final fileAccess = await open(mode: FileMode.writeOnlyAppend);
     await fileAccess.writeString(value, encoding: encoding);
@@ -102,7 +137,7 @@ extension FileScrewdriver on File {
     await fileAccess.close();
   }
 
-  /// Appends [value] string at the end of the file using provided [encoding].
+  /// Synchronously appends [value] to [this] file using [encoding] (defaults to UTF-8).
   void appendStringSync(String value, {Encoding encoding = utf8}) {
     final fileAccess = openSync(mode: FileMode.writeOnlyAppend);
     fileAccess.writeStringSync(value, encoding: encoding);
@@ -110,8 +145,8 @@ extension FileScrewdriver on File {
     fileAccess.closeSync();
   }
 
-  /// Appends [value] string as a new line at the end of the file using
-  /// provided [encoding].
+  /// Appends [value] followed by a newline to [this] file using [encoding]
+  /// (defaults to UTF-8).
   Future<void> appendStringLine(String value, {Encoding encoding = utf8}) async {
     final sink = openWrite(mode: FileMode.writeOnlyAppend, encoding: encoding);
     sink.writeln(value);
@@ -119,7 +154,7 @@ extension FileScrewdriver on File {
     await sink.close();
   }
 
-  /// Appends [value] bytes at the end of the file.
+  /// Asynchronously appends the raw [value] bytes to [this] file.
   Future<void> appendBytes(List<int> value) async {
     final fileAccess = await open(mode: FileMode.writeOnlyAppend);
     await fileAccess.writeFrom(value);
@@ -127,7 +162,7 @@ extension FileScrewdriver on File {
     await fileAccess.close();
   }
 
-  /// Appends [value] bytes at the end of the file.
+  /// Synchronously appends the raw [value] bytes to [this] file.
   void appendBytesSync(List<int> value) {
     final fileAccess = openSync(mode: FileMode.writeOnlyAppend);
     fileAccess.writeFromSync(value);
@@ -135,7 +170,7 @@ extension FileScrewdriver on File {
     fileAccess.closeSync();
   }
 
-  /// Appends content of [file] at the end of [this] file.
+  /// Asynchronously appends the entire content of [file] to [this] file.
   Future<void> appendFrom(File file) async {
     final sink = openWrite(mode: FileMode.writeOnlyAppend);
     await sink.addStream(file.openRead());
@@ -143,7 +178,7 @@ extension FileScrewdriver on File {
     await sink.close();
   }
 
-  /// Appends content of [file] at the end of [this] file.
+  /// Synchronously appends the entire content of [file] to [this] file.
   void appendFromSync(File file) {
     final fileAccess = openSync(mode: FileMode.writeOnlyAppend);
     fileAccess.writeFromSync(file.readAsBytesSync().toList());
@@ -151,8 +186,11 @@ extension FileScrewdriver on File {
     fileAccess.closeSync();
   }
 
-  /// Creates the file if it does not exist.
-  /// Returns the file instance.
+  /// Creates [this] file if it does not already exist and returns it.
+  ///
+  /// If [recursive] is true, any missing parent directories are created.
+  /// If [exclusive] is true, throws a [FileSystemException] if the file
+  /// already exists.
   Future<File> createIfMissing({bool recursive = false, bool exclusive = false}) async {
     if (!await exists()) {
       return await create(recursive: recursive, exclusive: exclusive);
@@ -160,19 +198,27 @@ extension FileScrewdriver on File {
     return this;
   }
 
-  /// Synchronously creates the file if it does not exist.
+  /// Synchronously creates [this] file if it does not already exist.
+  ///
+  /// If [recursive] is true, any missing parent directories are created.
+  /// If [exclusive] is true, throws a [FileSystemException] if the file
+  /// already exists.
   void createIfMissingSync({bool recursive = false, bool exclusive = false}) {
     if (!existsSync()) createSync(recursive: recursive, exclusive: exclusive);
   }
 
-  /// Deletes the file if it exists.
-  /// Returns the deleted file instance or [this] if the file did not exist.
+  /// Deletes [this] file if it exists and returns the deleted entity, or
+  /// returns [this] unchanged if the file did not exist.
+  ///
+  /// If [recursive] is true, any child files or directories are also deleted.
   Future<FileSystemEntity> deleteIfExists({bool recursive = false}) async {
     if (await exists()) return await delete(recursive: recursive);
     return this;
   }
 
-  /// Synchronously deletes the file if it exists.
+  /// Synchronously deletes [this] file if it exists.
+  ///
+  /// If [recursive] is true, any child files or directories are also deleted.
   void deleteIfExistsSync({bool recursive = false}) {
     if (existsSync()) deleteSync(recursive: recursive);
   }
@@ -218,5 +264,66 @@ extension FileScrewdriver on File {
     }
     final stream = LineSplitter().bind((decoder ?? utf8.decoder).bind(openRead()));
     return take == null ? stream : stream.take(take);
+  }
+
+  /// Returns the last [count] lines of [this] file.
+  ///
+  /// Scans backwards from the end of the file in chunks to locate newline
+  /// boundaries, then forward-reads and decodes only the relevant byte slice.
+  /// This avoids loading the entire file into memory.
+  ///
+  /// [encoding] must be an encoding where `\n` is always the single byte
+  /// `0x0A` and never a continuation byte — UTF-8, ASCII, and Latin-1 all
+  /// qualify. UTF-16 is not supported.
+  ///
+  /// A trailing newline is not counted as an extra empty line, consistent
+  /// with [streamLines].
+  ///
+  /// Throws an [ArgumentError] if [count] is negative.
+  List<String> tailLines(int count, {Encoding encoding = utf8}) {
+    if (count < 0) throw ArgumentError.value(count, 'count', 'must not be negative');
+    if (count == 0) return [];
+
+    final fileLength = lengthSync();
+    if (fileLength == 0) return [];
+
+    final fileAccess = openSync(mode: FileMode.read);
+    try {
+      int newlinesFound = 0;
+      int pos = fileLength;
+      const chunkSize = 4096;
+      // Chunks are stored in reverse-read order: index 0 is the last chunk
+      // of the file, index 1 the one before it, and so on.
+      final chunks = <List<int>>[];
+
+      while (pos > 0) {
+        final readFrom = (pos - chunkSize).clamp(0, pos);
+        fileAccess.setPositionSync(readFrom);
+        final bytes = fileAccess.readSync(pos - readFrom);
+
+        for (int i = bytes.length - 1; i >= 0; i--) {
+          if (bytes[i] == _newline) {
+            // A trailing newline marks the end of the last line, not the
+            // start of a new empty one — skip it without counting.
+            if (readFrom + i == fileLength - 1) continue;
+            newlinesFound++;
+            if (newlinesFound == count) {
+              // All needed bytes are already in memory. Take the tail of the
+              // current chunk (everything after this newline), then append
+              // previously cached chunks in file order (reverse of read order).
+              return _toLines([bytes.sublist(i + 1), ...chunks.reversed], encoding);
+            }
+          }
+        }
+
+        chunks.add(bytes);
+        pos = readFrom;
+      }
+
+      // Fewer lines than [count] in the file — return everything.
+      return _toLines(chunks.reversed, encoding);
+    } finally {
+      fileAccess.closeSync();
+    }
   }
 }
